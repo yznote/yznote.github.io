@@ -1,0 +1,20 @@
+PODS:
+  - Bugly (2.4.8)
+  - MJRefresh (3.1.15.1)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - Bugly (~> 2.4.6)
+  - MJRefresh
+  - SDWebImage (~> 3.8)
+
+SPEC CHECKSUMS:
+  Bugly: da3c02408c14838d498429320545a8e439392978
+  MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: d9905e97f0688f896294a92d6b4691a8ad5ca6d9
+
+COCOAPODS: 1.3.1
