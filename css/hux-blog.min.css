@@ -502,7 +502,7 @@ pre code {
 	}
 
 	.navbar-custom.is-fixed .navbar-brand:hover,.navbar-custom.is-fixed .navbar-brand:focus {
-		color: #0085a1
+		color: #B6C29A
 	}
 
 	.navbar-custom.is-fixed .nav li a {
@@ -510,7 +510,7 @@ pre code {
 	}
 
 	.navbar-custom.is-fixed .nav li a:hover,.navbar-custom.is-fixed .nav li a:focus {
-		color: #0085a1
+		color: #B6C29A
 	}
 
 	.navbar-custom.is-visible {
@@ -685,7 +685,7 @@ pre code {
 }
 
 .post-preview>.post-meta>a:hover,.post-preview>.post-meta>a:focus {
-	color: #0085a1;
+	color: #B6C29A;
 	text-decoration: underline
 }
 
@@ -838,8 +838,8 @@ form .row:first-child .floating-label-form-group {
 }
 
 .btn-default:hover,.btn-default:focus {
-	background-color: #0085a1;
-	border: 1px solid #0085a1;
+	background-color: #B6C29A;
+	border: 1px solid #B6C29A;
 	color: #fff
 }
 
@@ -863,7 +863,7 @@ form .row:first-child .floating-label-form-group {
 @media only screen and (min-width:768px) {
 	.pager li>a,.pager li>span {
 		font-size: 14px;
-		padding: 15px 25px
+		/*padding: 15px 25px*/
 	}
 }
 
@@ -876,8 +876,9 @@ form .row:first-child .floating-label-form-group {
 	color: #fff;
 	/*background-color: #0085a1;
 	border: 1px solid #0085a1*/
-	background-color: #B6C29A;
-	border: 1px solid #B6C29A
+	/*background-color: #B6C29A;
+	border: 1px solid #B6C29A*/
+	text-decoration: underline;
 }
 
 .pager li>a:hover>span,.pager li>a:focus>span {
@@ -886,7 +887,7 @@ form .row:first-child .floating-label-form-group {
 
 .pager .disabled>a,.pager .disabled>a:hover,.pager .disabled>a:focus,.pager .disabled>span {
 	/*color: gray;*/
-	color: #0085a1;
+	color: #B6C29A;
 	background-color: #404040;
 	cursor: not-allowed
 }
@@ -894,13 +895,13 @@ form .row:first-child .floating-label-form-group {
 ::-moz-selection {
 	color: #fff;
 	text-shadow: none;
-	background: #0085a1
+	background: #B6C29A
 }
 
 ::selection {
 	color: #fff;
 	text-shadow: none;
-	background: #0085a1
+	background: #B6C29A
 }
 
 img::selection {
@@ -968,7 +969,7 @@ img::-moz-selection {
 }
 
 #tag_cloud a:hover,#tag_cloud .tag:hover,#tag_cloud a:active,#tag_cloud .tag:active {
-	background-color: #0085a1!important
+	background-color: #B6C29A!important
 }
 
 @media only screen and (min-width:768px) {
@@ -992,7 +993,7 @@ img::-moz-selection {
 }
 
 .listing-seperator {
-	color: #0085a1;
+	color: #B6C29A;
 	font-size: 21px!important
 }
 
