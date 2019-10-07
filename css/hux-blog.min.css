@@ -892,13 +892,6 @@ form .row:first-child .floating-label-form-group {
 	background-color: #404040;
 	cursor: not-allowed
 }
-.pager li > span{
-  display: inline-block;
-  padding: 0px;
-  background-color: #fff;
-  /*border: 1px solid #ddd;
-  border-*/radius: 15px;
-}
 
 ::-moz-selection {
 	color: #fff;
