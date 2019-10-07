@@ -4,7 +4,7 @@ description: "砥砺前行"
 ---
 
 {% for post in paginator.posts %}
-    {% if post.stickie == true %}
+    {% if post.stickie != true %}
         {% continue %}
     {% endif %}
     <div class="post-preview">
@@ -28,7 +28,7 @@ description: "砥砺前行"
 {% endfor %}
 
 {% for post in paginator.posts %}
-{% if post.stickie != true %}
+{% if post.stickie == true %}
     {% continue %}
 {% endif %}
 {% assign year = post.date | date:'%Y' %}
