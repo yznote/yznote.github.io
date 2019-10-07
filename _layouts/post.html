@@ -98,7 +98,7 @@ layout: default
                 {% endif %}
 
 
-                <ul class="pager">
+                <!-- <ul class="pager">
                     {% if page.previous.url %}
                     <li class="previous">
                         <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
@@ -115,8 +115,23 @@ layout: default
                         </a>
                     </li>
                     {% endif %}
+                </ul> -->
+                <ul class="pager">
+                    {% if page.previous.url %}
+                    <li class="previous">
+                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
+                        上一篇:<span>{{page.previous.title}}</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if page.next.url %}
+                    <li class="next">
+                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
+                        下一篇:<span>{{page.next.title}}</span>
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
-
 
                 {% if site.duoshuo_username %}
                 <!-- 多说评论框 start -->
