@@ -6,7 +6,7 @@ email: rookieyuan920@163.com
 description: "还没有更好的描述呢"
 keyword: "rookie, rookie920 Blog, 永震的博客, rookie920, 永震, iOS, Apple, iPhone"
 url: "https://rookie920.github.io"          # your host, for absolute URL
-baseurl: "https://rookie920.github.io"      # for example, '/blog' if your blog hosted on 'host/blog'
+baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/Rookie920/rookie777" # you code repository
 
 # Sidebar settings
