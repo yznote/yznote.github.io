@@ -331,7 +331,8 @@ pre code {
 }
 
 .post-container .pager li>a>span {
-	color: gray;
+	/*color: gray;*/
+	color: #0085a1;
 	font-weight: 400;
 	letter-spacing: .5px
 }
