@@ -327,7 +327,7 @@ pre code {
 }
 
 .post-container .pager li>a {
-	width: 100%
+	/*width: 100%*/
 }
 
 .post-container .pager li>a>span {
@@ -865,7 +865,8 @@ form .row:first-child .floating-label-form-group {
 }
 
 .pager li>a {
-	color: #404040
+	/*color: #404040*/
+	color: #323232;
 }
 
 .pager li>a:hover,.pager li>a:focus {
@@ -879,7 +880,8 @@ form .row:first-child .floating-label-form-group {
 }
 
 .pager .disabled>a,.pager .disabled>a:hover,.pager .disabled>a:focus,.pager .disabled>span {
-	color: gray;
+	/*color: gray;*/
+	color: #0085a1;
 	background-color: #404040;
 	cursor: not-allowed
 }
