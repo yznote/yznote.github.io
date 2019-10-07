@@ -1,0 +1,59 @@
+I"g<h4 id="名词解释">名词解释</h4>
+
+<h5 id="指针数组array-of-pointers">指针数组：array of pointers</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  即用于存储指针的数组，也就是数组元素都是指针 ##### 数组指针：a pointer to an array
+  即指向数组的指针 #### 指针
+ 指针也是一种数据类型；
+ 数据类型*指针变量名=初始化地址；
+
+```
+int i;
+int*p=&amp;i;
+``` #### eg.1.
+```
+  #include
+  int main()
+  {
+     int *p1;//声明了一个指向整形空间的指针变量；
+     float *p2;//声明了一个指向实型空间的指针变量；
+     char *p3; //声明了一个指向字符型空间的指针变量
+   
+    int a=12;
+    float b=3.14;
+    char c='m';
+       //指针的赋值
+    p1=&amp;a; //指针p1指向整形空间a；
+    p2=&amp;b;
+    p3=&amp;c;
+   
+    printf("a=%d\n",*p1);//  “*p1” 表示取指针p1指向的空间的值；
+    printf("b=%f\n",*p2);//  “*p2” 表示取指针p2指向的空间的值；
+    printf("c=%c\n",*p3);//  “*p3” 表示取指针p3指向的空间的值；
+    int array[5];
+    for (int i=0;i&lt;&lt;/span&gt;5;i++)
+     {
+        *(array+i)=i+100;    //"*(array+i)"指针向后移动i位 (i是  相对于首地址来说“*（array）”是首地址)
+        printf(" %d",array[i]);
+     }
+ }
+``` #### eg.2.
+```
+void exChange(int *a,int *b);
+void exChange(int *a,int *b)
+{
+    int temp;
+    temp=*a;
+    *a=*b;
+    *b=temp;
+}
+#include 
+int main()
+{
+    int a=33,b=44;
+    exChange(&amp;a,&amp;b);
+     //函数的调用过程中，如果传递的参数只是普通的（非指针）变量值 只是相当于拷贝了一份数据给函数的形参，对当前函数里面的变量值，没有任何影响也就是说传指针就会改变当前函数变量值；
+    printf("a=%d,b=%d",a,b);//a=44,b=33;
+}
+```
+</code></pre></div></div>
+:ET
