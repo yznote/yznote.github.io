@@ -5,7 +5,7 @@ source "https://rubygems.org"
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 # gem "jekyll-paginate"
-# gem 'jekyll-paginate', group: :jekyll_plugins
+gem 'jekyll-paginate', group: :jekyll_plugins
 gem "jekyll"
 gem "kramdown"
 gem "jekyll-watch"
