@@ -3,10 +3,10 @@ layout: page
 description: "砥砺前行"
 ---
 
-{* for post in paginator.posts *}
-    {* if post.stickie == true *}
-        {* continue *}
-    {* endif *}
+{% for post in paginator.posts %}
+    {% if post.stickie == true %}
+        {% continue %}
+    {% endif %}
     <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
         <h2 class="post-title">
@@ -25,12 +25,12 @@ description: "砥砺前行"
     </p>
 </div>
 <hr>
-{* endfor *}
+{% endfor %}
 
 {% for post in paginator.posts %}
-{* if post.stickie != true *}
-    {* continue *}
-{* endif *}
+{% if post.stickie != true %}
+    {% continue %}
+{% endif %}
 {% assign year = post.date | date:'%Y' %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
