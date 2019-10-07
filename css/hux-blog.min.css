@@ -873,11 +873,12 @@ form .row:first-child .floating-label-form-group {
 }
 
 .pager li>a:hover,.pager li>a:focus {
-	color: #fff;
+	/*color: #fff;*/
 	/*background-color: #0085a1;
 	border: 1px solid #0085a1*/
 	/*background-color: #B6C29A;
 	border: 1px solid #B6C29A*/
+	color: #B6C29A;
 	text-decoration: underline;
 }
 
@@ -890,6 +891,13 @@ form .row:first-child .floating-label-form-group {
 	color: #B6C29A;
 	background-color: #404040;
 	cursor: not-allowed
+}
+.pager li > span{
+  display: inline-block;
+  padding: 0px;
+  background-color: #fff;
+  /*border: 1px solid #ddd;
+  border-*/radius: 15px;
 }
 
 ::-moz-selection {
