@@ -21,7 +21,7 @@ description: "砥砺前行"
             {{ post.content | strip_html | truncate:200 }}
         </div>
     </a>
-    <p class="post-meta">置顶 (更新:{{ post.date | date: "%m-%d" }})
+    <p class="post-meta">置顶 (更新:{{ post.date | date: "%-m-%-d" }})
     </p>
 </div>
 <hr>
@@ -51,7 +51,7 @@ description: "砥砺前行"
     </p> -->
     <!-- <p class="post-meta">{% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%m %-d, %Y" }}
     </p> -->
-    <p class="post-meta">{% if year == '2100' %}{{'置顶'}}{% else %}{{ post.date | date: "on %m %d %Y" }}{% endif %} 
+    <p class="post-meta">{% if year == '2100' %}{{'置顶'}}{% else %}{{ post.date | date: "on %-m %-d %Y" }}{% endif %} 
     </p>
 </div>
 <hr>
