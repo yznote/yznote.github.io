@@ -21,7 +21,7 @@ description: "砥砺前行"
             {{ post.content | strip_html | truncate:200 }}
         </div>
     </a>
-    <p class="post-meta">置顶123
+    <p class="post-meta">置顶 (更新:{{ post.date | date: "%m-%d" }})
     </p>
 </div>
 <hr>
