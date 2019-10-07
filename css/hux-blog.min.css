@@ -175,7 +175,8 @@ a {
 }
 
 a:hover,a:focus {
-	color: #0085a1
+	/*color: #0085a1*/
+	color: #B6C29A;
 }
 
 a img:hover,a img:focus {
@@ -257,7 +258,8 @@ pre code {
 }
 
 .post-container a:hover,.post-container a:focus {
-	color: #0085a1
+	/*color: #0085a1*/
+	color: #B6C29A;
 }
 
 .post-container h1,.post-container h2,.post-container h3,.post-container h4,.post-container h5,.post-container h6 {
@@ -332,7 +334,7 @@ pre code {
 
 .post-container .pager li>a>span {
 	/*color: gray;*/
-	color: #0085a1;
+	color: #B6C29A;
 	font-weight: 400;
 	letter-spacing: .5px
 }
@@ -872,8 +874,10 @@ form .row:first-child .floating-label-form-group {
 
 .pager li>a:hover,.pager li>a:focus {
 	color: #fff;
-	background-color: #0085a1;
-	border: 1px solid #0085a1
+	/*background-color: #0085a1;
+	border: 1px solid #0085a1*/
+	background-color: #B6C29A;
+	border: 1px solid #B6C29A
 }
 
 .pager li>a:hover>span,.pager li>a:focus>span {
