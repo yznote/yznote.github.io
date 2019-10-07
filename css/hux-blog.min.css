@@ -883,7 +883,7 @@ form .row:first-child .floating-label-form-group {
 }
 
 .pager li>a:hover>span,.pager li>a:focus>span {
-	color: #fff
+	/*color: #fff*/
 }
 
 .pager .disabled>a,.pager .disabled>a:hover,.pager .disabled>a:focus,.pager .disabled>span {
