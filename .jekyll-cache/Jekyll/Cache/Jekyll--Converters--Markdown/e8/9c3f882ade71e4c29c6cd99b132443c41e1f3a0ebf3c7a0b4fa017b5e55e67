@@ -1,0 +1,387 @@
+I"��<h4 id="一内存管理情况">一.内存管理情况</h4>
+
+<blockquote>
+  <p>1.<code class="highlighter-rouge">autorelease</code>，当用户的代码在持续运行时，自动释放池是不会被销毁的，这段时间内用户可以安全地使用自动释放的对象。当用户的代码运行告一段落，开始等待用户的操作，自动释放池就会被释放掉（调用dealloc），池中的对象都会收到一个release，有可能会因此被销毁。<br />
+2.成员属性：<br />
+<code class="highlighter-rouge">readonly</code>：不指定<code class="highlighter-rouge">readonly</code>，默认合成<code class="highlighter-rouge">getter</code>和<code class="highlighter-rouge">setter</code>方法。外界毫不关心的成员，则不要设置任何属性，这样封装能增加代码的独立性和安全性。相当于私有成员？<br />
+<code class="highlighter-rouge">assign</code>：表示只进行简单的赋值，不会发送<code class="highlighter-rouge">retain</code>消息。<br />
+<code class="highlighter-rouge">retain</code>：会向旧值发送<code class="highlighter-rouge">release</code>消息，向新值发送<code class="highlighter-rouge">retain</code>消息。<br />
+<code class="highlighter-rouge">copy</code>：向旧值发<code class="highlighter-rouge">release</code>消息，向新值发送<code class="highlighter-rouge">copy</code>消息。<br />
+3.引用计数特殊情况：<br />
+<code class="highlighter-rouge">NSArray</code>：当把一个对象添加到NSArray时，对象的引用计数会加1，移除时会减1。<br />
+<code class="highlighter-rouge">UIView</code>：addGestureRecognizer会对手势识别器的引用计数加1，removeGestureRecognizer会减1。</p>
+</blockquote>
+
+<h4 id="二-图形api">二 .图形API</h4>
+
+<blockquote>
+  <p><a href="http://www.cocoachina.com/bbs/read.php?tid=77731&amp;page=1">这个讲的好，清晰明确.</a><br />
+1-Quartz2D，的绘图总是发生在图形环境（Graphics Context）中。视图会在调用drawRect:方法进行绘图之前，创建好图形环境，通过UIGraphicsGetCurrentContext函数来获得这个图形环境。如果直接在图像或者PDF上绘图，需要调用CGBitmapContextCreate或者CGPDFContextCreate函数来创建图形环境。<br />
+Quartz2D绘图的基础元素是路径。路径可以是一些基础几何形状，也可以是这些几何形状的组合。<br />
+当需要创建一条路径时，应当调用CGContextBeginPath函数；<br />
+当需要将路径绘制的起点移动到一个位置时，应当调用CGContextMoveToPoint函数；<br />
+当想绘制一条线段时，应当调用CGContextAddLineToPoint。 CTM（当前变换矩阵）将绘图从用户空间映射到设备控件。<br />
+当图形环境刚刚创建时，CTM初始化为一个单位矩阵。<br />
+对CTM进行平移变换应当调用CGContextTranslateCTM函数，进行旋转变换应当调用CGContextRotateCTM函数，进行缩放变换应当调用CGContextScaleCTM函数。<br />
+2-UIBezierPath <br />
+使用UIBezierPath绘图的好处：</p>
+  <blockquote>
+    <p>采用系统坐标系<br />
+在Core Graphics的基础上封装，具有Core Graphics的主要功能，无需考虑图形环境。</p>
+    <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UIBezierPath</span><span class="o">*</span> <span class="n">pathLines</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIBezierPath</span> <span class="nf">bezierPath</span><span class="p">];</span>
+<span class="p">[</span><span class="n">pathLines</span> <span class="nf">moveToPoint</span><span class="p">:</span><span class="n">point1</span><span class="p">];</span> <span class="c1">// 移动到point1位置</span>
+<span class="p">[</span><span class="n">pathLines</span> <span class="nf">addLineToPoint</span><span class="p">:</span><span class="n">point2</span><span class="p">];</span> <span class="c1">// 画一条从point1到point2的线</span>
+<span class="n">pathLines</span><span class="p">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span> <span class="c1">// 线宽</span>
+<span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">]</span> <span class="n">set</span><span class="p">];</span> <span class="c1">// 颜色设置</span>
+<span class="p">[</span><span class="n">pathLines</span> <span class="nf">stroke</span><span class="p">];</span> <span class="c1">// 开始描绘</span>
+</code></pre></div>    </div>
+    <p>在同一UIBazierPath中，只能采用相同的颜色和线宽。
+可以调用closePath，从当前点画一条直线到当前子路径的初始点。如果要填充路径，应当使用fill方法，此方法会填充路径中得所有封闭子路径。</p>
+  </blockquote>
+</blockquote>
+
+<p>####三.容器</p>
+<blockquote>
+  <p>-NSArray和NSMutableArray<br />
++array：创建一个空数组<br />
++arrayWithArray：从另一个数组创建新的数组<br />
++arrayWithContentsOfFile：读文件创建数组<br />
++arrayWithObject：创建一个数组，其中包含一个给定对象<br />
++arrayWithObjects<br />
++arrayWithObjects:count: 从C数组创建<br />
+-containsObject：是否包含一个元素<br />
+-count：数量<br />
+-lastObject：返回最后一个<br />
+-objectAtIndex：返回某一个<br />
+-objectsAtIndexes：返回一组，类型为NSArray<br />
+-indexOfObject：返回对象索引<br />
+-arrayByAddingObject：原数组最后加一个对象，产生一个新的数组<br />
+-arrayByAddingObjectsFromArray：在原数组的最后添加另一个数组中的所有对象，产生一个新数组<br />
+-subarrayWithRange：抽取原数组中得一部分，产生一个新的数组<br />
+-isEqualToArray：比较两个数组是否相同<br />
+-writeToFile:atomically：保存数组至一个文件<br />
+-writeToURL:atomically：保存数组至一个URL<br />
+-addObject：在数组最后添加一个对象<br />
+-addObjectsFromArray：在原数组最后添加另一个数组的全部对象<br />
+-insertObject:atIndex：向原数组制定位置添加一个对象<br />
+-insertObjects:atIndexes：向原数组中一系列位置添加一系列对象<br />
+-removeAllObjects：移除数组中的全部对象<br />
+-removeLastObject：移除数组中最后一个对象<br />
+-removeObject：移除一个对象<br />
+-removeObjectAtIndex：移除位于指定位置的对象<br />
+-removeObjectsAtIndexes：移除位于一系列位置的对象<br />
+-replaceObjectAtIndex:withObject用给定对象替换位于指定位置的对象<br />
+-replaceObjectsAtIndexes:withObjects：多对象，多位置版本<br />
+-setArray：用另一个数组中的所有对象来替换当前数组中的所有对象<br />
+-NSDictionary与NSMutableDictionary<br />
++dictionary<br />
++dictionaryWithContentsOfFile<br />
++dictionaryWithContentsOfURL<br />
++dictionaryWithDictionary<br />
++dictionaryWithObject:forKey<br />
++dictionaryWithObjects:forKeys<br />
++dictionaryWithObjectsAndKeys<br />
+-count：数量<br />
+-allKeys：返回一个数组，包含字典中的所有关键字。<br />
+-allKeysForObject：返回一个数组，包含所有对应到给定对象的关键字。<br />
+-valueForKey：通过字符串查找数值。<br />
+-writeToFile:atomically<br />
+-writeToURL:atomically<br />
+-setValue:forKey： 加键-值对<br />
+-addEntriesFromDictionary： 添加另一个字典中得所有条目<br />
+-setDictionary：将原字典中条目设置为另一个字典中得所有条目<br />
+-removeObjectForKey：移除一个关键字的对应条目<br />
+-removeAllObjects：移除所有条目<br />
+-removeObjectsForKeys：移除一系列关键字的对应条目</p>
+</blockquote>
+
+<h4 id="四文件系统">四.文件系统</h4>
+
+<blockquote>
+  <p>1.概述
+bundle（沙盒）：一个应用只能在自己的沙盒中读取或存储文件，而不能操作其他沙盒中的文件。好处：保护应用的隐私不受侵犯，保护系统文件的安排，应用删除后相关文件也能被全部清除。<br />
+每个应用都有自己的沙盒，沙盒的根目录的获取方法是NSHomeDirectory()。<br />
+根目录下的内容：<br />
+-.app文件，实际上是一个文件夹，包含了可执行文件、Nib文件、图片资源、plist等。XCode中能看到的资源，及编译后的可执行文件，都封装在app中。<br />
+-Documents文件夹，用于存放你的应用所产生的数据，该文件夹可通过iTunes备份，可以存储游戏进度等。<br />
+-Library文件夹，用于存放用户偏好和临时文件。<br />
+-tmp文件夹是系统的中转站。<br />
+2.文件管理器<br />
+NSFileManager，defaultManager()返回一个文件管理器的单例（多线程下不安全）。init()，在多线程编程中应尽量使用init()。<br />
+代理方法：-fileManager:shouldRemoveItemAtPath和-fileManager:shouldRemoveItemAtURL在移除操作之前被调用。<br />
+-removeItemAtPath:error：删除位于指定路径的文件、连接、目录（及其所有子目录、文件）。<br />
+-removeItemAtURL:error：同上。<br />
+-contentOfDirectoryAtPath：查找所有位于给定路径的子路径和文件。返回值为一个数组，其中包含了NSString对象。查找只在当前目录进行，不会进入下一层目录。<br />
+-subpathsAtPath：查找给定路径下的所有子路径。深度查找，不限于当前层，也会查找package的内容。<br />
+-fileExistsAtPath：判断文件是否位于一个路径下面。<br />
+-isReadableFileAtPath：查询文件的可读性<br />
+-isWritableFileAtPath：可写性<br />
+-isExecutableFileAtPath：查询文件的可执行性<br />
+-isDeletableFileAtPath：可删除性<br />
+3.NSString的路径功能<br />
+-pathWithComponent：参数是一堆components构成的数组，返回的路径是由这些components连接而成的路径字符串，相邻components之间用/隔开。<br />
+-pathComponents：返回一个数组，包含路径中的components。<br />
+-fileSystemRepresentation：返回C字符串<br />
+-isAbsolutePath：判断是否为绝对路径<br />
+-pathExtension：返回文件的扩展名，没有的就返回空字符串<br />
+-stringByAppendingPathComponents ：向现有路径添加一个component。斜杠/会被自动加上<br />
+-stringByAppendingPathExtension：向现有路径加上文件的扩展名<br />
+-stringByDeletingLastPathComponent：移除最后一个路径component<br />
+-stringByDeletingPathExtension：删除路径扩展名<br />
+-stringByAppendingPaths：参数为一个数组，此方法将数组中的字符串对象作为路径一次添加到源字符串后面。<br />
+例子：</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span> <span class="o">*</span><span class="n">homePath</span> <span class="o">=</span> <span class="n">NSHomeDirectory</span><span class="p">();</span> 
+<span class="n">NSString</span> <span class="o">*</span><span class="n">docPath</span> <span class="o">=</span> <span class="p">[</span><span class="n">homePath</span> <span class="nf">stringByAppendingFormat</span><span class="p">:</span><span class="s">@"/Documents"</span><span class="p">];</span> 
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="五uiactionsheet-按钮列表">五.UIActionSheet 按钮列表</h4>
+
+<h4 id="六旋转">六.旋转</h4>
+
+<blockquote>
+  <p>interfaceOrientation属性查询当前的界面方向。
+rotatingHeaderView方法来查询当前导航视图。
+rotatingFooterView来查询当前的标签条。</p>
+</blockquote>
+
+<h4 id="七快速拨打电话接口">七.快速拨打电话接口</h4>
+
+<blockquote>
+  <p>openURL能帮助你运行Maps，SMS，Browser,Phone甚至其他的应用程序。这是Iphone开发中我经常需要用到的一段代码，它仅仅只有一行而已。</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">]</span> <span class="n">openURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="s">@"tel://8004664411"</span><span class="err">］;</span> 
+</code></pre></div>  </div>
+  <p>这个程序通过基础的协议支持拨打电话的功能。
+<a href="http://blog.csdn.net/smilelance/article/details/6213125">摘自：</a></p>
+</blockquote>
+
+<h4 id="八区分设备类型的方法">八.区分设备类型的方法</h4>
+
+<blockquote>
+  <p>打电话功能只有iPhone支持，对于其他设备对应按钮应该禁用。<br />
+用[UIDevice currentDevice].model，这个返回的是一个NSString，你可以做如下判断就能知道设备是iPad还是iPhone.</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="err">［</span><span class="n">UIDevice</span> <span class="n">currentDevice</span><span class="p">].</span><span class="n">model</span> <span class="n">rangeOfString</span><span class="o">:</span><span class="s">@"iPad"</span><span class="p">].</span><span class="n">location</span> <span class="o">!=</span> <span class="n">NSNotFound</span><span class="p">)</span> <span class="p">{</span> 
+	<span class="n">NSLog</span><span class="p">(</span><span class="s">@"This is an iPad!"</span><span class="p">);</span> 
+<span class="p">}</span> 
+</code></pre></div>  </div>
+  <p>用UI_USER_INTERFACE_IDIOM()方法，这是系统定义的一条宏。使用方法也很简单。</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">UI_USER_INTERFACE_IDIOM</span><span class="p">()</span> <span class="err">＝＝</span> <span class="n">UIUserInterfaceIdiomPad</span><span class="p">)</span> <span class="p">{</span> 
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"This is an iPad!"</span><span class="p">);</span> 
+<span class="p">}</span> 
+</code></pre></div>  </div>
+  <p><a href="http://blog.sina.com.cn/s/blog_3f88614f0100sdcm.html">摘自：</a></p>
+</blockquote>
+
+<h4 id="九并发编程">九.并发编程</h4>
+<blockquote>
+  <p>1.GCD-Grand Central   Dispatch，GCD使用队列来管理多个任务，而每个任务是以块（其定义类似于函数）来描述的。GCD从队列中读取这些要完成的任务，然后其多核执行 引擎负责将这些任务分配给它所管理的线程。和手动线程管理相比，GCD能极大地优化线程管理，并极大地减少创建和销毁线程所带来的额外开销。除了在多核系 统上得性能改进之外，GCD还能帮助提高应用的响应速度，并让代码更为干净，易于维护。<br />
+2.NSOperationQueue-操作队列，可以极大地减少开发者在并发编程中的负担，并且操作队列有一套Objective-C的API，使用起来方便。<br />
+基本操作单位-NSOperation，操作。<br />
+操作是封装了一个与任务有关的代码与数据的抽象类，需要继承NSOperation，并且描述相关的任务。操作对象是一次性的，它只能执行一次，下一次，需要创建一个新的实例。<br />
+可以通过addDependency:方法为操作添加相互依赖性。假设操作A依赖于操作B，如果操作B没有结束，操作A就不会开始执行。完成是指   执行完，或者取消了操作。有时需要对操作是否成功作出判断。通过removeDependency:方法来移除操作的相互依赖性。<br />
+操作的一个属性是isConcurrent。当使用操作队列来管理这些操作时，isConcurrent应当设置为NO，这时应当重载   NSOperation的main函数（在类中保存controller对象-weak，并在main中调用controller的方法）。isReady属性用于描述操作是否已经可以开始执行，isExecuting属性表示操作是否正在执行当中，isFinished属性表示操作是否顺利完成，isCancelled属性则表示操作已经取消。<br />
+可以在操作运行中取消它的运行，只需要给它发送cancel消息即可。在继承NSOperation类时，也需要支持cancel方法。<br />
+如果只需要简单的操作，不想继承NSOperation类，可以使用NSInvocationOperation类，这个类中的-initWithTarget:selector:object:方法能帮助你方便地选择人物的对象和相应的功能。<br />
+操作的执行顺序取决于各自的优先级和相互之间的依赖性。<br />
+操作队列有两种方式来执行其中的操作。第一种是开辟新线程来运行这些操作，第二种则是通过GCD来运行这些操作。但是无论如何，都不需要手动管理 线程。尽量使用操作队列，只有在操作队列的效率明显不足时才转向GCD。因为操作队列是封装在GCD的基础之上的，虽然增加了一些额外开销，但是也具有更 加完善的功能。例子是TestNSOperation。</p>
+</blockquote>
+
+<h5 id="十忙碌指示器">十.忙碌指示器</h5>
+
+<p><code class="highlighter-rouge">UIActivityIndicator</code></p>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UIActivityIndicatorView</span> <span class="o">*</span><span class="n">activityIndicatior</span> <span class="o">=</span> <span class="err">［</span><span class="n">UIActivityIndicatorView</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithActivityIndicatorStyle</span><span class="o">:</span> <span class="n">UIActivityIndicatorViewStyleWhiteLarge</span><span class="p">];</span> 
+<span class="n">activityIndicator</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">384</span><span class="p">);</span> 
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span> <span class="n">activityIndicator</span><span class="p">];</span> 
+<span class="p">[</span><span class="n">activityIndicator</span> <span class="nf">startAnimating</span><span class="p">];</span>  
+<span class="p">[</span><span class="n">activityIndicator</span> <span class="nf">stopAnimating</span><span class="p">];</span> 
+<span class="p">[</span><span class="n">activityIndicator</span> <span class="nf">removeFromSuperView</span><span class="p">];</span> 
+</code></pre></div></div>
+
+<h4 id="十一媒体播放">十一.媒体播放</h4>
+
+<blockquote>
+  <p>1- 音频<br />
+[1] 音乐往往是存储在iPod曲库（注意位置）中的，可以通过媒体选择器（media picker）或者媒体查询（media query）读取，然后用音乐播放器MPMusicPlayerController播放。</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MPMusicPlayerController</span> <span class="o">*</span><span class="n">musicPlayer</span> <span class="o">=</span> <span class="p">[</span><span class="n">MPMusicPlayerController</span> <span class="nf">applicationMusicPlayer</span><span class="p">];</span> 
+<span class="p">[</span><span class="n">musicPlayer</span> <span class="nf">setShufleMode</span><span class="p">:</span> <span class="n">MPMusicShuffleModeSongs</span><span class="p">];</span> 
+<span class="p">[</span><span class="n">musicPlayer</span> <span class="nf">setRepeatMode</span><span class="p">:</span> <span class="n">MPMusicRepeatModeAll</span><span class="p">];</span> 
+<span class="p">[</span><span class="n">musicPlayer</span> <span class="nf">setQueueWithQuery</span><span class="p">:</span> <span class="p">[</span><span class="n">MPMediaQuery</span> <span class="n">songsQuery</span><span class="err">］;</span> 
+<span class="p">[</span><span class="n">musicPlayer</span> <span class="nf">play</span><span class="p">]</span><span class="err">;</span> 
+</code></pre></div>  </div>
+  <p>applicationMusicPlayer返回的播放器，在你的应用中播放音乐。它不会影响到iPod播放器，也不能从iPod播放器重获取信息。<br />
+iPodMusicPlayer返回的是iPod播放器，在你推出应用后，所有的设置都会影响到之后设备上的iPod播放器。<br />
+获得音乐播放器后，需要为它设置一个播放队列。可以用setQueueWithQuery:放方法，通过媒体查询MPMediaQuery来设置   播放队列，也可以用setQueueWithItemCollection:方法，通过MPMdiaItemCollection来设置播放队列。<br />
+重复模式repeatMode可以设置为不重复、重复当前曲目、或整个播放列表；乱序播放shuffleMode可以设置为不乱序、乱序播放曲目或乱序播放专辑；音量volume的设置与音频播放器一样。<br />
+skipToNextItem跳到下一首，skipToPreviousItem跳到上一首，skipToBegin跳到第一首。 
+对应的宏都是以MPMusic开头。<br />
+[2] 利用系统声音服务来播放短暂音效（时长30秒以内），并震动：</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AudioServicesPlaySystemSound</span><span class="p">(</span><span class="n">kSystemSoundID_Vibrate</span><span class="p">);</span>  
+<span class="c1">//播放指定音效：</span>
+<span class="n">NSURL</span> <span class="o">*</span><span class="n">fileURL</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">fileURLWithPath</span><span class="p">:</span> <span class="n">path</span> <span class="nf">isDirectory</span><span class="p">:</span> <span class="nb">NO</span><span class="p">];</span>  
+<span class="c1">// 创建音效ID </span>
+<span class="n">SystemSoundID</span> <span class="n">soundID</span><span class="p">;</span> 
+<span class="n">AudioServiceCreateSystemSoundID</span><span class="p">((</span><span class="n">CFURLRef</span><span class="p">)</span> <span class="n">fileURL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">soundID</span><span class="p">);</span> 
+<span class="c1">// 播放声音 </span>
+<span class="n">AudioServicesPlaySystemSound</span><span class="p">(</span><span class="n">soundID</span><span class="p">);</span> 
+</code></pre></div>  </div>
+  <p>[3] 音频播放器</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//没有时长限制  </span>
+<span class="n">NSURL</span> <span class="o">*</span><span class="n">fileURL</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">fileURLWithPath</span><span class="p">:</span> <span class="n">path</span> <span class="nf">isDirectory</span><span class="p">:</span> <span class="nb">NO</span><span class="p">];</span> 
+<span class="c1">// 用URL来初始化音频播放器-播放的不是iPod曲库中的音乐 </span>
+<span class="n">AVAudioPlayer</span><span class="o">*</span> <span class="n">player</span> <span class="o">=</span> <span class="err">［</span><span class="n">AVAudioPlayer</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithContentsOfURL</span><span class="o">:</span> <span class="n">fileURL</span> <span class="n">error</span><span class="o">:</span> <span class="nb">NO</span><span class="p">];</span> 
+<span class="c1">// 准备播放 </span>
+<span class="p">[</span><span class="n">player</span> <span class="nf">prepareToPlay</span><span class="p">];</span> 
+<span class="c1">// 设置代理 </span>
+<span class="p">[</span><span class="n">player</span> <span class="nf">setDelegate</span><span class="p">:</span> <span class="n">self</span><span class="p">];</span> 
+</code></pre></div>  </div>
+  <p>方法：play、pause、stop。可以通过playing属性查询播放器是否正在播放当中，可以通过volume属性来修改和查询播放器的播放增益（从0.0到1.0），可通过setting属性查询播放器其他设置。<br />
+duration表示音频的时间长度，   currentTime表示当前播放到的时间。播放结束后可以通过代理方法audioPlayerDidFinishPlaying:来处理播放后设置。 <br />
+2- 视频<br />
+视频播放可以采用网页视图（UIWebView）进行嵌入式播放（能播放YouTube视频），或者采用电影播放器（MPMoviePlayerController）进行播放。
+[1] 电影播放器</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MPMoviePlayerController</span> <span class="o">*</span><span class="n">player</span> <span class="o">=</span> <span class="err">［</span><span class="n">MPMoviePlayerController</span> <span class="n">alloc</span><span class="p">]</span><span class="n">initWithContentURL</span><span class="o">:</span> <span class="n">url</span><span class="p">];</span> 
+<span class="c1">// 设置播放器的大小，并将其加入视图中 </span>
+<span class="p">[</span><span class="n">player</span><span class="p">.</span><span class="n">view</span> <span class="nf">setFrame</span><span class="p">:</span> <span class="n">rectFrame</span><span class="p">];</span> 
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubView</span><span class="p">:</span> <span class="n">player</span><span class="p">.</span><span class="n">view</span><span class="p">];</span> 
+<span class="c1">//播放器的背景视图backgroundView。 </span>
+<span class="c1">//全屏</span>
+<span class="p">[</span><span class="n">player</span> <span class="nf">setFullscreen</span><span class="p">:</span> <span class="nb">YES</span> <span class="nf">animated</span><span class="p">:</span> <span class="nb">YES</span><span class="p">];</span> 
+<span class="c1">//播放另一个影片</span>
+<span class="p">[</span><span class="n">player</span> <span class="nf">setContentURL</span><span class="p">:</span> <span class="n">newURL</span><span class="p">];</span> 
+<span class="p">[</span><span class="n">player</span> <span class="nf">requestThumbnailImagesAtTimes</span><span class="p">:</span><span class="n">arrayTimes</span> <span class="nf">timeOption</span><span class="p">:</span><span class="n">MPMovieTimeOptionNearestKeyFrame</span><span class="p">];</span> 
+<span class="c1">//表示播放器不会在你所指定的时间去截取预览，而是在绝对时间的附近几帧中寻找效果最好的帧做为预览。 </span>
+</code></pre></div>  </div>
+  <p>scalingMode规定了影片的缩放模式。   <br />
+initialPlaybackTime用来控制视频开始播放的时间，单位是秒。<br />
+如果视频源在网络上，那么需要正确设置服务器端的mimeType。</p>
+</blockquote>
+
+<h4 id="十二运行环-runloop">十二.运行环-runloop</h4>
+
+<blockquote>
+  <p>运行环作用于一个iOS应用的整个生命周期。它负责监视各种输入事件，并且在合适的时候对这些输入进行分配。应用的每一个线程都有且仅有一个运行环。你自己不需要创建也不需要销毁运行环，但是可以通过currentRunLoop方法来获取当前的运行环。</p>
+</blockquote>
+
+<h4 id="十三定时器">十三.定时器</h4>
+
+<blockquote>
+  <p>由于运行环机制，定时器的精度不高，只能用于一般性延时。<br />
+例子：拼图游戏，DeskViewController.m。<br />
+NSObject类的定时方法。<br />
+performSelector: withObject: afterDelay: 运行方法，参数，时间（秒）。<br />
+performSelectorOnMainThread: withObject: waitUntilDone:<br />
+在主线程中，运行参数selector所指定的方法，如果waitUntilDone参数为YES，那么当前线程会被阻拦，直到selector运行完。<br />
+performSelector: onThread: withObject: waitUntilDone:同上，但不一定在主线程中运行。<br />
+performSelectorInBackground: withObject: 开启一个新线程，用于运行selector方法，selector方法应负责线程的初始化。<br />
+cancelPreviousPerformRequestsWithTarget:取消与一个目标相关的所有计划好的动作。<br />
+cancelPreviousPerformRequestsWithTraget: selector: object只取消特定的计划动作。</p>
+</blockquote>
+
+<h4 id="十四随机数">十四.随机数</h4>
+
+<blockquote>
+  <p>0~1之间随机数</p>
+</blockquote>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CG_INLINE</span> <span class="kt">float</span> <span class="nf">genRandomNum</span><span class="p">()</span> <span class="p">{</span> 
+  <span class="k">return</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">arc4random</span><span class="o">/</span><span class="n">ARCRANDOM_MAX</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="十五加速度传感器">十五.加速度传感器</h4>
+
+<blockquote>
+  <p>获得加速度传感器读数：
+```obj-c
+UIAccelerometer *accelerometer = [UIAccelerometer shareAccelerometer]; // 单例 
+accelerometer.delegate = self; 
+accelerometer.updateInterval = 1.0f / 10.0f; // 传感器更新频率，普通游戏10~30HZ，虚拟现实类游戏，30~60HZ 
+accelerometer.x, accelerometer.y, accelerometer.z // 传感器读数 
+若不想再接受传感器读数，可将代理设置为nil
+[UIAccelerometer shareAccelerometer].delegate = nil;</p>
+</blockquote>
+
+<p>#define alpha 0.05 
+// 获得重力引起的加速度读数：</p>
+<ul>
+  <li>(void)accelerometer: (UIAccelerometer *)accelerometer didAccelerate: (UIAcceleration *)acceleration 
+{ 
+// 简单低通滤波器 
+accelX = (acceleration.x * alpha) + (accelX) * (1.0 - alpha); 
+accelY = (acceleration.y * alpha) + (accelY) * (1.0 - alpha); 
+accelZ = (acceleration.z * alpha) + (accelZ) * (1.0 - alpha); 
+}</li>
+</ul>
+
+<p>// 获得动作引起的加速度读数：</p>
+<ul>
+  <li>(void)accelerometer: (UIAccelerometer *)accelerometer didAccelerate: (UIAcceleration *)acceleration 
+{ 
+// 减去低通滤波输出，得到高通滤波输出 
+accelX = acceleration.x - ((acceleration.x * alpha) + (accelX) * (1.0 - alpha)); 
+accelY = acceleration.y - ((acceleration.y * alpha) + (accelY) * (1.0 - alpha)); 
+accelZ = acceleration.z - ((acceleration.z * alpha) + (accelZ) * (1.0 - alpha)); 
+}
+```</li>
+</ul>
+
+<h4 id="十六地图与连接服务器">十六.地图与连接服务器</h4>
+<p>[1] 添加框架MapKit.framework。使用MKMapView来呈现地图。注意应当直接使用此类，而不是继承之。如果希望在MKMapView类之上添加功能，可以使用MKMapViewDelegate协议。
+初始化：
+MKMapView *mapView = ［MKMapView alloc] initWithFrame: rect]; 
+初始化之后并不直接显示，还需要指定显示的地图区域：
+CLLocationCoordinate2D coordinate; 
+coordinate.latitude = latitudeValue; // 纬度 
+coordinate.longtitude = longtitudeValue; // 精度 
+mapView.region = MKCoordinateRegionMakeWithDistance(coordinate, width, height); // 指定显示区域，width和height单位都是米 
+之后可以通过addSubview添加地图。
+属性：showsUserLocation-为YES，系统会持续跟踪用户的位置
+userLocationVisible-为YES，将显示用户所在位置
+显示地图之后，常常希望在地图上添加标注，这需要创建一个类，并实现MKAnnotation协议，这个类叫做标注对象。标注对象往往实现 setCoordinate:方法来设置其坐标。在地图视图上，可以设置标注对象的坐标，然后添加进去，这样地图上就会出现一个标注。代理方法title 和subtitle能够在标注上显示标题和副标题。<br />
+// 初始化 
+mapView = ［MKMapView alloc] initWithFrame: CGRectMake(100, 100, 550, 700)]; 
+mapView.showsUserLocation = TRUE; 
+mapView.mapType = MKMapTypeStandard; 
+mapView.delegate = self; 
+// 设置坐标 
+CLLocationCoordinate2D coordinate; 
+coordinate.latitude = 37.31; 
+coordinate.longtitude = -122.03; 
+mapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 4000, 6000); // 4000米宽，6000米高的区域 
+[self.view insertSubview: mapView atIndex: 0]; 
+十七.通过storyboard来初始化一个controller
+CBigDesignImageViewController *imageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@”BigImageController”];<br />
+BigImageController是要在storyboard中设置的Identifier属性。</p>
+
+<p>十八.给UIView子类设置阴影，包括各种控件
+1 导入QuartzCore framework
+2 #import
+3 编码：
+［imgView layer] setShadowOffset:CGSizeMake(5, 5)]; // 阴影的范围<br />
+［imgView layer] setShadowRadius:2]; // 阴影扩散的范围控制<br />
+［imgView layer] setShadowOpacity:1]; // 阴影透明度<br />
+［imgView layer] setShadowColor:[UIColor brownColor].CGColor]; // 阴影的颜色 
+十九.设置UIScrollView滚动速度    <br />
+// 自动滚动太快，效果不好，这里把动画设置慢点，注意下面要直接赋值contentOffset，不要用带animated参数的函数，否则动画会出问题，因为两处都是动画效果。 
+[UIScrollView animateWithDuration:1.0f<br />
+delay:0<br />
+options:UIViewAnimationCurveLinear 
+animations:^{ 
+scrollView.contentOffset = CGPointMake(0, 0);<br />
+} 
+completion:^(BOOL finished){} 
+];<br />
+// 如果在减速滚动过程中，按了刷新按钮，执行上面的动画，会出现重置的位置，y不是0的情况，这里再调用一次，滚动到0。 
+[scrollView setContentOffset:CGPointMake(0, 0) animated:YES];<br />
+二十.EXC_BAD_ACCESS
+Here’s the advice I generally give to developers when you hit an EXC_BAD_ACCESS error:
+-Set the NSZombieEnabled argument in your executable options, which sometimes helps narrow down the cause
+-Run with Apple Instruments such as Leaks to look for memory issues
+-Set a breakpoint in your code and step through until you narrow down where it’s crashing
+Tried and true “comment out code till it works” then backtrack from there :]</p>
+
+<p>Xcode4 下设置 NSZombieEnabled 的方法： 
+你可以点击 Xcode4 菜单 Product -&gt; Edit Scheme -&gt; Arguments, 然后将点击”加号”, 将 NSZombieEnabled 参数加到 Environment Variables 窗口中, 后面的数值写上 ”YES”. 
+或者在 Xcode4 菜单 Product -&gt; Edit Scheme -&gt; Diagnostics 设置窗口中直接勾上 Enable Zombie Objects 即可，Xcode 可用 cmd＋shift＋&lt; 进到这个窗口。 
+Xcode4 已经考虑到了现在的要求，所以提供了更便捷的设置的方式，你也可以在这个窗口中设置其他一些参数，你肯定能由此获得更多的帮助信息。</p>
+:ET

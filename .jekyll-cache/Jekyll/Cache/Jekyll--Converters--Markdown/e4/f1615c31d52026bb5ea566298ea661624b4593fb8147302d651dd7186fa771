@@ -1,0 +1,85 @@
+I"?<ul>
+  <li>(NSString *)pathWithComponents(NSArray *)components 
+根据components中的元素来构建路径.</li>
+  <li>(NSArray *)pathComponents 
+解析路径,返回构成路径的各个部分.</li>
+  <li>(NSString *)lastPathComponent 
+提取路径中的最后一个组成部分</li>
+  <li>(NSString *)pathExtension 
+从路径中最后一个组成部分中提取扩展名</li>
+  <li>(NSString *)stringByAppendingPathComponent(NSString *)path 
+将path添加到现有路径末尾</li>
+  <li>(NSString *)stringByAppendingPathExtension(NSString *)ext 
+将指定的扩展名添加到现有路径的最后一个组成部分上</li>
+  <li>(NSString *)stringByDeletingLastPathComponent 
+删除路径中的最后一个组成部分</li>
+  <li>(NSString *)stringByDeletingPathExtension 
+从文件的最后一部分删除扩展名</li>
+  <li>(NSString *)stringByExpandingTildeInPath 
+将路径中的代字符扩展成用户主目录(~)或指定用户的主目录(~user)</li>
+  <li>(NSString *)stringByResolvingSymlinksInPath 
+尝试解析路径中的符号链接</li>
+  <li>(NSString *)stringByStandardizingPath 
+解析路径中的~,(..)父目录,(.)当前目录和符号链接来标准化路径.</li>
+</ul>
+
+<p>常用的NSProcessInfo类(进程相关)</p>
+<ul>
+  <li>(NSProcessInfo *)processInfo 
+返回当前进程信息</li>
+  <li>(NSArray *)arguments 
+以NSString对象数字的形式返回当前进程的参数</li>
+  <li>(NSDictionary *)environment 
+返回变量/值对字典,以描述当前的环境变量(比如PATH等等)</li>
+  <li>(int)processIdentifier 
+返回进程PID</li>
+  <li>(NSString *)processName 
+返回当前正在执行的进程名称</li>
+  <li>(NSString *)globallyUniqueString 
+每次调用该方法时,都会返回不同的单值字符串,可以生成临时文件名</li>
+  <li>(NSString *)hostName 
+返回主机系统名 
+-(NSUInteger)operatingSystem 
+返回表示操作系统的数字</li>
+  <li>(NSString *)operatingSystemName 
+返回操作系统的名称</li>
+  <li>(NSString *)operatingSystemVersionString 
+返回操作系统版本</li>
+  <li>(void)setProcessNameNSString *)name 
+修改当前进程名(谨慎使用)</li>
+</ul>
+
+<p>基本文件操作类: NSFileHandle 
+NSFileHandle类没有提供创建文件的方法,所以要创建文件需要使用FileManager方法来创建, NSFileHandle类中的文件操作方法都是假定文件都是存在的,如果不存在,则返回nil. 
+常用的NSFileHandle方法：</p>
+<ul>
+  <li>(id)fileHandleForReadingAtPathNSString *)path 
+打开一个文件准备读取</li>
+  <li>(id)fileHandleForWritingAtPathNSString *)path 
+打开一个文件准备写入</li>
+  <li>(id)fileHandleForUpdatingAtPathNSString *)path 
+打开一个文件准备更新(读取和写入)</li>
+  <li>(NSData *)availableData 
+从设备或者通道返回可用的数据</li>
+  <li>(NSData *)readDataToEndOfFile 
+读取其余的数据直到文件的末尾(最大值为无符号整形的最大值)</li>
+  <li>(NSData *)readDataOfLengthNSUInteger)length 
+从文件读取指定字节数的内容</li>
+  <li>(void)writeDataNSData *)data 
+将data写入文件</li>
+  <li>(unsigned long long)offsetInFile 
+获取当前文件的偏移量</li>
+  <li>(void)seekToFileOffsetunsigned long long)offset 
+设置当前文件的偏移量</li>
+  <li>(unsigned long long)seekToEndOfFile 
+将当前文件的偏移量定位到文件的末尾</li>
+  <li>(void)truncateFileAtOffset:(unsigned long long)offset 
+将文件的长度设置为offset字节(如需要,可填充内容)</li>
+  <li>(void)closeFile 
+关闭文件 
+-(bool) fileHandleForReadingAtPath 
+文件是否可读 
+-(void) fileHandleForWritingAtPath 
+文件是否可写</li>
+</ul>
+:ET

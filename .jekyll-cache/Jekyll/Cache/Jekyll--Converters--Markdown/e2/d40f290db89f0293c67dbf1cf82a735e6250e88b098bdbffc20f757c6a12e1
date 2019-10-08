@@ -1,0 +1,53 @@
+I"<h4 id="文件路径解析">文件路径解析</h4>
+
+<blockquote>
+  <p><code class="highlighter-rouge">+ (NSString *)pathWithComponents(NSArray *)components</code>根据<code class="highlighter-rouge">components</code>中的元素来构建路径.<br />
+<code class="highlighter-rouge">- (NSArray *)pathComponents </code>解析路径,返回构成路径的各个部分.<br />
+<code class="highlighter-rouge">- (NSString *)lastPathComponent</code>提取路径中的最后一个组成部分<br />
+<code class="highlighter-rouge">- (NSString *)pathExtension</code>从路径中最后一个组成部分中提取扩展名<br />
+<code class="highlighter-rouge">- (NSString *)stringByAppendingPathComponent(NSString *)path </code>将path添加到现有路径末尾<br />
+<code class="highlighter-rouge">- (NSString *)stringByAppendingPathExtension(NSString *)ext </code>将指定的扩展名添加到现有路径的最后一个组成部分上<br />
+<code class="highlighter-rouge">- (NSString *)stringByDeletingLastPathComponent </code>删除路径中的最后一个组成部分<br />
+<code class="highlighter-rouge">- (NSString *)stringByDeletingPathExtension </code>从文件的最后一部分删除扩展名<br />
+<code class="highlighter-rouge">- (NSString *)stringByExpandingTildeInPath </code>将路径中的代字符扩展成用户主目录(<code class="highlighter-rouge">~</code>)或指定用户的主目录(<code class="highlighter-rouge">~user</code>)<br />
+<code class="highlighter-rouge">- (NSString *)stringByResolvingSymlinksInPath </code>尝试解析路径中的符号链接<br />
+<code class="highlighter-rouge">- (NSString *)stringByStandardizingPath </code>解析路径中的<code class="highlighter-rouge">~</code>,(<code class="highlighter-rouge">..</code>)父目录,(<code class="highlighter-rouge">.</code>)当前目录和符号链接来标准化路径.</p>
+</blockquote>
+
+<h4 id="常用的nsprocessinfo类进程相关">常用的<code class="highlighter-rouge">NSProcessInfo</code>类(进程相关)</h4>
+
+<blockquote>
+  <p><code class="highlighter-rouge">+ (NSProcessInfo *)processInfo</code>返回当前进程信息<br />
+<code class="highlighter-rouge">- (NSArray *)arguments</code>以NSString对象数字的形式返回当前进程的参数<br />
+<code class="highlighter-rouge">- (NSDictionary *)environment</code> 返回变量/值对字典,以描述当前的环境变量(比如PATH等等)<br />
+<code class="highlighter-rouge">- (int)processIdentifier </code>返回进程<code class="highlighter-rouge">PID</code><br />
+<code class="highlighter-rouge">- (NSString *)processName</code>返回当前正在执行的进程名称<br />
+<code class="highlighter-rouge">- (NSString *)globallyUniqueString</code>每次调用该方法时,都会返回不同的单值字符串,可以生成临时文件名<br />
+<code class="highlighter-rouge">- (NSString *)hostName</code>返回主机系统名<br />
+<code class="highlighter-rouge">- (NSUInteger)operatingSystem</code>返回表示操作系统的数字<br />
+<code class="highlighter-rouge">- (NSString *)operatingSystemName</code>返回操作系统的名称<br />
+<code class="highlighter-rouge">- (NSString *)operatingSystemVersionString</code>返回操作系统版本<br />
+<code class="highlighter-rouge">- (void)setProcessNameNSString *)name</code>修改当前进程名(谨慎使用)</p>
+</blockquote>
+
+<h4 id="基本文件操作类-nsfilehandle">基本文件操作类: <code class="highlighter-rouge">NSFileHandle</code></h4>
+
+<blockquote>
+  <p><code class="highlighter-rouge">NSFileHandle</code>类没有提供创建文件的方法,所以要创建文件需要使用<code class="highlighter-rouge">FileManager</code>方法来创建, <code class="highlighter-rouge">NSFileHandle</code>  类中的文件操作方法都是假定文件都是存在的,如果不存在,则返回<code class="highlighter-rouge">nil</code>.常用的<code class="highlighter-rouge">NSFileHandle</code>方法：<br />
+<code class="highlighter-rouge">+ (id)fileHandleForReadingAtPathNSString *)path</code>打开一个文件准备读取<br />
+<code class="highlighter-rouge">+ (id)fileHandleForWritingAtPathNSString *)path</code>打开一个文件准备写入<br />
+<code class="highlighter-rouge">+ (id)fileHandleForUpdatingAtPathNSString *)path</code>打开一个文件准备更新(读取和写入)<br />
+<code class="highlighter-rouge">- (NSData *)availableData</code>从设备或者通道返回可用的数据<br />
+<code class="highlighter-rouge">- (NSData *)readDataToEndOfFile</code>读取其余的数据直到文件的末尾(最大值为无符号整形的最大值)<br />
+<code class="highlighter-rouge">- (NSData *)readDataOfLengthNSUInteger)length</code>从文件读取指定字节数的内容<br />
+<code class="highlighter-rouge">- (void)writeDataNSData *)data</code>将data写入文件<br />
+<code class="highlighter-rouge">- (unsigned long long)offsetInFile</code>获取当前文件的偏移量<br />
+<code class="highlighter-rouge">- (void)seekToFileOffsetunsigned long long)offset</code>设置当前文件的偏移量<br />
+<code class="highlighter-rouge">- (unsigned long long)seekToEndOfFile</code>将当前文件的偏移量定位到文件的末尾<br />
+<code class="highlighter-rouge">- (void)truncateFileAtOffset:(unsigned long long)offset</code>将文件的长度设置为offset字节(如需要,可填充内容)<br />
+<code class="highlighter-rouge">- (void)closeFile</code>关闭文件<br />
+<code class="highlighter-rouge">-(bool) fileHandleForReadingAtPath</code>文件是否可读<br />
+<code class="highlighter-rouge">-(void) fileHandleForWritingAtPath</code>文件是否可写</p>
+</blockquote>
+
+:ET
