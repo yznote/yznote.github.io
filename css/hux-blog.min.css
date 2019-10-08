@@ -24,7 +24,9 @@
 	color: gray!important;
 	text-decoration: none
 }
-
+.sidebar-container h5 a:hover {
+	color: #B6C29A!important
+}
 .sidebar-container a {
 	color: #bfbfbf!important
 }
@@ -117,6 +119,9 @@
 	text-decoration: none;
 	white-space: nowrap;
 	text-overflow: ellipsis
+}
+.side-catalog .catalog-body li a:hover {
+	color: #B6C29A!important
 }
 
 .side-catalog .catalog-body .h1_nav,.side-catalog .catalog-body .h2_nav,.side-catalog .catalog-body .h3_nav {
