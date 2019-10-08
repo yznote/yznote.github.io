@@ -1,19 +1,5 @@
----
-layout:     post
-title:      结构体
-subtitle:   
-date:       2015-10-26
-author:     Rookie
-header-img: 
-catalog: true
-stickie: false
-tags:
-    - iOS
-    - C
----
-#### 结构体
-```
-#include 
+I"�<h4 id="结构体">结构体</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include 
 void structOne()
 {
     //定义一个名为Student的结构体类型
@@ -37,9 +23,8 @@ void structOne()
     tea1.height=170.1;//结构体变量的某个结构成员重赋值
     printf("\nteacher age is %d,height is %g,name is %s",tea1.age,tea1.height,tea1.name);
 }
-```
-```
-void structTwo()
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void structTwo()
 {
     //声明一个匿名的结构体
     struct {
@@ -49,10 +34,9 @@ void structTwo()
     printf("匿名结构体1：age:%d,name:%s\n",stu1.age,stu1.name);
     printf("匿名结构体2：age:%d,name:%s\n",stu2.age,stu2.name);
 }
-```
-##### `#`pragma mark 2 结构体嵌套调用
-```
-void structThree()
+</code></pre></div></div>
+<h5 id="pragma-mark-2-结构体嵌套调用"><code class="highlighter-rouge">#</code>pragma mark 2 结构体嵌套调用</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void structThree()
 {
     //结构体的递归(错误)
 //    struct Student {
@@ -75,10 +59,9 @@ void structThree()
     struct Student stu1={21,"Jack",{1991,10,10}};
     printf("age=%d,name=%s,birthday:%d-%d-%d",stu1.age,stu1.name,stu1.bir1.year,stu1.bir1.month,stu1.bir1.day);
 }
-```
-##### `#`pragma mark 3 结构体封装视图的坐标
-```
-void structFrame()
+</code></pre></div></div>
+<h5 id="pragma-mark-3-结构体封装视图的坐标"><code class="highlighter-rouge">#</code>pragma mark 3 结构体封装视图的坐标</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void structFrame()
 {
     struct CGPoint{//位置
         float x;
@@ -101,11 +84,10 @@ void structFrame()
     struct View view1={"redColor",{100,50,120,60}};
     printf("view color is %s,view.x:%f,view.y:%f,view.w:%lf,view.h:%lf",view1.color,view1.frame.point.x,view1.frame.point.y,view1.frame.size.wigth,view1.frame.size.hight);
 }
-```
-##### `#`pragma mark 4 结构体数组
+</code></pre></div></div>
+<h5 id="pragma-mark-4-结构体数组"><code class="highlighter-rouge">#</code>pragma mark 4 结构体数组</h5>
 
-```object-c
-void structFour()
+<pre><code class="language-object-c">void structFour()
 {
     struct Student {
         int age;
@@ -115,10 +97,9 @@ void structFour()
     struct Student stu1=stu[0];
     printf("数组中第一个学生：age=%d,name=%s",stu1.age,stu1.name);
 }
-```
-##### `#`pragma mark 5 结构体作为函数的参数
-```
-struct Person{
+</code></pre>
+<h5 id="pragma-mark-5-结构体作为函数的参数"><code class="highlighter-rouge">#</code>pragma mark 5 结构体作为函数的参数</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct Person{
     int age;
 };
 void change(struct Person p){
@@ -129,23 +110,23 @@ void structFive()
     struct Person person={24};
     change(person);
 }
-```
-##### `#`pragma mark 6 指向结构体的指针
-```
-struct Person{
+</code></pre></div></div>
+<h5 id="pragma-mark-6-指向结构体的指针"><code class="highlighter-rouge">#</code>pragma mark 6 指向结构体的指针</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct Person{
     int age;
 };
 void structSix()
 {
     struct Person per1={33};
     struct Person *per2;
-    per2 = &per1;
+    per2 = &amp;per1;
     printf("%d\n",per1.age);
     printf("%d\n",(*per2).age);
-    printf("%d",per2->age);
+    printf("%d",per2-&gt;age);
 }
 int main(int argc, const char * argv[]) {
     structSix();
     return 0;
 }
-```
+</code></pre></div></div>
+:ET
