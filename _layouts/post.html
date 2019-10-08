@@ -47,7 +47,7 @@ layout: default
                     <span class="meta">{% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %}</span>
 
                     {% assign year = page.date | date:'%Y' %}
-                    <span class="meta">{% if year == '2100' %}{{'置顶'}}{% else %}{{ page.date | date: "%m %d %Y" }}{% endif %}
+                    <span class="meta">{% if year == '2100' %}{{'置顶'}}{% else %}{{ page.date | date: "%-m %-d %Y" }}{% endif %}
                     </span>
                 </div>
             </div>
