@@ -1,0 +1,301 @@
+I"� <p>layout:     post
+title:      常见类
+subtitle: <br />
+date:       2015-10-27
+author:     Rookie
+header-img: 
+catalog: true
+stickie: false
+tags:
+    - iOS
+    - C
+—</p>
+
+<h4 id="简介字符串-可变字符串数组-可变数组-及对其操作">简介：字符串 可变字符串、数组 可变数组 及对其操作</h4>
+
+<h5 id="创建一个空的字符串">创建一个空的字符串</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *string1=[[NSString  alloc]init ];
+NSString *string2=[NSString  string];
+NSLog(@"string1:%@",string1);
+NSLog(@"string2:%@",string2);
+
+//创建一个字符串常量
+
+NSString*string3=@"Hello Word";
+NSLog(@"string3:%@ %p",string3,string3);
+
+//根据已有的字符串创建新的字符串（常量区）
+
+NSString*string4_1=[[NSString alloc]initWithString:string3];
+NSLog(@"string4:%@ %p",string4_1,string4_1);
+NSString*string4_2=[NSString stringWithString:string3];
+NSLog(@"string4:%@ %p",string4_2,string4_2);
+
+//根据已有字符串创建新的字符串（堆区）
+
+NSString*string5_1=[[NSString alloc]initWithFormat:@"%@",string3];
+NSLog(@"string5:%@ %p",string5_1,string5_1);
+NSString*string5_2=[NSString stringWithFormat:@"%@",string3 ];
+NSLog(@"string5:%@ %p",string5_2,string5_2);
+
+//字符串的比较（指针、内容）
+
+if (string4_1==string4_2) {
+
+    NSLog(@"相同指针");
+} else {
+	NSLog(@"不同");
+}
+BOOL isSame=[string5_1 isEqualToString:string5_2];
+
+if (isSame) {
+    NSLog(@"相同内容");
+} else{
+	 NSLog(@"不同内容");
+}
+
+//字符串转换成其他类型
+
+NSString *string6_1=@"3.1415926";
+float pi =[string6_1 doubleValue];
+NSLog(@"string6-&gt;float:%f",pi);
+NSString*string6_2=@"1000.8";
+int aInt=[string6_2 intValue];
+NSLog(@"string6-&gt;integer:%d",aInt);
+NSString*string6_3=@"y";
+BOOL aBool= [string6_3 boolValue];
+NSLog(@"string6-&gt;BOOOL:%d",aBool);
+
+//字符串长度
+
+NSString *string7=@"This-is-a-string";
+NSLog(@"%ld",[string7 length]);
+
+//根据已有的字符串 返回新的子字符串（截取其中某些位置的字符串）
+
+NSString *subString1=[string7 substringFromIndex:13];//从第几位开始
+NSString*subString2=[string7 substringToIndex:3];//截取到第几位
+NSString *subString3=[string7 substringWithRange:NSMakeRange(5, 4)];//选取某一区域截取
+
+NSRange range={5,4};
+range.location=6;
+range.length=3;
+NSString*subString4=[string7 substringWithRange:range];//选取某一区域截取
+NSLog(@"subString1:%@",subString1);
+NSLog(@"subString2:%@",subString2);
+NSLog(@"subString3:%@",subString3);
+NSLog(@"subString4:%@",subString4);
+
+//按照字符串中的某个字符串转成数组
+
+NSArray *array1=[string7 componentsSeparatedByString:@"-"];
+NSLog(@"string-&gt;array:%@",array1);
+NSString*string8=@"ThIs iS A STRing";
+NSLog(@"%@",[string8 uppercaseString]);//大写（不改变string8）
+NSLog(@"%@",[string8 lowercaseString]);//小写（不改变string8）
+NSLog(@"%@",[string8 capitalizedString]);//首字母大写（不改变string8）
+
+//比较字符串的大小
+
+NSString*string9_1=@"m";
+NSString *string9_2=@"a";
+NSComparisonResult result=[string9_1 caseInsensitiveCompare:string9_2];
+
+switch (result) {
+
+    case NSOrderedAscending:
+
+        NSLog(@"string9_1小");
+
+        break;
+
+    case NSOrderedSame:
+
+        NSLog(@"一样大");
+
+        break;
+
+    case NSOrderedDescending:
+
+        NSLog(@"string9_1大");
+
+        break;
+
+    default:
+
+        break;
+}
+
+//字符串的查找
+
+NSString *string10=@"abcdefghijklmnopq";
+NSRange range1=[string10 rangeOfString:@"hijk"];
+NSLog(@"%@",NSStringFromRange(range1));
+NSLog(@"%@",NSStringFromClass([NSString class]));
+
+if (range1.length&gt;0) {
+
+    NSLog(@"找到了");
+
+} else{
+	NSLog(@"没找到");
+}
+
+//判断字符串是不是以某个字母开头
+
+BOOL isPre=[string10 hasPrefix:@"abc"];
+NSLog(@"%d",isPre);
+
+//判断字符串是不是以某个字符串结尾
+
+BOOL isSuf=[string10 hasSuffix:@"opq"];
+
+if (isSuf) {
+
+    NSLog(@"string10是以opq结尾的");
+}
+
+//字符串的拼接
+
+NSString *string11_1=@"good ";
+NSString *string11_2=@"morning";
+NSString *string11=[NSString stringWithFormat:@"%@%@",string11_1,string11_2 ];
+NSLog(@"string11:%@",string11);
+
+NSString*string12=[string11_1 stringByAppendingString:string11_2];
+NSLog(@"string12:%@",string12);
+</code></pre></div></div>
+
+<h5 id="子类复用父类成员变量属性方法">子类复用父类成员变量、属性、方法</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//NSMutableString 是 NSString的子类（继承关系）
+NSMutableString* mutableString1=[NSMutableString stringWithFormat:@"Hello_World"];
+NSLog(@"mutableString1:%@",mutableString1);
+
+//插入，第一个参数表示需要插入的字符串，第二个参数是放置的位置
+
+[mutableString1 insertString:@"_ios" atIndex:[mutableString1 length]];
+NSLog(@"mutableString1:%@",mutableString1);
+
+//替换，第一个参数表示要替换的位置，第二个参数表示要替换的字符串
+
+[mutableString1 replaceCharactersInRange:NSMakeRange([mutableString1 length]-3,3) withString:@"apple"];
+NSLog(@"mutableString:%@",mutableString1);
+
+//删除
+
+NSRange deleteRange=NSMakeRange([mutableString1 length]-6, 6);
+[mutableString1 deleteCharactersInRange:deleteRange];
+NSLog(@"mutableString1:%@",mutableString1);
+
+//预开辟空间
+
+NSMutableString *mutableString2=[[NSMutableString alloc]initWithCapacity:5];
+NSLog(@"mutableString2:%@",mutableString2);
+
+//快速创建数组
+
+NSString*string=@"hello";
+NSArray *array1=[[NSArray alloc]initWithObjects:string, nil];
+NSArray *array2=[NSArray arrayWithObject:@"one"];
+NSArray *array3= [NSArray arrayWithObjects:@"one",@"two", nil];
+NSLog(@"%@\n------\n%@\n-----\n%@",array1,array2,array3);
+
+//根据已有数组创建新的数组
+
+NSArray *array4_1= [NSArray  arrayWithArray:array2];
+NSArray *array4_2= [[NSArray  alloc]initWithArray:array2];
+NSLog(@"%@\n------\n%@",array4_1,array4_2);
+
+//数组中元素的个数
+
+NSUInteger count1= [array3 count];
+NSLog(@"array3.count=%ld",count1);
+
+//获取数组中指定位置的元素
+
+NSArray *array5= [NSArray arrayWithObjects:@"A",@"B",@"C",@"D",@"B",@"F", nil];
+NSString *sub1= [array5 objectAtIndex:5];
+NSLog(@"sub1=%@",sub1);
+
+//根据元素招在数组中的位置
+
+NSUInteger index1=[array5 indexOfObject:@"B"];
+NSLog(@"%ld",index1);
+id first= [array5 firstObject];
+id last=[array5 lastObject];
+NSLog(@"%@-----%@",first,last);
+
+//将已有数组中的元素添加其他元素放到新的数组
+
+NSArray *array6 =[array5 arrayByAddingObject:@"G"];
+NSArray *array7 = [array5 arrayByAddingObjectsFromArray:array2];
+NSLog(@"%@-----\n%@",array6,array7);
+
+//将数组中的元素拼接成字符串
+
+NSString *string2=[array6 componentsJoinedByString:@"*"];
+NSLog(@"%@",string2);
+
+//判断数组中是不是包含某个元素
+
+if ([array6 containsObject:@"G"]) {
+
+    NSLog(@"contains");
+
+}
+
+//判断数组中是不是有相同元素
+
+BOOL isEuqal= [array6 isEqualToArray:array7];
+NSLog(@"%d",isEuqal);
+NSMutableArray *mutableArray= [NSMutableArray arrayWithObjects:@"one",@"two", nil];
+
+//追加一个元素到末尾
+
+[mutableArray addObject:@"three"];
+NSLog(@"向数组中添加元素：%@",mutableArray);
+
+//插入一个元素到数组中指定位置
+
+[mutableArray insertObject:@"first" atIndex:1];
+NSLog(@"向数组中插入元素：%@",mutableArray);
+
+//将数组中指定位置的元素替换掉
+
+[mutableArray replaceObjectAtIndex:1 withObject:@"one1"];
+NSLog(@"数组中元素的替换：%@",mutableArray);
+
+//数组中元素删除
+
+[mutableArray removeObject:@"one1"];//删除指定元素
+[mutableArray removeObjectAtIndex:1];//删除指定位置的元素
+[mutableArray removeLastObject];//删除最后一个
+[mutableArray removeAllObjects];//删除所有
+NSMutableArray *mutableArray1= [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4", nil];
+NSArray *rArray = [NSArray arrayWithObjects:@"1",@"3", nil];
+[mutableArray1 removeObjectsInArray:rArray];//根据数组删除
+NSLog(@"mutableArray1=%@",mutableArray1);
+
+//循环遍历数组中元素
+
+NSMutableArray *mutableArray2=[ NSMutableArray arrayWithObjects:@"iphone",@"android",@"winPhone",@"MeiZu",@"SamSung", nil];
+
+for (int i=0; icount; i++) {
+
+    NSString*string= [mutableArray2 objectAtIndex:i];
+
+    NSLog(@"index:%d-&gt; object:%@",i,string);
+
+}
+
+//OC独有的for...in...语法
+
+for (NSString*string in mutableArray2) {
+
+    NSLog(@"%@",string);
+
+}
+</code></pre></div></div>
+:ET

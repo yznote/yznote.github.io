@@ -1,35 +1,18 @@
----
-layout:     post
-title:      类
-subtitle:   
-date:       2015-10-26
-author:     Rookie
-header-img: 
-catalog: true
-stickie: false
-tags:
-    - iOS
-    - C
----
+I"�<h4 id="c中的类分为h和m">C中的类分为<code class="highlighter-rouge">.h</code>和<code class="highlighter-rouge">.m</code></h4>
 
-#### OC中的类分为`.h`和`.m`
+<p>#####.h主要做声明：成员变量、属性、方法
+表示类的接口@interface</p>
 
-##### `.h`主要做声明：成员变量、属性、方法
-表示类的接口@interface
+<p>#####.m作为函数的实现部分：实现方法
+@implementation</p>
 
-##### `.m`作为函数的实现部分：实现方法
-@implementation
-
-#### 面向对象的三大特性：
-```
-封装：隐藏内部实现，稳定外部接口；
-继承：子类复用父类的成员变量、属性、方法（重写）；
-多态：父类对象指向子类空间   
-// student作为一个类存在
-// []表示方法调用
-```
-##### eg.1.
-```
+<p>面向对象的三大特性：
+   封装：隐藏内部实现，稳定外部接口；
+   继承：子类复用父类的成员变量、属性、方法（重写）；
+   多态：父类对象指向子类空间 <br />
+   // student作为一个类存在
+   // []表示方法调用
+1.
 Student.h
   #import 
   //@interface 表示类的接口，生命了当前文件是类的声明文件（成员变量、属性、函数）
@@ -50,64 +33,58 @@ Student.h
  //类方法：+
  +(void)sayHi;
  @end
- ```
- ```
 Student.m
- #import "Student.h"
+ #import “Student.h”
  @implementation Student
  //实例方法
  -(void)sayHello
   {
-    NSLog(@"我叫%@，我今年%d，我来自%@，我的电话%@",name,age,address,phone);
+    NSLog(@”我叫%@，我今年%d，我来自%@，我的电话%@”,name,age,address,phone);
   }
  //类方法
  +(void)sayHi
- {
-   
- }
+ {</p>
+
+<p>}
  @end
- ```
- ```
 main.m
-  Student *stu1=[[Student alloc] init ];
-  stu1->age=21;           //变量（直接赋值）
-  stu1->name=@"唐三藏";
-  stu1->address=@"东土大唐";
-  stu1->phone=@"1212121212";
+  Student <em>stu1=[[Student alloc] init ];
+  stu1-&gt;age=21;           //变量（直接赋值）
+  stu1-&gt;name=@”唐三藏”;
+  stu1-&gt;address=@”东土大唐”;
+  stu1-&gt;phone=@”1212121212”;
   //[stu1 sayHello];
   Student *stu2=[[Student alloc] init ];
-  stu2->age=500;
-  stu2->name=@"孙大圣";
-  stu2->address=@"花果山";
-  stu2->phone=@"1212121213";
+  stu2-&gt;age=500;
+  stu2-&gt;name=@”孙大圣”;
+  stu2-&gt;address=@”花果山”;
+  stu2-&gt;phone=@”1212121213”;
   //[stu2 sayHello];
   Student *stu3=[[Student alloc] init ];
-  stu3->age=100;
-  stu3->name=@"猪悟能";
-  stu3->address=@"高老站";
-  stu3->phone=@"1212121214";
+  stu3-&gt;age=100;
+  stu3-&gt;name=@”猪悟能”;
+  stu3-&gt;address=@”高老站”;
+  stu3-&gt;phone=@”1212121214”;
   //[stu3 sayHello];
   Student *stu4=[[Student alloc] init ];
-  stu4->age=250;
-  stu4->name=@"沙悟净";
-  stu4->address=@"流沙河";
-  stu4->phone=@"1212121215";
+  stu4-&gt;age=250;
+  stu4-&gt;name=@”沙悟净”;
+  stu4-&gt;address=@”流沙河”;
+  stu4-&gt;phone=@”1212121215”;
   //[stu4 sayHello];
   Student *stu5=[[Student alloc] init ];
-  stu5->age=300;
-  stu5->name=@"宝马2333";
-  stu5->address=@"我也不知道是哪？";
-  stu5->phone=@"我就是一匹马哪来的电话0.0";
+  stu5-&gt;age=300;
+  stu5-&gt;name=@”宝马2333”;
+  stu5-&gt;address=@”我也不知道是哪？”;
+  stu5-&gt;phone=@”我就是一匹马哪来的电话0.0”;
   //[stu5 sayHello];
   NSArray *array=@[stu1,stu2,stu3,stu4,stu5];
   for (Student *stu in array)
      {
-        NSLog(@"%@",stu->name);
+        NSLog(@”%@”,stu-&gt;name);
      }
  Student *liaoming =[array objectAtIndex:2];
- ```
-##### eg.2.
-```
+2.
 Car.h
 #import
 @interface Car : NSObject
@@ -117,28 +94,22 @@ Car.h
 }
 -(float)getKilometer;
 @end
-```
-```
 Car.m
-#import "Car.h"
+#import “Car.h”
 @implementation Car
 -(float)getKilometer
 {
     float kil=speed/oil;
-    NSLog(@"距离%f",kil);
+    NSLog(@”距离%f”,kil);
     return kil;
 }
 @end
-```
-```
 main.m
 Car *s1=[[Car alloc] init];
-    s1->speed=100;
-    s1->oil=200;
+    s1-&gt;speed=100;
+    s1-&gt;oil=200;
    [s1 getKilometer];
-```
-##### eg.3.
-```
+3.
 Person.h
 #import
 @interface Person : NSObject
@@ -152,14 +123,12 @@ Person.h
 //-(int)getAge;
 -(void)setAge:(int)newAge andName:(NSString *)newName;
 -(int)getAge;
--(NSString*)getName;
+-(NSString</em>)getName;
 @end
-```
-```
 Person.m
-#import "Person.h"
+#import “Person.h”
 @implementation Person
--(void)setAge:(int)newAge andName:(NSString *)newName
+-(void)setAge:(int)newAge andName:(NSString <em>)newName
 {
     age=newAge;
     name=newName;
@@ -168,16 +137,14 @@ Person.m
 {
     return age;
 }
--(NSString*)getName
+-(NSString</em>)getName
 {
     return name;
 }
 @end
-```
-```
 main.m
 Person *s1=[[Person alloc] init];
-   [s1 setAge:23 andName:@"Tom"];
+   [s1 setAge:23 andName:@”Tom”];</p>
 
-NSLog(@"%@ %d",[s1 getName],[s1 getAge]);
-```
+<p>NSLog(@”%@ %d”,[s1 getName],[s1 getAge]);</p>
+:ET

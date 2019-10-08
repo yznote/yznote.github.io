@@ -175,7 +175,10 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 h4 {
-	font-size: 21px
+	font-size: 18px
+}
+h5 {
+	font-size: 16px
 }
 
 a {
@@ -275,7 +278,7 @@ pre code {
 }
 
 .post-container h5 {
-	font-size: 19px;
+	/*font-size: 19px;*/
 	font-weight: 600;
 	color: gray
 }
@@ -705,7 +708,7 @@ pre code {
 	}
 
 	.post-preview>a>.post-subtitle {
-		font-size: 13px
+		font-size: 15px
 	}
 
 	.post-preview .post-meta {
@@ -714,7 +717,7 @@ pre code {
 }
 
 .post-content-preview {
-	font-size: 12px;
+	font-size: 13px;
 	/*rk*/
 	/*font-style: italic;*/
 	color: #a3a3a3
@@ -728,7 +731,7 @@ pre code {
 
 @media only screen and (min-width:768px) {
 	.post-content-preview {
-		font-size: 14px
+		font-size: 13px
 	}
 }
 
