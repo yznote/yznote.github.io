@@ -1,0 +1,66 @@
+I"�<h4 id="常见的nsfilemanager文件方法">常见的NSFileManager文件方法</h4>
+
+<blockquote>
+  <p><code class="highlighter-rouge">-(NSData *)contentsAtPath:path</code>从一个文件读取数据<br />
+<code class="highlighter-rouge">-(BOOL)createFileAtPath: path contents:(NSData *)data attributes:attr</code>向一个文件写入数据<br />
+<code class="highlighter-rouge">-(BOOL)removeItemAtPath:path error:err</code>删除一个文件<br />
+<code class="highlighter-rouge">-(BOOL)moveItemAtPath：from toPath:to error:err</code>重命名或者移动一个文件（<code class="highlighter-rouge">to</code>不能是已存在的  <br />
+<code class="highlighter-rouge">-(BOOL)copyItemAtPath:from toPath:to error:err</code>复制文件（<code class="highlighter-rouge">to</code>不能是已存在的）<br />
+<code class="highlighter-rouge">-(BOOL)contentsEqualAtPath:path andPath:path2</code>比较两个文件的内容<br />
+<code class="highlighter-rouge">-(BOOL)fileExistAtPath:path</code>测试文件是否存在<br />
+<code class="highlighter-rouge">-(BOOL)isReadableFileAtPath:path</code>测试文件是否存在，并且是否能执行读操作  　
+<code class="highlighter-rouge">-(BOOL)isWriteableFileAtPath:path</code>测试文件是否存在，并且是否能执行写操作<br />
+<code class="highlighter-rouge">-(NSDictionary *)attributesOfItemAtPath:path error:err</code>获取文件的属性　　
+<code class="highlighter-rouge">-(BOOL)setAttributesOfItemAtPath:attr error:err</code>更改文件的属性</p>
+</blockquote>
+
+<h4 id="使用目录">使用目录</h4>
+
+<blockquote>
+  <p><code class="highlighter-rouge">-(NSString *)currentDirectoryPath</code>获取当前目录<br />
+<code class="highlighter-rouge">-(BOOL)changeCurrentDirectoryPath:path</code>更改当前目录<br />
+<code class="highlighter-rouge">-(BOOL)copyItemAtPath:from toPath:to error:err</code>复制目录结构（<code class="highlighter-rouge">to</code>不能是已存在的）<br />
+<code class="highlighter-rouge">-(BOOL)createDirectoryAtPath:path withIntermediateDirectories:(BOOL)flag attribute:attr</code>创建一个新目录<br />
+<code class="highlighter-rouge">-(BOOL)fileExistAtPath:path isDirectory:(BOOL*)flag</code>测试文件是不是目录（<code class="highlighter-rouge">flag</code>中储存结果<code class="highlighter-rouge">YES/NO</code>）<br />
+<code class="highlighter-rouge">-(NSArray *)contentsOfDirectoryAtPath:path error:err</code>列出目录内容<br />
+<code class="highlighter-rouge">-(NSDirectoryEnumerator *)enumeratorAtPath:path</code>枚举目录的内容<br />
+<code class="highlighter-rouge">-(BOOL)removeItemAtPath:path error:err</code>删除空目录<br />
+<code class="highlighter-rouge">-(BOOL)moveItemAtPath:from toPath:to error:err </code>重命名或移动一个目录（<code class="highlighter-rouge">to</code>不能是已存在的）</p>
+</blockquote>
+
+<h4 id="常用路径工具方法">常用路径工具方法</h4>
+
+<blockquote>
+  <p><code class="highlighter-rouge">+(NSString *)pathWithComponens:components</code>根据components中的元素构造有效路径<br />
+<code class="highlighter-rouge">-(NSArray *)pathComponents</code>析构路径，获得组成此路径的各个部分<br />
+<code class="highlighter-rouge">-(NSString *)lastPathComponent</code>提取路径的最后一个组成部分<br />
+<code class="highlighter-rouge">-(NSString *)pathExtension</code>从路径的最后一个组成部分中提取其扩展名<br />
+<code class="highlighter-rouge">-(NSString *)stringByAppendingPathComponent:path</code>将path添加到现有路径的末尾<br />
+<code class="highlighter-rouge">-(NSString *)stringByAppendingPathExtension:ext</code>将指定的扩展名添加到路径的最后一个组成部分<br />
+<code class="highlighter-rouge">-(NSString *)stringByDeletingLastPathComponent</code>删除路径的最后一个组成部分 <br />
+<code class="highlighter-rouge">-(NSString *)stringByDeletingPathExtension</code>从文件的最后一部分删除扩展名<br />
+<code class="highlighter-rouge">-(NSString *)stringByExpandingTileInPath</code>将路径中代字符扩展成用户主目录（<code class="highlighter-rouge">~</code>）或指定用户的主目录（<code class="highlighter-rouge">~user</code>）<br />
+<code class="highlighter-rouge">-(NSString *)stringByresolvingSymlinksInPath</code>尝试解析路径中的符号链接<br />
+<code class="highlighter-rouge">-(NSString *)stringByStandardizingPath</code>通过尝试解析<code class="highlighter-rouge">~</code>、<code class="highlighter-rouge">..</code>（父目录符号）、<code class="highlighter-rouge">.</code>（当前目录符号）和符号链接来标准化路径</p>
+</blockquote>
+
+<h4 id="常用的路径工具函数">常用的路径工具函数</h4>
+
+<blockquote>
+  <p><code class="highlighter-rouge">NSString* NSUserName(void)</code>返回当前用户的登录名<br />
+<code class="highlighter-rouge">NSString* NSFullUserName(void)</code>返回当前用户的完整用户名<br />
+<code class="highlighter-rouge">NSString* NSHomeDirectory(void)</code>返回当前用户主目录的路径<br />
+<code class="highlighter-rouge">NSString* NSHomeDirectoryForUser(NSString* user)</code>返回用户user的主目录<br />
+<code class="highlighter-rouge">NSString* NSTemporaryDirectory(void)</code>返回可用于创建临时文件的路径目录</p>
+</blockquote>
+
+<h4 id="常用的ios目录">常用的IOS目录</h4>
+
+<blockquote>
+  <p><code class="highlighter-rouge">Documents</code>（<code class="highlighter-rouge">NSDocumentDirectory</code>）用于写入应用相关数据文件的目录，在ios中写入这里的文件能够与iTunes共享并访问，存储在这里的文件会自动备份到云端<br />
+<code class="highlighter-rouge">Library/Caches</code>（<code class="highlighter-rouge">NSCachesDirectory</code>）用于写入应用支持文件的目录，保存应用程序再次启动需要的信息。iTunes不会对这个目录的内容进行备份<br />
+<code class="highlighter-rouge">tmp</code>（<code class="highlighter-rouge">use NSTemporaryDirectory（）</code>）这个目录用于存放临时文件，只程序终止时需要移除这些文件，当应用程序不再需要这些临时文件时，应该将其从这个目录中删除<br />
+<code class="highlighter-rouge">Library/Preferences</code>这个目录包含应用程序的偏好设置文件，使用 NSUserDefault类进行偏好设置文件的创建、读取和修改</p>
+</blockquote>
+
+:ET
