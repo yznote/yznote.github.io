@@ -27,6 +27,9 @@
 .sidebar-container h5 a:hover {
 	color: #B6C29A!important
 }
+.sidebar-container li a:hover {
+	color: #B6C29A!important
+}
 .sidebar-container a {
 	color: #bfbfbf!important
 }
