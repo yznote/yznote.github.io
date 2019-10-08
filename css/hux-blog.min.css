@@ -31,7 +31,7 @@
 
 .sidebar-container a:hover,.sidebar-container a:active {
 	/*color: #0085a1!important*/
-	color: #B6C29A!important
+	color: #fff!important
 }
 
 .sidebar-container .tags a {
@@ -979,6 +979,7 @@ img::-moz-selection {
 
 #tag_cloud a:hover,#tag_cloud .tag:hover,#tag_cloud a:active,#tag_cloud .tag:active {
 	background-color: #B6C29A!important
+	color: #fff;
 }
 
 @media only screen and (min-width:768px) {
