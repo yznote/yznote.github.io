@@ -1,0 +1,103 @@
+I"�@<h4 id="集合">集合</h4>
+
+<h5 id="创建集合">创建集合</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSSet</span> <span class="o">*</span><span class="n">set1</span><span class="o">=</span><span class="p">[[</span><span class="n">NSSet</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span><span class="s">@"a"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="n">NSSet</span> <span class="o">*</span><span class="n">set2</span><span class="o">=</span><span class="p">[</span><span class="n">NSSet</span> <span class="nf">setWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"set1:%@  set2:%@"</span><span class="p">,</span><span class="n">set1</span><span class="p">,</span><span class="n">set2</span><span class="p">);</span>
+</code></pre></div></div>
+<h5 id="根据已有集合创建新的集合">根据已有集合创建新的集合</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSSet</span> <span class="o">*</span><span class="n">set3</span><span class="o">=</span><span class="p">[[</span><span class="n">NSSet</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithSet</span><span class="p">:</span><span class="n">set2</span><span class="p">];</span>
+<span class="n">NSSet</span> <span class="o">*</span><span class="n">set4</span><span class="o">=</span><span class="p">[</span><span class="n">NSSet</span> <span class="nf">setWithSet</span><span class="p">:</span><span class="n">set2</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"set3:%@  set4:%@"</span><span class="p">,</span><span class="n">set3</span><span class="p">,</span><span class="n">set4</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h5 id="根据数组创建集合">根据数组创建集合</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSArray</span> <span class="o">*</span><span class="n">array</span><span class="o">=</span><span class="p">[</span><span class="n">NSArray</span> <span class="nf">arrayWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="n">NSSet</span> <span class="o">*</span><span class="n">set5</span><span class="o">=</span><span class="p">[</span><span class="n">NSSet</span> <span class="nf">setWithArray</span><span class="p">:</span><span class="n">array</span><span class="p">];</span>
+<span class="n">NSSet</span> <span class="o">*</span><span class="n">set6</span><span class="o">=</span><span class="p">[[</span><span class="n">NSSet</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithArray</span><span class="p">:</span><span class="n">array</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"set5:%@  set6:%@"</span><span class="p">,</span><span class="n">set5</span><span class="p">,</span><span class="n">set6</span><span class="p">);</span>
+
+<span class="n">NSSet</span> <span class="o">*</span><span class="n">set7</span><span class="o">=</span><span class="p">[</span><span class="n">NSSet</span> <span class="nf">setWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="n">NSSet</span> <span class="o">*</span><span class="n">set8</span><span class="o">=</span><span class="p">[</span><span class="n">NSSet</span> <span class="nf">setWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span><span class="s">@"x"</span><span class="p">,</span><span class="s">@"y"</span><span class="p">,</span><span class="s">@"z"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</code></pre></div></div>
+<h5 id="判断两个集合中内容是不是相同">判断两个集合中内容是不是相同</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BOOL</span> <span class="n">isEqual</span><span class="o">=</span><span class="p">[</span><span class="n">set7</span> <span class="nf">isEqualToSet</span><span class="p">:</span><span class="n">set8</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"Equal:%d"</span><span class="p">,</span><span class="n">isEqual</span><span class="p">);</span>
+</code></pre></div></div>
+<h5 id="判断两个集合是不是含有交集">判断两个集合是不是含有交集</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BOOL</span> <span class="n">isInset</span><span class="o">=</span><span class="p">[</span><span class="n">set7</span> <span class="nf">intersectsSet</span><span class="p">:</span><span class="n">set8</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"Intersects:%d"</span><span class="p">,</span><span class="n">isInset</span><span class="p">);</span>
+</code></pre></div></div>
+<h5 id="判断一个集合是不是另一个集合的子集">判断一个集合是不是另一个集合的子集</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BOOL isSub=[set7 isSubsetOfSet:set8];
+NSLog(@"Subset:%d",isSub);
+</code></pre></div></div>
+<h5 id="判断集合中是不是包含某个元素">判断集合中是不是包含某个元素</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BOOL</span> <span class="n">isCon</span><span class="o">=</span><span class="p">[</span><span class="n">set8</span> <span class="nf">containsObject</span><span class="p">:</span><span class="s">@"z"</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"contains:%d"</span><span class="p">,</span><span class="n">isCon</span><span class="p">);</span>
+
+<span class="n">NSSet</span> <span class="o">*</span><span class="n">set9</span><span class="o">=</span><span class="p">[</span><span class="n">NSSet</span> <span class="nf">setWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,[</span><span class="n">set9</span> <span class="nf">allObjects</span><span class="p">]);</span><span class="c1">//获取集合中所有元素</span>
+</code></pre></div></div>
+<h5 id="根据已有集合创建新集合同时添加一个元素">根据已有集合创建新集合，同时添加一个元素</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSSet</span> <span class="o">*</span><span class="n">set10</span><span class="o">=</span><span class="p">[</span><span class="n">set9</span> <span class="nf">setByAddingObject</span><span class="p">:</span><span class="s">@"d"</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,[</span><span class="n">set10</span> <span class="nf">allObjects</span><span class="p">]);</span>
+
+<span class="n">NSMutableSet</span> <span class="o">*</span><span class="n">mutableSet1</span><span class="o">=</span><span class="p">[</span><span class="n">NSMutableSet</span> <span class="nf">setWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="c1">//添加元素</span>
+<span class="p">[</span><span class="n">mutableSet1</span> <span class="nf">addObject</span><span class="p">:</span><span class="s">@"x"</span><span class="p">];</span>
+<span class="c1">//删除元素</span>
+<span class="p">[</span><span class="n">mutableSet1</span> <span class="nf">removeObject</span><span class="p">:</span><span class="s">@"a"</span><span class="p">];</span>
+<span class="n">NSMutableSet</span> <span class="o">*</span><span class="n">mutableSet2</span><span class="o">=</span><span class="p">[</span><span class="n">NSMutableSet</span> <span class="nf">setWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span><span class="s">@"e"</span><span class="p">,</span><span class="s">@"m"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</code></pre></div></div>
+<h5 id="两个集合相减">两个集合相减</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">mutableSet2</span> <span class="nf">minusSet</span><span class="p">:</span><span class="n">mutableSet1</span><span class="p">];</span>
+</code></pre></div></div>
+<h5 id="两个集合相加">两个集合相加</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">mutableSet2</span> <span class="nf">unionSet</span><span class="p">:</span><span class="n">mutableSet1</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"相减之后：%@"</span><span class="p">,</span><span class="n">mutableSet2</span><span class="p">);</span>
+</code></pre></div></div>
+<h4 id="时间">时间</h4>
+
+<h5 id="创建nsdate实例返回gmt时间">创建NSDate实例，返回GMT时间</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSDate</span> <span class="o">*</span><span class="n">date1</span><span class="o">=</span><span class="p">[</span><span class="n">NSDate</span> <span class="nf">date</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,</span><span class="n">date1</span><span class="p">);</span>
+</code></pre></div></div>
+<h5 id="返回date1保存的时间与date2的时间间隔">返回date1保存的时间与date2的时间间隔</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//NSTimeInterval是一个双精度值，表示以秒为单位的时间</span>
+<span class="n">NSDate</span> <span class="o">*</span><span class="n">date2</span><span class="o">=</span><span class="p">[</span><span class="n">NSDate</span> <span class="nf">dateWithTimeIntervalSinceNow</span><span class="p">:</span><span class="o">-</span><span class="mi">120</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,</span><span class="n">date2</span><span class="p">);</span>
+
+<span class="n">NSTimeInterval</span> <span class="n">interDate</span><span class="o">=</span><span class="p">[</span><span class="n">date1</span> <span class="nf">timeIntervalSinceDate</span><span class="p">:</span><span class="n">date2</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"%lf"</span><span class="p">,</span><span class="n">interDate</span><span class="p">);</span>
+</code></pre></div></div>
+<h5 id="指定date1时间过了多少秒">指定date1时间过了多少秒</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSDate</span> <span class="o">*</span><span class="n">date3</span><span class="o">=</span><span class="p">[</span><span class="n">NSDate</span> <span class="nf">dateWithTimeInterval</span><span class="p">:</span><span class="mi">300</span> <span class="nf">sinceDate</span><span class="p">:</span><span class="n">date1</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"date3:%@"</span><span class="p">,</span><span class="n">date3</span><span class="p">);</span>
+</code></pre></div></div>
+<h5 id="时间的比较">时间的比较</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">date3</span> <span class="nf">isEqualToDate</span><span class="p">:</span><span class="n">date1</span><span class="p">];</span><span class="c1">//判断是不是相同时间;</span>
+<span class="p">[</span><span class="n">date3</span> <span class="nf">earlierDate</span><span class="p">:</span><span class="n">date1</span><span class="p">];</span><span class="c1">//返回一个较早时间</span>
+<span class="p">[</span><span class="n">date1</span> <span class="nf">laterDate</span><span class="p">:</span><span class="n">date3</span><span class="p">];</span><span class="c1">//返回一个较晚时间</span>
+</code></pre></div></div>
+<h5 id="把时间表示为字符串">把时间表示为字符串</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span> <span class="o">*</span><span class="n">dateString</span><span class="o">=</span><span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithString</span><span class="p">:[</span><span class="n">date3</span> <span class="nf">description</span><span class="p">]];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"dateString:%@"</span><span class="p">,</span><span class="n">dateString</span><span class="p">);</span>
+</code></pre></div></div>
+<h5 id="时间格式">时间格式</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSDateFormatter</span> <span class="o">*</span><span class="n">formatter</span><span class="o">=</span><span class="p">[[</span><span class="n">NSDateFormatter</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="p">[</span><span class="n">formatter</span> <span class="nf">setAMSymbol</span><span class="p">:</span><span class="s">@"上午"</span><span class="p">];</span>
+<span class="p">[</span><span class="n">formatter</span> <span class="nf">setPMSymbol</span><span class="p">:</span><span class="s">@"下午"</span><span class="p">];</span>
+<span class="p">[</span><span class="n">formatter</span> <span class="nf">setDateFormat</span><span class="p">:</span><span class="s">@"YYYY年MM月dd日 HH:mm:ss MMM"</span><span class="p">];</span>
+
+<span class="cm">/**
+  * YYYY设置年份，MM设置第几个月，dd月份的第几天
+  * hh：12小时制的时，HH：24小时制的时
+  * mm设置分钟，ss设置秒
+  * aaa：反馈用户设置的上下午格式
+  * EEE:星期,zzzz时区，MMM月份
+  */</span>
+<span class="n">NSString</span> <span class="o">*</span><span class="n">time</span><span class="o">=</span><span class="p">[</span><span class="n">formatter</span> <span class="nf">stringFromDate</span><span class="p">:[</span><span class="n">NSDate</span> <span class="nf">date</span><span class="p">]];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,</span><span class="n">time</span><span class="p">);</span>
+</code></pre></div></div>
+:ET
