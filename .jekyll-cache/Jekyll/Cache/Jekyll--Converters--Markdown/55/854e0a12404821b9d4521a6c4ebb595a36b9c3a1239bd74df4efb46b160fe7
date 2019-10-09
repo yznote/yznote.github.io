@@ -1,0 +1,32 @@
+I"�<ol>
+  <li>用<code class="highlighter-rouge">UINavigationController</code>的时候用<code class="highlighter-rouge">pushViewController:animated</code><br />
+—-返回之前的视图<code class="highlighter-rouge">[[self navigationController] popViewControllerAnimated:YES];</code>
+—ps：<code class="highlighter-rouge">push</code>以后会在<code class="highlighter-rouge">navigation</code>的<code class="highlighter-rouge">left</code>  bar自动添加back按钮，它的响应方法就是返回。所以一般不需要写返回方法，点back按钮即可。</li>
+  <li>其他时候用presentModalViewController:animated
+ [self presentModalViewController:controller animated:YES];//YES有动画效果
+—–返回之前的视图    [self dismissModalViewControllerAnimated:YES];</li>
+  <li>切换视图一般用不到addSubview
+UINavigationController是导航控制器，如果pushViewController的话，会跳转到下一个ViewController，点返回会回到现在这个ViewController；
+如果是addSubview的话，其实还是对当前的ViewController操作，只是在当前视图上面又“盖”住了一层视图，其实原来的画面在下面呢，看不到而已。（当然，也可以用insertSubView atIndex那个方法设置放置的层次)。</li>
+</ol>
+
+<p>另加一个
+使用presentModalViewControllerAnimated方法从A-&gt;B-&gt;C，若想在C中直接返回A，则可这样实现：</p>
+
+<p>C中返回事件：</p>
+
+<p>void back<br />
+{<br />
+      [self dismissModalViewControllerAnimated:NO];//注意一定是NO！！<br />
+      [[NSNotificationCenter  defaultCenter]postNotificationName:@”backback” object:nil];<br />
+}
+然后在B中，</p>
+
+<p>//在viewdidload中：<br />
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(back) name:@”backback” object:nil];</p>
+
+<p>-(void)back<br />
+{<br />
+     [self dismissModalViewControllerAnimated:YES];<br />
+}</p>
+:ET
