@@ -1,0 +1,267 @@
+I"n]<p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+<ul>
+  <li>123 -
+    <blockquote>
+      <p>说明：蓝色字体的字是五个<code class="highlighter-rouge">butoon</code>“展示时间”是一个<code class="highlighter-rouge">lable</code></p>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "ViewController.h"
+</span>
+<span class="k">@interface</span> <span class="nc">ViewController</span> <span class="p">()</span><span class="o">&lt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="n">UIAlertViewDelegate</span><span class="p">,</span><span class="n">UIActionSheetDelegate</span><span class="p">,</span><span class="n">UIPickerViewDelegate</span><span class="p">,</span><span class="n">UIPickerViewDataSource</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="n">UIAlertView</span> <span class="o">*</span><span class="n">alertView</span><span class="p">;</span>
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">picker_array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">showAlertView</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">showActionView</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">showPikerView</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">showDateView</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">showL</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doShowTime</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">ViewController</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">indexN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span> <span class="p">{</span>
+
+    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
+
+    <span class="n">picker_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nf">arrayWithObjects</span><span class="p">:</span><span class="s">@"春"</span><span class="p">,</span><span class="s">@"夏"</span><span class="p">,</span><span class="s">@"秋"</span><span class="p">,</span><span class="s">@"冬"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">didReceiveMemoryWarning</span> <span class="p">{</span>
+
+    <span class="p">[</span><span class="n">super</span> <span class="nf">didReceiveMemoryWarning</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - 1.UIAlertView警告框
+</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">showAlertView</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+
+    <span class="n">alertView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithTitle</span><span class="p">:</span><span class="s">@"提示"</span> <span class="nf">message</span><span class="p">:</span><span class="s">@"这是一个警告框"</span> <span class="n">delegate</span><span class="o">:</span><span class="n">self</span> <span class="n">cancelButtonTitle</span><span class="o">:</span><span class="s">@"取消"</span> <span class="n">otherButtonTitles</span><span class="o">:</span><span class="s">@"1"</span><span class="p">,</span><span class="s">@"2"</span><span class="p">,</span><span class="s">@"3"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+
+    <span class="n">alertView</span><span class="p">.</span><span class="n">tag</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">alertView</span> <span class="nf">adonWithTitle</span><span class="p">:</span><span class="s">@"不确定"</span><span class="p">];</span><span class="c1">//动态添加子按钮</span>
+
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%d"</span><span class="p">,</span><span class="n">alertView</span><span class="p">.</span><span class="n">visible</span><span class="p">);</span><span class="c1">//是否可见</span>
+
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%d"</span><span class="p">,</span><span class="n">alertView</span><span class="p">.</span><span class="n">numberOfButtons</span><span class="p">);</span><span class="c1">//警告框的子按钮个数</span>
+
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,[</span><span class="n">alertView</span> <span class="nf">buttonTitleAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">]);</span><span class="c1">//指定索引的按钮的标题</span>
+
+    <span class="n">alertView</span><span class="p">.</span><span class="n">alertViewStyle</span> <span class="o">=</span> <span class="n">UIAlertViewStyleLoginAndPasswordInput</span><span class="p">;</span>
+
+    <span class="n">UITextField</span> <span class="o">*</span><span class="n">loginTF</span> <span class="o">=</span> <span class="p">[</span><span class="n">alertView</span> <span class="nf">textFieldAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+
+    <span class="n">UITextField</span> <span class="o">*</span><span class="n">pwTF</span> <span class="o">=</span> <span class="p">[</span><span class="n">alertView</span> <span class="nf">textFieldAtIndex</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+
+    <span class="n">loginTF</span><span class="p">.</span><span class="n">placeholder</span> <span class="o">=</span> <span class="s">@"请输入账号"</span><span class="p">;</span>
+
+    <span class="n">pwTF</span><span class="p">.</span><span class="n">placeholder</span> <span class="o">=</span> <span class="s">@"请输入密码"</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">alertView</span> <span class="nf">show</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">alertView</span><span class="p">:(</span><span class="n">UIAlertView</span> <span class="o">*</span><span class="p">)</span><span class="nv">alertView1</span> <span class="nf">clickeonAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span><span class="p">{</span>
+
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"OK:tag=%d"</span><span class="p">,(</span><span class="kt">int</span><span class="p">)</span><span class="n">alertView1</span><span class="p">.</span><span class="n">tag</span><span class="p">);</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">buttonIndex</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+
+        <span class="p">{</span>
+
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"取消"</span><span class="p">);</span><span class="k">break</span><span class="p">;</span>
+
+        <span class="p">}</span>
+
+        <span class="k">case</span> <span class="mi">1</span><span class="p">:{</span>
+
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"这是1"</span><span class="p">);</span><span class="k">break</span><span class="p">;</span>
+
+        <span class="p">}</span>
+
+        <span class="k">case</span> <span class="mi">2</span><span class="p">:{</span>
+
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"这是2"</span><span class="p">);</span><span class="k">break</span><span class="p">;</span>
+
+        <span class="p">}</span>
+
+        <span class="k">case</span> <span class="mi">3</span><span class="p">:{</span>
+
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"这是3"</span><span class="p">);</span><span class="k">break</span><span class="p">;</span>
+
+        <span class="p">}</span>
+
+        <span class="nl">default:</span>    <span class="k">break</span><span class="p">;</span>
+
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - 2.UIActionSheet提示框
+</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">showActionView</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+
+    <span class="n">UIActionSheet</span> <span class="o">*</span><span class="n">actionSheet</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIActionSheet</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithTitle</span><span class="p">:</span><span class="s">@"请选择"</span> <span class="nf">delegate</span><span class="p">:</span><span class="n">self</span> <span class="n">cancelButtonTitle</span><span class="o">:</span><span class="s">@"取消"</span> <span class="n">destructiveButtonTitle</span><span class="o">:</span><span class="s">@"拍照"</span> <span class="n">otherButtonTitles</span><span class="o">:</span><span class="s">@"相册"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+
+    <span class="p">[</span><span class="n">actionSheet</span> <span class="nf">showInView</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">];</span><span class="c1">//展示在哪一个视图中</span>
+
+    
+
+<span class="p">}</span>
+
+<span class="c1">//判断点击了哪一个</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">actionSheet</span><span class="p">:(</span><span class="n">UIActionSheet</span> <span class="o">*</span><span class="p">)</span><span class="nv">actionSheet</span> <span class="nf">clickeonAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span><span class="p">{</span>
+
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%d"</span><span class="p">,</span><span class="n">buttonIndex</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="c1">//将要消失</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">actionSheet</span><span class="p">:(</span><span class="n">UIActionSheet</span> <span class="o">*</span><span class="p">)</span><span class="nv">actionSheet</span> <span class="nf">willDismissWithButtonIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span><span class="p">{</span>
+
+    
+
+<span class="p">}</span>
+
+<span class="c1">//已经消失</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">actionSheet</span><span class="p">:(</span><span class="n">UIActionSheet</span> <span class="o">*</span><span class="p">)</span><span class="nv">actionSheet</span> <span class="nf">didDismissWithButtonIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span><span class="p">{</span>
+
+    
+
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - 3.UIPickerView选择器
+</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">showPikerView</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+
+    <span class="n">UIPickerView</span> <span class="o">*</span><span class="n">picker</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIPickerView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">200</span><span class="p">)];</span>
+
+    <span class="n">picker</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span><span class="c1">//代理</span>
+
+    <span class="n">picker</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span><span class="c1">//数据源的协议（代理）</span>
+
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">picker</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="cp">#pragma mark (3.1) UIPickerViewDataSource中必须实现的方法
+</span>
+<span class="c1">//返回列数</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">numberOfComponentsInPickerView</span><span class="p">:(</span><span class="n">UIPickerView</span> <span class="o">*</span><span class="p">)</span><span class="nv">pickerView</span><span class="p">{</span>
+
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="c1">//返回行数</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">pickerView</span><span class="p">:(</span><span class="n">UIPickerView</span> <span class="o">*</span><span class="p">)</span><span class="nv">pickerView</span> <span class="nf">numberOfRowsInComponent</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">component</span><span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">component</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+
+    <span class="p">}</span><span class="k">else</span>
+
+        <span class="k">return</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="cp">#pragma mark (3.2) UIPickerViewDelegate
+</span>
+<span class="c1">//设置单元格显示内容</span>
+
+<span class="k">-</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nf">pickerView</span><span class="p">:(</span><span class="n">UIPickerView</span> <span class="o">*</span><span class="p">)</span><span class="nv">pickerView</span> <span class="nf">titleForRow</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">row</span> <span class="nf">forComponent</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">component</span>
+
+<span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">component</span> <span class="o">==</span><span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">picker_array</span> <span class="nf">objectAtIndex</span><span class="p">:</span><span class="n">row</span><span class="p">];</span>
+
+    <span class="p">}</span>
+
+    <span class="k">else</span><span class="p">{</span>
+
+        <span class="n">NSString</span> <span class="o">*</span><span class="n">string</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%d月"</span><span class="p">,</span><span class="n">row</span><span class="o">+</span><span class="n">indexN</span><span class="p">];</span>
+
+        <span class="k">return</span> <span class="n">string</span><span class="p">;</span>
+
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="c1">//设置选中的piker中的某一行</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">pickerView</span><span class="p">:(</span><span class="n">UIPickerView</span> <span class="o">*</span><span class="p">)</span><span class="nv">pickerView</span> <span class="nf">didSelectRow</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">row</span> <span class="nf">inComponent</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">component</span><span class="p">{</span>
+
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">get_str</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">pickerView</span><span class="p">:</span><span class="n">pickerView</span> <span class="nf">titleForRow</span><span class="p">:</span><span class="n">row</span> <span class="n">forComponent</span><span class="o">:</span><span class="mi">1</span><span class="p">];</span>
+
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Com:%@"</span><span class="p">,</span><span class="n">get_str</span><span class="p">);</span>
+ 
+    <span class="k">if</span> <span class="p">(</span><span class="n">component</span> <span class="o">==</span><span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">indexN</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"indexn:%d"</span><span class="p">,</span><span class="n">indexN</span><span class="p">);</span>
+
+        <span class="p">[</span><span class="n">pickerView</span>  <span class="nf">reloadAllComponents</span><span class="p">];</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - 4.UIDatePicker时间选择器
+</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">showDateView</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+
+    <span class="n">UIDatePicker</span> <span class="o">*</span><span class="n">date_picker</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIDatePicker</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">200</span><span class="p">)];</span>
+
+    <span class="n">date_picker</span><span class="p">.</span><span class="n">date</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="nf">date</span><span class="p">];</span>
+
+    <span class="n">date_picker</span><span class="p">.</span><span class="n">tag</span> <span class="o">=</span> <span class="mi">1007</span><span class="p">;</span>
+
+    <span class="c1">//显示样式</span>
+
+    <span class="n">date_picker</span><span class="p">.</span><span class="n">datePickerMode</span> <span class="o">=</span> <span class="n">UIDatePickerModeDate</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">date_picker</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doShowTime</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span><span class="c1">//选择按钮</span>
+
+    <span class="n">UIDatePicker</span> <span class="o">*</span><span class="n">datePK</span> <span class="o">=</span> <span class="p">(</span><span class="n">UIDatePicker</span><span class="o">*</span><span class="p">)[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">viewWithTag</span><span class="p">:</span><span class="mi">1007</span><span class="p">];</span>
+
+    <span class="n">NSDateFormatter</span> <span class="o">*</span><span class="n">formatter</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSDateFormatter</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+
+    <span class="n">formatter</span><span class="p">.</span><span class="n">dateFormat</span> <span class="o">=</span> <span class="s">@"YYYY-MM-dd  hh:mm:ss aaa"</span><span class="p">;</span>
+
+    <span class="n">_showL</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">formatter</span> <span class="nf">stringFromDate</span><span class="p">:</span><span class="n">datePK</span><span class="p">.</span><span class="n">date</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+:ET

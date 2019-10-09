@@ -1,0 +1,132 @@
+---
+layout:     post
+title:      PickerView
+subtitle:   
+date:       2015-11-24
+author:     Rookie
+header-img: 
+catalog: true
+stickie: false
+tags:
+    - iOS
+    - OC
+    - C
+---
+
+![新浪博客的图片丢失了](/img/noimg.jpeg)
+<center style="color: #969696">新浪博客的原始图片丢失了</center>
+
+![新浪博客的图片丢失了](/img/noimg.jpeg)
+<center style="color: #969696">新浪博客的原始图片丢失了</center>
+>说明：图片是`Student.h`和`Student.m`里的代码
+
+```obj-c
+#import "ViewController.h"
+
+#import "StudentClass.h"
+
+@interface ViewController ()<UIPickerViewDelegate,UIPickerViewDataSource>{
+
+}
+
+@property(nonatomic,strong)NSArray *classArray;
+
+@end
+
+@implementation ViewController
+
+static int indexN=0;
+
+static int aTag = 0;
+
+-(void)setClassArray:(NSArray *)classArray {
+
+    NSString *plist_path = @"/Users/LiHeping/Desktop/Student.plist";
+
+    NSArray *plist_array = [NSArray arrayWithContentsOfFile:plist_path];
+
+    NSMutableArray *mutableArray=[NSMutableArray array];
+
+    for (NSDictionary *sub_dic in plist_array) {
+
+        StudentClass *aClass=[[StudentClass alloc]initWithDic:sub_dic];
+
+        [mutableArray addObject:aClass];
+
+    }
+
+    _classArray = mutableArray;
+
+}
+
+- (void)viewDidLoad {
+
+    [super viewDidLoad];
+
+    self.classArray = [NSArray array];
+
+    UIPickerView *picker=[[UIPickerView alloc]initWithFrame:CGRectMake(0, 0, 320, 260)];
+
+    picker.delegate = self;
+
+    picker.dataSource = self;
+
+    [self.view addSubview:picker];
+
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+
+    return 2;
+
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+
+    if (component == 0) {
+
+       return _classArray.count;
+
+    }else {
+
+        NSLog(@"----%d",indexN);
+
+        return indexN;
+    }
+
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+
+    if (component == 0) {
+
+        StudentClass *aClass = [_classArray objectAtIndex:row];
+
+        return aClass.className;
+
+    }
+
+    StudentClass *aClass = [_classArray objectAtIndex:aTag];
+
+    NSString *stu_name = [aClass.students objectAtIndex:row];
+
+    return stu_name;
+
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+
+    if (component == 0) {
+
+        aTag = (int)row;//2
+
+        StudentClass *aClass=[_classArray objectAtIndex:row];
+
+        indexN = (int)aClass.students.count;//4
+
+        [pickerView reloadAllComponents];
+    }
+}
+
+@end
+```
