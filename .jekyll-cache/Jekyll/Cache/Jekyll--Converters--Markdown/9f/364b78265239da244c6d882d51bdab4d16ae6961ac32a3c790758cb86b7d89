@@ -1,0 +1,51 @@
+I"�<h4 id="filemanagerm">FileManager.m</h4>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "FileManager.h"
+</span>
+<span class="err">@</span><span class="n">implementation</span> <span class="n">FileManager</span>
+
+<span class="o">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">showFiles</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">path</span><span class="p">;{</span>
+
+    <span class="c1">// 1.判断文件还是目录</span>
+    <span class="n">NSFileManager</span> <span class="o">*</span> <span class="n">fileManger</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSFileManager</span>  <span class="n">defaultManager</span><span class="p">];</span>
+    <span class="n">BOOL</span> <span class="n">isDir</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
+    <span class="n">BOOL</span> <span class="n">isExist</span> <span class="o">=</span> <span class="p">[</span><span class="n">fileManger</span> <span class="n">fileExistsAtPath</span><span class="o">:</span><span class="n">path</span> <span class="n">isDirectory</span><span class="o">:&amp;</span><span class="n">isDir</span><span class="p">];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">isExist</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 2. 判断是不是目录</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isDir</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">NSArray</span> <span class="o">*</span> <span class="n">dirArray</span> <span class="o">=</span> <span class="p">[</span><span class="n">fileManger</span> <span class="n">contentsOfDirectoryAtPath</span><span class="o">:</span><span class="n">path</span> <span class="n">error</span><span class="o">:</span><span class="n">nil</span><span class="p">];</span>
+            <span class="n">NSString</span> <span class="o">*</span> <span class="n">subPath</span> <span class="o">=</span> <span class="n">nil</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span> <span class="n">str</span>  <span class="n">in</span> <span class="n">dirArray</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">subPath</span>  <span class="o">=</span> <span class="p">[</span><span class="n">path</span>  <span class="n">stringByAppendingPathComponent</span><span class="o">:</span><span class="n">str</span><span class="p">];</span>
+                <span class="n">BOOL</span> <span class="n">issubDir</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
+                <span class="p">[</span><span class="n">fileManger</span>  <span class="n">fileExistsAtPath</span><span class="o">:</span><span class="n">subPath</span> <span class="n">isDirectory</span><span class="o">:&amp;</span><span class="n">issubDir</span><span class="p">];</span>
+                <span class="p">[</span><span class="n">self</span>  <span class="n">showFiles</span><span class="o">:</span><span class="n">subPath</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="err">@</span><span class="s">"%@"</span><span class="p">,</span><span class="n">path</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="err">@</span><span class="s">"你打印的是目录或者不存在"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="err">@</span><span class="n">end</span>
+</code></pre></div></div>
+
+<h4 id="mainm">main.m</h4>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import 
+#import "FileManager.h"
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+
+    <span class="err">@</span><span class="n">autoreleasepool</span> <span class="p">{</span>
+
+        <span class="n">NSString</span> <span class="o">*</span> <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSHomeDirectory</span><span class="p">()</span> <span class="n">stringByAppendingPathComponent</span><span class="o">:</span><span class="err">@</span><span class="s">"desktop/new new"</span><span class="p">];</span><span class="c1">// 更改：自己规定路径</span>
+        <span class="p">[</span><span class="n">FileManager</span>  <span class="n">showFiles</span><span class="o">:</span><span class="n">path</span><span class="p">];</span>
+    <span class="p">}</span>
+
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET

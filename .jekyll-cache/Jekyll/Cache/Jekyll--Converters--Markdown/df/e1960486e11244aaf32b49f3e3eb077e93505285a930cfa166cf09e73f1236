@@ -1,0 +1,132 @@
+I"�A<h4 id="结构体">结构体</h4>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include 
+</span><span class="kt">void</span> <span class="nf">structOne</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">//定义一个名为Student的结构体类型</span>
+    <span class="k">struct</span> <span class="n">Student</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>        <span class="c1">//年龄</span>
+        <span class="kt">float</span> <span class="n">score</span><span class="p">;</span>    <span class="c1">//成绩</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>     <span class="c1">//名字</span>
+    <span class="p">};</span>
+   
+    <span class="c1">//定义结构体变量</span>
+    <span class="k">struct</span> <span class="n">Student</span> <span class="n">stu</span><span class="o">=</span><span class="p">{</span><span class="mi">21</span><span class="p">,</span><span class="mi">99</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="s">"Tom"</span><span class="p">};</span>
+    <span class="c1">//stu={22,88.0,"Jack"};---错误方法</span>
+   
+    <span class="n">printf</span><span class="p">(</span><span class="s">"tom age is %d,score is %.2f,name is %s"</span><span class="p">,</span><span class="n">stu</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu</span><span class="p">.</span><span class="n">score</span><span class="p">,</span><span class="n">stu</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+   
+    <span class="k">struct</span> <span class="n">Teacher</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>        <span class="c1">//年龄</span>
+        <span class="kt">float</span> <span class="n">height</span><span class="p">;</span>    <span class="c1">//身高</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>     <span class="c1">//名字</span>
+    <span class="p">}</span><span class="n">tea1</span><span class="o">=</span><span class="p">{</span><span class="mi">33</span><span class="p">,</span><span class="mi">180</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="p">,</span><span class="s">"Teacher Li"</span><span class="p">};</span>
+    <span class="n">tea1</span><span class="p">.</span><span class="n">height</span><span class="o">=</span><span class="mi">170</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span><span class="c1">//结构体变量的某个结构成员重赋值</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">teacher age is %d,height is %g,name is %s"</span><span class="p">,</span><span class="n">tea1</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">tea1</span><span class="p">.</span><span class="n">height</span><span class="p">,</span><span class="n">tea1</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">structTwo</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">//声明一个匿名的结构体</span>
+    <span class="k">struct</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+    <span class="p">}</span><span class="n">stu1</span><span class="o">=</span><span class="p">{</span><span class="mi">22</span><span class="p">,</span><span class="s">"Jack"</span><span class="p">},</span><span class="n">stu2</span><span class="o">=</span><span class="n">stu1</span><span class="p">;</span><span class="c1">//声明结构体变量的时候，可以定义多个</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"匿名结构体1：age:%d,name:%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"匿名结构体2：age:%d,name:%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">stu2</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu2</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="pragma-mark-2-结构体嵌套调用"><code class="highlighter-rouge">#</code>pragma mark 2 结构体嵌套调用</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">structThree</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">//结构体的递归(错误)</span>
+<span class="c1">//    struct Student {</span>
+<span class="c1">//        int age;</span>
+<span class="c1">//        char *name;</span>
+<span class="c1">//        struct Student stu1;</span>
+<span class="c1">//    };</span>
+   
+    <span class="c1">//结构体的嵌套</span>
+    <span class="k">struct</span> <span class="n">Birthday</span><span class="p">{</span>
+        <span class="kt">int</span> <span class="n">year</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">month</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">day</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">Student</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">Birthday</span> <span class="n">bir1</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">Student</span> <span class="n">stu1</span><span class="o">=</span><span class="p">{</span><span class="mi">21</span><span class="p">,</span><span class="s">"Jack"</span><span class="p">,{</span><span class="mi">1991</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">}};</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"age=%d,name=%s,birthday:%d-%d-%d"</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">bir1</span><span class="p">.</span><span class="n">year</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">bir1</span><span class="p">.</span><span class="n">month</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">bir1</span><span class="p">.</span><span class="n">day</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="pragma-mark-3-结构体封装视图的坐标"><code class="highlighter-rouge">#</code>pragma mark 3 结构体封装视图的坐标</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">structFrame</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">CGPoint</span><span class="p">{</span><span class="c1">//位置</span>
+        <span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">y</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">CGSize</span><span class="p">{</span><span class="c1">//尺寸</span>
+        <span class="kt">double</span> <span class="n">wigth</span><span class="p">;</span>
+        <span class="kt">double</span> <span class="n">hight</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">CGFrame</span><span class="p">{</span><span class="c1">//坐标（包含位置、尺寸）</span>
+        <span class="k">struct</span> <span class="n">CGPoint</span> <span class="n">point</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">CGSize</span> <span class="n">size</span><span class="p">;</span>
+    <span class="p">};</span>
+   
+    <span class="k">struct</span> <span class="n">View</span><span class="p">{</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">color</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">CGFrame</span> <span class="n">frame</span><span class="p">;</span>
+    <span class="p">};</span>
+   
+    <span class="k">struct</span> <span class="n">View</span> <span class="n">view1</span><span class="o">=</span><span class="p">{</span><span class="s">"redColor"</span><span class="p">,{</span><span class="mi">100</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">60</span><span class="p">}};</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"view color is %s,view.x:%f,view.y:%f,view.w:%lf,view.h:%lf"</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">color</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">wigth</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">hight</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="pragma-mark-4-结构体数组"><code class="highlighter-rouge">#</code>pragma mark 4 结构体数组</h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">structFour</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">Student</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+    <span class="p">}</span><span class="n">stu</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="err">\</span><span class="p">{</span><span class="err">\</span><span class="p">{</span><span class="mi">23</span><span class="p">,</span><span class="s">"Tom"</span><span class="err">\</span><span class="p">},</span><span class="err">\</span><span class="p">{</span><span class="mi">21</span><span class="p">,</span><span class="s">"Jack"</span><span class="err">\</span><span class="p">}</span><span class="err">\</span><span class="p">};</span>
+    <span class="c1">//struct Student man[3]={};</span>
+    <span class="k">struct</span> <span class="n">Student</span> <span class="n">stu1</span><span class="o">=</span><span class="n">stu</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"数组中第一个学生：age=%d,name=%s"</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="pragma-mark-5-结构体作为函数的参数"><code class="highlighter-rouge">#</code>pragma mark 5 结构体作为函数的参数</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Person</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">change</span><span class="p">(</span><span class="k">struct</span> <span class="n">Person</span> <span class="n">p</span><span class="p">){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"参数传递：%d"</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">age</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">structFive</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">Person</span> <span class="n">person</span><span class="o">=</span><span class="p">{</span><span class="mi">24</span><span class="p">};</span>
+    <span class="n">change</span><span class="p">(</span><span class="n">person</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="pragma-mark-6-指向结构体的指针"><code class="highlighter-rouge">#</code>pragma mark 6 指向结构体的指针</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Person</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">structSix</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">Person</span> <span class="n">per1</span><span class="o">=</span><span class="p">{</span><span class="mi">33</span><span class="p">};</span>
+    <span class="k">struct</span> <span class="n">Person</span> <span class="o">*</span><span class="n">per2</span><span class="p">;</span>
+    <span class="n">per2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">per1</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">per1</span><span class="p">.</span><span class="n">age</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,(</span><span class="o">*</span><span class="n">per2</span><span class="p">).</span><span class="n">age</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span><span class="n">per2</span><span class="o">-&gt;</span><span class="n">age</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">structSix</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET
