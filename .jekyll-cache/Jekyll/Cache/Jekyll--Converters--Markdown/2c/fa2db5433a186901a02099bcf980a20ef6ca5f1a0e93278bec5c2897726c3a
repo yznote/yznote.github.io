@@ -1,0 +1,101 @@
+I"i8<h4 id="今天遇到一个很郁闷的问题新做的ipad程序中界面居然在未作任何配置的情况下不支持旋转了">今天遇到一个很郁闷的问题：新做的ipad程序中，界面居然在未作任何配置的情况下不支持旋转了。</h4>
+
+<p>通过在<code class="highlighter-rouge">UITabbarController</code>的旋转事件添加<code class="highlighter-rouge">NSLog</code>发现，其完全没有被触发。通过网上查资料 在<code class="highlighter-rouge">cocochina</code>上找到了答案:</p>
+
+<blockquote>
+  <p>是位<code class="highlighter-rouge">hanzengbo</code>的朋友的解答 原文如下:</p>
+</blockquote>
+
+<blockquote>
+  <p>“昨天忙乎了一天，没搞定。今天早上终于搞定了。贴出来希望能对遇到相似问题的哥们有用。前面搜到的答案都说是<code class="highlighter-rouge">UITabbarController</code>的问题。但是我重新写了个小程序，也使用了<code class="highlighter-rouge">tabbar</code>这个控件，发现每个窗体也是能触发旋转事件的。昨天在<code class="highlighter-rouge">tabbarcontroller</code>这个地方弄了一天，一直没有弄成功。但是有一点可以肯定，就是旋转事件是被父窗体劫持了，从而使得tabbar中的每个窗体不能接受到旋转事件。今天来重新看了一下程序，发现问题在于我的程序开始有个启动窗体，在<code class="highlighter-rouge">delegate</code>文件中，我把<code class="highlighter-rouge">tabbarcontroller</code>的<code class="highlighter-rouge">view</code>加进了这个启动窗体，所以整个程序的父窗体就是这个启动窗体。我在启动窗体的旋转事件中打印<code class="highlighter-rouge">log</code>信息，能够成功。为了让<code class="highlighter-rouge">tabbar</code>的每个<code class="highlighter-rouge">view</code>能够响应旋转事件，就只能让他们成为单独的父窗体。所以我修改启动窗体代码，首先在<code class="highlighter-rouge">delegate</code>中<code class="highlighter-rouge">addsubview</code> 启动窗体，然后<code class="highlighter-rouge">addsubview tabbar</code>的窗体，在启动画面显示一定时间后，就把启动窗体从<code class="highlighter-rouge">window</code>中<code class="highlighter-rouge">remove</code>掉，这样下面的<code class="highlighter-rouge">tabbar</code>窗体就显示出来了，而且<code class="highlighter-rouge">tabbar</code>的窗体成为了父窗体，能够正常接受到旋转时间。”</p>
+</blockquote>
+
+<p>和我一样，我也有登录窗 嘿嘿 太巧了</p>
+
+<p><code class="highlighter-rouge">[[[self.view.superview subviews] objectAtIndex:0] removeFromSuperView];</code></p>
+
+<p>搞定 。</p>
+
+<p>界面正常了 。<code class="highlighter-rouge">iOS</code>要学的东西真很多，为自己鼓劲 特此记录</p>
+
+<p>注：</p>
+
+<p>要翻转的时候，首先响应的方法：</p>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">shouldAutorotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">interfaceOrientation</span>
+
+<span class="k">return</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//则支持翻转，NO则不支持。</span>
+</code></pre></div></div>
+<p>紧接着</p>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span><span class="p">{</span>
+	
+<span class="p">}</span>
+</code></pre></div></div>
+<p>被调用。这个方法是发生在翻转开始之前。一般用来禁用某些控件或者停止某些正在进行的活动，比如停止视频播放。
+再来是</p>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willAnimateRotationToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span><span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+<p>这个方法发生在翻转的过程中，一般用来定制翻转后各个控件的位置、大小等。可以用另外两个方法来代替：<code class="highlighter-rouge">willAnimateFirstHalfOfRotationToInterfaceOrientation:duration:</code>   和  <code class="highlighter-rouge">willAnimateSecondHalfOfRotationFromInterfaceOrientation:duration:</code><br />
+最后调用的是</p>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span><span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+<p>这个方法发生在整个翻转完成之后。一般用来重新启用某些控件或者继续翻转之前被暂停的活动，比如继续视频播放。</p>
+
+<h4 id="uiviewcontroller没有随着设备一起旋转的原因">UIViewController没有随着设备一起旋转的原因</h4>
+
+<p><a href="http://blog.sina.com.cn/s/blog_6de189920101266h.html">转载</a></p>
+
+<p>对于<code class="highlighter-rouge">iPhone app</code>,<code class="highlighter-rouge">UIViewController</code>类提供了基本的视图管理模式。当设备改变方向的时候<code class="highlighter-rouge">view controller</code>的视图会自动随之旋转的。如果视图和子视图的<code class="highlighter-rouge">autoresizing</code>属性设置是对的，这时候视图又没有随着设备一起旋转，可能是以下的原因：</p>
+
+<h5 id="1view-controller没有完成代理方法">1.<code class="highlighter-rouge">view controller</code>没有完成代理方法</h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">shouldAutorotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">interfaceOrientation</span><span class="p">{</span>
+	<span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>也要实现了<code class="highlighter-rouge">shouldAutorotateToInterfaceOrientation</code>方法，同时<code class="highlighter-rouge">shouldAutorotateToInterfaceOrientation</code>方法要返回<code class="highlighter-rouge">YES</code>来支持所有的旋转方向</p>
+
+<h5 id="2view-controller的uiview属性嵌入在uiwindow中并非是一个附加的view-controller">2.<code class="highlighter-rouge">view controller</code>的<code class="highlighter-rouge">UIView</code>属性嵌入在<code class="highlighter-rouge">UIWindow</code>中，并非是一个附加的<code class="highlighter-rouge">view controller</code></h5>
+
+<p>你可能会发现<code class="highlighter-rouge">shouldAutorotateToInterfaceOrientation</code>方法只会在<code class="highlighter-rouge">view controller</code>启动的时候被调用，不会因为设置的旋转而在被调用。这是因为<code class="highlighter-rouge">view controller</code>束缚着他们所管理的视图，<code class="highlighter-rouge">view controller</code>是用来处理时间的响应链的一部分。<code class="highlighter-rouge">view controller</code>是从<code class="highlighter-rouge">UIResponder</code>继承而来，同时他被插入到他所管理的视图和他的<code class="highlighter-rouge">superview</code>之间。因此，通常的做法是在你的<code class="highlighter-rouge">app</code>中有一个主<code class="highlighter-rouge">view controller</code>来作为响应链的一部分。通常来说会添加一个主<code class="highlighter-rouge">view controller</code>，例如<code class="highlighter-rouge">UINavigationController</code>, <code class="highlighter-rouge">UITabBarController</code>或者<code class="highlighter-rouge">UIViewController</code>到<code class="highlighter-rouge">UIWindow</code>上。</p>
+
+<p>例如:</p>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">myWindow</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">primaryViewController</span><span class="p">.</span><span class="n">view</span><span class="p">];</span> 
+</code></pre></div></div>
+
+<p>如果你添加了另外一个<code class="highlighter-rouge">view controller的UIView</code>属性到<code class="highlighter-rouge">UIWindow</code>（<code class="highlighter-rouge">anotherController</code>和主<code class="highlighter-rouge">view controller</code>在同一个等级上）</p>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">myWindow</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">anotherController</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">anotherController</code>将不会接受旋转事件，只有第一个<code class="highlighter-rouge">view controller</code>（<code class="highlighter-rouge">primaryViewController</code>）会接受旋转事件。</p>
+
+<h5 id="3你添加了view-controller的uiview属性到uiwindow作为subview但是过早的release它">3.你添加了<code class="highlighter-rouge">view controller</code>的<code class="highlighter-rouge">UIView</code>属性到<code class="highlighter-rouge">UIWindow</code>作为<code class="highlighter-rouge">subview</code>，但是过早的<code class="highlighter-rouge">release</code>它。</h5>
+
+<p><code class="highlighter-rouge">UIWindow会retain</code>视图，而不是<code class="highlighter-rouge">view controller</code>。你不能过早的<code class="highlighter-rouge">release</code>他。在<code class="highlighter-rouge">UIApplicationDelegate子</code>类中定义他为<code class="highlighter-rouge">retain</code>属性。</p>
+
+<h5 id="4在uitabbarcontroller或者uinavigationcontroller中的子view-controller没有对同一方向的支持">4.在<code class="highlighter-rouge">UITabBarController</code>或者<code class="highlighter-rouge">UINavigationController</code>中的子<code class="highlighter-rouge">view controller</code>没有对同一方向的支持。</h5>
+
+<p>为了确保所有的子<code class="highlighter-rouge">view controller</code>旋转正确，你的每一个<code class="highlighter-rouge">view controller</code>，每一个<code class="highlighter-rouge">tab</code>或者额<code class="highlighter-rouge">navigation</code>都要完成<code class="highlighter-rouge">shouldAutorotateToInterfaceOrientation</code>，而且必须支持对于同一方向的旋转，也就是说对于同一方向的位置要返回为<code class="highlighter-rouge">YES</code>。</p>
+
+<h5 id="5重写-idinit或者--idinitwithnibnamensstring-nibname-bundlensbundle-nibbundle-方法的时候没有调用super">5.重写<code class="highlighter-rouge">-(id)init:</code>或者 <code class="highlighter-rouge">-(id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle</code> 方法的时候没有调用<code class="highlighter-rouge">super</code>。</h5>
+
+<p>对于对象的初始化，在你的<code class="highlighter-rouge">view controller</code>的<code class="highlighter-rouge">init</code>或者<code class="highlighter-rouge">initWithNibName</code>方法中必须要调用<code class="highlighter-rouge">super</code>。
+<code class="highlighter-rouge">iphone</code>提供了优秀的重力加速计，能够很灵敏地感应到手机的屏幕状态。在我们开发<code class="highlighter-rouge">iphone</code>应用时，为了提高用户体验，会来监听屏幕的当前状态。</p>
+<blockquote>
+  <p>对于<code class="highlighter-rouge">UIViewController</code>来说，提供了好几种方法。</p>
+  <ol>
+    <li>最简单的就是我们可以使用<code class="highlighter-rouge">Interface Builder</code>这个工具来帮助我们实现简单的屏幕界面适配，只需要在<code class="highlighter-rouge">IB</code> 中的<code class="highlighter-rouge">Size Insepector</code> 中通过对<code class="highlighter-rouge">Autosizing</code> 的
+设置来实现。但这只能做到简单界面的实现，如果界面比较复杂，可能就需要我们通过代码来实现。</li>
+    <li>我们可以通过对 <code class="highlighter-rouge">willAnimateRotationToInterfaceOrientation:duration:</code>这个方法的重写来配置我们的自动旋转。</li>
+    <li>你也可以通过对<code class="highlighter-rouge">willAnimateFirstHalfOfRotationToInterfaceOrientation:duration:</code>与<code class="highlighter-rouge">willAnimateSencondHalfOfRotationToInterfaceOrientation:duration:</code>两个方法的重写来更加精细地配置我们的自动旋转视图。特别需要注意 的就是前一个方法在执行时，此时的<code class="highlighter-rouge">UIInterfaceOrientation</code>仍然是旋转前的原有值，只有后一个方法在执行时<code class="highlighter-rouge">UIInterfaceOrientation</code>才是屏幕旋转后的值。</li>
+  </ol>
+</blockquote>
+
+:ET
