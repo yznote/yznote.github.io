@@ -1,0 +1,65 @@
+I"�<h4 id="ios-layout机制相关方法"><code class="highlighter-rouge">iOS layout</code>机制相关方法</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeThatFits</span><span class="p">:(</span><span class="n">CGSize</span><span class="p">)</span><span class="nv">size</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">sizeToFit</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">layoutSubviews</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">layoutIfNeeded</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setNeedsLayout</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setNeedsDisplay</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">drawRect</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="layoutsubviews在以下情况下会被调用"><code class="highlighter-rouge">layoutSubviews</code>在以下情况下会被调用：</h5>
+
+<blockquote>
+  <p>1、<code class="highlighter-rouge">init</code>初始化不会触发<code class="highlighter-rouge">layoutSubviews</code>但是是用<code class="highlighter-rouge">initWithFrame</code> 进行初始化时，当<code class="highlighter-rouge">rect</code>的值不为<code class="highlighter-rouge">CGRectZero</code>时,也会触发
+2、<code class="highlighter-rouge">addSubview</code>会触发<code class="highlighter-rouge">layoutSubviews</code>
+3、设置<code class="highlighter-rouge">view</code>的<code class="highlighter-rouge">Frame</code>会触发<code class="highlighter-rouge">layoutSubviews</code>，当然前提是<code class="highlighter-rouge">frame</code>的值设置前后发生了变化
+4、滚动一个<code class="highlighter-rouge">UIScrollView</code>会触发<code class="highlighter-rouge">layoutSubviews</code>
+5、旋转<code class="highlighter-rouge">Screen</code>会触发父<code class="highlighter-rouge">UIView</code>上的<code class="highlighter-rouge">layoutSubviews</code>事件
+6、改变一个<code class="highlighter-rouge">UIView</code>大小的时候也会触发父<code class="highlighter-rouge">UIView上的layoutSubviews</code>事件</p>
+</blockquote>
+
+<blockquote>
+  <p>在苹果的官方文档中强调:
+<code class="highlighter-rouge">You should override this method only if the autoresizing behaviors of the subviews do not offer the behavior you want.</code><br />
+<code class="highlighter-rouge">layoutSubviews</code>, 当我们在某个类的内部调整子视图位置时，需要调用。
+反过来的意思就是说：如果你想要在外部设置<code class="highlighter-rouge">subviews</code>的位置，就不要重写。</p>
+</blockquote>
+
+<h5 id="刷新子对象布局">刷新子对象布局</h5>
+
+<p><code class="highlighter-rouge">-layoutSubviews</code>方法：这个方法，默认没有做任何事情，需要子类进行重写
+<code class="highlighter-rouge">-setNeedsLayout</code>方法：标记为需要重新布局，异步调用<code class="highlighter-rouge">layoutIfNeeded</code>刷新布局，不立即刷新，但<code class="highlighter-rouge">layoutSubviews</code>一定会被调用
+<code class="highlighter-rouge">-layoutIfNeeded</code>方法：如果，有需要刷新的标记，立即调用<code class="highlighter-rouge">layoutSubviews</code>进行布局（如果没有标记，不会调用<code class="highlighter-rouge">layoutSubviews</code>）</p>
+
+<p>如果要立即刷新，要先调用<code class="highlighter-rouge">[view setNeedsLayout]</code>，把标记设为需要布局，然后马上调用<code class="highlighter-rouge">[view layoutIfNeeded]</code>，实现布局.在视图第一次显示之前，标记总是“需要刷新”的，可以直接调用<code class="highlighter-rouge">[view layoutIfNeeded]</code></p>
+
+<h5 id="重绘">重绘</h5>
+
+<p><code class="highlighter-rouge">-drawRect:(CGRect)rect</code>方法：重写此方法，执行重绘任务<br />
+<code class="highlighter-rouge">-setNeedsDisplay</code>方法：标记为需要重绘，异步调用<code class="highlighter-rouge">drawRect</code><br />
+<code class="highlighter-rouge">-setNeedsDisplayInRect:(CGRect)invalidRect</code>方法：标记为需要局部重绘<br />
+<code class="highlighter-rouge">sizeToFit</code>会自动调用<code class="highlighter-rouge">sizeThatFits</code>方法；<br />
+<code class="highlighter-rouge">sizeToFit</code>不应该在子类中被重写，应该重写<code class="highlighter-rouge">sizeThatFits</code></p>
+
+<p><code class="highlighter-rouge">sizeThatFits</code>传入的参数是<code class="highlighter-rouge">receiver</code>当前的<code class="highlighter-rouge">size</code>，返回一个适合的<code class="highlighter-rouge">size</code></p>
+
+<p><code class="highlighter-rouge">sizeToFit</code>可以被手动直接调用</p>
+
+<p><code class="highlighter-rouge">sizeToFit</code>和<code class="highlighter-rouge">sizeThatFits</code>方法都没有递归，对<code class="highlighter-rouge">subviews</code>也不负责，只负责自己</p>
+
+<p><code class="highlighter-rouge">layoutSubviews</code>对<code class="highlighter-rouge">subviews</code>重新布局</p>
+
+<p><code class="highlighter-rouge">layoutSubviews</code>方法调用先于<code class="highlighter-rouge">drawRect</code></p>
+
+<p><code class="highlighter-rouge">setNeedsLayout</code>在<code class="highlighter-rouge">receiver</code>标上一个需要被重新布局的标记，在系统<code class="highlighter-rouge">runloop</code>的下一个周期自动调用<code class="highlighter-rouge">layoutSubviews</code></p>
+
+<p><code class="highlighter-rouge">layoutIfNeeded</code>方法如其名，<code class="highlighter-rouge">UIKit</code>会判断该<code class="highlighter-rouge">receiver</code>是否需要<code class="highlighter-rouge">layout</code>.根据<code class="highlighter-rouge">Apple</code>官方文档,<code class="highlighter-rouge">layoutIfNeeded</code>方法应该是这样的</p>
+
+<p><code class="highlighter-rouge">layoutIfNeeded</code>遍历的不是<code class="highlighter-rouge">superview</code>链，应该是<code class="highlighter-rouge">subviews</code>链</p>
+
+<p><code class="highlighter-rouge">drawRect</code>是对<code class="highlighter-rouge">receiver</code>的重绘，能获得<code class="highlighter-rouge">context</code></p>
+
+<p><code class="highlighter-rouge">setNeedDisplay</code>在<code class="highlighter-rouge">receiver</code>标上一个需要被重新绘图的标记，在下一个<code class="highlighter-rouge">draw</code>周期自动重绘，<code class="highlighter-rouge">iphone device</code>的刷新频率是60hz，也就是1/60秒后重绘</p>
+:ET
