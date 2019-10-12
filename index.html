@@ -60,11 +60,35 @@ description: "砥砺前行"
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
 <ul class="pager">
+    <!-- 上一页 -->
     {% if paginator.previous_page %}
     <li class="previous">
         <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr;上一页</a>
     </li>
     {% endif %}
+    <!-- 中间 -->
+    <!-- <span class="page_num pagination__page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span> -->
+    {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+    <li class="pagelist">
+        <!-- <span class="pagelist-cur">{{ page }}</span> -->
+        <a class="pagelist-cur" onclick="return false">{{ page }}</a>
+    </li>
+    {% elsif page == 1 %}
+    <li class="pagelist">
+        <a class="pagelist-first" href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
+    </li>
+    {% elsif page == paginator.total_pages %}
+    <li class="pagelist">
+        <a class="pagelist-last" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+    </li>
+    {% else %}
+    <li class="pagelist">
+        <a class="pagelist-other" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    <!-- 下一页 -->
     {% if paginator.next_page %}
     <li class="next">
         <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页&rarr;</a>

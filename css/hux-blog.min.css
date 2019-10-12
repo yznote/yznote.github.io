@@ -863,6 +863,27 @@ form .row:first-child .floating-label-form-group {
 	margin: 20px 0 0!important;
 	padding: 0!important
 }
+.pager .pagelist a{
+	text-align: center;
+	padding: 5px 10px;
+	margin: 0;
+	/*border: 1px solid #B6C29A;*/
+	border:1px;
+	border-style: solid;
+	border-color: #DC143C;
+}
+.pager .pagelist .pagelist-cur {
+	color: #DC143C;/*红色*/
+}
+.pager .pagelist .pagelist-first {
+	color: #7FFF00;/*绿色*/
+}
+.pager .pagelist .pagelist-last {
+	color: #7FFF00;/*绿色*/
+}
+.pager .pagelist .pagelist-other {
+	color: #FFFF00;/*黄色*/
+}
 
 .pager li>a,.pager li>span {
 	font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","Microsoft JhengHei","Source Han Sans SC","Noto Sans CJK SC","Source Han Sans CN","Noto Sans SC","Source Han Sans TC","Noto Sans CJK TC","WenQuanYi Micro Hei",SimSun,sans-serif;
