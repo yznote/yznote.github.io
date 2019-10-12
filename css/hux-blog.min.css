@@ -872,7 +872,7 @@ form .row:first-child .floating-label-form-group {
 }
 .pager .pagelist .pagesel a{
 	text-align: center;
-	padding: 3px 12px;
+	padding: 6px 12px;
 	margin: -3px;
 	border: 1px solid #a3a3a3;
 	color: #a3a3a3;
@@ -883,7 +883,9 @@ form .row:first-child .floating-label-form-group {
 }
 .pager .pagelist .pagesel a:hover{
 	background-color: #B6C29A;
-	text-decoration: none
+	text-decoration: none;
+	/*cursor: not-allowed;*/
+	cursor: default;
 }
 .pager .pagelist .pagesel .pagelist-cur {
 	color: #fff;
