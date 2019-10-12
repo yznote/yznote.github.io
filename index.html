@@ -69,55 +69,39 @@ description: "砥砺前行"
     <!-- 中间 -->
     <!-- <span class="page_num pagination__page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span> -->
     {% for page in (1..paginator.total_pages) %}
-    {% if page == 1 %}<!-- 1212122 -->
+        {% if page == 1 %}
         <li class="pagelist">
-        {% if page == paginator.page %}
-        
-            
+            {% if page == paginator.page %}
             <span class="pagesel">
                 <a class="pagelist-cur-first" onclick="return false">{{ page }}</a>
             </span>
-        
-        {% else %}
-        
+            {% else %}
             <a class="pagelist-first" href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}
             </a>
-        
-        {% endif %}
+            {% endif %}
         </li>
-    {% elsif page == paginator.total_pages %}
+        {% elsif page == paginator.total_pages %}
         <li class="pagelist">
-        {% if page == paginator.page %}
-        
-            <!-- <span class="pagelist-cur">{{ page }}</span> -->
+            {% if page == paginator.page %}
             <span class="pagesel">
                 <a class="pagelist-cur-last" onclick="return false">{{ page }}</a>
             </span>
-        
-        {% else %}
-        
+            {% else %}
             <a class="pagelist-last" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
-        
-        {% endif %}
+            {% endif %}
         </li>
-    
-    {% else %}
+        {% else %}
         <li class="pagelist">
-        {% if page == paginator.page %}
-        
-            <!-- <span class="pagelist-cur">{{ page }}</span> -->
+            {% if page == paginator.page %}
             <span class="pagesel">
                 <a class="pagelist-cur" onclick="return false">{{ page }}</a>
             </span>
-        
-        {% else %}
-        
+            {% else %}
             <a class="pagelist-other" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}
             </a>
-        
-        {% endif %}
+            {% endif %}
         </li>
-    {% endif %}
+        {% endif %}
     {% endfor %}
     <!-- 下一页 -->
     {% if paginator.next_page %}
