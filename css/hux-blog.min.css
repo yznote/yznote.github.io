@@ -865,24 +865,52 @@ form .row:first-child .floating-label-form-group {
 }
 .pager .pagelist a{
 	text-align: center;
-	padding: 5px 10px;
-	margin: 0;
-	/*border: 1px solid #B6C29A;*/
-	border:1px;
-	border-style: solid;
-	border-color: #DC143C;
+	padding: 3px 12px;
+	margin: -3px;
+	border: 1px solid #a3a3a3;
+	color: #a3a3a3;
 }
-.pager .pagelist .pagelist-cur {
-	color: #DC143C;/*红色*/
+.pager .pagelist .pagesel a{
+	text-align: center;
+	padding: 3px 12px;
+	margin: -3px;
+	border: 1px solid #a3a3a3;
+	color: #a3a3a3;
+}
+.pager .pagelist a:hover{
+	background-color: #eeeeee;
+	text-decoration: none
+}
+.pager .pagelist .pagesel a:hover{
+	background-color: #B6C29A;
+	text-decoration: none
+}
+.pager .pagelist .pagesel .pagelist-cur {
+	color: #fff;
+	background-color: #B6C29A;
+}
+.pager .pagelist .pagesel .pagelist-cur-first {
+	color: #fff;
+	background-color: #B6C29A;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.pager .pagelist .pagesel .pagelist-cur-last {
+	color: #fff;
+	background-color: #B6C29A;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 .pager .pagelist .pagelist-first {
-	color: #7FFF00;/*绿色*/
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
 }
 .pager .pagelist .pagelist-last {
-	color: #7FFF00;/*绿色*/
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 .pager .pagelist .pagelist-other {
-	color: #FFFF00;/*黄色*/
+	
 }
 
 .pager li>a,.pager li>span {
