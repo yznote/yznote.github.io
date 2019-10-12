@@ -1,4 +1,4 @@
-I"�<h4 id="名词解释">名词解释</h4>
+I"<h4 id="名词解释">名词解释</h4>
 
 <h5 id="指针数组array-of-pointers">指针数组：array of pointers</h5>
 
@@ -13,13 +13,40 @@
 <p>指针也是一种数据类型；
 数据类型<code class="highlighter-rouge">*</code>指针变量名=初始化地址</p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 <span class="kt">int</span><span class="o">*</span><span class="n">p</span><span class="o">=&amp;</span><span class="n">i</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h4 id="eg1">eg.1.</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre>  <span class="cp">#include
 </span>  <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
   <span class="p">{</span>
      <span class="kt">int</span> <span class="o">*</span><span class="n">p1</span><span class="p">;</span><span class="c1">//声明了一个指向整形空间的指针变量；</span>
@@ -44,11 +71,27 @@
         <span class="n">printf</span><span class="p">(</span><span class="s">" %d"</span><span class="p">,</span><span class="n">array</span><span class="p">[</span><span class="nf">i</span><span class="p">]);</span>
      <span class="p">}</span>
  <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h4 id="eg2">eg.2.</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">exChange</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nf">exChange</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
 <span class="kt">void</span> <span class="nf">exChange</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
@@ -64,5 +107,5 @@
      <span class="c1">//函数的调用过程中，如果传递的参数只是普通的（非指针）变量值 只是相当于拷贝了一份数据给函数的形参，对当前函数里面的变量值，没有任何影响也就是说传指针就会改变当前函数变量值；</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">"a=%d,b=%d"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span><span class="c1">//a=44,b=33;</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 :ET

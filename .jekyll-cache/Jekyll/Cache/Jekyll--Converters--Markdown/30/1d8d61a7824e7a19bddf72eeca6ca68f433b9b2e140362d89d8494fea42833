@@ -1,8 +1,45 @@
-I"T�<h4 id="阶段整理">阶段整理</h4>
+I"~�<h4 id="阶段整理">阶段整理</h4>
 
 <h5 id="pragma-mark---1uilabeluibutton"><code class="highlighter-rouge">#pragma mark - 1.UILabel、UIButton</code></h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//创建lable</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre></td><td class="rouge-code"><pre><span class="c1">//创建lable</span>
 <span class="n">UILabel</span><span class="o">*</span><span class="n">lable</span><span class="o">=</span><span class="p">[[</span><span class="nf">UILabelalloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
 <span class="c1">//设置frame</span>
 <span class="n">lable</span><span class="p">.</span><span class="n">frame</span><span class="o">=</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span>
@@ -39,11 +76,46 @@
     <span class="p">[</span><span class="n">a</span> <span class="nf">setTitle</span><span class="p">:</span><span class="s">@"点过了"</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
     <span class="n">a</span><span class="p">.</span><span class="n">hidden</span><span class="o">=</span><span class="nb">NO</span><span class="p">;</span><span class="c1">//是否隐藏</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h5 id="pragma-mark---2uitextfield"><code class="highlighter-rouge">#pragma mark - 2.UITextField</code></h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UITextField</span> <span class="o">*</span><span class="n">textField</span><span class="o">=</span><span class="p">[[</span><span class="n">UITextField</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">35</span><span class="p">)];</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+</pre></td><td class="rouge-code"><pre><span class="n">UITextField</span> <span class="o">*</span><span class="n">textField</span><span class="o">=</span><span class="p">[[</span><span class="n">UITextField</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">35</span><span class="p">)];</span>
 <span class="c1">//背景</span>
 <span class="n">textField</span><span class="p">.</span><span class="n">backgroundColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">greenColor</span><span class="p">];</span>
 <span class="c1">//文本</span>
@@ -78,11 +150,71 @@
 <span class="n">textField</span><span class="p">.</span><span class="n">returnKeyType</span> <span class="o">=</span> <span class="n">UIReturnKeyDone</span><span class="p">;</span>
 <span class="c1">//键盘外观</span>
 <span class="n">textField</span><span class="p">.</span><span class="n">keyboardAppearance</span><span class="o">=</span><span class="n">UIKeyboardAppearanceDark</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h5 id="pragma-mark---3-uisegmentedcontrol-uiswitch-uislider"><code class="highlighter-rouge">#pragma mark - 3. UISegmentedControl、 UISwitch、 UISlider</code></h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="p">.</span><span class="err">分段控制器（并不是视图的控制器）</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+</pre></td><td class="rouge-code"><pre><span class="mi">1</span><span class="p">.</span><span class="err">分段控制器（并不是视图的控制器）</span>
 <span class="c1">//NSArray *item_array=@[@"A",@"B",@"C",@"D"];</span>
 <span class="n">UISegmentedControl</span><span class="o">*</span> <span class="n">segmentC</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UISegmentedControl</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithItems</span><span class="p">:@[</span><span class="s">@"A"</span><span class="p">,</span><span class="s">@"B"</span><span class="p">,</span><span class="s">@"C"</span><span class="p">,</span><span class="s">@"D"</span><span class="p">]];</span>
 <span class="n">NSLog</span><span class="p">(</span><span class="s">@"默认:%@"</span><span class="p">,</span><span class="n">NSStringFromCGRect</span><span class="p">(</span><span class="n">segmentC</span><span class="p">.</span><span class="n">frame</span><span class="p">));</span>
@@ -142,11 +274,32 @@
 <span class="p">{</span>
     <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%g"</span><span class="p">,</span><span class="n">slider</span><span class="p">.</span><span class="n">value</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h5 id="pragma-mark---4-uinavigationcontroller"><code class="highlighter-rouge">#pragma mark - 4. UINavigationController</code></h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">//标题</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre> <span class="c1">//标题</span>
 <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">@"第2页"</span><span class="p">;</span>
 <span class="c1">//左边按钮（创建方式一）</span>
 <span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">leftItem</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithTitle</span><span class="p">:</span><span class="s">@"返回吗"</span> <span class="nf">style</span><span class="p">:</span><span class="n">UIBarButtonItemStylePlain</span> <span class="n">target</span><span class="o">:</span><span class="n">self</span> <span class="n">action</span><span class="o">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">doReturn</span><span class="p">)];</span>
@@ -167,11 +320,70 @@
 <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span> <span class="nf">popToViewController</span><span class="p">:</span><span class="n">fiveVC</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
 <span class="c1">//一个一个的出栈</span>
 <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span> <span class="nf">popViewControllerAnimated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>#####<code class="highlighter-rouge">#pragma mark - 5.UIToolbar、UIBarButtonItem、UITextView、UISearchBar</code></p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//文本段落输入框  </span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+</pre></td><td class="rouge-code"><pre><span class="c1">//文本段落输入框  </span>
 <span class="n">UITextView</span><span class="o">*</span><span class="n">_textView</span> <span class="o">=</span> <span class="p">[[</span><span class="nf">UITextViewalloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">260</span><span class="p">,</span><span class="mi">200</span><span class="p">)];</span>
 <span class="n">_textView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">orangeColor</span><span class="p">];</span>
 <span class="n">_textView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
@@ -230,11 +442,54 @@
 <span class="n">_searchBar</span><span class="p">.</span><span class="n">showsCancelButton</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//展示右边小图标的样式为cancel</span>
 <span class="n">_searchBar</span><span class="p">.</span><span class="n">showsBookmarkButton</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//搜索框右边展示一本书</span>
 <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">_searchBar</span><span class="p">];</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h5 id="pragma-mark---6滚动视图小白点"><code class="highlighter-rouge">#pragma mark - 6.滚动视图、小白点</code></h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UIScrollView</span> <span class="o">*</span><span class="n">_scrollView</span><span class="p">;</span><span class="c1">//全局变量</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+</pre></td><td class="rouge-code"><pre><span class="n">UIScrollView</span> <span class="o">*</span><span class="n">_scrollView</span><span class="p">;</span><span class="c1">//全局变量</span>
 <span class="n">UIImageView</span> <span class="o">*</span><span class="n">_imageView</span><span class="p">;</span><span class="c1">//全局变量</span>
 <span class="n">UIImage</span> <span class="o">*</span> <span class="n">img</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"quan.jpg"</span><span class="p">];</span>
 <span class="n">_imageView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIImageView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithImage</span><span class="p">:</span><span class="n">img</span><span class="p">];</span>
@@ -277,11 +532,42 @@
 <span class="n">pageC</span><span class="p">.</span><span class="n">currentPage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//默认位置</span>
 <span class="c1">//给pageC添加事件</span>
 <span class="p">[</span><span class="n">pageC</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">doPageControl</span><span class="o">:</span><span class="p">)</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h5 id="pragma-mark---7表视图"><code class="highlighter-rouge">#pragma mark - 7.表视图</code></h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//创建表视图</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="rouge-code"><pre><span class="c1">//创建表视图</span>
 <span class="n">UITableView</span> <span class="o">*</span><span class="n">tableView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UITableView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">frame</span> <span class="nf">style</span><span class="p">:</span><span class="n">UITableViewStyleGrouped</span><span class="p">];</span>
 <span class="n">tableView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
 <span class="n">tableView</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
@@ -312,11 +598,27 @@
 <span class="n">cell</span><span class="p">.</span><span class="n">selectedBackgroundView</span> <span class="o">=</span> <span class="n">seletedView</span><span class="p">;</span>
 <span class="c1">//设置选中样式</span>
 <span class="n">cell</span><span class="p">.</span><span class="n">selectionStyle</span> <span class="o">=</span> <span class="n">UITableViewCellSelectionStyleNone</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h5 id="pragma-mark---8-uiapplication"><code class="highlighter-rouge">#pragma mark - 8. UIApplication</code></h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UIApplication</span> <span class="o">*</span><span class="n">app</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">];</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="n">UIApplication</span> <span class="o">*</span><span class="n">app</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">];</span>
 <span class="n">app</span><span class="p">.</span><span class="n">networkActivityIndicatorVisible</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
 <span class="c1">//打开用户的操作权限</span>
 <span class="kt">float</span> <span class="n">verson</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">UIDevice</span> <span class="nf">currentDevice</span><span class="p">]</span> <span class="nf">systemVersion</span><span class="p">]</span> <span class="nf">floatValue</span><span class="p">];</span>
@@ -332,5 +634,5 @@
 <span class="c1">//[app openURL:[NSURL URLWithString:@"tel://10086"]];//打电话</span>
 <span class="c1">//[app openURL:[NSURL URLWithString:@"sms://10086"]];//发信息</span>
 <span class="c1">//[app openURL:[NSURL URLWithString:@"mailto://10086@qq.com"]];//发邮件</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 :ET

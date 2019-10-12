@@ -1,4 +1,4 @@
-I"�)<h4 id="一了解几个相关的类">一、了解几个相关的类</h4>
+I"/<h4 id="一了解几个相关的类">一、了解几个相关的类</h4>
 
 <h5 id="1nsnotification">1、NSNotification</h5>
 
@@ -11,12 +11,17 @@
 
 <h6 id="nsnotification的初始化方法">NSNotification的初始化方法：</h6>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">name</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">object</span> <span class="nf">userInfo</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">userInfo</span><span class="p">;</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">name</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">object</span> <span class="nf">userInfo</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">userInfo</span><span class="p">;</span>
 
 <span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">notificationWithName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span><span class="p">;</span>
 
 <span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">notificationWithName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span> <span class="nf">userInfo</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">aUserInfo</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <blockquote>
   <p>注意:官方文档有明确的说明，不可以使用<code class="highlighter-rouge">init</code>进行初始化</p>
 </blockquote>
@@ -26,24 +31,33 @@
 <p>这个类是一个通知中心，使用单例设计，每个应用程序都会有一个默认的通知中心。用于调度通知的发送的接受。</p>
 
 <h6 id="添加一个观察者可以为它指定一个方法名字和对象接受到通知时执行方法">添加一个观察者，可以为它指定一个方法，名字和对象。接受到通知时，执行方法。</h6>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObserver</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">selector</span><span class="p">:(</span><span class="n">SEL</span><span class="p">)</span><span class="nv">aSelector</span> <span class="nf">name</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span><span class="p">;</span>
-</code></pre></div></div>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObserver</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">selector</span><span class="p">:(</span><span class="n">SEL</span><span class="p">)</span><span class="nv">aSelector</span> <span class="nf">name</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h6 id="发送通知消息的方法">发送通知消息的方法</h6>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">postNotification</span><span class="p">:(</span><span class="n">NSNotification</span> <span class="o">*</span><span class="p">)</span><span class="nv">notification</span><span class="p">;</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">postNotification</span><span class="p">:(</span><span class="n">NSNotification</span> <span class="o">*</span><span class="p">)</span><span class="nv">notification</span><span class="p">;</span>
 
 <span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">postNotificationName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span><span class="p">;</span>
 
 <span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">postNotificationName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span> <span class="nf">userInfo</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">aUserInfo</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h6 id="移除观察者的方法">移除观察者的方法</h6>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeObserver</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">observer</span><span class="p">;</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeObserver</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">observer</span><span class="p">;</span>
 
 <span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeObserver</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">name</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <blockquote>
   <p>几点注意：<br />
@@ -54,33 +68,52 @@
 <h4 id="二通知的使用流程">二、通知的使用流程</h4>
 
 <p>首先，我们在需要接收通知的地方注册观察者，比如：</p>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//获取通知中心单例对象</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1">//获取通知中心单例对象</span>
 <span class="n">NSNotificationCenter</span> <span class="o">*</span> <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNotificationCenter</span> <span class="nf">defaultCenter</span><span class="p">];</span>
 
 <span class="c1">//添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知</span>
 <span class="p">[</span><span class="n">center</span> <span class="nf">addObserver</span><span class="p">:</span><span class="n">self</span> <span class="nf">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">notice</span><span class="o">:</span><span class="p">)</span> <span class="n">name</span><span class="o">:</span><span class="s">@"123"</span> <span class="n">object</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>之后，在我们需要时发送通知消息</p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//创建一个消息对象</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1">//创建一个消息对象</span>
 <span class="n">NSNotification</span> <span class="o">*</span> <span class="n">notice</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNotification</span> <span class="nf">notificationWithName</span><span class="p">:</span><span class="s">@"123"</span> <span class="nf">object</span><span class="p">:</span><span class="nb">nil</span> <span class="n">userInfo</span><span class="o">:</span><span class="p">@{</span><span class="s">@"1"</span><span class="o">:</span><span class="s">@"123"</span><span class="p">}];</span>
 
 <span class="c1">//发送消息</span>
 <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="nf">defaultCenter</span><span class="p">]</span><span class="nf">postNotification</span><span class="p">:</span><span class="n">notice</span><span class="p">];</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>我们可以在回调的函数中取到userInfo内容，如下：</p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>
 <span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">notice</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">sender</span><span class="p">{</span>
 
     <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,</span><span class="n">sender</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>打印结果如下：</p>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mh">0x7fca68406b70</span> <span class="p">{</span><span class="n">name</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="mh">0x7fca68406b70</span> <span class="p">{</span><span class="n">name</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
 <span class="n">userInfo</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="mi">1</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
 <span class="p">}}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 :ET

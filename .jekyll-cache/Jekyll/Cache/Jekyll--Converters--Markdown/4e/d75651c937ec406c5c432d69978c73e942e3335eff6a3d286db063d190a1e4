@@ -1,4 +1,4 @@
-I"(<h4 id="前言">前言</h4>
+I">*<h4 id="前言">前言</h4>
 
 <blockquote>
   <p>我使用的<code class="highlighter-rouge">Mac OS X</code>版本是<code class="highlighter-rouge">10.8.2</code>，<code class="highlighter-rouge">Mac</code>自带了<code class="highlighter-rouge">Apache</code>环境。<br />
@@ -10,9 +10,11 @@
 
 <p>打开“终端(<code class="highlighter-rouge">terminal</code>)”，输入 <code class="highlighter-rouge">sudo apachectl -v</code>，（可能需要输入机器秘密）。如下显示<code class="highlighter-rouge">Apache</code>的版本</p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Server</span> <span class="n">version</span><span class="o">:</span> <span class="n">Apache</span><span class="o">/</span><span class="mi">2</span><span class="p">.</span><span class="mi">4</span><span class="p">.</span><span class="mi">34</span> <span class="p">(</span><span class="n">Unix</span><span class="p">)</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">Server</span> <span class="n">version</span><span class="o">:</span> <span class="n">Apache</span><span class="o">/</span><span class="mi">2</span><span class="p">.</span><span class="mi">4</span><span class="p">.</span><span class="mi">34</span> <span class="p">(</span><span class="n">Unix</span><span class="p">)</span>
 <span class="n">Server</span> <span class="n">built</span><span class="o">:</span>   <span class="n">Feb</span> <span class="mi">22</span> <span class="mi">2015</span> <span class="mi">20</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">11</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>接着输入 <code class="highlighter-rouge">sudo apachectl start</code>，这样<code class="highlighter-rouge">Apache</code>就启动了。打开<code class="highlighter-rouge">Safari</code>浏览器地址栏输入 <code class="highlighter-rouge">http://localhost</code>，可以看到内容为“<code class="highlighter-rouge">It works!</code>”的页面。其位于<code class="highlighter-rouge">/Library（资源库）/WebServer/Documents/</code>下，这就是<code class="highlighter-rouge">Apache</code>的默认根目录。</p>
 
@@ -33,7 +35,22 @@
 4、运行<code class="highlighter-rouge">sudo vi /etc/apache2/extra/httpd-vhosts.conf</code>，就打开了配置虚拟主机文件<code class="highlighter-rouge">httpd-vhost.conf</code>，配置虚拟主机了。需要注意的是该文件默认开启了两个作为例子的虚拟主机:</p>
 </blockquote>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="n">VirtualHost</span> <span class="o">*:</span><span class="mi">80</span><span class="o">&gt;</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="o">&lt;&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="n">VirtualHost</span> <span class="o">*:</span><span class="mi">80</span><span class="o">&gt;</span>
     <span class="n">ServerAdmin</span> <span class="n">webmaster</span><span class="err">@dummy</span><span class="k">-</span><span class="n">host</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
     <span class="n">DocumentRoot</span> <span class="s">"/usr/docs/dummy-host.example.com"</span>
     <span class="n">ServerName</span> <span class="n">dummy</span><span class="k">-</span><span class="n">host</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
@@ -48,7 +65,7 @@
     <span class="n">ErrorLog</span> <span class="s">"/private/var/log/apache2/dummy-host2.example.com-error_log"</span>
     <span class="n">CustomLog</span> <span class="s">"/private/var/log/apache2/dummy-host2.example.com-access_log"</span> <span class="n">common</span>
 <span class="o">&lt;/&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="n">VirtualHost</span><span class="o">&gt;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <blockquote>
   <p>而实际上，这两个虚拟主机是不存在的，在没有配置任何其他虚拟主机时，可能会导致访问<code class="highlighter-rouge">localhost</code>时出现如下提示：<br />
   <code class="highlighter-rouge">Forbidden You don't have permission to access /index.php on this server</code><br />
@@ -56,7 +73,26 @@
 5、增加如下配置:</p>
 </blockquote>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="n">VirtualHost</span> <span class="o">*:</span><span class="mi">80</span><span class="o">&gt;</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="o">&lt;&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="n">VirtualHost</span> <span class="o">*:</span><span class="mi">80</span><span class="o">&gt;</span>
     <span class="n">DocumentRoot</span> <span class="s">"/Library/WebServer/Documents"</span>
     <span class="n">ServerName</span> <span class="n">localhost</span>
     <span class="n">ErrorLog</span> <span class="s">"/private/var/log/apache2/localhost-error_log"</span>
@@ -75,7 +111,7 @@
                 <span class="n">Allow</span> <span class="n">from</span> <span class="n">all</span>
       <span class="o">&lt;/&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="n">Directory</span><span class="o">&gt;</span>
 <span class="o">&lt;/&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="n">VirtualHost</span><span class="o">&gt;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <blockquote>
   <p>保存退出，并重启<code class="highlighter-rouge">Apache</code>。<br />
 6、运行<code class="highlighter-rouge">sudo vi /etc/hosts</code>，打开<code class="highlighter-rouge">hosts</code>配置文件，加入<code class="highlighter-rouge">127.0.0.1 mysites</code>，这样就可以配置完成<code class="highlighter-rouge">sites</code>虚拟主机了，可以访问<code class="highlighter-rouge">http://mysites</code>了，在10.8之前<code class="highlighter-rouge">Mac OS X</code>版本其内容和<code class="highlighter-rouge">http://localhost/~[用户名]</code>完全一致。

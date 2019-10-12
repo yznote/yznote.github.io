@@ -1,4 +1,4 @@
-I"J8<h4 id="今天遇到一个很郁闷的问题新做的ipad程序中界面居然在未作任何配置的情况下不支持旋转了">今天遇到一个很郁闷的问题：新做的ipad程序中，界面居然在未作任何配置的情况下不支持旋转了。</h4>
+I"�<<h4 id="今天遇到一个很郁闷的问题新做的ipad程序中界面居然在未作任何配置的情况下不支持旋转了">今天遇到一个很郁闷的问题：新做的ipad程序中，界面居然在未作任何配置的情况下不支持旋转了。</h4>
 
 <p>通过在<code class="highlighter-rouge">UITabbarController</code>的旋转事件添加<code class="highlighter-rouge">NSLog</code>发现，其完全没有被触发。通过网上查资料 在<code class="highlighter-rouge">cocochina</code>上找到了答案:</p>
 
@@ -18,29 +18,41 @@
 <p>注：</p>
 
 <p>要翻转的时候，首先响应的方法：</p>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">shouldAutorotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">interfaceOrientation</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">shouldAutorotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">interfaceOrientation</span>
 
 <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//则支持翻转，NO则不支持。</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>紧接着</p>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span><span class="p">{</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span><span class="p">{</span>
 	
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>被调用。这个方法是发生在翻转开始之前。一般用来禁用某些控件或者停止某些正在进行的活动，比如停止视频播放。
 再来是</p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willAnimateRotationToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span><span class="p">{</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willAnimateRotationToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span><span class="p">{</span>
 
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>这个方法发生在翻转的过程中，一般用来定制翻转后各个控件的位置、大小等。可以用另外两个方法来代替：<code class="highlighter-rouge">willAnimateFirstHalfOfRotationToInterfaceOrientation:duration:</code>   和  <code class="highlighter-rouge">willAnimateSecondHalfOfRotationFromInterfaceOrientation:duration:</code><br />
 最后调用的是</p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span><span class="p">{</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span><span class="p">{</span>
 
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>这个方法发生在整个翻转完成之后。一般用来重新启用某些控件或者继续翻转之前被暂停的活动，比如继续视频播放。</p>
 
 <h4 id="uiviewcontroller没有随着设备一起旋转的原因">UIViewController没有随着设备一起旋转的原因</h4>
@@ -51,10 +63,13 @@
 
 <h5 id="1view-controller没有完成代理方法">1.<code class="highlighter-rouge">view controller</code>没有完成代理方法</h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">shouldAutorotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">interfaceOrientation</span><span class="p">{</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">shouldAutorotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">interfaceOrientation</span><span class="p">{</span>
 	<span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>也要实现了<code class="highlighter-rouge">shouldAutorotateToInterfaceOrientation</code>方法，同时<code class="highlighter-rouge">shouldAutorotateToInterfaceOrientation</code>方法要返回<code class="highlighter-rouge">YES</code>来支持所有的旋转方向</p>
 
 <h5 id="2view-controller的uiview属性嵌入在uiwindow中并非是一个附加的view-controller">2.<code class="highlighter-rouge">view controller</code>的<code class="highlighter-rouge">UIView</code>属性嵌入在<code class="highlighter-rouge">UIWindow</code>中，并非是一个附加的<code class="highlighter-rouge">view controller</code></h5>
@@ -63,13 +78,15 @@
 
 <p>例如:</p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">myWindow</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">primaryViewController</span><span class="p">.</span><span class="n">view</span><span class="p">];</span> 
-</code></pre></div></div>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">[</span><span class="n">myWindow</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">primaryViewController</span><span class="p">.</span><span class="n">view</span><span class="p">];</span> 
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>如果你添加了另外一个<code class="highlighter-rouge">view controller的UIView</code>属性到<code class="highlighter-rouge">UIWindow</code>（<code class="highlighter-rouge">anotherController</code>和主<code class="highlighter-rouge">view controller</code>在同一个等级上）</p>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">myWindow</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">anotherController</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
-</code></pre></div></div>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">[</span><span class="n">myWindow</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">anotherController</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p><code class="highlighter-rouge">anotherController</code>将不会接受旋转事件，只有第一个<code class="highlighter-rouge">view controller</code>（<code class="highlighter-rouge">primaryViewController</code>）会接受旋转事件。</p>
 

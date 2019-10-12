@@ -1,4 +1,4 @@
-I"�<h4 id="场景">场景</h4>
+I"�<h4 id="场景">场景</h4>
 <ol>
   <li>用<code class="highlighter-rouge">UINavigationController</code>的时候用<code class="highlighter-rouge">pushViewController:animated</code>
     <blockquote>
@@ -7,8 +7,9 @@ ps：<code class="highlighter-rouge">push</code>以后会在<code class="highlig
     </blockquote>
   </li>
   <li>其他时候用<code class="highlighter-rouge">presentModalViewController:animated</code>
-    <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="p">[</span><span class="n">self</span> <span class="nf">presentModalViewController</span><span class="p">:</span><span class="n">controller</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span><span class="c1">//YES有动画效果</span>
-</code></pre></div>    </div>
+    <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> <span class="p">[</span><span class="n">self</span> <span class="nf">presentModalViewController</span><span class="p">:</span><span class="n">controller</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span><span class="c1">//YES有动画效果</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
     <blockquote>
       <p>返回之前的视图<code class="highlighter-rouge">[self dismissModalViewControllerAnimated:YES];</code></p>
     </blockquote>
@@ -24,19 +25,31 @@ ps：<code class="highlighter-rouge">push</code>以后会在<code class="highlig
 </ol>
 
 <h4 id="c中返回事件">C中返回事件：</h4>
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">back</span>  
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="n">back</span>  
 <span class="p">{</span>  
       <span class="p">[</span><span class="n">self</span> <span class="n">dismissModalViewControllerAnimated</span><span class="o">:</span><span class="n">NO</span><span class="p">];</span><span class="c1">//注意一定是NO！！  </span>
       <span class="p">[[</span><span class="n">NSNotificationCenter</span>  <span class="n">defaultCenter</span><span class="p">]</span><span class="n">postNotificationName</span><span class="o">:</span><span class="err">@</span><span class="s">"backback"</span> <span class="n">object</span><span class="o">:</span><span class="n">nil</span><span class="p">];</span>  
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p><strong>然后在B中</strong></p>
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//在viewdidload中：  </span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">//在viewdidload中：  </span>
 <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="n">addObserver</span><span class="o">:</span><span class="n">self</span> <span class="n">selector</span><span class="o">:</span><span class="err">@</span><span class="n">selector</span><span class="p">(</span><span class="n">back</span><span class="p">)</span> <span class="n">name</span><span class="o">:</span><span class="err">@</span><span class="s">"backback"</span> <span class="n">object</span><span class="o">:</span><span class="n">nil</span><span class="p">];</span>  
   
 <span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">back</span>  
 <span class="p">{</span>  
      <span class="p">[</span><span class="n">self</span> <span class="n">dismissModalViewControllerAnimated</span><span class="o">:</span><span class="n">YES</span><span class="p">];</span>  
 <span class="p">}</span> 
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 :ET

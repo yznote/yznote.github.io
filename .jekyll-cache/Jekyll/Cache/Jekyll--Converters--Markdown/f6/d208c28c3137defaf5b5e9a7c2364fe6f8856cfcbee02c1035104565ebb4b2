@@ -1,6 +1,39 @@
-I"�<h4 id="直接代码">直接代码</h4>
+I"�<h4 id="直接代码">直接代码</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "ViewController.h"
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre></td><td class="rouge-code"><pre><span class="cp">#import "ViewController.h"
 </span>
 <span class="cp">#import "Student.h"
 </span>
@@ -33,7 +66,7 @@
     <span class="n">NSLog</span><span class="p">(</span><span class="s">@"拿到的数据:%d---%@---%ld"</span><span class="p">,</span><span class="n">isOpen</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">integer</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="k">@end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
 <center style="color: #969696">新浪博客的原始图片丢失了</center>
 <blockquote>

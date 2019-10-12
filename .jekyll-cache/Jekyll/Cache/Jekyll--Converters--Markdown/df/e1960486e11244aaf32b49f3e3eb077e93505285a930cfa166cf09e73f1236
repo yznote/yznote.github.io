@@ -1,5 +1,29 @@
-I"�A<h4 id="结构体">结构体</h4>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include 
+I"UG<h4 id="结构体">结构体</h4>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="cp">#include 
 </span><span class="kt">void</span> <span class="nf">structOne</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="c1">//定义一个名为Student的结构体类型</span>
@@ -23,8 +47,18 @@
     <span class="n">tea1</span><span class="p">.</span><span class="n">height</span><span class="o">=</span><span class="mi">170</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span><span class="c1">//结构体变量的某个结构成员重赋值</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">teacher age is %d,height is %g,name is %s"</span><span class="p">,</span><span class="n">tea1</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">tea1</span><span class="p">.</span><span class="n">height</span><span class="p">,</span><span class="n">tea1</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">structTwo</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nf">structTwo</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="c1">//声明一个匿名的结构体</span>
     <span class="k">struct</span> <span class="p">{</span>
@@ -34,9 +68,32 @@
     <span class="n">printf</span><span class="p">(</span><span class="s">"匿名结构体1：age:%d,name:%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">"匿名结构体2：age:%d,name:%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">stu2</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu2</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h5 id="pragma-mark-2-结构体嵌套调用"><code class="highlighter-rouge">#</code>pragma mark 2 结构体嵌套调用</h5>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">structThree</span><span class="p">()</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nf">structThree</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="c1">//结构体的递归(错误)</span>
 <span class="c1">//    struct Student {</span>
@@ -59,9 +116,32 @@
     <span class="k">struct</span> <span class="n">Student</span> <span class="n">stu1</span><span class="o">=</span><span class="p">{</span><span class="mi">21</span><span class="p">,</span><span class="s">"Jack"</span><span class="p">,{</span><span class="mi">1991</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">}};</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">"age=%d,name=%s,birthday:%d-%d-%d"</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">bir1</span><span class="p">.</span><span class="n">year</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">bir1</span><span class="p">.</span><span class="n">month</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">bir1</span><span class="p">.</span><span class="n">day</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h5 id="pragma-mark-3-结构体封装视图的坐标"><code class="highlighter-rouge">#</code>pragma mark 3 结构体封装视图的坐标</h5>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">structFrame</span><span class="p">()</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nf">structFrame</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">struct</span> <span class="n">CGPoint</span><span class="p">{</span><span class="c1">//位置</span>
         <span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
@@ -84,10 +164,20 @@
     <span class="k">struct</span> <span class="n">View</span> <span class="n">view1</span><span class="o">=</span><span class="p">{</span><span class="s">"redColor"</span><span class="p">,{</span><span class="mi">100</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">60</span><span class="p">}};</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">"view color is %s,view.x:%f,view.y:%f,view.w:%lf,view.h:%lf"</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">color</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">wigth</span><span class="p">,</span><span class="n">view1</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">hight</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h5 id="pragma-mark-4-结构体数组"><code class="highlighter-rouge">#</code>pragma mark 4 结构体数组</h5>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">structFour</span><span class="p">()</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nf">structFour</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">struct</span> <span class="n">Student</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
@@ -97,9 +187,20 @@
     <span class="k">struct</span> <span class="n">Student</span> <span class="n">stu1</span><span class="o">=</span><span class="n">stu</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">"数组中第一个学生：age=%d,name=%s"</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">age</span><span class="p">,</span><span class="n">stu1</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h5 id="pragma-mark-5-结构体作为函数的参数"><code class="highlighter-rouge">#</code>pragma mark 5 结构体作为函数的参数</h5>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Person</span><span class="p">{</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="k">struct</span> <span class="n">Person</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 <span class="p">};</span>
 <span class="kt">void</span> <span class="nf">change</span><span class="p">(</span><span class="k">struct</span> <span class="n">Person</span> <span class="n">p</span><span class="p">){</span>
@@ -110,9 +211,25 @@
     <span class="k">struct</span> <span class="n">Person</span> <span class="n">person</span><span class="o">=</span><span class="p">{</span><span class="mi">24</span><span class="p">};</span>
     <span class="n">change</span><span class="p">(</span><span class="n">person</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h5 id="pragma-mark-6-指向结构体的指针"><code class="highlighter-rouge">#</code>pragma mark 6 指向结构体的指针</h5>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Person</span><span class="p">{</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="k">struct</span> <span class="n">Person</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 <span class="p">};</span>
 <span class="kt">void</span> <span class="nf">structSix</span><span class="p">()</span>
@@ -128,5 +245,5 @@
     <span class="n">structSix</span><span class="p">();</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 :ET

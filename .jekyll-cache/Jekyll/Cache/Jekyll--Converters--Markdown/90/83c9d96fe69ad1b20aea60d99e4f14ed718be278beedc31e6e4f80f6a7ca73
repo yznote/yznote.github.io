@@ -1,6 +1,14 @@
-I"�<h4 id="单个文件的大小">单个文件的大小</h4>
+I"<h4 id="单个文件的大小">单个文件的大小</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span> <span class="nf">fileSizeAtPath</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span> <span class="n">filePath</span><span class="p">{</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span> <span class="nf">fileSizeAtPath</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span> <span class="n">filePath</span><span class="p">{</span>
 
     <span class="n">NSFileManager</span><span class="o">*</span> <span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSFileManager</span> <span class="nf">defaultManager</span><span class="p">];</span>
     <span class="k">if</span> <span class="p">([</span><span class="n">manager</span> <span class="nf">fileExistsAtPath</span><span class="p">:</span><span class="n">filePath</span><span class="p">]){</span>
@@ -8,10 +16,23 @@
     <span class="p">}</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h4 id="遍历文件夹获得文件夹大小返回多少m">遍历文件夹获得文件夹大小，返回多少M</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">float</span> <span class="p">)</span> <span class="nf">folderSizeAtPath</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span> <span class="n">folderPath</span><span class="p">{</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">float</span> <span class="p">)</span> <span class="nf">folderSizeAtPath</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span> <span class="n">folderPath</span><span class="p">{</span>
 
     <span class="n">NSFileManager</span><span class="o">*</span> <span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSFileManager</span> <span class="nf">defaultManager</span><span class="p">];</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">manager</span> <span class="nf">fileExistsAtPath</span><span class="p">:</span><span class="n">folderPath</span><span class="p">])</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -24,6 +45,6 @@
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">folderSize</span><span class="o">/</span><span class="p">(</span><span class="mi">1024</span><span class="p">.</span><span class="mi">0</span><span class="o">*</span><span class="mi">1024</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 :ET

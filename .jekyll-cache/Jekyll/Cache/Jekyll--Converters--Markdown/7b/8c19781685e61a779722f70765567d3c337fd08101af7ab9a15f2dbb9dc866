@@ -1,4 +1,4 @@
-I"��<h4 id="一内存管理情况">一.内存管理情况</h4>
+I"{�<h4 id="一内存管理情况">一.内存管理情况</h4>
 
 <blockquote>
   <p>1.<code class="highlighter-rouge">autorelease</code>，当用户的代码在持续运行时，自动释放池是不会被销毁的，这段时间内用户可以安全地使用自动释放的对象。当用户的代码运行告一段落，开始等待用户的操作，自动释放池就会被释放掉（调用dealloc），池中的对象都会收到一个release，有可能会因此被销毁。<br />
@@ -28,13 +28,19 @@
   <blockquote>
     <p>采用系统坐标系<br />
 在<code class="highlighter-rouge">Core Graphics</code>的基础上封装，具有<code class="highlighter-rouge">Core Graphics</code>的主要功能，无需考虑图形环境。</p>
-    <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UIBezierPath</span><span class="o">*</span> <span class="n">pathLines</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIBezierPath</span> <span class="nf">bezierPath</span><span class="p">];</span>
+    <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">UIBezierPath</span><span class="o">*</span> <span class="n">pathLines</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIBezierPath</span> <span class="nf">bezierPath</span><span class="p">];</span>
 <span class="p">[</span><span class="n">pathLines</span> <span class="nf">moveToPoint</span><span class="p">:</span><span class="n">point1</span><span class="p">];</span> <span class="c1">// 移动到point1位置</span>
 <span class="p">[</span><span class="n">pathLines</span> <span class="nf">addLineToPoint</span><span class="p">:</span><span class="n">point2</span><span class="p">];</span> <span class="c1">// 画一条从point1到point2的线</span>
 <span class="n">pathLines</span><span class="p">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span> <span class="c1">// 线宽</span>
 <span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">]</span> <span class="n">set</span><span class="p">];</span> <span class="c1">// 颜色设置</span>
 <span class="p">[</span><span class="n">pathLines</span> <span class="nf">stroke</span><span class="p">];</span> <span class="c1">// 开始描绘</span>
-</code></pre></div>    </div>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
     <p>在同一<code class="highlighter-rouge">UIBazierPath</code>中，只能采用相同的颜色和线宽。
 可以调用<code class="highlighter-rouge">closePath</code>，从当前点画一条直线到当前子路径的初始点。如果要填充路径，应当使用fill方法，此方法会填充路径中得所有封闭子路径。</p>
   </blockquote>
@@ -130,9 +136,11 @@
 <code class="highlighter-rouge">-stringByDeletingPathExtension:</code>删除路径扩展名<br />
 <code class="highlighter-rouge">-stringByAppendingPaths:</code>参数为一个数组，此方法将数组中的字符串对象作为路径一次添加到源字符串后面。<br />
 例子：</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span> <span class="o">*</span><span class="n">homePath</span> <span class="o">=</span> <span class="n">NSHomeDirectory</span><span class="p">();</span> 
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">NSString</span> <span class="o">*</span><span class="n">homePath</span> <span class="o">=</span> <span class="n">NSHomeDirectory</span><span class="p">();</span> 
 <span class="n">NSString</span> <span class="o">*</span><span class="n">docPath</span> <span class="o">=</span> <span class="p">[</span><span class="n">homePath</span> <span class="nf">stringByAppendingFormat</span><span class="p">:</span><span class="s">@"/Documents"</span><span class="p">];</span> 
-</code></pre></div>  </div>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
 </blockquote>
 
 <h4 id="五uiactionsheet-按钮列表">五.<code class="highlighter-rouge">UIActionSheet</code> 按钮列表</h4>
@@ -149,8 +157,9 @@
 
 <blockquote>
   <p><code class="highlighter-rouge">openURL</code>能帮助你运行<code class="highlighter-rouge">Maps</code>，<code class="highlighter-rouge">SMS</code>，<code class="highlighter-rouge">Browser</code>,<code class="highlighter-rouge">Phone</code>甚至其他的应用程序。这是<code class="highlighter-rouge">iPhone</code>开发中我经常需要用到的一段代码，它仅仅只有一行而已。</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">]</span> <span class="n">openURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="s">@"tel://8004664411"</span><span class="err">］;</span> 
-</code></pre></div>  </div>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">]</span> <span class="n">openURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="s">@"tel://8004664411"</span><span class="err">］;</span> 
+</pre></td></tr></tbody></table></code></pre></div>  </div>
   <p>这个程序通过基础的协议支持拨打电话的功能。
 <a href="http://blog.csdn.net/smilelance/article/details/6213125">摘自：</a></p>
 </blockquote>
@@ -160,15 +169,21 @@
 <blockquote>
   <p>打电话功能只有iPhone支持，对于其他设备对应按钮应该禁用。<br />
 用<code class="highlighter-rouge">[UIDevice currentDevice].model</code>，这个返回的是一个<code class="highlighter-rouge">NSString</code>，你可以做如下判断就能知道设备是<code class="highlighter-rouge">iPad</code>还是<code class="highlighter-rouge">iPhone</code>.</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">([</span><span class="n">UIDevice</span> <span class="nf">currentDevice</span><span class="p">].</span><span class="n">model</span> <span class="n">rangeOfString</span><span class="o">:</span><span class="s">@"iPad"</span><span class="p">].</span><span class="n">location</span> <span class="o">!=</span> <span class="n">NSNotFound</span><span class="p">)</span> <span class="p">{</span> 
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">if</span> <span class="p">([</span><span class="n">UIDevice</span> <span class="nf">currentDevice</span><span class="p">].</span><span class="n">model</span> <span class="n">rangeOfString</span><span class="o">:</span><span class="s">@"iPad"</span><span class="p">].</span><span class="n">location</span> <span class="o">!=</span> <span class="n">NSNotFound</span><span class="p">)</span> <span class="p">{</span> 
 	<span class="n">NSLog</span><span class="p">(</span><span class="s">@"This is an iPad!"</span><span class="p">);</span> 
 <span class="p">}</span> 
-</code></pre></div>  </div>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
   <p>用<code class="highlighter-rouge">UI_USER_INTERFACE_IDIOM()</code>方法，这是系统定义的一条宏。使用方法也很简单。</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">UI_USER_INTERFACE_IDIOM</span><span class="p">()</span> <span class="o">==</span> <span class="n">UIUserInterfaceIdiomPad</span><span class="p">)</span> <span class="p">{</span> 
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">if</span> <span class="p">(</span><span class="n">UI_USER_INTERFACE_IDIOM</span><span class="p">()</span> <span class="o">==</span> <span class="n">UIUserInterfaceIdiomPad</span><span class="p">)</span> <span class="p">{</span> 
 <span class="n">NSLog</span><span class="p">(</span><span class="s">@"This is an iPad!"</span><span class="p">);</span> 
 <span class="p">}</span> 
-</code></pre></div>  </div>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
   <p><a href="http://blog.sina.com.cn/s/blog_3f88614f0100sdcm.html">摘自：</a></p>
 </blockquote>
 
@@ -189,25 +204,36 @@
 <h5 id="十忙碌指示器">十.忙碌指示器</h5>
 
 <p><code class="highlighter-rouge">UIActivityIndicator</code></p>
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UIActivityIndicatorView</span> <span class="o">*</span><span class="n">activityIndicatior</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIActivityIndicatorView</span> <span class="nf">alloc</span><span class="p">]</span> <span class="n">initWithActivityIndicatorStyle</span><span class="o">:</span> <span class="n">UIActivityIndicatorViewStyleWhiteLarge</span><span class="p">];</span> 
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">UIActivityIndicatorView</span> <span class="o">*</span><span class="n">activityIndicatior</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIActivityIndicatorView</span> <span class="nf">alloc</span><span class="p">]</span> <span class="n">initWithActivityIndicatorStyle</span><span class="o">:</span> <span class="n">UIActivityIndicatorViewStyleWhiteLarge</span><span class="p">];</span> 
 <span class="n">activityIndicator</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">384</span><span class="p">);</span> 
 <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span> <span class="n">activityIndicator</span><span class="p">];</span> 
 <span class="p">[</span><span class="n">activityIndicator</span> <span class="nf">startAnimating</span><span class="p">];</span>  
 <span class="p">[</span><span class="n">activityIndicator</span> <span class="nf">stopAnimating</span><span class="p">];</span> 
 <span class="p">[</span><span class="n">activityIndicator</span> <span class="nf">removeFromSuperView</span><span class="p">];</span> 
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h4 id="十一媒体播放">十一.媒体播放</h4>
 
 <blockquote>
   <p>1- 音频<br />
 [1] 音乐往往是存储在iPod曲库（注意位置）中的，可以通过媒体选择器（media picker）或者媒体查询（media query）读取，然后用音乐播放器<code class="highlighter-rouge">MPMusicPlayerController</code>播放。</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MPMusicPlayerController</span> <span class="o">*</span><span class="n">musicPlayer</span> <span class="o">=</span> <span class="p">[</span><span class="n">MPMusicPlayerController</span> <span class="nf">applicationMusicPlayer</span><span class="p">];</span> 
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="n">MPMusicPlayerController</span> <span class="o">*</span><span class="n">musicPlayer</span> <span class="o">=</span> <span class="p">[</span><span class="n">MPMusicPlayerController</span> <span class="nf">applicationMusicPlayer</span><span class="p">];</span> 
 <span class="p">[</span><span class="n">musicPlayer</span> <span class="nf">setShufleMode</span><span class="p">:</span> <span class="n">MPMusicShuffleModeSongs</span><span class="p">];</span> 
 <span class="p">[</span><span class="n">musicPlayer</span> <span class="nf">setRepeatMode</span><span class="p">:</span> <span class="n">MPMusicRepeatModeAll</span><span class="p">];</span> 
 <span class="p">[</span><span class="n">musicPlayer</span> <span class="nf">setQueueWithQuery</span><span class="p">:</span> <span class="p">[</span><span class="n">MPMediaQuery</span> <span class="nf">songsQuery</span><span class="p">]</span><span class="err">;</span> 
 <span class="p">[</span><span class="n">musicPlayer</span> <span class="nf">play</span><span class="p">]</span><span class="err">;</span>
-</code></pre></div>  </div>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
   <p><code class="highlighter-rouge">applicationMusicPlayer</code>返回的播放器，在你的应用中播放音乐。它不会影响到<code class="highlighter-rouge">iPod</code>播放器，也不能从<code class="highlighter-rouge">iPod</code>播放器重获取信息。<br />
 <code class="highlighter-rouge">iPodMusicPlayer</code>返回的是<code class="highlighter-rouge">iPod</code>播放器，在你推出应用后，所有的设置都会影响到之后设备上的<code class="highlighter-rouge">iPod</code>播放器。<br />
 获得音乐播放器后，需要为它设置一个播放队列。可以用<code class="highlighter-rouge">setQueueWithQuery:</code>放方法，通过媒体查询<code class="highlighter-rouge">MPMediaQuery</code>来设置   播放队列，也可以用<code class="highlighter-rouge">setQueueWithItemCollection:</code>方法，通过<code class="highlighter-rouge">MPMdiaItemCollection</code>来设置播放队列。<br />
@@ -215,7 +241,15 @@
 <code class="highlighter-rouge">skipToNextItem</code>跳到下一首，<code class="highlighter-rouge">skipToPreviousItem</code>跳到上一首，<code class="highlighter-rouge">skipToBegin</code>跳到第一首。 
 对应的宏都是以<code class="highlighter-rouge">MPMusic</code>开头。<br />
 [2] 利用系统声音服务来播放短暂音效（时长30秒以内），并震动：</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AudioServicesPlaySystemSound</span><span class="p">(</span><span class="n">kSystemSoundID_Vibrate</span><span class="p">);</span>  
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="n">AudioServicesPlaySystemSound</span><span class="p">(</span><span class="n">kSystemSoundID_Vibrate</span><span class="p">);</span>  
 <span class="c1">//播放指定音效：</span>
 <span class="n">NSURL</span> <span class="o">*</span><span class="n">fileURL</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">fileURLWithPath</span><span class="p">:</span> <span class="n">path</span> <span class="nf">isDirectory</span><span class="p">:</span> <span class="nb">NO</span><span class="p">];</span>  
 <span class="c1">// 创建音效ID </span>
@@ -223,9 +257,17 @@
 <span class="n">AudioServiceCreateSystemSoundID</span><span class="p">((</span><span class="n">CFURLRef</span><span class="p">)</span> <span class="n">fileURL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">soundID</span><span class="p">);</span> 
 <span class="c1">// 播放声音 </span>
 <span class="n">AudioServicesPlaySystemSound</span><span class="p">(</span><span class="n">soundID</span><span class="p">);</span> 
-</code></pre></div>  </div>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
   <p>[3] 音频播放器</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//没有时长限制  </span>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c1">//没有时长限制  </span>
 <span class="n">NSURL</span> <span class="o">*</span><span class="n">fileURL</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">fileURLWithPath</span><span class="p">:</span> <span class="n">path</span> <span class="nf">isDirectory</span><span class="p">:</span> <span class="nb">NO</span><span class="p">];</span> 
 <span class="c1">// 用URL来初始化音频播放器-播放的不是iPod曲库中的音乐 </span>
 <span class="n">AVAudioPlayer</span><span class="o">*</span> <span class="n">player</span> <span class="o">=</span> <span class="err">［</span><span class="n">AVAudioPlayer</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithContentsOfURL</span><span class="o">:</span> <span class="n">fileURL</span> <span class="n">error</span><span class="o">:</span> <span class="nb">NO</span><span class="p">];</span> 
@@ -233,13 +275,24 @@
 <span class="p">[</span><span class="n">player</span> <span class="nf">prepareToPlay</span><span class="p">];</span> 
 <span class="c1">// 设置代理 </span>
 <span class="p">[</span><span class="n">player</span> <span class="nf">setDelegate</span><span class="p">:</span> <span class="n">self</span><span class="p">];</span> 
-</code></pre></div>  </div>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
   <p>方法：<code class="highlighter-rouge">play</code>、<code class="highlighter-rouge">pause</code>、<code class="highlighter-rouge">stop</code>。可以通过<code class="highlighter-rouge">playing</code>属性查询播放器是否正在播放当中，可以通过volume属性来修改和查询播放器的播放增益（从0.0到1.0），可通过<code class="highlighter-rouge">setting</code>属性查询播放器其他设置。
 <code class="highlighter-rouge">duration</code>表示音频的时间长度，<code class="highlighter-rouge">currentTime</code>表示当前播放到的时间。播放结束后可以通过代理方法<code class="highlighter-rouge">audioPlayerDidFinishPlaying:</code>来处理播放后设置。 <br />
 2- 视频<br />
 视频播放可以采用网页视图（<code class="highlighter-rouge">UIWebView</code>）进行嵌入式播放（能播放<code class="highlighter-rouge">YouTube</code>视频），或者采用电影播放器（<code class="highlighter-rouge">MPMoviePlayerController</code>）进行播放。
 [1] 电影播放器</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MPMoviePlayerController</span> <span class="o">*</span><span class="n">player</span> <span class="o">=</span> <span class="p">[</span><span class="n">MPMoviePlayerController</span> <span class="nf">alloc</span><span class="p">]</span><span class="n">initWithContentURL</span><span class="o">:</span> <span class="n">url</span><span class="p">];</span> 
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="n">MPMoviePlayerController</span> <span class="o">*</span><span class="n">player</span> <span class="o">=</span> <span class="p">[</span><span class="n">MPMoviePlayerController</span> <span class="nf">alloc</span><span class="p">]</span><span class="n">initWithContentURL</span><span class="o">:</span> <span class="n">url</span><span class="p">];</span> 
 <span class="c1">// 设置播放器的大小，并将其加入视图中 </span>
 <span class="p">[</span><span class="n">player</span><span class="p">.</span><span class="n">view</span> <span class="nf">setFrame</span><span class="p">:</span> <span class="n">rectFrame</span><span class="p">];</span> 
 <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubView</span><span class="p">:</span> <span class="n">player</span><span class="p">.</span><span class="n">view</span><span class="p">];</span> 
@@ -250,7 +303,7 @@
 <span class="p">[</span><span class="n">player</span> <span class="nf">setContentURL</span><span class="p">:</span> <span class="n">newURL</span><span class="p">];</span> 
 <span class="p">[</span><span class="n">player</span> <span class="nf">requestThumbnailImagesAtTimes</span><span class="p">:</span><span class="n">arrayTimes</span> <span class="nf">timeOption</span><span class="p">:</span><span class="n">MPMovieTimeOptionNearestKeyFrame</span><span class="p">];</span> 
 <span class="c1">//表示播放器不会在你所指定的时间去截取预览，而是在绝对时间的附近几帧中寻找效果最好的帧做为预览。 </span>
-</code></pre></div>  </div>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
   <p><code class="highlighter-rouge">scalingMode</code>规定了影片的缩放模式。   <br />
 <code class="highlighter-rouge">initialPlaybackTime</code>用来控制视频开始播放的时间，单位是秒。<br />
 如果视频源在网络上，那么需要正确设置服务器端的<code class="highlighter-rouge">mimeType</code>。</p>
@@ -279,15 +332,45 @@
 
 <h4 id="十四随机数">十四.随机数</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//0~1之间随机数</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c1">//0~1之间随机数</span>
 <span class="n">CG_INLINE</span> <span class="kt">float</span> <span class="nf">genRandomNum</span><span class="p">()</span> <span class="p">{</span> 
   <span class="k">return</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">arc4random</span><span class="o">/</span><span class="n">ARCRANDOM_MAX</span><span class="p">;</span> 
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h4 id="十五加速度传感器">十五.加速度传感器</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//获得加速度传感器读数：</span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="c1">//获得加速度传感器读数：</span>
 <span class="n">UIAccelerometer</span> <span class="o">*</span><span class="n">accelerometer</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAccelerometer</span> <span class="nf">shareAccelerometer</span><span class="p">];</span> <span class="c1">// 单例 </span>
 <span class="n">accelerometer</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span> 
 <span class="n">accelerometer</span><span class="p">.</span><span class="n">updateInterval</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">/</span> <span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span> <span class="c1">// 传感器更新频率，普通游戏10~30HZ，虚拟现实类游戏，30~60HZ </span>
@@ -313,11 +396,39 @@
   <span class="n">accelY</span> <span class="o">=</span> <span class="n">acceleration</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="p">((</span><span class="n">acceleration</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">accelY</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">));</span> 
   <span class="n">accelZ</span> <span class="o">=</span> <span class="n">acceleration</span><span class="p">.</span><span class="n">z</span> <span class="o">-</span> <span class="p">((</span><span class="n">acceleration</span><span class="p">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">accelZ</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">));</span> 
 <span class="p">}</span> 
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h4 id="十六地图与连接服务器">十六.地图与连接服务器</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="cm">/**
  *添加框架MapKit.framework。使用MKMapView来呈现地图。注意应当直接使用此类，而不是继承之。如果希望在MKMapView类之上添加功能，可以使用MKMapViewDelegate协议。
  *初始化：
  */</span>
@@ -345,12 +456,14 @@
 <span class="n">coordinate</span><span class="p">.</span><span class="n">longtitude</span> <span class="o">=</span> <span class="o">-</span><span class="mi">122</span><span class="p">.</span><span class="mo">03</span><span class="p">;</span> 
 <span class="n">mapView</span><span class="p">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">MKCoordinateRegionMakeWithDistance</span><span class="p">(</span><span class="n">coordinate</span><span class="p">,</span> <span class="mi">4000</span><span class="p">,</span> <span class="mi">6000</span><span class="p">);</span> <span class="c1">// 4000米宽，6000米高的区域 </span>
 <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">insertSubview</span><span class="p">:</span> <span class="n">mapView</span> <span class="nf">atIndex</span><span class="p">:</span> <span class="mi">0</span><span class="p">];</span> 
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h4 id="十七通过storyboard来初始化一个controller">十七.通过<code class="highlighter-rouge">storyboard</code>来初始化一个<code class="highlighter-rouge">controller</code></h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CBigDesignImageViewController</span> <span class="o">*</span><span class="n">imageViewController</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">storyboard</span> <span class="nf">instantiateViewControllerWithIdentifier</span><span class="p">:</span><span class="s">@"BigImageController"</span><span class="p">];</span>  
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">CBigDesignImageViewController</span> <span class="o">*</span><span class="n">imageViewController</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">storyboard</span> <span class="nf">instantiateViewControllerWithIdentifier</span><span class="p">:</span><span class="s">@"BigImageController"</span><span class="p">];</span>  
 <span class="c1">//BigImageController是要在storyboard中设置的Identifier属性。</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h4 id="十八给uiview子类设置阴影包括各种控件">十八.给<code class="highlighter-rouge">UIView</code>子类设置阴影，包括各种控件</h4>
 
@@ -358,16 +471,28 @@
   <p>1 导入<code class="highlighter-rouge">QuartzCore framework</code>
 2 <code class="highlighter-rouge">#import</code>
 3 编码：</p>
-  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">imgView</span> <span class="nf">layer</span><span class="p">]</span> <span class="n">setShadowOffset</span><span class="o">:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)];</span> <span class="c1">// 阴影的范围  </span>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="p">[</span><span class="n">imgView</span> <span class="nf">layer</span><span class="p">]</span> <span class="n">setShadowOffset</span><span class="o">:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)];</span> <span class="c1">// 阴影的范围  </span>
 <span class="p">[</span><span class="n">imgView</span> <span class="nf">layer</span><span class="p">]</span> <span class="n">setShadowRadius</span><span class="o">:</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// 阴影扩散的范围控制  </span>
 <span class="p">[</span><span class="n">imgView</span> <span class="nf">layer</span><span class="p">]</span> <span class="n">setShadowOpacity</span><span class="o">:</span><span class="mi">1</span><span class="p">];</span> <span class="c1">// 阴影透明度  </span>
 <span class="p">[</span><span class="n">imgView</span> <span class="nf">layer</span><span class="p">]</span> <span class="n">setShadowColor</span><span class="o">:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">brownColor</span><span class="p">].</span><span class="n">CGColor</span><span class="p">];</span> <span class="c1">// 阴影的颜色 </span>
-</code></pre></div>  </div>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
 </blockquote>
 
 <h4 id="十九设置uiscrollview滚动速度">十九.设置<code class="highlighter-rouge">UIScrollView</code>滚动速度</h4>
 
-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//自动滚动太快，效果不好，这里把动画设置慢点，注意下面要直接赋值contentOffset，不要用带animated参数的函数，否则动画会出问题，因为两处都是动画效果。 </span>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c1">//自动滚动太快，效果不好，这里把动画设置慢点，注意下面要直接赋值contentOffset，不要用带animated参数的函数，否则动画会出问题，因为两处都是动画效果。 </span>
 <span class="p">[</span><span class="n">UIScrollView</span> <span class="nf">animateWithDuration</span><span class="p">:</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="nf">delay</span><span class="p">:</span><span class="mi">0</span> <span class="n">options</span><span class="o">:</span><span class="n">UIViewAnimationCurveLinear</span> <span class="n">animations</span><span class="o">:^</span><span class="p">{</span> 
    <span class="n">scrollView</span><span class="p">.</span><span class="n">contentOffset</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  
 <span class="p">}</span><span class="n">completion</span><span class="o">:^</span><span class="p">(</span><span class="n">BOOL</span> <span class="n">finished</span><span class="p">){</span>
@@ -375,7 +500,7 @@
 <span class="p">}];</span>  
 <span class="c1">// 如果在减速滚动过程中，按了刷新按钮，执行上面的动画，会出现重置的位置，y不是0的情况，这里再调用一次，滚动到0。 </span>
 <span class="p">[</span><span class="n">scrollView</span> <span class="nf">setContentOffset</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>  
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h4 id="二十exc_bad_access">二十.<code class="highlighter-rouge">EXC_BAD_ACCESS</code></h4>
 
 <blockquote>
