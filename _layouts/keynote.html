@@ -68,9 +68,9 @@ layout: default
 
                 <hr style="visibility: hidden;">
 
-                {% if site.duoshuo_share && site.duoshuo_username %}
+                <!-- {% if site.duoshuo_share && site.duoshuo_username %} -->
                 <!-- 多说 Share start -->
-                <div class="ds-share"
+                <!-- <div class="ds-share"
                     style="text-align: right"
                     data-thread-key="{{page.id}}" data-title="{{page.title}}"
                     data-images="{{ site.url }}{{site.baseurl}}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}"
@@ -90,9 +90,9 @@ layout: default
                       </div>
                     </div>
                 <hr>
-                </div>
+                </div> -->
                 <!-- 多少 Share end-->
-                {% endif %}
+                <!-- {% endif %} -->
 
 
                 <ul class="pager">
@@ -115,17 +115,17 @@ layout: default
                 </ul>
 
 
-                {% if site.duoshuo_username %}
+                <!-- {% if site.duoshuo_username %} -->
                 <!-- 多说评论框 start -->
-                <div class="comment">
+                <!-- <div class="comment">
                     <div class="ds-thread"
                         data-thread-key="{{page.id}}"
                         data-title="{{page.title}}"
                         data-url="{{site.url}}{{site.baseurl}}{{page.url}}" >
                     </div>
-                </div>
+                </div> -->
                 <!-- 多说评论框 end -->
-                {% endif %}
+                <!-- {% endif %} -->
 
                 {% if site.disqus_username %}
                 <!-- disqus 评论框 start -->
@@ -199,9 +199,9 @@ layout: default
     resize();
 </script>
 
-{% if site.duoshuo_username %}
+<!-- {% if site.duoshuo_username %} -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     // dynamic User by Hux
     var _user = '{{site.duoshuo_username}}';
 
@@ -215,9 +215,9 @@ layout: default
         (document.getElementsByTagName('head')[0]
          || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
-</script>
+</script> -->
 <!-- 多说公共JS代码 end -->
-{% endif %}
+<!-- {% endif %} -->
 
 
 {% if site.disqus_username %}
