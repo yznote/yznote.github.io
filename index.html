@@ -68,6 +68,8 @@ description: "砥砺前行"
     {% endif %}
     <!-- 中间 -->
     <!-- <span class="page_num pagination__page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span> -->
+    <span class="pager-show-less">{{ paginator.page }} / {{ paginator.total_pages }}</span>
+    <span class="pager-show-greater">
     {% for page in (1..paginator.total_pages) %}
         {% if page == 1 %}
         <li class="pagelist">
@@ -103,6 +105,7 @@ description: "砥砺前行"
         </li>
         {% endif %}
     {% endfor %}
+    </span>
     <!-- 下一页 -->
     {% if paginator.next_page %}
     <li class="next">
@@ -111,3 +114,21 @@ description: "砥砺前行"
     {% endif %}
 </ul>
 {% endif %}
+<script type="text/javascript">
+    var less = document.getElementsByClassName("pager-show-less")[0];
+    var greater = document.getElementsByClassName("pager-show-greater")[0];
+    var w_width = document.body.clientWidth;
+
+    //console.log('===='+less+'------'+greater+'000000---'+w_width);
+    // var lessStyle = window.getComputedStyle(less);
+    // var greaterStyle = window.getComputedStyle(greater);
+
+    if(w_width >= 400){
+            greater.style.display = "block";
+            less.style.display = "none";
+        }else{
+            less.style.display = "block";
+            greater.style.display = "none";
+        }
+
+</script>
