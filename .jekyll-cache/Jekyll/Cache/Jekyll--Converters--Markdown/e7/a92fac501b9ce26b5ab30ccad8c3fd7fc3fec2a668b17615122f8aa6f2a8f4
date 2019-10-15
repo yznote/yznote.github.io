@@ -1,0 +1,906 @@
+I"ɐ<h4 id="coredata">CoreData</h4>
+
+<h5 id="1coredata概述">1.CoreData概述</h5>
+<blockquote>
+  <p>1.<code class="highlighter-rouge">Core data</code>是数据持久存储的最佳方式<br />
+2.<code class="highlighter-rouge">Core Data</code> 基于<code class="highlighter-rouge">model－view－controller（mvc）</code>模式下，为创建分解的<code class="highlighter-rouge">cocoa</code>应用程序提供了一个灵活和强大的数据模型框架。<br />
+3.<code class="highlighter-rouge">Core Data</code>可以是你以图形界面的方式快速的定义app的数据模型，同时在你的代码中容易获取到它。 <code class="highlighter-rouge">Core Data</code>提供了基础结构去处理常用的功能，例如： 保存，恢复，撤销和重做，允许你在app中继续创建新的任务。 在使用 <code class="highlighter-rouge">Core Data</code>的时候，你不用安装额外的数据库系统，因为 <code class="highlighter-rouge">Core Data</code>使用内置的<code class="highlighter-rouge">SQLite</code>数据库。（里面自动生成三个字段）<br />
+4.<code class="highlighter-rouge">Core Data</code>提供了一个通用的数据管理解决方案来处理那些所有需要数据模型的app，app使用 <code class="highlighter-rouge">Core Data</code>来管理数据对象时很多的益处<br />
+5.苹果的图形用户界面编译器<code class="highlighter-rouge">-interface builder（IB）</code>，提供了对<code class="highlighter-rouge">core data controller</code>对象的预构建，从而来减少app的用户界面和它的数据模型之间的粘滞代码。在使用<code class="highlighter-rouge">core data</code>的时候你不需要考虑<code class="highlighter-rouge">sql</code>的语法问题，也不需要管理相关的逻辑树去追踪用户的行为，更不用建立新的永久机制。当你写你app的用户界面到它的<code class="highlighter-rouge">core data</code>模型的时候，它已经为你把所有的东西都做好了。<br />
+6.<code class="highlighter-rouge">core data</code>将你app的模型层放入到一组定义在内存中的数据对象。<code class="highlighter-rouge">core data</code>会追踪这些对象的改变，同时可以根据需要做相反的改变，例如用户执行撤销命令。当<code class="highlighter-rouge">core data</code>在对你app数据的改变进行保存的时候，<code class="highlighter-rouge">core data</code>会把这些数据归档，并永久性保存。它保存的数据在一些常规的文件，你可以在<code class="highlighter-rouge">Finder</code>中可以进行管理，用<code class="highlighter-rouge">spotlight</code>进行搜索，备份到cd，和<code class="highlighter-rouge">email</code>给朋友或者家人 。<br />
+7.在使用<code class="highlighter-rouge">core data</code>框架的时候，你可以创建一个管理对象的模型，该模型提供了对模型对象的抽象定义，这也就是我们所知道的<code class="highlighter-rouge">entities</code>，它可以在我们的程序中使用。<br />
+8.<code class="highlighter-rouge">core data</code>是一个实体-关系模型 ，该模型是使用Xcode的数据模型设计工具来定义的，对数据实体以及他们的关系提供了丰富的环境。</p>
+</blockquote>
+
+<h5 id="2coredata的构成及特点">2.CoreData的构成及特点</h5>
+<blockquote>
+  <p>1.数据最终的存储类型
+<code class="highlighter-rouge">SQLite</code>数据库，<code class="highlighter-rouge">XML</code>，二进制，内存里，或自定义数据类型（ 在 <code class="highlighter-rouge">Mac OS X 10.5Leopard</code>及以后的版本中，开发者也可以通过继承 <code class="highlighter-rouge">NSPersistentStore</code> 类以创建自定义的存储格式）<br />
+2.好处<br />
+能够合理管理内存，避免使用<code class="highlighter-rouge">sql</code>的麻烦，高效<br />
+3.构成</p>
+  <ol>
+    <li><code class="highlighter-rouge">NSManagedObjectContext</code>（被管理的数据上下文）
+  操作实际内容（操作持久层）
+  作用：插入数据，查询数据，删除数据</li>
+    <li><code class="highlighter-rouge">NSManagedObjectModel</code>（被管理的数据模型）<br />
+  数据库所有表格或数据结构，包含各实体的定义信息<br />
+  作用：添加实体的属性，建立属性之间的关系<br />
+  操作方法：视图编辑器，或代码</li>
+    <li><code class="highlighter-rouge">NSPersistentStoreCoordinator</code>（持久化存储助理）<br />
+  相当于数据库的连接器<br />
+  作用：设置数据存储的名字，位置，存储方式，和存储时机</li>
+    <li><code class="highlighter-rouge">NSManagedObject</code>（被管理的数据记录）<br />
+  相当于数据库中的表格记录</li>
+    <li><code class="highlighter-rouge">NSFetchRequest</code>（获取数据的请求）<br />
+  相当于查询语句</li>
+    <li><code class="highlighter-rouge">NSEntityDescription</code>（实体结构）<br />
+  相当于表格结构</li>
+    <li>后缀为<code class="highlighter-rouge">.xcdatamodeld</code>的包<br />
+  里面是<code class="highlighter-rouge">.xcdatamodel</code>文件，用数据模型编辑器编辑<br />
+  编译后为<code class="highlighter-rouge">.momd</code>或<code class="highlighter-rouge">.mom</code>文件</li>
+  </ol>
+
+  <p>4.依赖关系<br />
+<img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+</blockquote>
+<center style="color: #969696">新浪博客的原始图片丢失了</center>
+
+<h5 id="3基于sqlite数据库时core-data的简单使用">3.基于<code class="highlighter-rouge">SQLite</code>数据库时，<code class="highlighter-rouge">Core Data</code>的简单使用</h5>
+
+<blockquote>
+  <p>和<code class="highlighter-rouge">SQLite</code>的区别：只能取出整个实体记录，然后分解，之后才能得到实体的某个属性</p>
+</blockquote>
+
+<blockquote>
+  <p>.1 构建流程  <br />
+包括：创建数据上下文，创建数据模型，创建数据持久化存储助理</p>
+  <ol>
+    <li>若是新建的工程，选择空白应用程序，<code class="highlighter-rouge">next</code>  <br />
+  <img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" />
+  此时生成的工程文件AppDelegate中，会自动生成被管理的数据上下文等相关代码</li>
+    <li>比如AppDelegate.h文件中，自动生成
+      <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">@property</span> <span class="p">(</span> <span class="n">readonly</span> <span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSManagedObjectContext</span> <span class="o">*</span><span class="n">managedObjectContext</span><span class="p">;</span>
+  <span class="k">@property</span> <span class="p">(</span> <span class="n">readonly</span> <span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSManagedObjectModel</span> <span class="o">*</span><span class="n">managedObjectModel</span><span class="p">;</span>
+  <span class="k">@property</span> <span class="p">(</span> <span class="n">readonly</span> <span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSPersistentStoreCoordinator</span> <span class="o">*</span><span class="n">persistentStoreCoordinator</span><span class="p">;</span>
+  <span class="k">-</span> <span class="p">(</span> <span class="kt">void</span> <span class="p">)</span><span class="n">saveContext</span><span class="p">;</span>
+  <span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="n">applicationDocumentsDirectory</span><span class="p">;</span>
+  <span class="err">方法`</span><span class="n">saveContext</span><span class="err">`表示：保存数据到持久层（数据库）</span>  
+  <span class="err">方法`</span><span class="n">applicationDocumentsDirectory</span><span class="err">`表示：应用程序沙箱下的`</span><span class="n">Documents</span><span class="err">`目录路径</span>
+  <span class="p">(</span> <span class="err">例如</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">mobile</span><span class="o">/</span><span class="n">Applications</span><span class="o">/</span><span class="mi">5</span><span class="n">FG80A45</span><span class="k">-</span><span class="n">DFB5</span><span class="o">-</span><span class="mi">4087</span><span class="k">-</span><span class="n">A1B1</span><span class="o">-</span><span class="mi">41342</span><span class="n">A977E21</span><span class="o">/</span><span class="n">Documents</span><span class="o">/</span> <span class="p">)</span>
+</code></pre></div>      </div>
+    </li>
+    <li>比如<code class="highlighter-rouge">AppDelegate.h</code>文件中，自动生成
+  ```obj-c
+  @synthesize managedObjectContext = __managedObjectContext;
+  @synthesize managedObjectModel = __managedObjectModel;
+  @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;</li>
+  </ol>
+</blockquote>
+
+<p>//保存数据到持久层</p>
+<ul>
+  <li>
+    <p>( void )applicationWillTerminate:(UIApplication *)application  {</p>
+
+    <p>[self saveContext];</p>
+  </li>
+</ul>
+
+<p>}</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ![新浪博客的图片丢失了](/img/noimg.jpeg)
+  &lt;center style="color: #969696"&gt;新浪博客的原始图片丢失了&lt;/center&gt;
+  ```obj-c
+  - ( void )saveContext  {
+
+    NSError *error = nil;
+	NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] &amp;&amp; ![managedObjectContext save:&amp;error]) {
+            NSLog( @"Unresolved error %@, %@" , error, [error userInfo]);
+			abort();
+		} 
+	}
+  }
+  ![新浪博客的图片丢失了](/img/noimg.jpeg)
+  &lt;center style="color: #969696"&gt;新浪博客的原始图片丢失了&lt;/center&gt;
+
+  //Documents目录路径
+
+  - (NSURL *)applicationDocumentsDirectory {
+
+      return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+  }
+
+  //被管理的数据上下文
+  //初始化的后，必须设置持久化存储助理
+
+  ![新浪博客的图片丢失了](/img/noimg.jpeg)
+  &lt;center style="color: #969696"&gt;新浪博客的原始图片丢失了&lt;/center&gt;
+
+  - (NSManagedObjectContext *)managedObjectContext {
+
+	if (__managedObjectContext != nil) {
+
+		return __managedObjectContext;
+	}
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+	if (coordinator != nil) {
+		__managedObjectContext = [[NSManagedObjectContext alloc] init];
+		[__managedObjectContext setPersistentStoreCoordinator:coordinator];
+	}
+	return __managedObjectContext;
+  }
+
+  ![新浪博客的图片丢失了](/img/noimg.jpeg)
+  &lt;center style="color: #969696"&gt;新浪博客的原始图片丢失了&lt;/center&gt;
+  //被管理的数据模型
+  //初始化必须依赖.momd文件路径，而.momd文件由.xcdatamodeld文件编译而来
+
+  - (NSManagedObjectModel *)managedObjectModel {
+    if (__managedObjectModel != nil) {
+    	return __managedObjectModel;
+	}
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource: @"TestApp"withExtension: @"momd" ];
+	__managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return __managedObjectModel;
+  }
+
+  //持久化存储助理
+
+  //初始化必须依赖NSManagedObjectModel，之后要指定持久化存储的数据类型，默认的是NSSQLiteStoreType，即SQLite数据库；并指定存储路径为Documents目录下，以及数据库名称
+
+  - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+
+    if (__persistentStoreCoordinator != nil) {
+
+        return __persistentStoreCoordinator;
+	}
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent: @"TestApp.SQLite" ];
+	NSError *error = nil;
+	__persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&amp;error]) {
+        NSLog( @"Unresolved error %@, %@" , error, [error userInfo]);
+		abort();
+	}  
+	return __persistentStoreCoordinator;
+  }
+  //如果不是新工程，也可以自己写入相关代码
+</code></pre></div></div>
+
+<p>（4）此外还生成了TestApp.xcdatamodeld文件</p>
+
+<p>（5）还自动链接了CoreData.framework</p>
+
+<p>（6）在预编译头.pch文件中，加入导入了CoreData.h头文件</p>
+
+<p>#import</p>
+
+<p>2.~~创建数据模型（数据模型编辑器操作）
+（1）创建实体（数据库表）和实体间的关系</p>
+
+<p>选中.xcodedatamodel对象</p>
+
+<p>在左下脚点击Add Entity添加实体</p>
+
+<p>选中新添加的属性，对属性进行命名，并设置属性的数据类型Attribute Type</p>
+
+<p>选中一个实体，在底部工具栏点击Add Relationship添加关系</p>
+
+<p>pastedGraphic_6.pdf</p>
+
+<p>（2）自动生成模型类</p>
+
+<p>pastedGraphic_7.pdf</p>
+
+<p>选择你要创建的数据对象</p>
+
+<p>pastedGraphic_8.pdf</p>
+
+<p>3.~~数据模版
+为每个实体生成一个NSManagedObject子类</p>
+
+<p>上面设置数据和获取数据时，使用的是Key-Value方式，更好的方法是通过生成强类型的NSManagedObject的子类，通过类的成员属性来访问和获取数据</p>
+
+<p>（1）在数据编辑器视图中选中实体对象，</p>
+
+<p>选则file菜单，点击new，点击file…，选择Core Data项，选择NSManagedObject subclass，生成该实体同名的类，</p>
+
+<p>继承于NSManagedObject</p>
+
+<p>生成对应的.h文件
+pastedGraphic_9.pdf</p>
+
+<p>生成对应的l.m文件
+pastedGraphic_10.pdf</p>
+
+<p>其中，@dynamic告诉编译器不做处理，使编译通过，其getter和setter方法会在运行时动态创建，由Core Data框架为此类属性生成存取方法</p>
+
+<p>4.~~ 插入数据
+在AppDelegate.m的application:didFinishLaunchingWithOptions:方法里，调用自定义方法</p>
+
+<p>insertCoreData插入数据，代码如下：</p>
+
+<ul>
+  <li>( void )insertCoreData</li>
+</ul>
+
+<p>{</p>
+
+<p>NSManagedObjectContext *context = [self managedObjectContext];</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSManagedObject *contactInfo = [NSEntityDescription insertNewObjectForEntityForName: @"School" inManagedObjectContext:context];
+
+[contactInfo setValue: @"name B" forKey: @"name" ];
+
+[contactInfo setValue: @"classID 1" forKey: @"classID" ];
+
+[contactInfo setValue: @"persons 20" forKey: @"pensons" ];
+
+NSManagedObject *contactDetailInfo = [NSEntityDescription insertNewObjectForEntityForName: @"ContactDetailInfo"inManagedObjectContext:context];
+
+[contactDetailInfo setValue: @"age 22" forKey: @"age" ];
+
+[contactDetailInfo setValue: @"name B" forKey: @"name" ];
+
+[contactDetailInfo setValue: @"classID 1" forKey: @"classID" ];
+
+[contactDetailInfo setValue:contactInfo forKey: @"name" ];
+
+[contactInfo setValue:contactDetailInfo forKey: @"classID" ];
+</code></pre></div></div>
+
+<p>NSError *error;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (![context save:&amp;error])
+</code></pre></div></div>
+
+<p>{</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    NSLog( @"不能保存：%@" ,[error localizedDescription]);
+</code></pre></div></div>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>创建数据上下文，调用insertNewObjectForName方法，创建两个数据记录NSManagedObject，然后就可以对之前数据模型编辑视图中定义的属性进行赋值。此时的数据只在内存中被修改，最后调用数据上下文的save方法，保存到持久层</p>
+
+<p>5.~~ 查询数据
+在调用了insertCoreData之后，可以调用自定的查询方法dataFetchRequest来查询插入的数据</p>
+
+<ul>
+  <li>( void )dataFetchRequest</li>
+</ul>
+
+<p>{</p>
+
+<p>NSManagedObjectContext *context = [self managedObjectContext];</p>
+
+<p>NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSEntityDescription *entity = [NSEntityDescription entityForName:@"ContactInfo" inManagedObjectContext:context];
+</code></pre></div></div>
+
+<p>[fetchRequest setEntity:entity];</p>
+
+<p>NSError *error;</p>
+
+<p>NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&amp;error];</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for (NSManagedObject *info in fetchedObjects) {
+
+    NSLog( @"classID:%d" , [info valueForKey: @"classID" ]);
+
+    NSLog( @"persons:%d" , [info valueForKey: @"persons" ]);
+
+    NSLog( @"name:%@" , [info valueForKey: @"name" ]);
+
+    NSManagedObject *details = [info valueForKey: @"name" ];
+
+    NSLog( @"age:%d" , [details valueForKey: @"age" ]);
+
+     NSLog( @"classID:%d" , [details valueForKey: @"classID" ]);
+</code></pre></div></div>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>fetchRequest相当于sql查询语句的包装类，需要用setEntity方法，来指定具体查询的实体结构（表结构）</p>
+
+<p>通过NSEntityDescription的entityForName方法来，返回指向该具体实体结构的指针</p>
+
+<p>然后调用executeFetchRequest:error:方法，来执行查询操作，如果操作成功，则返回对应的数据记录数组</p>
+
+<p>其中，可以通过NSManagedObject数据记录对象里关联的属性，查询另一个数据记录对象里的属性</p>
+
+<p>之前用Key-Value的代码就可以修改为：</p>
+
+<p>#import “School.h”</p>
+
+<p>#import “Student.h”</p>
+
+<ul>
+  <li>( void )insertCoreData</li>
+</ul>
+
+<p>{</p>
+
+<p>NSManagedObjectContext *context = [self managedObjectContext];</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ContactInfo *contactInfo = [NSEntityDescription insertNewObjectForEntityForName: @"School" inManagedObjectContext:context];
+
+contactInfo.name = @"name B" ;
+
+contactInfo.birthday = @"classID 0" ;
+
+contactInfo.age = @"persons 20" ;
+
+ContactDetailInfo *contactDetailInfo = [NSEntityDescription insertNewObjectForEntityForName: @"Student" inManagedObjectContext:context];
+
+contactDetailInfo.address = @"age 22" ;
+
+contactDetailInfo.name = @"name B" ;
+
+contactDetailInfo.telephone = @"classID 1" ;
+</code></pre></div></div>
+
+<p>contactDetailInfo.info = contactInfo;</p>
+
+<p>contactInfo.details = contactDetailInfo;</p>
+
+<p>NSError *error;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (![context save:&amp;error])
+</code></pre></div></div>
+
+<p>{</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    NSLog( @"不能保存：%@" ,[error localizedDescription]);
+</code></pre></div></div>
+
+<p>}</p>
+
+<p>}</p>
+
+<ul>
+  <li>( void )dataFetchRequest</li>
+</ul>
+
+<p>{</p>
+
+<p>NSManagedObjectContext *context = [self managedObjectContext];</p>
+
+<p>NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSEntityDescription *entity = [NSEntityDescription entityForName:@"ContactInfo" inManagedObjectContext:context];
+</code></pre></div></div>
+
+<p>[fetchRequest setEntity:entity];</p>
+
+<p>NSError *error;</p>
+
+<p>NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&amp;error];</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for (Student *info in fetchedObjects) {
+
+    NSLog( @"name:%@" , info.name);
+
+    NSLog( @"age:%d" , info.age);
+
+    NSLog( @"classID:%@" , classID );
+</code></pre></div></div>
+
+<p>School *details = info.details;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    NSLog( @" persons :%d" , details.persons);
+
+     NSLog( @" classID :%d" , details.classID);
+</code></pre></div></div>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>6.~~ 数据库相关
+1）打印隐藏的sql语句：</p>
+
+<p>在Edit Scheme中选择Run，之后进入Arguments标签，添加参数：“-com.apple.CoreData.SQLDebug 1”</p>
+
+<p>2）使用SQLite存储时，数据库结构</p>
+
+<p>存储的SQLite数据库表名称：大写“Z”加上实体名称大写，一个实体相当于一张表</p>
+
+<p>具体的字段名称：大写“Z”加上实体属性名称大写</p>
+
+<p>二.SQLite
+mac os x中SQLite库，它是一个轻量级功能强大的关系数据引擎，也很容易嵌入到应用程序。可以在多个平台使用，SQLite是一个轻量级的嵌入式sql数据库编程。与core data框架不同的是， SQLite是使用程序式的，sql的主要的API来直接操作数据表。</p>
+
+<p>SQLite3是一个非常灵活的数据库系统，没有数据库服务器的概念，这应该算是回归了比较传统的数据库设计。</p>
+
+<p>早期我们的数据都是直接存放在文件系统，由于简单的文件系统存在数据冗余、不一致、读取操作繁琐（每个数据结构都可能要编写自己的读写程序）等，慢慢形成了数据库管理系统，一套完整的数据库理论。</p>
+
+<p>目前较为流行的Oracle, SqlServer, MySql等数据库系统均是服务器-客户端的概念，数据库服务器负责所有的数据管理、权限管理等，客户端按照一定格式发出请求即可。</p>
+
+<p>sql则是较为流行的结构化查询语言，为众多上层应用提供简单方便的数据库读写操作等。</p>
+
+<p>但是可想而知，服务器端必定是需要对sql请求进行解析然后执行的，那么这些执行程序还得回归更底层的语言，比如C&amp;C++的实现。</p>
+
+<p>注意：</p>
+
+<p>第1代语言 机器语言（指令系统）其指令为二进制代码(0、1)，直接对应芯片上的运算了</p>
+
+<p>第2代语言 汇编语言 用“助记符”代替二进制代码，如用ADD A,B表示两数相加。</p>
+
+<p>第3代语言 高级语言（面向过程）例如：C、JAVA、C++。</p>
+
+<p>第4代语言（非过程化语言）  例如：SQL语言。</p>
+
+<p>第5代语言（智能化语言） 例如：Prolog语言）</p>
+
+<p>而SQLite3从功能上来说，这是一个数据库系统，其本质上是由一套用C语言实现的对数据库文件的读写接口。此类接口支持sql语言。所以，这不需要什么服务器，也没有数据库权限管理。在程序中可以随时调用API创建一个数据库文件，进行数据存储，非常灵活易用。</p>
+
+<p>2.1 建立SQLite3.0数据库
+在Firefox中打开SQLite3（如果没有，选择工具-&gt;附加组件，添加即可）新建SQLite3数据库,Contacts,</p>
+
+<p>建立一个members表，字段 id,integer,主键，自增;name,varchar;email,varchar,null;birthday,datetime,null。</p>
+
+<p>向表中添加一些数据：</p>
+
+<p>pastedGraphic_11.pdf</p>
+
+<p>2.2 SQLite使用代码 
+新建Empty Appliation，添加一个HomeViewController，和一个组件libSQLite3.dylib,来支持对SQLite3的连接，关闭，增删改查等操作。</p>
+
+<p>1.）HomeViewController.h代码：</p>
+
+<p>#import</p>
+
+<p>#import “SQLite3.h”</p>
+
+<p>@interface HomeViewController : UIViewController{</p>
+
+<p>SQLite3 *db; //声明一个SQLite3数据库</p>
+
+<p>}</p>
+
+<ul>
+  <li>(NSString *)filePath;//数据库文件的路径。一般在沙箱的Documents里边操作</li>
+</ul>
+
+<p>@end</p>
+
+<p>2.）HomeViewController.m代码：</p>
+
+<p>#import “HomeViewController.h”</p>
+
+<p>@interface HomeViewController ()</p>
+
+<p>@end</p>
+
+<p>@implementation HomeViewController</p>
+
+<p>//该方法用于返回数据库在Documents文件夹中的全路径信息</p>
+
+<ul>
+  <li>(NSString *)filePath{</li>
+</ul>
+
+<p>NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);</p>
+
+<p>NSString *documentsDir = [paths objectAtIndex:0];</p>
+
+<p>return [documentsDir stringByAppendingPathComponent:@”Contacts.SQLite”];</p>
+
+<p>}</p>
+
+<p>//打开数据库的方法</p>
+
+<ul>
+  <li>(void)openDB{</li>
+</ul>
+
+<p>if (SQLite3_open([[self filePath] UTF8String], &amp;db) != SQLite_OK) {</p>
+
+<p>SQLite3_close(db);</p>
+
+<p>NSAssert(0, @”数据库打开失败。”);</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>//插入数据方法</p>
+
+<ul>
+  <li>(void)insertRecordIntoTableName:(NSString *)tableName</li>
+</ul>
+
+<p>withField1:(NSString *)field1 field1Value:(NSString *)field1Value</p>
+
+<p>andField2:(NSString *)field2 field2Value:(NSString *)field2Value</p>
+
+<p>andField3:(NSString *)field3 field3Value:(NSString *)field3Value{</p>
+
+<p>//方法2：变量的绑定方法</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *sql = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@', '%@', '%@') VALUES (?, ?, ?)",tableName, field1, field2, field3];
+</code></pre></div></div>
+
+<p>SQLite3_stmt *statement;</p>
+
+<p>if (SQLite3_prepare_v2(db, [sql UTF8String], -1, &amp;statement, nil) == SQLite_OK) {</p>
+
+<p>SQLite3_bind_text(statement, 1, [field1Value UTF8String], -1,NULL);</p>
+
+<p>SQLite3_bind_text(statement, 2, [field2Value UTF8String], -1,NULL);</p>
+
+<p>SQLite3_bind_text(statement, 3, [field3Value UTF8String], -1,NULL);</p>
+
+<p>}</p>
+
+<p>if (SQLite3_step(statement) != SQLite_DONE) {</p>
+
+<p>NSAssert(0, @”插入数据失败！”);</p>
+
+<p>SQLite3_finalize(statement);</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>//查询数据</p>
+
+<ul>
+  <li>(void)getAllContacts{</li>
+</ul>
+
+<p>NSString *sql = @”SELECT * FROM members”;</p>
+
+<p>SQLite3_stmt *statement;</p>
+
+<p>if (SQLite3_prepare_v2(db, [sql UTF8String], -1, &amp;statement, nil) == SQLite_OK) {</p>
+
+<p>while (SQLite3_step(statement) == SQLite_ROW) {</p>
+
+<p>char *name = (char *)SQLite3_column_text(statement, 0);</p>
+
+<p>NSString *nameStr = [[NSString alloc] initWithUTF8String:name];</p>
+
+<p>char *email = (char *)SQLite3_column_text(statement, 1);</p>
+
+<p>NSString *emailStr = [[NSString alloc] initWithUTF8String:email];</p>
+
+<p>char *birthday = (char *)SQLite3_column_text(statement, 2);</p>
+
+<p>NSString *birthdayStr = [[NSString alloc] initWithUTF8String:birthday];</p>
+
+<p>NSString *info = [[NSString alloc] initWithFormat:@”%@ - %@ - %@”,</p>
+
+<p>nameStr, emailStr, birthdayStr];</p>
+
+<p>NSLog(info);</p>
+
+<p>[nameStr release];</p>
+
+<p>[emailStr release];</p>
+
+<p>[birthdayStr release];</p>
+
+<p>[info release];</p>
+
+<p>}</p>
+
+<p>SQLite3_finalize(statement);</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<ul>
+  <li>(void)viewDidLoad</li>
+</ul>
+
+<p>{</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[self openDB];
+
+[self insertRecordIntoTableName:@"members" withField1:@"name" field1Value:@"李1" andField2:@"email" field2Value:@" df@qq.com " andField3:@"birthday" field3Value:@"12-45-78"];
+
+[self insertRecordIntoTableName:@"members" withField1:@"name" field1Value:@"李2" andField2:@"email" field2Value:@" df@qq.com " andField3:@"birthday" field3Value:@"12-45-78"];
+
+[self insertRecordIntoTableName:@"members" withField1:@"name" field1Value:@"李3" andField2:@"email" field2Value:@" df@qq.com " andField3:@"birthday" field3Value:@"12-45-78"];
+
+[self getAllContacts];
+</code></pre></div></div>
+
+<p>SQLite3_close(db);</p>
+
+<p>[super viewDidLoad];</p>
+
+<p>}</p>
+
+<p>@end</p>
+
+<p>插入数据后的效果：</p>
+
+<p>pastedGraphic_12.pdf</p>
+
+<p>查询的效果：</p>
+
+<p>pastedGraphic_13.pdf</p>
+
+<p>2.3 小结：
+数据查询：SQLite3_exec()函数执行sql语句，在没有返回值的情况下（比如创建表格、插入记录、删除记录等操作中）很好用。</p>
+
+<p>也会用到SQLite3_stat结构、SQLite3_prepare_v2()函数、sqlte3_step()函数和SQLite3_finalize()函数。</p>
+
+<p>查询分三个阶段：准备阶段：SQLite3_stat、SQLite3_prepare_v2()</p>
+
+<p>执行阶段：sqlte3_step()</p>
+
+<p>终止阶段： SQLite3_finalize()</p>
+
+<p>三.FMDB
+FMDB框架其实只是一层很薄的封装，主要的类也就两个：FMDatabase和FMResultSet。在使用FMDB的时候还需要导入libSQLite3.0.dylib。</p>
+
+<p>iOS中原生的SQLite API在使用上相当不友好，在使用时，非常不便。于是，就出现了一系列将SQLite API进行封装的库，例如FMDB、 PlausibleDatabase、SQLitepersistentobjects等， FMDB ( https://github.com/ccgus/ FMDB) 是一款简洁、易用的封装库，这一篇文章简单介绍下FMDB的使用。</p>
+
+<p>在FMDB下载文件后，工程中必须导入如下文件，并使用 libSQLite3.dylib 依赖包。</p>
+
+<p>pastedGraphic_14.pdf</p>
+
+<p>FMDB同时兼容ARC和非ARC工程，会自动根据工程配置来调整相关的内存管理代码。</p>
+
+<p>FMDB常用类：</p>
+
+<p>FMDatabase ： 一个单一的SQLite数据库，用于执行SQL语句。</p>
+
+<p>FMResultSet ：执行查询一个FMDatabase结果集，这个和android的Cursor类似。</p>
+
+<p>FMDatabaseQueue ：在多个线程来执行查询和更新时会使用这个类。</p>
+
+<p>3.1 数据基本操作
+1） 创建数据库：</p>
+
+<p>db= [FMDatabase databaseWithPath:database_path];</p>
+
+<p>1、当数据库文件不存在时，FMDB会自己创建一个。</p>
+
+<p>2、 如果你传入的参数是空串：@”” ，则FMDB会在临时文件目录下创建这个数据库，数据库断开连接时，数据库文件被删除。</p>
+
+<p>3、如果你传入的参数是 NULL，则它会建立一个在内存中的数据库，数据库断开连接时，数据库文件被删除。</p>
+
+<p>2） 打开数据库：</p>
+
+<p>返回BOOL型。</p>
+
+<p>3） 关闭数据库：</p>
+
+<p>[dbclose]</p>
+
+<p>3.2 数据库增删改等操作：
+除了查询操作，FMDB数据库操作都执行executeUpdate方法，这个方法返回BOOL型。</p>
+
+<p>看一下例子：</p>
+
+<p>1）创建表：</p>
+
+<p>if ([db open]) {</p>
+
+<p>NSString *sqlCreateTable = [NSString stringWithFormat:@”CREATE TABLE IF NOT EXISTS ‘%@’ (‘%@’ INTEGER PRIMARY KEY AUTOINCREMENT, ‘%@’ TEXT, ‘%@’ INTEGER, ‘%@’ TEXT)”,TABLENAME,ID,NAME,AGE,ADDRESS];</p>
+
+<p>BOOL res = [db executeUpdate:sqlCreateTable];</p>
+
+<p>if (!res) {</p>
+
+<p>NSLog(@ “error when creating db table” );</p>
+
+<p>}  else {</p>
+
+<p>NSLog(@ “success to creating db table” );</p>
+
+<p>}</p>
+
+<p>[db close];</p>
+
+<p>}</p>
+
+<p>2）添加数据：</p>
+
+<p>if ([db open]) {</p>
+
+<p>NSString *insertSql1= [NSString stringWithFormat:</p>
+
+<p>@”INSERT INTO ‘%@’ (‘%@’, ‘%@’, ‘%@’) VALUES (‘%@’, ‘%@’, ‘%@’)”, TABLENAME, NAME, AGE, ADDRESS, @ “张三” , @ “13” , @ “济南” ];</p>
+
+<p>BOOL res = [db executeUpdate:insertSql1];</p>
+
+<p>NSString *insertSql2 = [NSString stringWithFormat:</p>
+
+<p>@”INSERT INTO ‘%@’ (‘%@’, ‘%@’, ‘%@’) VALUES (‘%@’, ‘%@’, ‘%@’)”,TABLENAME, NAME, AGE, ADDRESS, @ “李四” , @ “12” , @ “济南” ];</p>
+
+<p>BOOL res2 = [db executeUpdate:insertSql2];</p>
+
+<p>if (!res) {</p>
+
+<p>NSLog(@”error when insert db table”);</p>
+
+<p>}  else {</p>
+
+<p>NSLog(@”success to insert db table”);</p>
+
+<p>}</p>
+
+<p>[db close];</p>
+
+<p>}</p>
+
+<p>3）修改数据：</p>
+
+<p>if ([db open]) {</p>
+
+<p>NSString *updateSql = [NSString stringWithFormat:</p>
+
+<p>@”UPDATE ‘%@’ SET ‘%@’ = ‘%@’ WHERE ‘%@’ = ‘%@’“,TABLENAME, AGE, @”15” ,AGE, @ “13” ];</p>
+
+<p>BOOL res = [db executeUpdate:updateSql];</p>
+
+<p>if (!res) {</p>
+
+<p>NSLog(@”error when update db table”);</p>
+
+<p>}  else {</p>
+
+<p>NSLog(@”success to update db table”);</p>
+
+<p>}</p>
+
+<p>[db close];</p>
+
+<p>}</p>
+
+<p>4）删除数据：</p>
+
+<p>if ([db open]) {</p>
+
+<p>NSString *deleteSql = [NSString stringWithFormat:</p>
+
+<p>@ “delete from %@ where %@ = ‘%@’” ,</p>
+
+<p>TABLENAME, NAME, @ “张三” ];</p>
+
+<p>BOOL res = [db executeUpdate:deleteSql];</p>
+
+<p>if (!res) {</p>
+
+<p>NSLog(@”error when delete db table”);</p>
+
+<p>}  else {</p>
+
+<p>NSLog(@”success to delete db table”);</p>
+
+<p>}</p>
+
+<p>[db close];</p>
+
+<p>}</p>
+
+<p>5）数据库查询操作：</p>
+
+<p>查询操作使用了executeQuery，并涉及到 FMResultSet。</p>
+
+<p>if ([db open]) {</p>
+
+<p>NSString * sql = [NSString stringWithFormat:</p>
+
+<p>@ “SELECT * FROM %@” ,TABLENAME];</p>
+
+<p>FMResultSet * rs = [db executeQuery:sql];</p>
+
+<p>while ([rs next]) {</p>
+
+<p>int Id = [rs intForColumn:ID];</p>
+
+<p>NSString * name = [rs stringForColumn:NAME];</p>
+
+<p>NSString * age = [rs stringForColumn:AGE];</p>
+
+<p>NSString * address = [rs stringForColumn:ADDRESS];</p>
+
+<p>NSLog(@”id = %d, name = %@, age = %@ address = %@”, Id, name, age, address);</p>
+
+<p>}</p>
+
+<p>[db close];</p>
+
+<p>}</p>
+
+<p>FMDB的FMResultSet提供了多个方法来获取不同类型的数据：</p>
+
+<p>3.3 数据库多线程操作：
+如果应用中使用了多线程操作数据库，那么就需要使用FMDatabaseQueue来保证线程安全了。 应用中不可在多个线程中共同使用一个FMDatabase对象操作数据库，这样会引起数据库数据混乱。 为了多线程操作数据库安全，FMDB使用了FMDatabaseQueue，使用FMDatabaseQueue很简单，首先用一个数据库文件地址来初使化FMDatabaseQueue，然后就可以将一个闭包(block)传入inDatabase方法中。 在闭包中操作数据库，而不直接参与FMDatabase的管理。</p>
+
+<p>FMDatabaseQueue* queue = [FMDatabaseQueue databaseQueueWithPath:database_path];</p>
+
+<p>dispatch_queue_t q1 = dispatch_queue_create( “queue1” , NULL);</p>
+
+<p>dispatch_queue_t q2 = dispatch_queue_create( “queue2” , NULL);</p>
+
+<p>dispatch_async(q1, ^{</p>
+
+<p>for ( int i = 0; i &lt; 50; ++i) {</p>
+
+<p>[queue inDatabase:^(FMDatabase *db2) {</p>
+
+<p>NSString *insertSql1= [NSString stringWithFormat:</p>
+
+<p>@ “INSERT INTO ‘%@’ (‘%@’, ‘%@’, ‘%@’) VALUES (?, ?, ?)” ,</p>
+
+<p>TABLENAME, NAME, AGE, ADDRESS];</p>
+
+<p>NSString * name = [NSString stringWithFormat:@ “jack %d” , i];</p>
+
+<p>NSString * age = [NSString stringWithFormat:@ “%d” , 10+i];</p>
+
+<p>BOOL res = [db2 executeUpdate:insertSql1, name, age,@ “济南” ];</p>
+
+<p>if (!res) {</p>
+
+<p>NSLog(@ “error to inster data: %@” , name);</p>
+
+<p>}  else {</p>
+
+<p>NSLog(@ “succ to inster data: %@” , name);</p>
+
+<p>}</p>
+
+<p>}];</p>
+
+<p>}</p>
+
+<p>});</p>
+
+<p>dispatch_async(q2, ^{</p>
+
+<p>for ( int i = 0; i &lt; 50; ++i) {</p>
+
+<p>[queue inDatabase:^(FMDatabase *db2) {</p>
+
+<p>NSString *insertSql2= [NSString stringWithFormat:</p>
+
+<p>@ “INSERT INTO ‘%@’ (‘%@’, ‘%@’, ‘%@’) VALUES (?, ?, ?)” ,</p>
+
+<p>TABLENAME, NAME, AGE, ADDRESS];</p>
+
+<p>NSString * name = [NSString stringWithFormat:@ “lilei %d” , i];</p>
+
+<p>NSString * age = [NSString stringWithFormat:@ “%d” , 10+i];</p>
+
+<p>BOOL res = [db2 executeUpdate:insertSql2, name, age,@ “北京” ];</p>
+
+<p>if (!res) {</p>
+
+<p>NSLog(@ “error to inster data: %@” , name);</p>
+
+<p>}  else {</p>
+
+<p>NSLog(@ “succ to inster data: %@” , name);</p>
+
+<p>}</p>
+
+<p>}];</p>
+
+<p>}</p>
+
+<p>});</p>
+
+<p>4.总结
+CoreData允许用户使用代表实体和实体间关系的高层对象来操作数据。它也可以管理串行化的数据，提供对象生存期管理与object_graph 管理，包括存储。Core Data直接与 SQLite 交互，避免开发者使用原本的 SQL 语句.
+上面的三种，都是在什么情况下使用呢？大多数人肯定是根据自己使用某项技术的时间也就是掌握的熟练程度来决定，例如以前没用过CoreData，在编写ios程序的时候还是使用自己比较拿手的SQLite，或者可能会考虑到在使用coredata自己还要花费额外的时候去学习。
+但是仔细想一想，CoreData是苹果自己弄的框架，它其实还是和SQLite进行交互的，只是在交互的时候或者处理数据的时候进行了很多的优化，CoreData可以缩小你的代码量，而且CoreData已经优化过很多个版本，还提供了出色的安全性和错误处理之外，还提供了对任何竞争性方案的最好的内存可扩展性。换句话说就是，你可能花费了很长时间为某个问题进行优化精心制作了一个方案，但是在性能上的优势和CoreData相比，还是相差深远的。
+另外就是CoreData与Mac OS X的集成非常的好，CoreData也和IB进行了结合，允许你创建用户界面，这样可以帮助你缩短应用程序的设计，实施以及调试周期。
+所以在编写程序的时候尽量使用CoreData，这样才是最优的选择。只有在Core Data is available on iOS 3.0 and later才能使用CoreData。
+至于SQLite和FMDB的使用情况，这个看个人喜好了，个人觉得没什么标准。FMDB就是对SQLite的封装，使用起来有方便的接口，没那么麻烦而已。</p>
+:ET
