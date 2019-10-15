@@ -1,0 +1,153 @@
+---
+layout:     post
+title:      关于UITableView中cell自适应高度的问题
+subtitle:   
+date:       2016-03-15
+author:     Rookie
+header-img: 
+catalog: true
+stickie: false
+tags:
+    - OC
+---
+
+最近在做一个app，内容主要是 一个 `table view` 的 `cell` 中有一张宽度一定高度不一定的图片和不一样高度的文字。每次从服务器楼数据会返回图片的 `URL` 地址和文字等内容，但只有图片下载完成后才能知道图片的大小。文字可以通过一些 `API` 计算固定宽度后的高度，但是图片在不下载完成后是不知道图片的宽高的。我们“很硬”的后台没有提供相关的接口。因为项目比较紧，两个星期完成一个 APP...
+
+好了言归正传，交代了背景，再介绍下我遇到的问题：   
+1、在不知道图片宽高的情况下如何动态适配 `cell` 中的高度。   
+2、在我重写 `cell` 时因为在 `cell` 底部有可以点击的`button`，但是突然在某一天无法点击了，找了半天也没有找到原因。  
+
+对于第一个问题，首先先介绍下 `Table view` 的加载流程，主要的就 3 步： 
+1、通过代理获得一共有多少个 `cell`   
+2、通过代理获得每个 `cell` 的高度  
+3、通过代理填充当前显示的 `cell` 中的内容。`table view` 会在 `layoutSubviews` 中做这三件事，而 `layoutSubviews` 方法除了在 `frame` 改变后调用还会在 `scroll view` 滚动时调用， 每次滚动时 !
+
+一开始的做法比较糙，直接用 `SDWebImage` 的异步加载图片的方法，在图片加载完后图片的高度变了，`cell` 非常恶心。。。脑补下吧。 方法直接 `pass` 了。 
+然后我改进了做法，准备一个 `dictionary` 记录每个 `cell` 的高度（为什么不用 `array` 后面再谈）， 在 `configure cell` 时下载图片，然后在下载完成的回调里记录下当前行的行高，然后 `reload table cell at indexPaths …`， 这样做的后果是样式比上一种方法好点了，但是在某一刻，它居然崩溃了。。。。。。刷的太快了。。。。
+
+最后参考苹果的示例程序 `LazyTable` 实现了现在很满意的效果。以下关键数据和名称已替换，但不影响阅读。
+
+```obj-c
+#pragma mark - Table view datasource and delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [aArray count];  // aArray 为一个数组，保留每个 cell 对应的 model
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 先从缓存中查找图片
+    UIImage *img = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey: imgKey ];
+
+    // 没有找到已下载的图片就使用默认的占位图，当然高度也是默认的高度了，除了高度不固定的文字部分。
+    if (!img) {
+        img = CachedImage( placeholder name );
+    }
+
+    CGFloat height = [MyCustomCell heightWithImage:img text:text]; // 根据传入的动态内容计算 cell 的高度
+    return height;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier = @"Cell Identifier";
+    MyCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+
+    // 如果没有可以复用的 cell 就新建一个
+    if (!cell) {
+        cell = [[MyCustomCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                     reuseIdentifier:identifier];
+    }
+
+    // 配置 cell
+    [self configureCell:cell atIndexPath:indexPath];
+
+    return cell;
+}
+
+- (void)configureCell:(MyCustomCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    // 正常的设置文字和其他内容
+
+    // 开始加载图片
+    NSString *imgURL = [self.aArray[indexPath.row] valueForKey: imgKey ];    // 图片 url
+    UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imgURL];
+
+    // 没有已经下载好的图片
+    if ( !cachedImage ) {
+        // 要是当前 table view 没有在被拖动或者自由滑行
+        if ( !self.tableView.dragging && !self.tableView.decelerating ) {
+            // 下载当前 cell 中的图片
+            [self downloadImage:imgURL forIndexPath:indexPath];
+        }
+        // cell 中图片先用缓存的占位图代替
+        [cell setSpitslotImage:CachedImage(@"placeholder")];
+    } else {
+        // 找到了缓存的图片，直接插缓存的图片
+        [cell setSpitslotImage:cachedImage];
+    }
+}
+
+- (void)downloadImage:(NSString *)imageURL forIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self) target = self;
+
+    // 利用 SDWebImage 框架提供的功能下载图片
+    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:URLFromString(imageURL)
+    options:SDWebImageDownloaderUseNSURLCache
+    progress:^(NSUInteger receivedSize, long long expectedSize) {
+     // Do nothing
+    }
+    completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+
+    // 保存图片
+    [[SDImageCache sharedImageCache] storeImage:image forKey:imageURL toDisk:YES]; // 别忘了保存到磁盘上
+
+    // 延迟在主线程更新 cell 的高度
+    [target performSelectorOnMainThread:@selector(reloadCellAtIndexPath:)       // 至于这步的原因是为了防止刷的太快了崩溃
+                             withObject:indexPath waitUntilDone:NO];            // 这步会把 selector 的调用放到主线程的 run loop 里排队
+    }];                                                                         // 风险就是要是这个队列里排队的比较多，
+                                                                                // 这个后插入的方法执行会被延迟
+}
+
+// 这个方法没什么好解释的了
+- (void)loadImageForOnScreenRows {
+    NSArray *visiableIndexPathes = [self.tableView indexPathsForVisibleRows];
+
+    for(NSInteger i = 0; i < [visiableIndexPathes count]; i++)
+    {
+        NSString *imgURL = [self.aArray[i] valueForKey: imgKey ];
+        [self downloadImage:imgURL forIndexPath:visiableIndexPathes[i]];
+    }
+}
+
+// 方法名为什么叫这个。。。。是我太懒了，之前写的是刷新某一行的数据，然后发现效率不高，还容易崩溃
+// 最后直接刷新全部数据了。。
+// 但是别认为调用 table view 的 reloadData 效率就不高，回顾下上面的步骤
+// reloadData 实际上就是向代理要行数，要行高，对**显示出来**的 cell 填充数据
+// 我的那份代码的瓶颈就是 计算行高和填充数据，不过现在看来没什么不流畅的，所以就没什么问题
+// 其实，为了性能考虑，还是最好服务器返回 每个 cell 中的图片的宽高，现在的做法只是临时解决后台xx的问题。。。。。。
+- (void)reloadCellAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView reloadData];
+}
+
+#pragma mark - Scroll view delegate
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {   
+    // table view 停止拖动了
+    if (!decelerate) {
+        [self loadImageForOnScreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    // table view 停止滚动了
+    [self loadImageForOnScreenRows];
+}
+```
+现在来解释下为什么我保存 `cell` 高度用字典文件不用 `array`。 因为。。。。。。我懒。用 `array`保存，每个没有数据的项要填充默认数据，否则脑补下。而字典文件没有物理上的顺序性，可以脑补出一个逻辑上的顺序性，通过自定义 `key`。
+
+现在谈谈第二个问题： 自定义的 `cell` 中的的 `button` 都没法点击了，我重写了 `hit test` 方法，强制返回那个 `button`，重写了 `touch began`, `touch end` 强制向下一个响应者发送事件，没用。。。。坑爹啊。最后我调整 `button` 的位置，原点移动到了 （0,0） 可以点击了！！！！ 给 `contentView` 补了个色，尼玛怎么还是默认高度！！！！！！！原来在重写 `layoutSubviews` 方法中我只顾着调整我自己的子 `view` 的位置了，忘了调整 `content view`。在方法开头补上
+
+```obj-c
+[super layoutSubviews];
+```
+
+
+
+
+
