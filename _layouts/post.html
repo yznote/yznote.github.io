@@ -73,6 +73,24 @@ layout: default
 
                 <hr style="visibility: hidden;">
                 
+                <!-- 原代码 -->
+                <!-- <ul class="pager">
+                    {% if page.previous.url %}
+                    <li class="previous">
+                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
+                        上一篇:<span>{{page.previous.title}}</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if page.next.url %}
+                    <li class="next">
+                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
+                        下一篇:<span>{{page.next.title}}</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul> -->
+                <!-- 改造代码 -->
                 <ul class="pager">
                     {% if page.previous.url %}
                     <li class="previous">
@@ -89,7 +107,6 @@ layout: default
                     </li>
                     {% endif %}
                 </ul>
-
                 
                 {% if site.disqus_username %}
                 <!-- disqus 评论框 start -->
