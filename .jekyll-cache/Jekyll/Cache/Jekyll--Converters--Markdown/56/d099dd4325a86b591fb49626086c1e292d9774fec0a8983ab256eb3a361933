@@ -1,0 +1,61 @@
+I"�<p>一、安装bash-completion</p>
+
+<p>$ brew install
+bash-completion</p>
+
+<p>##查看</p>
+
+<p>$ brew info
+bash-completion</p>
+
+<p>##输出</p>
+
+<p>==&gt; Caveats Add 
+the 
+following lines 
+to 
+your ~/.bash_profile: 
+if 
+[ -f $(brew 
+–prefix)/etc/bash_completion ]; then 
+. $(brew 
+–prefix)/etc/bash_completion 
+fi Homebrew’s own bash completion 
+script 
+has been installed 
+to 
+/usr/local/etc/bash_completion.d</p>
+
+<p>将if…then…那一句添加到~/.bash_profile（如果没有该文件，新建一个）重启终端，以上为安装bash-completion部分。</p>
+
+<p>二、拷贝文件、设置路径</p>
+
+<p>访问：https://github.com/git/git.git</p>
+
+<p>找到”contrib/completion/”目录下的git-completion.bash ，然后点击编辑，拷贝其内容，复制到文本文件，保存为 git-completion.bash 文件 然后将文件用命令拷贝到 ～/ 目录下</p>
+
+<p>$ 
+cp 
+xxx/git-completion.bash 
+~/.git-completion.bash</p>
+
+<p>xxx 为文件所在目录，注意拷贝后的文件名称为 .git-completion.bash</p>
+
+<p>在~/.bashrc文件（该目录下如果没有，新建一个）中添加下边的内容</p>
+
+<p>$ source ~/.git-completion.bash</p>
+
+<p>三、 启动: 终端输入
+$ source ~/.git-completion.bash
+将下面这句话 添加到~/.bash_profile</p>
+
+<p>if 
+[ 
+-f 
+~/.git-completion.bash ]; 
+then 
+. ~/.git-completion.bash 
+fi
+如果不添加每次必须执行
+source ~/.git-completion.bash</p>
+:ET

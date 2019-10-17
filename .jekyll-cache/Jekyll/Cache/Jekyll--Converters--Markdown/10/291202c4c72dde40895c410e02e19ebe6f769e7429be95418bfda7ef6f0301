@@ -1,0 +1,142 @@
+I"�(<h4 id="cocoapods是什么">CocoaPods是什么？</h4>
+
+<p><code class="highlighter-rouge">CocoaPods</code>是一个负责管理<code class="highlighter-rouge">iOS</code>项目中第三方开源库的工具。<code class="highlighter-rouge">CocoaPods</code>的项目源码在<code class="highlighter-rouge">Github</code>上管理。该项目开始于2011年8月12日，在这两年多的时间里，它持续保持活跃更新。开发<code class="highlighter-rouge">iOS</code>项目不可避免地要使用第三方开源库，<code class="highlighter-rouge">CocoaPods</code>的出现使得我们可以节省设置和更新第三方开源库的时间，在<code class="highlighter-rouge">iOS</code>开发中经常会用到第三方库如<code class="highlighter-rouge">AFNetworking</code>,<code class="highlighter-rouge">ASIHttpRequest</code>等，在使用第三方库时，你除了要导数源码外，但是，集成这些依赖库需要我们手动去配置，还有当这些第三方库发生了更新，还需要手动去更新项目。这就显得非常麻烦。有麻烦自然有解决办法，<code class="highlighter-rouge">CocoaPods</code>就是为了解决这个问题而生的。通过<code class="highlighter-rouge">CocoaPods</code>，我们可以将第三方的依赖库统一管理起来，配置和更新只需要通过简单的几行命令即可完成。</p>
+
+<h4 id="cocoapods的下载及安装">CocoaPods的下载及安装</h4>
+
+<p><code class="highlighter-rouge">mac</code>系统已经默认安装好<code class="highlighter-rouge">Ruby</code>环境，如果你不确定自己系统中是否有<code class="highlighter-rouge">Ruby</code>的，可以在终端中输入命令行：<code class="highlighter-rouge">ruby -v</code>查看当前<code class="highlighter-rouge">ruby</code>版本.</p>
+
+<p>确定以后，接下来就可以下载和安装<code class="highlighter-rouge">CocoaPods</code>，只需要一行命令。在<code class="highlighter-rouge">Terminator</code>（也就是终端）中输入以下命令：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo gem install cocoapods
+</code></pre></div></div>
+
+<p>但是，在终端中敲入这个命令之后，会发现半天没有任何反应。原因是那堵墙阻挡了<code class="highlighter-rouge">cocoapods.org</code>。<br />
+解决办法是，我们可以用阿里云的<code class="highlighter-rouge">Ruby</code>镜像来访问<code class="highlighter-rouge">cocoapods</code>。按照下面的顺序在终端中敲入依次敲入命令：<br />
+首先，检查你的<code class="highlighter-rouge">ruby</code>源：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem sources -l
+</code></pre></div></div>
+<p>默认情况下，终端应该返回如下信息：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*** CURRENT SOURCES ***
+https://rubygems.org/
+</code></pre></div></div>
+
+<p>当然这个源在墙内是访问不到的。因此我们需要寻找一个可以在国内访问到的镜像。目前笔者找到的是<a href="http://rubygems-china.oss.aliyuncs.com">这个</a>这个阿里云的镜像，当然随着时间的推移，未来这个镜像也有可能无法访问了，到时候就只能重新寻找了。确认镜像可用后，现在就要开始修改<code class="highlighter-rouge">ruby</code>源了。首先执行以下命令删除原来的<code class="highlighter-rouge">ruby</code>源</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem sources --remove https://rubygems.org/
+</code></pre></div></div>
+<p>执行命令后可在终端看见以下信息：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://rubygems.org/ removed from sources
+</code></pre></div></div>
+<p>然后下一步添加你找到的可用的镜像源：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem sources -a http://rubygems-china.oss.aliyuncs.com
+</code></pre></div></div>
+<p>此时如果你再执行</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem sources -l
+</code></pre></div></div>
+<p>就能看到当前镜像源里只有阿里云这一个了。此时你就可以重新执行这一段开头的那句命令了：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo gem install cocoapods
+</code></pre></div></div>
+<p>如果一切正常，你应该能看到一段安装进度，以及最后有一条信息：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gems installed
+</code></pre></div></div>
+<p>确认看见这条信息，后先判断的<code class="highlighter-rouge">CocoaPods</code>是否可以使用，可以用<code class="highlighter-rouge">CocoaPods</code>的搜索功能验证一下。在终端中输入：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod search AFNetworking；
+</code></pre></div></div>
+
+<p>执行后可能会一直停在</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Setting up CocoaPods master repo
+</code></pre></div></div>
+<p>然后(很久)会出现如下错误：</p>
+
+<p><img src="/img/noimg.jpeg" alt="腾讯博客原图片丢失了" /></p>
+
+<p>解决办法是：</p>
+
+<p>这说明<code class="highlighter-rouge">CocoaPods</code>还不能正常使用，需要更新<code class="highlighter-rouge">pod</code>，下载它的一些依赖包；在终端中输入：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod setup
+</code></pre></div></div>
+<p>过一段时间之后，你会在终端中看到跟上面同样的红色的错误信息。</p>
+
+<p>这说明某些环境原因导致<code class="highlighter-rouge">pod</code>更新不了，可能原因有:</p>
+<blockquote>
+  <p>1.gem版本太低；<br />
+2.github无法链接；<br />
+3..cocoapods目录下的配置信息错误。</p>
+</blockquote>
+
+<p>我们可以一个一个来排除，</p>
+
+<p>首先更新<code class="highlighter-rouge">gem</code>到最新版本，在终端中输入：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo gem update --system
+</code></pre></div></div>
+<p>然后检查是否可以<code class="highlighter-rouge">ping</code>通<code class="highlighter-rouge">github</code>，在终端中输入：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping github.com 
+</code></pre></div></div>
+<p>然后查看<code class="highlighter-rouge">pob repo list</code>：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod repo list
+</code></pre></div></div>
+<p>说明<code class="highlighter-rouge">Cocoapods</code>在将它的信息下载到<code class="highlighter-rouge"> ~/.cocoapods</code>里；</p>
+
+<p><code class="highlighter-rouge">cd</code> 到该目录里，用<code class="highlighter-rouge">du -sh *</code>命令来查看文件大小，结果显示<code class="highlighter-rouge">0 repos</code>，说明没有安装成功；</p>
+
+<p>在终端输入：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/.cocoapods
+</code></pre></div></div>
+<p>进入<code class="highlighter-rouge">cocoapods</code>文件后在终端输入：<code class="highlighter-rouge">du -sh *</code></p>
+
+<p>重新执行<code class="highlighter-rouge">pod setup</code>，过一段时间后提示<code class="highlighter-rouge">setup completed</code>,在终端中输入 <code class="highlighter-rouge">pod list</code>，展示出安装列表；</p>
+
+<p>这样总算安装好了。接下来再一次输入：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod search AFNetworking
+</code></pre></div></div>
+<p>输入过后它可能会报：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[!] Unable to find a pod with name, author, summary, or descriptionmatching `AFNetworking`
+</code></pre></div></div>
+<p>解决方案是：输入：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm ~/Library/Caches/CocoaPods/search_index.json
+</code></pre></div></div>
+<p>后在一次输入：<code class="highlighter-rouge">pod search AFNetworking</code></p>
+
+<p>就可以咯。</p>
+
+<h3 id="cocoapods的使用">cocoapods的使用</h3>
+
+<p>首先来到你的项目文件：</p>
+
+<p>cd 项目文件的位置<br />
+然后，添加一个<code class="highlighter-rouge">Podfile</code>文件： <code class="highlighter-rouge">vim Podfile</code><br />
+然后按i进入插入模式，进行编辑，在文件中输入以下内容：<br />
+注意百度上很多旧版本输入的类容：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>platform :ios, '8.1'
+pod 'AFNetworking', '~&gt; 2.0'
+</code></pre></div></div>
+
+<p>它会报：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[!] The dependency `AFNetworking (~&gt; 3.0)` is not used in any concrete target.
+</code></pre></div></div>
+
+<p>现在版本升级官方给的文档是：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>platform :ios, '8.0'
+
+target '你的项目名称' do
+
+pod 'AFNetworking', '~&gt; 3.0'
+
+end
+</code></pre></div></div>
+
+<p>注意：<code class="highlighter-rouge">你的项目名称</code>是你项目文件中<code class="highlighter-rouge">xx.xcodeproj</code>文件，<code class="highlighter-rouge">xx.xcodeproj</code>去掉后缀名所得的<code class="highlighter-rouge">xx</code>==（就是）<code class="highlighter-rouge">你的项目名称</code></p>
+
+<p>输入完成后按<code class="highlighter-rouge">ESC</code>退出编辑模式，最后输入<code class="highlighter-rouge">:wq</code>保存并退出文件。此时可以发现在项目目录下多了一个<code class="highlighter-rouge">Podfile</code>的文件，请注意这个文件必须与<code class="highlighter-rouge">.xcodeproj</code>在同一目录下。</p>
+
+<p>最后：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod install
+</code></pre></div></div>
+<p>没报错就可以了。</p>
+
+:ET

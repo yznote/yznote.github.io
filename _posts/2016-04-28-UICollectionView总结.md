@@ -1,0 +1,16 @@
+---
+layout:     post
+title:      '[转载]UICollectionView总结'
+subtitle:   
+date:       2016-04-28
+author:     Rookie
+header-img: 
+catalog: true
+stickie: false
+tags:
+    - OC
+---
+
+#### UICollectionView总结
+
+[详情请点击](https://www.jianshu.com/p/c59a5c92f859)
