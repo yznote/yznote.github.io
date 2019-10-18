@@ -1,0 +1,93 @@
+I"�A<h4 id="给图片添加水印">给图片添加水印</h4>
+
+<!-- ![项目1](/img/20191010/1.PNG)![项目2](/img/20191010/2.PNG) -->
+<!-- 横向排列 -->
+<div style="background-color:rgba(0,0,0,0.8); width: 100%;height: 300px;border-radius: 5px;color: #fff;padding-top: 10px;">
+	<div style="float:left;border:solid 1px 000;width: 45%;padding-left: 5%">添加水印前:<img src="/img/20191010/1.PNG" width="200" height="260" /></div>
+	<div style="float:left; border:solid 1px 000;width: 45%;padding-left: 5%">添加水印后:<img src="/img/20191010/2.PNG" width="200" height="260" /></div>
+</div>
+<div style="float:none;clear:both;width: 100%;height: 50px"> </div>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">+</span><span class="p">(</span><span class="n">UIImage</span><span class="o">*</span><span class="p">)</span><span class="nf">getWatermarkWllpaper</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">originImg</span> <span class="nf">waterImg</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">waterImg</span><span class="p">{</span>
+    
+    <span class="c1">//原始背景</span>
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">orgImg</span> <span class="o">=</span> <span class="n">originImg</span><span class="p">;</span>
+    <span class="n">CGImageRef</span> <span class="n">orgImgRef</span> <span class="o">=</span> <span class="n">orgImg</span><span class="p">.</span><span class="n">CGImage</span><span class="p">;</span>
+    <span class="n">CGFloat</span> <span class="n">orgWidth</span> <span class="o">=</span> <span class="n">CGImageGetWidth</span><span class="p">(</span><span class="n">orgImgRef</span><span class="p">);</span>
+    <span class="n">CGFloat</span> <span class="n">orgHeight</span> <span class="o">=</span> <span class="n">CGImageGetHeight</span><span class="p">(</span><span class="n">orgImgRef</span><span class="p">);</span>
+   
+    <span class="c1">//水印图</span>
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">mrkImg</span> <span class="o">=</span> <span class="n">waterImg</span><span class="p">;</span>
+    <span class="n">CGImageRef</span> <span class="n">mrkImgRef</span> <span class="o">=</span> <span class="n">mrkImg</span><span class="p">.</span><span class="n">CGImage</span><span class="p">;</span>
+    <span class="n">CGFloat</span> <span class="n">markWidth</span> <span class="o">=</span> <span class="n">CGImageGetWidth</span><span class="p">(</span><span class="n">mrkImgRef</span><span class="p">);</span>
+    <span class="n">CGFloat</span> <span class="n">markHeight</span> <span class="o">=</span> <span class="n">CGImageGetHeight</span><span class="p">(</span><span class="n">mrkImgRef</span><span class="p">);</span>
+    
+    <span class="c1">//右下角</span>
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">NameIDMixImg</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">getNameIDMixWater</span><span class="p">];</span>
+    <span class="n">CGImageRef</span> <span class="n">NameIDMixImgRef</span> <span class="o">=</span> <span class="n">NameIDMixImg</span><span class="p">.</span><span class="n">CGImage</span><span class="p">;</span>
+    <span class="n">CGFloat</span> <span class="n">NameIDMixWidth</span> <span class="o">=</span> <span class="n">CGImageGetWidth</span><span class="p">(</span><span class="n">NameIDMixImgRef</span><span class="p">);</span>
+    <span class="n">CGFloat</span> <span class="n">NameIDMixHeight</span> <span class="o">=</span> <span class="n">CGImageGetHeight</span><span class="p">(</span><span class="n">NameIDMixImgRef</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">NameIDMixImg</span><span class="p">.</span><span class="n">scale</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NameIDMixWidth</span> <span class="o">=</span> <span class="n">NameIDMixWidth</span><span class="o">/</span><span class="n">NameIDMixImg</span><span class="p">.</span><span class="n">scale</span><span class="p">;</span>
+        <span class="n">NameIDMixHeight</span> <span class="o">=</span> <span class="n">NameIDMixHeight</span><span class="o">/</span><span class="n">NameIDMixImg</span><span class="p">.</span><span class="n">scale</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="c1">//以原始背景图大小为画布创建上下文</span>
+    <span class="n">UIGraphicsBeginImageContext</span><span class="p">(</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="n">orgWidth</span><span class="p">,</span> <span class="n">orgHeight</span><span class="p">));</span>
+    <span class="c1">//关键代码</span>
+    <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="n">orgWidth</span><span class="p">,</span> <span class="n">orgHeight</span><span class="p">),</span> <span class="nb">NO</span><span class="p">,</span> <span class="p">[</span><span class="n">UIScreen</span> <span class="nf">mainScreen</span><span class="p">].</span><span class="n">scale</span><span class="p">);</span>
+    <span class="p">[</span><span class="n">orgImg</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">orgWidth</span><span class="p">,</span> <span class="n">orgHeight</span><span class="p">)];</span><span class="c1">//先把原始背景 画到上下文中</span>
+    <span class="p">[</span><span class="n">mrkImg</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">orgHeight</span><span class="o">-</span><span class="n">orgWidth</span><span class="o">*</span><span class="n">markHeight</span><span class="o">/</span><span class="n">markWidth</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">orgWidth</span><span class="p">,</span> <span class="n">orgWidth</span><span class="o">*</span><span class="n">markHeight</span><span class="o">/</span><span class="n">markWidth</span><span class="p">)];</span><span class="c1">//再把水印放在上下文中</span>
+    
+    <span class="n">CGFloat</span> <span class="n">mixShowWidth</span> <span class="o">=</span> <span class="n">orgWidth</span><span class="o">/</span><span class="mi">3</span><span class="p">;</span>
+    <span class="n">CGFloat</span> <span class="n">mixSpace</span> <span class="o">=</span> <span class="n">orgWidth</span><span class="o">*</span><span class="mi">0</span><span class="p">.</span><span class="mo">02</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">NameIDMixImg</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="n">orgWidth</span><span class="o">-</span><span class="n">mixShowWidth</span><span class="o">-</span><span class="n">mixSpace</span><span class="p">,</span> <span class="p">(</span><span class="n">orgHeight</span><span class="o">-</span><span class="n">mixShowWidth</span><span class="o">*</span><span class="n">NameIDMixHeight</span><span class="o">/</span><span class="n">NameIDMixWidth</span><span class="p">)</span><span class="o">-</span><span class="n">mixSpace</span><span class="p">,</span> <span class="n">mixShowWidth</span><span class="p">,</span> <span class="n">mixShowWidth</span><span class="o">*</span><span class="n">NameIDMixHeight</span><span class="o">/</span><span class="n">NameIDMixWidth</span><span class="p">)];</span>
+    
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">resultImg</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span><span class="c1">//从当前上下文中获得最终图片</span>
+    <span class="n">UIGraphicsEndImageContext</span><span class="p">();</span><span class="c1">//关闭上下文</span>
+    
+    <span class="k">return</span> <span class="n">resultImg</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="k">+</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">getNameIDMixWater</span><span class="p">{</span>
+    <span class="c1">//放大倍数</span>
+    <span class="c1">//反复测试（1-5）作用不大(即使要使用这个值也不能太大,生成会变慢),</span>
+    <span class="c1">//关键代码UIGraphicsBeginImageContextWithOptions(CGSizeMake(orgWidth, orgHeight), NO, [UIScreen mainScreen].scale)</span>
+    <span class="n">CGFloat</span> <span class="n">bigger</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    
+    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">textAttributes</span> <span class="o">=</span> <span class="p">@{</span><span class="n">NSForegroundColorAttributeName</span><span class="o">:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">],</span><span class="n">NSFontAttributeName</span><span class="o">:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">20</span><span class="o">*</span><span class="n">bigger</span><span class="p">]};</span>
+    
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">nameStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"作者:%@"</span><span class="p">,[</span><span class="n">Config</span> <span class="nf">getOwnNicename</span><span class="p">]];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">IDStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%@号:%@"</span><span class="p">,[</span><span class="n">self</span> <span class="nf">getAppName</span><span class="p">],[</span><span class="n">Config</span> <span class="nf">getOwnID</span><span class="p">]];</span>
+    
+    <span class="c1">//文本</span>
+    <span class="n">CGSize</span> <span class="n">nameSize</span> <span class="o">=</span> <span class="p">[</span><span class="n">nameStr</span> <span class="nf">sizeWithAttributes</span><span class="p">:</span><span class="n">textAttributes</span><span class="p">];</span>
+    <span class="n">CGSize</span> <span class="n">IDSize</span> <span class="o">=</span> <span class="p">[</span><span class="n">IDStr</span> <span class="nf">sizeWithAttributes</span><span class="p">:</span><span class="n">textAttributes</span><span class="p">];</span>
+    
+    <span class="n">CGFloat</span> <span class="n">name_id_mix_width</span> <span class="o">=</span> <span class="n">MAX</span><span class="p">(</span><span class="n">nameSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">IDSize</span><span class="p">.</span><span class="n">width</span><span class="p">);</span>
+    <span class="n">CGFloat</span> <span class="n">sigleHeight</span> <span class="o">=</span> <span class="mi">25</span><span class="o">*</span><span class="n">bigger</span><span class="p">;</span>
+    <span class="n">CGFloat</span> <span class="n">spaceRow</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="n">bigger</span><span class="p">;</span>
+    <span class="n">CGFloat</span> <span class="n">name_id_mix_height</span> <span class="o">=</span> <span class="p">(</span><span class="n">sigleHeight</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="n">spaceRow</span><span class="p">);</span>
+    <span class="n">CGRect</span> <span class="n">textRect</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">name_id_mix_width</span><span class="p">,</span> <span class="n">name_id_mix_height</span><span class="p">);</span>
+    
+    <span class="n">CGRect</span> <span class="n">idRect</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">name_id_mix_width</span> <span class="o">-</span> <span class="n">IDSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">sigleHeight</span><span class="o">+</span><span class="n">spaceRow</span><span class="p">,</span> <span class="n">IDSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">IDSize</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+    <span class="n">CGRect</span> <span class="n">nameRect</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">name_id_mix_width</span> <span class="o">-</span> <span class="n">nameSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nameSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">nameSize</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+    
+    <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">textRect</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">CGContextRef</span> <span class="n">context</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+    <span class="c1">// color</span>
+    <span class="n">CGContextSetFillColorWithColor</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">clearColor</span><span class="p">].</span><span class="n">CGColor</span><span class="p">);</span>
+    <span class="c1">//阴影</span>
+    <span class="n">CGContextSetShadowWithColor</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">5</span><span class="o">*</span><span class="n">bigger</span><span class="p">,</span> <span class="n">RGB_COLOR</span><span class="p">(</span><span class="s">@"#000000"</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">).</span><span class="n">CGColor</span><span class="p">);</span>
+    <span class="n">CGContextFillRect</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">textRect</span><span class="p">);</span>
+    
+    <span class="p">[</span><span class="n">IDStr</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">idRect</span> <span class="nf">withAttributes</span><span class="p">:</span><span class="n">textAttributes</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">nameStr</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">nameRect</span> <span class="nf">withAttributes</span><span class="p">:</span><span class="n">textAttributes</span><span class="p">];</span>
+    
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+    <span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET
