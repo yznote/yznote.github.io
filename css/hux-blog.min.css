@@ -863,6 +863,9 @@ form .row:first-child .floating-label-form-group {
 	margin: 20px 0 0!important;
 	padding: 0!important
 }
+.page-nosel {
+	color: #999;
+} 
 .pager .pagelist a{
 	text-align: center;
 	padding: 3px 12px;

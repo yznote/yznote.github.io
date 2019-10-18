@@ -65,6 +65,10 @@ description: "砥砺前行"
     <li class="previous">
         <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr;上一页</a>
     </li>
+    {% else %}
+    <li class="previous">
+        <span class="page-nosel">上一页</span>
+    </li>
     {% endif %}
     <!-- 中间 -->
     <!-- <span class="page_num pagination__page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span> -->
@@ -110,6 +114,10 @@ description: "砥砺前行"
     {% if paginator.next_page %}
     <li class="next">
         <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页&rarr;</a>
+    </li>
+    {% else %}
+    <li class="next">
+        <span class="page-nosel">下一页</span>
     </li>
     {% endif %}
 </ul>
