@@ -1,0 +1,102 @@
+I"�<h4 id="前言">前言</h4>
+
+<p>磨磨唧唧,终于有点时间搭建起属于自己的一个小窝了,记录下这个小小的过程:</p>
+
+<p><code class="highlighter-rouge">jekyll</code>的官网在<a href="http://jekyllcn.com/">这里</a></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install jekyll bundler
+</code></pre></div></div>
+<p>输入以上命令你可能会遇到下面的情况,如图:</p>
+
+<p><img src="/img/20190920/1.jpg" alt="项目1" /></p>
+
+<blockquote>
+  <p>标注: <code class="highlighter-rouge">OS X El Capitan </code>新特性(<code class="highlighter-rouge">System Integrity Protection or SIP</code>)中加强了权限，但是可以对这里进行操作 <code class="highlighter-rouge">/usr/local/bin</code>可以尝试使用以下指令进行<code class="highlighter-rouge">jekyll</code>的安装（亲测可行，安装完毕后t<code class="highlighter-rouge">erminal</code>中输入<code class="highlighter-rouge">jekyll</code>即可看到是否生效）：</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo gem install -n /usr/local/bin/ jekyll
+</code></pre></div></div>
+<p>这条指令告诉<code class="highlighter-rouge">gem</code>，把<code class="highlighter-rouge">jekyll</code>安装到不受<code class="highlighter-rouge">SIP</code>保护的文件夹，而不是安装到默认<code class="highlighter-rouge">/Library/Ruby/Gems</code>下的目录中。</p>
+
+<p>看到一行行<code class="highlighter-rouge">Fetching</code>也是蛮开心的,但是你可能马上会黑脸:</p>
+
+<p><img src="/img/20190920/2.jpg" alt="项目2" /></p>
+
+<p>也就是说你的<code class="highlighter-rouge">ruby</code>版本太低了…</p>
+
+<p>利用<code class="highlighter-rouge">rvm</code>安装<code class="highlighter-rouge">ruby</code>:</p>
+
+<p>首先看下自己有没有安装<code class="highlighter-rouge">rvm</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm -v
+</code></pre></div></div>
+
+<p>得到:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-bash:rvm:command not found
+</code></pre></div></div>
+
+<p>果然好事得多磨呀…</p>
+
+<p>执行:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -L get.rvm.io | bash -s stable
+</code></pre></div></div>
+
+<p>完成后你可能会遇到这样的一个提示:(如果没有请忽略)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>To start using RVM you need to run `source /Users/用户名/.rvm/scripts/rvm`  
+in all you open shell windows, in rare case you need to reopen all shell windows
+</code></pre></div></div>
+
+<p>既然提示了就执行吧！</p>
+
+<p>到这里再次执行<code class="highlighter-rouge">rvm -v</code> 你就可以看到想要的了</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm 1.29.9(latest)by Michal Papis,Piotr Kuczynski,Wayne E. Seguin [https://rvm.io]
+</code></pre></div></div>
+
+<p><img src="/img/20190920/4.jpg" alt="项目4" /></p>
+
+<p>还记得上面提示的吗？<code class="highlighter-rouge">requires Ruby version &gt;=2.4.0</code>我们就安装<code class="highlighter-rouge">2,4.0</code>为例子:</p>
+
+<p><img src="/img/20190920/5.jpg" alt="项目5" /></p>
+
+<p>等待1… 2… 3…</p>
+
+<p>等待到了一个提示:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ruby was built without documentaion,to build it run: rvm docs generate-ri 
+</code></pre></div></div>
+
+<p>执行: <code class="highlighter-rouge">rvm docs generate-ri</code> 完毕后使用<code class="highlighter-rouge">ruby -v</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby 2.4.0p0(2016-12-24 revision 57164) [x86_64-darwin18]
+</code></pre></div></div>
+<p>能看到这些,那么恭喜你<code class="highlighter-rouge">ruby</code>更新完毕了！！！</p>
+
+<p>继续执行:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo gem install -n /usr/local/bin/ jekyll
+</code></pre></div></div>
+
+<p><img src="/img/20190920/7.jpg" alt="项目7" />
+<img src="/img/20190920/8.jpg" alt="项目8" /></p>
+
+<p>到这里恭喜你已经将<code class="highlighter-rouge">jekyll</code>安装完毕了</p>
+
+<hr />
+<p>下面是我换了台电脑安装<code class="highlighter-rouge">jekyll</code>仅供参考</p>
+
+<p><img src="/img/20190920/9.jpg" alt="项目9" />
+<img src="/img/20190920/10.jpg" alt="项目10" />
+<img src="/img/20190920/11.jpg" alt="项目11" />
+<img src="/img/20190920/12.jpg" alt="项目12" /></p>
+
+<hr />
+<p>参考：<br />
+<a href="https://www.jianshu.com/p/a97eca5254b8"><strong>one</strong></a><br />
+<a href="https://www.jianshu.com/p/c073e6fc01f5"><strong>two</strong></a><br />
+<a href="https://ruby-china.org/wiki/install_ruby_guide"><strong>three</strong></a></p>
+
+:ET
