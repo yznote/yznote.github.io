@@ -9,6 +9,7 @@ catalog: true
 stickie: false
 tags:
     - OC
+    - 像素
 ---
 
 >A UIScreen object contains the bounding rectangle of the device’s entire screen. When setting up your application’s user interface, you should use the properties of this object to get the recommended frame rectangles for your application’s window.  
