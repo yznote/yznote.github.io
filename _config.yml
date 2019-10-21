@@ -95,6 +95,9 @@ service-worker: true
 # Friends
 friends: [
     {
+        title: "RubyChina",
+        href: "http://gems.ruby-china.com/"
+    },{
         title: "简书",
         href: "https://www.jianshu.com/u/9e754f67b0e9"
     },{
