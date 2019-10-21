@@ -1,4 +1,4 @@
-I"�<h4 id="前言">前言</h4>
+I"�<h4 id="前言">前言</h4>
 
 <p><strong>这个人太懒了,磨磨唧唧,终于有点时间搭建起属于自己的一个小窝了,记录下这个小小的过程:</strong></p>
 
@@ -60,6 +60,9 @@ in all you open shell windows, in rare case you need to reopen all shell windows
 
 <p>还记得上面提示的吗？<code class="highlighter-rouge">requires Ruby version &gt;=2.4.0</code>我们就安装<code class="highlighter-rouge">2,4.0</code>为例子:</p>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm install 2.4.0
+</code></pre></div></div>
+
 <p><img src="/img/20190920/5.jpg" alt="项目5" /></p>
 
 <p>等待1… 2… 3…</p>
@@ -94,6 +97,15 @@ in all you open shell windows, in rare case you need to reopen all shell windows
 <img src="/img/20190920/12.jpg" alt="项目12" /></p>
 
 <hr />
+<p>安装<code class="highlighter-rouge">jekyll</code>10个人可能会遇到10中不同的报错问题,但是卸载只有一句话:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem unistall jekyll
+</code></pre></div></div>
+<hr />
+
+<h4 id="拓展bundle篇">拓展(bundle篇)</h4>
+
+<p>bundle命令请查看<a href="https://blog.csdn.net/huaishu/article/details/38778777">这里</a></p>
+
 <p>参考：<br />
 <a href="https://www.jianshu.com/p/a97eca5254b8"><strong>one</strong></a><br />
 <a href="https://www.jianshu.com/p/c073e6fc01f5"><strong>two</strong></a><br />

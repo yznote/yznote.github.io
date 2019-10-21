@@ -1,0 +1,24 @@
+I"u<h4 id="rvm警告">RVM警告</h4>
+
+<p>今天利用<code class="highlighter-rouge">rvm</code>更新<code class="highlighter-rouge">ruby</code>时执行</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm -v
+</code></pre></div></div>
+
+<p>出现了如下警告:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning! PATH is not properly set up, '/.../ruby-2.4.0/bin' is not at first place.
+Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+To fix it temporarily in this shell session run: 'rvm use ruby-2.4.0'.
+To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+</code></pre></div></div>
+
+<p>当然可以按照上面的提示操作…如果是那样就没有必要写这个来记录了…嘿嘿嘿</p>
+
+<p>我是用的是这个:(<strong>操作需谨慎,仅供参考哦</strong>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm reset
+</code></pre></div></div>
+
+:ET
