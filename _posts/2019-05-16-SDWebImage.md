@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      SDWebImage
+title:      'SDWebImage'
 subtitle:   图片类型、防盗链设置等
 date:       2019-05-16
 author:     Rookie
@@ -8,7 +8,7 @@ header-img:
 catalog: true
 stickie: false
 tags:
-	- OC
+    - OC
     - SDWebImage
 ---
 
@@ -30,4 +30,4 @@ tags:
 [[SDWebImageManager sharedManager].imageDownloader setValue: @"value" forHTTPHeaderField:@"referer"];
 ```
 
-上面的`@value`一般情况下是自己网站的域名,如果不是的话需要和服务端沟通。
+上面的`@"value"`一般情况下是自己网站的域名,如果不是的话需要和服务端沟通。
