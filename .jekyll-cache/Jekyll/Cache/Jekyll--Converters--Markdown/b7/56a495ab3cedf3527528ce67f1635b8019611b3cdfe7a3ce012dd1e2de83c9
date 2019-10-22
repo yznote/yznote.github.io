@@ -1,0 +1,33 @@
+I"p<h4 id="去除警告">去除警告</h4>
+
+<blockquote>
+  <p>另：<code class="highlighter-rouge">inhibit_all_warnings!——pod</code>中去除警告</p>
+</blockquote>
+
+<p>找到下图所示的<code class="highlighter-rouge">Other Warning Flags</code>，双击，添加<code class="highlighter-rouge">-Wno-deprecated-declarations</code>就可以了。</p>
+
+<p><img src="/img/20180824/1.png" alt="项目1" /></p>
+
+<h4 id="ios12开发问题">iOS12开发问题</h4>
+
+<p><a href="https://www.jianshu.com/p/e939e51cc3ad">链接</a></p>
+
+<h4 id="log">log</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define NSLog(FORMAT, ...) {\
+NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];\
+[dateFormatter setDateStyle:NSDateFormatterMediumStyle];\
+[dateFormatter setTimeStyle:NSDateFormatterShortStyle];\
+[dateFormatter setDateFormat:@"HH:mm:ss:SSSSSS"]; \
+NSString *str = [dateFormatter stringFromDate:[NSDate date]];\
+fprintf(stderr,"\nRK:%s %s %d %s~ \n %s\n\n",[str UTF8String],[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__,__func__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);\
+}
+#else
+# define NSLog(...)
+#endif
+</code></pre></div></div>
+<h4 id="xcode-10--ios-12">xcode 10 &amp; iOS 12</h4>
+
+<p><a href="https://awhisper.github.io/2018/06/08/libstdc-inxcode10ios12/">链接</a></p>
+
+:ET
