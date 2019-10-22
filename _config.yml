@@ -98,19 +98,22 @@ friends: [
         title: "RubyChina",
         href: "http://gems.ruby-china.com/"
     },{
-        title: "简书",
-        href: "https://www.jianshu.com/u/9e754f67b0e9"
-    },{
         title: "Apple",
         href: "https://apple.com"
     },{
         title: "Apple Developer",
         href: "https://developer.apple.com/"
     },{
+        title: "简书",
+        href: "https://www.jianshu.com/u/9e754f67b0e9"
+    },{
         title: "黄玄",
         href: "https://huxpro.github.io"
     },{
         title: "搜百谷",
         href: "http://sobaigu.com/"
+    },{
+        title: "Swift",
+        href: "https://www.jianshu.com/u/e6c8dda77e26"
     }
 ]
