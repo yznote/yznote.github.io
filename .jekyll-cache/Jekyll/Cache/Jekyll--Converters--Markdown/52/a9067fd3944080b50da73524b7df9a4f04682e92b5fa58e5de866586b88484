@@ -1,0 +1,463 @@
+I"�a<p>Url:
+url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+//按钮
+[_coverBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+_coverBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+_coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+影梭下载地址: https://down.vpsmm.com/shadowsocks/
+版本判断 
+if (@available(iOS 10.0,<em>)) {
+        NSLog(@”10+”);
+    }else {
+         NSLog(@”10-“);
+    }
+if (@available(iOS 11.0,</em>)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+//系统照片选择器
+//选择前(present)
+if (@available(iOS 11, *)) {
+        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+    }
+//完成选择(finish)
+if (@available(iOS 11, *)) {
+        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+present ： [UIApplication sharedApplication].statusBarHidden=YES;  dismiss： [UIApplication sharedApplication].statusBarHidden=NO;
+//相册取消按钮不能点击</p>
+<ul>
+  <li>
+    <p>(void)navigationController:(UINavigationController <em>)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+  if ([UIDevice currentDevice].systemVersion.floatValue &lt; 11) {
+      return;
+  }
+  if ([viewController isKindOfClass:NSClassFromString(@”PUPhotoPickerHostViewController”)]) {
+      [viewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+          if (obj.frame.size.width &lt; 42) {
+              [viewController.view sendSubviewToBack:obj];
+              *stop = YES;
+          }
+      }];
+  }
+}
+/</em>
+RK-时间倒序
+*/
+options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@”creationDate” ascending:NO]];
+tableview回弹
+ _tableView.estimatedRowHeight =0;
+ _tableView.estimatedSectionHeaderHeight =0;
+ _tableView.estimatedSectionFooterHeight =0;
+一、贝塞尔曲线画圆角
+ UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:litleNav.bounds  byRoundingCorners:UIRectCornerTopRight|UIRectCornerTopLeft cornerRadii:CGSizeMake(10, 10)];
+ CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+ maskLayer.frame = litleNav.bounds;
+ maskLayer.path = maskPath.CGPath;
+ litleNav.layer.mask = maskLayer;</p>
+
+    <p>延伸:(segment items底部圆角)
+    for (int i=0; i&lt;_segmentC.subviews.count; i++) {
+          CGFloat ww = _window_width/_segmentC.subviews.count;
+          CGRect srect = CGRectMake(ww * i, 64+statusbarHeight+_window_width/4.3, ww, 40);
+          UIView <em>subView = _segmentC.subviews[i];
+          subView.frame = srect;
+          UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:subView.bounds    byRoundingCorners:UIRectCornerBottomRight|UIRectCornerBottomLeft cornerRadii:CGSizeMake(10, 10)];
+          CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+          maskLayer.frame = subView.bounds;
+          maskLayer.path = maskPath.CGPath;
+          _segmentC.subviews[i].layer.mask = maskLayer;
+      }
+      图片切割   maskImage = [maskImage resizableImageWithCapInsets:UIEdgeInsetsMake(30, 20, 30, 20)];
+二、富文本
+int length = [self convertToInt:amountL.text];
+      NSMutableAttributedString *attStr=[[NSMutableAttributedString alloc]initWithString:amountL.text];
+      [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10.0] range:NSMakeRange(length-3, 3)];
+      amountL.attributedText = attStr;
+-(int)convertToInt:(NSString</em>)strtemp{
+  int strlength = 0;
+  for (int i=0 ; i&lt;[strtemp lengthOfBytesUsingEncoding:NSUnicodeStringEncoding] ;i++) {
+      strlength++;
+  }
+  return (strlength+1)/2;
+}
+  //段落样式
+  NSMutableParagraphStyle <em>paragraph = [[NSMutableParagraphStyle alloc]init];
+  //行间距
+  paragraph.lineSpacing = 5;
+  //添加段落设置
+  [text addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, text.length)];
+三、文本计算
+//计算字符串应该占有的大小
+-(CGSize)sizeWithString:(NSString *)string andFont:(UIFont *)font {
+  CGSize size = [string sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
+  return size;
+}
+//计算文本内容占有的大小
+-(CGRect)rectWithString:(NSString *)string andFont:(UIFont *)font andWidth:(CGFloat)width {
+  CGRect rect = [string boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil] context:nil];
+  return rect;
+}
+四、网址正则判断
+//NSString *pattern = @”http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&amp;=]</em>)?”;
+  NSString <em>pattern = @”(http://|ftp://|https://|www){0,1}[^\u4e00-\u9fa5\s]</em>?\.(com|net|cn|me|tw|fr)[^\u4e00-\u9fa5\s]*”;
+  NSError *error = nil;
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:&amp;error];
+  NSArray&lt;NSTextCheckingResult *&gt; *result = [regex matchesInString:keyField.text options:0 range:NSMakeRange(0, keyField.text.length)];
+  if (result) {
+      for (int i = 0; i&lt;result.count; i++) {
+          NSTextCheckingResult *res = result[i];
+          NSLog(@”str == %@”, [keyField.text substringWithRange:res.range]);
+      }
+  }else{
+      NSLog(@”error == %@”,error.description);
+  }
+补充：数字字母正则
+-(BOOL)judgePassWordLegal:(NSString *)pass {
+  BOOL result = false;
+  if ([pass length] &gt;= 8) {
+      // 判断长度大于8位后再接着判断是否同时包含数字和字符
+      NSString * regex = @”^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,100}$”;
+      NSPredicate *pred = [NSPredicate predicateWithFormat:@”SELF MATCHES %@”, regex];
+      result = [pred evaluateWithObject:pass];
+  }
+  return result;
+}
+/**</p>
+    <ul>
+      <li>手机号码</li>
+      <li>移动：134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188,1705</li>
+      <li>联通：130,131,132,152,155,156,185,186,1709</li>
+      <li>电信：133,1349,153,180,189,1700
+   */
+  //    NSString * MOBILE = @”^1((3//d|5[0-35-9]|8[025-9])//d|70[059])\d{7}$”;//总况</li>
+    </ul>
+
+    <p>/**
+   10         * 中国移动：China Mobile
+   11         * 134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188，1705
+   12         */
+  NSString * CM = @”^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\d|705)\d{7}$”;
+  /**
+   15         * 中国联通：China Unicom
+   16         * 130,131,132,152,155,156,185,186,1709
+   17         */
+  NSString * CU = @”^1((3[0-2]|5[256]|8[56])\d|709)\d{7}$”;
+  /**
+   20         * 中国电信：China Telecom
+   21         * 133,1349,153,180,189,1700
+   22         */
+  NSString * CT = @”^1((33|53|8[09])\d|349|700)\d{7}$”;</p>
+
+    <p>/**
+   25         * 大陆地区固话及小灵通
+   26         * 区号：010,020,021,022,023,024,025,027,028,029
+   27         * 号码：七位或八位
+   28         */
+  NSString * PHS = @”^0(10|2[0-5789]|\d{3})\d{7,8}$”;
+五、禁止右滑返回
+self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+self.navigationController.navigationBarHidden = YES;
+self.navigationController.interactivePopGestureRecognizer.delegate =nil;
+  注:手势排除点击范围
+ #pragma mark - UIGestureRecognizerDelegate</p>
+  </li>
+  <li>(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+  if( [touch.view isDescendantOfView:_agreementOrPrivacy])
+      return NO;
+  return YES;
+}
+六、获取视频第一帧</li>
+  <li>
+    <p>(UIImage*) getVideoPreViewImageWithPath:(NSURL *)videoPath {
+  AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoPath options:nil];
+  AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+  gen.appliesPreferredTrackTransform = YES;
+  CMTime time   = CMTimeMakeWithSeconds(0.0, 600);
+  NSError *error  = nil;
+  CMTime actualTime;
+  CGImageRef image = [gen copyCGImageAtTime:time actualTime:&amp;actualTime error:&amp;error];
+  UIImage *img   = [[UIImage alloc] initWithCGImage:image];
+  return img;
+}
+七、    textView
+      _desTV.editable = NO;
+      _desTV.bounces = NO;
+      _desTV.selectable = NO;
+      _desTV.showsVerticalScrollIndicator = NO;
+      _desTV.textContainerInset = UIEdgeInsetsMake(0, 2, 2, 2);</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  扩展textView横向滚动
+  _desTV.textContainer.lineBreakMode = NSLineBreakByTruncatingHead;
+  _desTV. textContainer.maximumNumberOfLines = 1;
+</code></pre></div>    </div>
+
+    <p>自定义textfield：
+  -(void)drawPlaceholderInRect:(CGRect)rect {
+   // 设置富文本属性
+   NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
+   dictM[NSFontAttributeName] = self.font;
+   dictM[NSForegroundColorAttributeName] = [UIColor whiteColor];
+   CGPoint point = CGPointMake(0, (rect.size.height - self.font.lineHeight) * 0.5);
+   [self.placeholder drawAtPoint:point withAttributes:dictM];
+  }
+  //textfield placeholder 居中并改变颜色
+   NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+   style.alignment = NSTextAlignmentCenter;
+   NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@”输入提现金额”              attributes:@{NSForegroundColorAttributeName:RGB_COLOR(@”#8c8c8c”, 1),NSFontAttributeName:SYS_Font(16),      NSParagraphStyleAttributeName:style}];
+  _cyConView.cyWantTF.attributedPlaceholder = attri;</p>
+  </li>
+</ul>
+
+<p>八、键盘
+ [IQKeyboardManager sharedManager].enable = YES;
+ [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+ [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+九、刷新
+ MJRefreshNormalHeader、MJRefreshBackNormalFooter
+十、打印字体
+NSArray * fontArrays = [[UIFont familyNames] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *str1 = (NSString *)obj1;
+        NSString *str2 = (NSString *)obj2;
+        return [str1 compare:str2];
+    }];
+    for(NSString *fontfamilyname in fontArrays)
+    {
+        NSLog(@”family:’%@’“,fontfamilyname);
+        for(NSString *fontName in [UIFont fontNamesForFamilyName:fontfamilyname])
+        {
+            NSLog(@”\tfont:’%@’“,fontName);
+        }
+        NSLog(@”————-“);
+    }
+十一、元素替换
+   NSMutableDictionary *needReloadDic = [NSMutableDictionary dictionaryWithDictionary:_dataArray[btn.tag - 202]];
+   [needReloadDic setValue:isAtt forKey:@”isAttention”];
+   NSMutableArray *m_arr = [NSMutableArray arrayWithArray:_dataArray];
+   [m_arr replaceObjectAtIndex:(btn.tag - 202) withObject:needReloadDic];
+   _dataArray = [m_arr mutableCopy];
+   NSIndexPath *indexPath=[NSIndexPath indexPathForRow:(btn.tag - 202) inSection:0];
+  [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+十二、url转换
+1.数据请求时URL含有中文，需要转码为UTF8 
+NSString * encodingString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];<br />
+2.数据请求时，得到的URL有中文乱码，可以按如下方式转码 NSString *decodeString = [urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+十三、按钮上图下文字
+CGFloat totalH = _ruleBtn.imageView.frame.size.height + _ruleBtn.titleLabel.frame.size.height;
+        CGFloat spaceH = 10;
+         //设置按钮图片偏移
+        [_ruleBtn setImageEdgeInsets:UIEdgeInsetsMake(-(totalH - _ruleBtn.imageView.frame.size.height),0.0, 0.0, -_ruleBtn.titleLabel.frame.size.width)];
+        //设置按钮标题偏移
+        [_ruleBtn setTitleEdgeInsets:UIEdgeInsetsMake(spaceH, -_ruleBtn.imageView.frame.size.width, -(totalH - _ruleBtn.titleLabel.frame.size.height),0.0)];
+十四、监听输入变化
+#pragma mark - textfield 监听字数变化
+-(void)textFiledEditChanged:(NSNotification *)noti {
+    MyTextField *textField = (MyTextField *)noti.object;
+    NSString *toBeString = textField.text;
+     NSString *lang = [[[UITextInputMode activeInputModes]firstObject] primaryLanguage]; // 键盘输入模式
+    if ([lang isEqualToString:@”zh-Hans”]) { // 简体中文输入，包括简体拼音，健体五笔，简体手写
+        UITextRange *selectedRange = [textField markedTextRange];//获取高亮部分
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        //没有高亮选择的字，则对已输入的文字进行字数统计和限制
+        if (!position) {
+            if (toBeString.length &gt; 20) {
+                textField.text = [toBeString substringToIndex:20];
+                signature_num.text = [NSString stringWithFormat:@”%lu/20”,(20-textField.text.length)];
+            }else{
+                signature_num.text = [NSString stringWithFormat:@”%lu/20”,(20-toBeString.length)];
+            }
+        }else{
+            //有高亮选择的字符串，则暂不对文字进行统计和限制
+        }
+    }else{
+        // 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        if (toBeString.length &gt; 20) {
+            textField.text = [toBeString substringToIndex:20];
+            signature_num.text = [NSString stringWithFormat:@”%lu/20”,(20-textField.text.length)];
+        }else{
+            signature_num.text = [NSString stringWithFormat:@”%lu/20”,(20-toBeString.length)];
+        }
+    }</p>
+
+<p>}
+十五、json转化
+NSData *jsonData = [NSJSONSerialization dataWithJSONObject:mix options:NSJSONWritingPrettyPrinted error:nil];
+NSString *jsonStr = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+//去除空格、回车
+jsonStr = [jsonStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@” “ withString:@””];
+jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@”\n” withString:@””];</p>
+
+<p>NSData *mix_data = [locationContent.address dataUsingEncoding:NSUTF8StringEncoding];
+NSDictionary *mix_dic = [NSJSONSerialization JSONObjectWithData:mix_data options:NSJSONReadingAllowFragments error:nil];
+十六、手势冲突解决
+#pragma mark - 左右滑动拦截处理
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ([gestureRecognizer isKindOfClass:[UISwipeGestureRecognizer class]]) {
+    UISwipeGestureRecognizer *swipG = (UISwipeGestureRecognizer *)gestureRecognizer;
+    if (swipG.direction == UISwipeGestureRecognizerDirectionLeft &amp;&amp; [[Config getLeftSlip] isEqual:@"1"]) {
+        _backScrollView.scrollEnabled = NO;
+        [Config saveLeftSlip:@"0"];
+        //向左
+        [PublicView showLeftSilpCancel:nil Sure:^(NSString *type) {
+            _backScrollView.scrollEnabled = YES;
+        }];
+    }else if(swipG.direction == UISwipeGestureRecognizerDirectionRight &amp;&amp; [[Config getRightSlip] isEqual:@"1"]){
+        _backScrollView.scrollEnabled = NO;
+        [Config saveRightSlip:@"0"];
+        //向右
+        [PublicView showRightSilpCancel:nil Sure:^(NSString *type) {
+            _backScrollView.scrollEnabled = YES;
+        }];
+    }
+    return NO;
+}
+_backScrollView.scrollEnabled = YES;
+return YES; } -(BOOL)gestureRecognizer:(UIGestureRecognizer*) gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer{
+if ([otherGestureRecognizer.view isKindOfClass:[self.view class]]) {
+    if (otherGestureRecognizer.state == UIGestureRecognizerStateBegan &amp;&amp;[_censhi isEqual:@"1"]) {
+        return YES;
+    }
+}
+_backScrollView.scrollEnabled = YES;
+return NO; } 十七、按钮下划线 NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"等级说明?"];
+    NSRange strRange = {0,[str length]};
+    //    [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
+    [str addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:NSUnderlineStyleSingle],NSUnderlineStyleAttributeName,RGB(170, 170, 170, 1), NSForegroundColorAttributeName,nil] range:strRange];
+    [_privateBtn setAttributedTitle:str forState:UIControlStateNormal];
+    [_privateBtn setTitleColor:RGB(170, 170, 170, 1) forState:0]; 十八、导航
+[[UINavigationBar appearance] setBarTintColor:UIColor.blackColor];
+[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+[[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"transparent.png"] forBarMetrics:UIBarMetricsDefault];
+[[UINavigationBar appearance] setShadowImage:[UIImage new]]; 十九、横竖屏 #pragma mark - 进入全屏 -(void)EnterFullScreen {
+
+CGFloat full_y = (_window_height-_window_width)/2;
+videoView.frame = CGRectMake(-full_y, full_y, _window_height, _window_width);
+_exitScreenBtn.frame = CGRectMake(_window_height-50, _window_width-50, 40, 40);
+[_player.view setFrame: videoView.bounds];
+_fullScreenBtn.hidden = YES;
+[UIView animateWithDuration:0.25 animations:^{
+    videoView.transform = CGAffineTransformMakeRotation(M_PI_2);
+} completion:^(BOOL finished) {
+    _isGameFull = YES;
+    _exitScreenBtn.hidden = NO;
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self.view bringSubviewToFront:videoView];
+    [videoView bringSubviewToFront:_exitScreenBtn];
+}]; } #pragma mark - 退出p全屏 -(void)exitFullScreen {
+
+[UIView animateWithDuration:0.25 animations:^{
+    videoView.transform = CGAffineTransformIdentity;
+    videoView.frame = CGRectMake(0, 0, _window_width, _window_height);
+    [_player.view setFrame: videoView.bounds];
+} completion:^(BOOL finished) {
+    _isGameFull = NO;
+    _fullScreenBtn.hidden = NO;
+    _exitScreenBtn.hidden = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self.view sendSubviewToBack:videoView];
+    [self.view sendSubviewToBack:_pkBackImgView];
+}]; } - (BOOL)prefersStatusBarHidden {
+return _isGameFull; } 二十、图片加文字 // 1.将文字添加到图片上;imageName 图片名字， text 需画的字体 - (UIImage *)createShareImage:(UIImage *)tImage Context:(NSString *)text {
+UIImage *sourceImage = tImage;
+CGSize imageSize; //画的背景 大小
+imageSize = [sourceImage size];
+UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
+[sourceImage drawAtPoint:CGPointMake(0, 0)];
+//获得 图形上下文
+CGContextRef context=UIGraphicsGetCurrentContext();
+CGContextDrawPath(context, kCGPathStroke);
+CGFloat nameFont = 8.f;
+//画 自己想要画的内容
+NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:nameFont]};
+CGRect sizeToFit = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, nameFont) options:NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
+NSLog(@"图片: %f %f",imageSize.width,imageSize.height);
+NSLog(@"sizeToFit: %f %f",sizeToFit.size.width,sizeToFit.size.height);
+CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+[text drawAtPoint:CGPointMake((imageSize.width-sizeToFit.size.width)/2,0) withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:nameFont]}];
+//返回绘制的新图形
+
+UIImage *newImage=UIGraphicsGetImageFromCurrentImageContext();
+
+UIGraphicsEndImageContext();
+return newImage; } 二十一、根据视频地址获取封面 -(void )getImageWithTime:(CMTime)time {
+//NSURL *videoUrl = [[NSBundle mainBundle] URLForResource:@"hubblecast.m4v" withExtension:nil];
+NSURL *videoUrl = [NSURL URLWithString:@"https://dspdemo-1258629649.cos.ap-shanghai.myqcloud.com/13629_IOS_20190218170618.mp4"];
+AVAsset *videoAsset = [AVAsset assetWithURL:videoUrl];
+
+AVAssetImageGenerator *imageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:videoAsset];
+imageGenerator.maximumSize = CGSizeMake(200, 0);//按比例生成， 不指定会默认视频原来的格式大小
+CMTime actualTime;//获取到图片确切的时间
+NSError *error = nil;
+CGImageRef CGImage = [imageGenerator copyCGImageAtTime:time actualTime:&amp;actualTime error:&amp;error];
+if (!error) {
+    
+    UIImage *image = [UIImage imageWithCGImage:CGImage];
+    CMTimeShow(actualTime);   //{111600/90000 = 1.240}
+    CMTimeShow(time); // {1/1 = 1.000}
+    
+    UIImageView *imgIV = [[UIImageView alloc]initWithFrame:CGRectMake(50, 80, _window_width-100, 200)];
+    imgIV.contentMode = UIViewContentModeScaleAspectFill;
+    imgIV.image = image;
+    [self.view addSubview:imgIV];
+    
+} } 二十二、外放
+UInt32 sessionCategory = kAudioSessionCategory_MediaPlayback;
+AudioSessionSetProperty(kAudioSessionProperty_AudioCategory,
+                        sizeof(sessionCategory),
+                        &amp;sessionCategory);
+
+UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute,
+                         sizeof (audioRouteOverride),
+                         &amp;audioRouteOverride);
+
+AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+//默认情况下扬声器播放
+[audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+[audioSession setActive:YES error:nil]; 二十三、延时 [self performSelector:@selector(doRotation:) withObject:nil afterDelay:17.0]; 取消延时 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(doRotation:) object:nil]; 二十四、存储沙盒 - (void)nslogToFile {
+NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+NSString *documentDirectory = [paths objectAtIndex:0];
+NSString *fileName = [NSString stringWithFormat:@"NSLog.txt"];// 注意不是NSData!
+NSString *logFilePath = [documentDirectory stringByAppendingPathComponent:fileName];
+// 先删除已经存在的文件
+NSFileManager *defaultManager = [NSFileManager defaultManager];
+[defaultManager removeItemAtPath:logFilePath error:nil];
+// 将log输入到文件
+freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
+freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr); } 二十五、计时器 [self performSelector:@selector(hideTabBar) withObject:nil afterDelay:1.0]; [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideTabBar) object:nil]; 二十六、有没有安装应用 #import &lt;Social/SLComposeViewController.h&gt; #import &lt;Social/SLServiceTypes.h&gt; if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
+        [MBProgressHUD showError:@"您手机没有安装FaceBook,无法进行登陆"];
+        return;
+    } 二十七、AFN session.responseSerializer.acceptableContentTypes = [session.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html”]; 二十八、富文本+标签 -(NSMutableAttributedString*)setFlagWithContentDic:(NSDictionary *)flagDic title:(NSString *)titleStr font:(CGFloat)tFont {
+
+NSString *flagStr = minstr([flagDic valueForKey:@"name"]);
+NSString *flagColStr = minstr([flagDic valueForKey:@"colour"]);
+UIColor *flagBgCol = RGB_COLOR(flagColStr, 1);
+
+NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc]init];
+paragraph.alignment = NSTextAlignmentCenter;
+paragraph.lineSpacing = 3;
+paragraph.hyphenationFactor = 1.0;
+
+NSString*itemName = [NSString stringWithFormat:@"%@ %@",titleStr,flagStr];
+NSMutableAttributedString *titleAttrStr = [[NSMutableAttributedString alloc] initWithString:itemName attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:tFont],NSParagraphStyleAttributeName: paragraph,NSForegroundColorAttributeName:UIColor.whiteColor}];
+//设置标签的背景色
+YYTextBorder *border = [YYTextBorder new];
+border.fillColor= flagBgCol;
+//调整Insets更改背景显示位置
+border.insets= UIEdgeInsetsMake(-4, -2, -1, -2);
+border.cornerRadius = 3;
+[titleAttrStr yy_setTextBackgroundBorder:border range:NSMakeRange(titleStr.length+1, flagStr.length)];
+//设置标签的文本颜色
+[titleAttrStr yy_setColor:[UIColor whiteColor] range:NSMakeRange(titleStr.length+1, flagStr.length)];
+//设置标签文本的字号
+[titleAttrStr yy_setFont:[UIFont systemFontOfSize:(tFont-4)]range:NSMakeRange(titleStr.length+1, flagStr.length)];
+//小字号偏移
+[titleAttrStr addAttribute:NSBaselineOffsetAttributeName value:@(0.66*4) range:NSMakeRange(titleStr.length+1, flagStr.length)];
+return titleAttrStr; }
+</code></pre></div></div>
+:ET

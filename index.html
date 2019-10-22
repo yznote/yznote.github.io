@@ -21,11 +21,14 @@ description: "砥砺前行"
             {{ post.content | strip_html | truncate:200 }}
         </div>
     </a>
-    <p class="post-meta">置顶 (更新:{{ post.date | date: "%-m-%-d" }})
+    <p class="post-meta"><strong style="color: #B6C29A">【置顶】</strong>(更新:{{ post.date | date: "%-m-%-d" }})
     </p>
 </div>
 <hr>
 {% endfor %}
+
+<!-- <hr style="width: 100%;height: 6px;background-color: #B6C29A"> -->
+
 <!-- 普通文章 -->
 {% for post in paginator.posts %}
 {% if post.stickie == true %}
@@ -65,9 +68,15 @@ description: "砥砺前行"
     <li class="previous">
         <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr;上一页</a>
     </li>
+    {% else %}
+    <li class="previous">
+        <span class="page-nosel">上一页</span>
+    </li>
     {% endif %}
     <!-- 中间 -->
     <!-- <span class="page_num pagination__page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span> -->
+    <span class="pager-show-less">{{ paginator.page }} / {{ paginator.total_pages }}</span>
+    <span class="pager-show-greater">
     {% for page in (1..paginator.total_pages) %}
         {% if page == 1 %}
         <li class="pagelist">
@@ -103,11 +112,34 @@ description: "砥砺前行"
         </li>
         {% endif %}
     {% endfor %}
+    </span>
     <!-- 下一页 -->
     {% if paginator.next_page %}
     <li class="next">
         <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页&rarr;</a>
     </li>
+    {% else %}
+    <li class="next">
+        <span class="page-nosel">下一页</span>
+    </li>
     {% endif %}
 </ul>
 {% endif %}
+<script type="text/javascript">
+    var less = document.getElementsByClassName("pager-show-less")[0];
+    var greater = document.getElementsByClassName("pager-show-greater")[0];
+    var w_width = document.body.clientWidth;
+
+    //console.log('===='+less+'------'+greater+'000000---'+w_width);
+    // var lessStyle = window.getComputedStyle(less);
+    // var greaterStyle = window.getComputedStyle(greater);
+
+    if(w_width >= 400){
+            greater.style.display = "";
+            less.style.display = "none";
+        }else{
+            less.style.display = "";
+            greater.style.display = "none";
+        }
+
+</script>

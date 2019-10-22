@@ -1,7 +1,7 @@
 # Site settings
 title: Rookie Blog
 SEOTitle: Rookie Blog
-header-img: img/post-bg-desk.jpg
+header-img: img/post-bg-desk.png
 email: rookieyuan920@163.com
 description: "还没有更好的描述呢"
 keyword: "rookie, rookie920 Blog, 永震的博客, rookie920, 永震, iOS, Apple, iPhone"
@@ -82,7 +82,7 @@ ga_domain: auto
 
 # Featured Tags
 featured-tags: true                     # 是否使用首页标签
-featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
+featured-condition-size: 0              # 相同标签数量大于这个数，才会出现在首页
 
 
 
@@ -95,8 +95,8 @@ service-worker: true
 # Friends
 friends: [
     {
-        title: "简书",
-        href: "https://www.jianshu.com/u/9e754f67b0e9"
+        title: "RubyChina",
+        href: "http://gems.ruby-china.com/"
     },{
         title: "Apple",
         href: "https://apple.com"
@@ -104,7 +104,16 @@ friends: [
         title: "Apple Developer",
         href: "https://developer.apple.com/"
     },{
+        title: "简书",
+        href: "https://www.jianshu.com/u/9e754f67b0e9"
+    },{
         title: "黄玄",
         href: "https://huxpro.github.io"
+    },{
+        title: "搜百谷",
+        href: "http://sobaigu.com/"
+    },{
+        title: "Swift",
+        href: "https://www.jianshu.com/u/e6c8dda77e26"
     }
 ]

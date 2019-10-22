@@ -1,0 +1,23 @@
+I"�<h4 id="设置圆角">设置圆角</h4>
+
+<p><a href="https://www.jianshu.com/p/068d6f493547">详情请点击</a></p>
+
+<h4 id="补充">补充</h4>
+
+<h5 id="附加方式二的操作代码">附加：方式二的操作代码</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">getImageRadius</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">radius</span> <span class="nf">andImage</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span><span class="p">{</span>
+    <span class="n">CGFloat</span> <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIScreen</span> <span class="nf">mainScreen</span><span class="p">].</span><span class="n">scale</span><span class="p">;</span>
+    <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="nb">NO</span><span class="p">,</span> <span class="n">scale</span><span class="p">);</span>
+    <span class="n">CGContextRef</span> <span class="n">c</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+    <span class="n">CGRect</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+    <span class="n">UIBezierPath</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIBezierPath</span> <span class="nf">bezierPathWithRoundedRect</span><span class="p">:</span><span class="n">rect</span> <span class="nf">cornerRadius</span><span class="p">:</span><span class="n">radius</span><span class="p">];</span>
+    <span class="n">CGContextAddPath</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">path</span><span class="p">.</span><span class="n">CGPath</span><span class="p">);</span>
+    <span class="n">CGContextClip</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+    <span class="p">[</span><span class="n">image</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">rect</span><span class="p">];</span>
+    <span class="n">CGContextDrawPath</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">kCGPathFillStroke</span><span class="p">);</span>
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">img</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+    <span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">img</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET
