@@ -1,4 +1,4 @@
-I"�<h4 id="前言">前言</h4>
+I"�<h4 id="前言">前言</h4>
 
 <p><strong>这个人太懒了,磨磨唧唧,终于有点时间搭建起属于自己的一个小窝了,记录下这个小小的过程:</strong></p>
 
@@ -115,6 +115,35 @@ in all you open shell windows, in rare case you need to reopen all shell windows
 <h4 id="拓展篇ruby相关概念">拓展篇(Ruby相关概念)</h4>
 
 <p><code class="highlighter-rouge">ruby</code>相关请移步<a href="https://rookie920.github.io/2019/06/05/Ruby%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/">这里</a></p>
+
+<h4 id="补充篇19-10-24">补充篇(19-10-24)</h4>
+
+<p><code class="highlighter-rouge">1024</code>—-也得解决<code class="highlighter-rouge">'问题'</code></p>
+
+<p><img src="/img/20190920/13.jpg" alt="项目13" /></p>
+
+<p>wtf?什么鬼？我在那？我做错了什么？</p>
+
+<p>Google、知乎等等也没找到合适的解决方案,还是太嫩了.</p>
+
+<p>help…</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll help
+</code></pre></div></div>
+
+<p><img src="/img/20190920/14.jpg" alt="项目14" /></p>
+
+<p><code class="highlighter-rouge">Show the full backtrace when an error occurs</code>开不开心、意不意外</p>
+
+<p><img src="/img/20190920/15.jpg" alt="项目15" /></p>
+
+<p>虽然提示不是很明白(其实就是嫩),哈哈哈但是仔细看上面的…<code class="highlighter-rouge">cache</code>、<code class="highlighter-rouge">site</code>目录其实就不难发现说白了就是<code class="highlighter-rouge">缓存</code></p>
+
+<p>果断将根目录的<code class="highlighter-rouge">.jekyll-cache</code>、<code class="highlighter-rouge">_site</code>清除掉重新生成。</p>
+
+<p><img src="/img/20190920/16.jpg" alt="项目16" /></p>
+
+<p>其实回头想一下出现这个原因根本问题是,使用的两台电脑之间代码同步的问题导致的,<code class="highlighter-rouge">1024</code>快乐！</p>
 
 <p>参考：<br />
 <a href="https://www.jianshu.com/p/a97eca5254b8"><strong>one</strong></a><br />
