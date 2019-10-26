@@ -61,8 +61,6 @@ layout: default
 
 <!-- Post Content -->
 <article>
-    <!-- 图片放大 -->
-    {% include clickable-image.html %}
     <div class="container">
         <div class="row">
 
@@ -156,6 +154,9 @@ layout: default
         </div>
     </div>
 </article>
+
+ <!-- 图片放大 -->
+{% include clickable-image.html %}
 
 {% if site.disqus_username %}
 <!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
