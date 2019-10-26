@@ -2,7 +2,7 @@
 layout:     post
 title:      Xcode Tips
 subtitle:   警告、log等
-date:       2018-08-24
+date:       2018-08-24 12:11:10 +0800
 author:     Rookie
 header-img: 
 catalog: true

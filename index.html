@@ -21,7 +21,11 @@ description: "砥砺前行"
             {{ post.content | strip_html | truncate:200 }}
         </div>
     </a>
-    <p class="post-meta"><strong style="color: #B6C29A">【置顶】</strong>(更新:{{ post.date | date: "%-m-%-d" }})
+    <p class="post-meta">
+        <strong style="color: #B6C29A">【置顶】</strong>
+        {% if post.rkupdate %}
+        (更新:{% include updatetime.html date=post.rkupdate %})
+        {% endif %}
     </p>
 </div>
 <hr>
@@ -54,8 +58,7 @@ description: "砥砺前行"
     </p> -->
     <!-- <p class="post-meta">{% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%m %-d, %Y" }}
     </p> -->
-    <p class="post-meta">{% if year == '2100' %}{{'置顶'}}{% else %}{{ post.date | date: "on %-m %-d %Y" }}{% endif %} 
-    </p>
+    <p class="post-meta">on {{ post.date | date: "%Y-%-m-%-d %H:%M" }}</p>
 </div>
 <hr>
 {% endfor %}

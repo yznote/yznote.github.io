@@ -2,7 +2,7 @@
 layout:     post
 title:      '[转载]CocoaPods'
 subtitle:   
-date:       2016-04-25
+date:       2016-04-25 13:58:59 +0800
 author:     Rookie
 header-img: 
 catalog: true

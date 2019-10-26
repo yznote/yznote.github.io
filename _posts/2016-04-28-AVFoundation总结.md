@@ -2,7 +2,7 @@
 layout:     post
 title:      '[转载]AVFoundation总结'
 subtitle:   
-date:       2016-04-28
+date:       2016-04-28 17:34:13 +0800
 author:     Rookie
 header-img: 
 catalog: true
