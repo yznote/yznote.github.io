@@ -8,29 +8,30 @@ description: "砥砺前行"
         {% continue %}
     {% endif %}
     <div class="post-preview">
-    <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">
-            {{ post.title }}
-        </h2>
-        {% if post.subtitle %}
-        <h3 class="post-subtitle">
-            {{ post.subtitle }}
-        </h3>
-        {% endif %}
-        <!-- <div class="post-content-preview">
-            {{ post.content | strip_html | truncate:200 }}
-        </div> -->
-    </a>
+        <a href="{{ post.url | prepend: site.baseurl }}">
+            <h2 class="post-title">
+                {{ post.title }}
+            </h2>
+            {% if post.subtitle %}
+            <h3 class="post-subtitle">
+                {{ post.subtitle }}
+            </h3>
+            {% endif %}
+            <!-- <div class="post-content-preview">
+                {{ post.content | strip_html | truncate:200 }}
+            </div> -->
+        </a>
     <p class="post-meta">
         <strong style="color: #B6C29A;margin-left: -9px">【置顶】</strong>
         {% if post.rkupdate %}
-        (更新:{% include updatetime.html roofdate=post.rkupdate %})
+        [更新:{% include updatetime.html roofdate=post.rkupdate %}]
         {% endif %}
     </p>
 </div>
 <hr>
 {% endfor %}
 
+<div style="font-size: 16px;width: 100%;height: 10px;"></div>
 <!-- <hr style="width: 100%;height: 6px;background-color: #B6C29A"> -->
 
 <!-- 普通文章 -->
