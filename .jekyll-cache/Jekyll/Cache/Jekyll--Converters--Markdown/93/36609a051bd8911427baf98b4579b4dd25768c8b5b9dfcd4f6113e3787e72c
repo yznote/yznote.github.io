@@ -1,22 +1,8 @@
----
-layout:     post
-title:      M3U8测试地址
-subtitle:   直播地址
-date:       2019-11-02 17:31:56 +0800
-author:     Rookie
-header-img: 
-catalog: true
-stickie: false
-tags:
-    - M3U8
----
+I"�<h4 id="m3u8测试地址">M3U8测试地址</h4>
 
-#### M3U8测试地址
+<p>北邮<code class="highlighter-rouge">ivi</code>测试 <code class="highlighter-rouge">http://ivi.bupt.edu.cn/</code>  有PC端和移动端，手机可以直接访问网址，附提取地址方便导入机顶盒</p>
 
-北邮`ivi`测试 `http://ivi.bupt.edu.cn/`  有PC端和移动端，手机可以直接访问网址，附提取地址方便导入机顶盒
-
-```
-CCTV-1高清  
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CCTV-1高清  
 http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8  
 
 CCTV-3高清  
@@ -84,4 +70,5 @@ http://ivi.bupt.edu.cn/hls/hbhd.m3u8
 
 山东卫视高清
 http://ivi.bupt.edu.cn/hls/sdhd.m3u8
-```
+</code></pre></div></div>
+:ET
