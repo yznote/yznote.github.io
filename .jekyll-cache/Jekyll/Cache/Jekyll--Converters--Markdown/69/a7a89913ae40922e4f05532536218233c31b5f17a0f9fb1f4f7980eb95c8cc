@@ -1,5 +1,0 @@
-I"�<p>iOS8以后系统的提示框改为了UIAlertController,下面利用KVC来更改标题、提示的字体以及颜色</p>
-
-<p><img src="/img/20200107/1.png" alt="项目1" /></p>
-
-:ET
