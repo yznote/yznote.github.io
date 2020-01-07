@@ -1,0 +1,25 @@
+I" <h4 id="urlencode">Urlencode</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(NSString*)encodeString:(NSString*)unencodedString{
+
+// CharactersToBeEscaped = @":/?&amp;=;+!@#$()~',*";
+
+// CharactersToLeaveUnescaped = @"[].";
+
+NSString *encodedString = (NSString *)
+
+CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+
+(CFStringRef)unencodedString,
+
+NULL,
+
+(CFStringRef)@"!*'();:@&amp;=+$,/?%#[]",
+
+kCFStringEncodingUTF8));
+
+return encodedString;
+
+}
+</code></pre></div></div>
+:ET

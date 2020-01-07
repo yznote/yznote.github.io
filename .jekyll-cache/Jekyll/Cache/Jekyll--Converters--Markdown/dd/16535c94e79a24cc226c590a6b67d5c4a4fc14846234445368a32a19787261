@@ -1,0 +1,42 @@
+I"\<h4 id="urlencode">Urlencode</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(NSString*)encodeString:(NSString*)unencodedString {
+
+// CharactersToBeEscaped = @":/?&amp;=;+!@#$()~',*";
+
+// CharactersToLeaveUnescaped = @"[].";
+
+NSString *encodedString = (NSString *)
+
+CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+
+(CFStringRef)unencodedString,
+
+NULL,
+
+(CFStringRef)@"!*'();:@&amp;=+$,/?%#[]",
+
+kCFStringEncodingUTF8));
+
+return encodedString;
+
+}
+</code></pre></div></div>
+
+<h4 id="urldecode">Urldecode</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(NSString *)decodeString:(NSString*)encodedString {
+
+//NSString *decodedString = [encodedString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
+
+NSString *decodedString  = (__bridge_transfer NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL,
+
+(__bridge CFStringRef)encodedString,
+
+CFSTR(""),
+
+CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+
+return decodedString;
+</code></pre></div></div>
+:ET
