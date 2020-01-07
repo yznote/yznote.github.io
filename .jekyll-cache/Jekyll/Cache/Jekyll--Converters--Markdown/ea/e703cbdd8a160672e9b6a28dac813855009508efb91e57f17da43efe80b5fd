@@ -1,4 +1,13 @@
-I"�<h4 id="置顶">置顶</h4>
+I";�<h4 id="置顶">置顶</h4>
+
+<p><strong>iOS13</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UITextField *textField ;
+if (@available(iOS 13.0,*)) {
+    textField = _search.searchTextField;
+}else {
+    textField = [_search valueForKey:@"_searchField"];
+}
+</code></pre></div></div>
 
 <p><strong>Url转换</strong></p>
 

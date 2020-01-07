@@ -1,0 +1,51 @@
+I"�
+<h4 id="alertcontroller">AlertController</h4>
+<p><strong>iOS8以后系统的提示框改为了UIAlertController,下面利用KVC来更改标题、提示的字体以及颜色</strong></p>
+
+<p><img src="/img/20200107/1.png" alt="项目1" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc]initWithString:@"标题1" attributes:@{NSForegroundColorAttributeName:[UIColor blueColor],NSFontAttributeName:[UIFont systemFontOfSize:17]}];
+NSMutableAttributedString *attMessage = [[NSMutableAttributedString alloc]initWithString:@"message" attributes:@{NSForegroundColorAttributeName:[UIColor purpleColor],NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+
+UIAlertController *action = [UIAlertController alertControllerWithTitle:@"标题1" message:@"message" preferredStyle:UIAlertControllerStyleActionSheet];
+[action setValue:attTitle forKey:@"attributedTitle"];
+[action setValue:attMessage forKey:@"attributedMessage"];
+
+UIAlertAction *alert1 = [UIAlertAction actionWithTitle:@"拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self loadCameraMovie];
+}];
+[alert1 setValue:[UIColor greenColor] forKey:@"titleTextColor"];
+[action addAction:alert1];
+
+UIAlertAction *alert2 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self loadCamera];
+}];
+[alert2 setValue:[UIColor cyanColor] forKey:@"titleTextColor"];
+[action addAction:alert2];
+
+UIAlertAction *alert3 = [UIAlertAction actionWithTitle:@"从相册选择视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self loadPhotoLibraryMovie];
+}];
+[alert3 setValue:[UIColor orangeColor] forKey:@"titleTextColor"];
+[action addAction:alert3];
+
+UIAlertAction *alert4 = [UIAlertAction actionWithTitle:@"从相册选择照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self loadPhotoLibraryPhoto];
+}];
+[alert4 setValue:[UIColor brownColor] forKey:@"titleTextColor"];
+[action addAction:alert4];
+
+UIAlertAction *alert5 = [UIAlertAction actionWithTitle:@"从相册选择多张照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self loadQBImagePickerController];
+}];
+[alert5 setValue:[UIColor blackColor] forKey:@"titleTextColor"];
+[action addAction:alert5];
+
+UIAlertAction *can = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    
+}];
+[can setValue:[UIColor redColor] forKey:@"titleTextColor"];
+[action addAction:can];
+[self presentViewController:action animated:YES completion:nil];
+</code></pre></div></div>
+:ET
