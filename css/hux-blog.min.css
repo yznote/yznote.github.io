@@ -255,10 +255,17 @@ article {
 }
 
 blockquote {
-	color: gray;
+	/*color: gray;*/
+	color: #999;
 	/*font-style: italic;*/
-	font-size: .95em;
-	margin: 20px 0 20px
+	/*font-size: .95em;*/
+	font-size: 14px;
+	/*margin: 20px 0 20px*/
+	margin: 5px 0 5px;
+	background-color: #eef0f4;
+    padding: 10px 10px;
+    border-radius: 5px;
+    border-left: 5px solid #dddfe4;
 }
 
 blockquote p {
@@ -354,7 +361,11 @@ pre code {
 }
 
 .post-container ul,.post-container ol {
-	margin-bottom: 40px
+	/*margin-bottom: 40px*/
+	margin-bottom: 0px;
+	padding-left:18px;
+	font-size: 14px;
+    color: #969696;
 }
 
 @media screen and (max-width:768px) {

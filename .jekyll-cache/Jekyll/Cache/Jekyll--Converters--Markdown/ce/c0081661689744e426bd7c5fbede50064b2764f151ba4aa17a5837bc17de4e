@@ -1,0 +1,28 @@
+I"�	<h4 id="库简介">库简介：</h4>
+
+<blockquote>
+  <p>库就是程序代码的集合，将N个文件整合起来，实现特定的功能模块儿，从而更好的实现代码共享。本质上是一种可执行文件的二进制格式，可以被载入内存中执行。库可分为开源库和闭源库，开源库比如常用的<code class="highlighter-rouge">AFNNetWorking</code>以及<code class="highlighter-rouge">SDWebImage</code>，其实现的代码是开放可见的。闭源库比如苹果提供的UIKit等库，只能看见其开放的<code class="highlighter-rouge">.h</code>文件，无法查看对应的方法实现部分。<code class="highlighter-rouge">iOS</code>中的闭源库又分为<code class="highlighter-rouge">静态库</code>和<code class="highlighter-rouge">动态库</code>。</p>
+</blockquote>
+
+<h4 id="静态库和动态库的区别">静态库和动态库的区别：</h4>
+
+<ul>
+  <li>存在形式的区别:</li>
+</ul>
+
+<blockquote>
+  <p>静态库有<code class="highlighter-rouge">.a</code> 和 <code class="highlighter-rouge">.FrameWork</code>两种形式。<br />
+动态库有<code class="highlighter-rouge">.tbd</code> 和 <code class="highlighter-rouge">.FrameWork</code>两种形式；系统直接提供给我们的<code class="highlighter-rouge">.FrameWork</code>都是动态库。</p>
+</blockquote>
+
+<ul>
+  <li>.a和.FrameWork的区别:</li>
+</ul>
+
+<blockquote>
+  <p><code class="highlighter-rouge">.FrameWork</code> = <code class="highlighter-rouge">.a</code> + <code class="highlighter-rouge">.h</code> + <code class="highlighter-rouge">bondle</code>(<code class="highlighter-rouge">.a</code>为纯二进制文件，需要配合<code class="highlighter-rouge">.h</code>文件才能使用，如果其中有用到图片等资源文件的话，需要将资源文件打包成与<code class="highlighter-rouge">.a</code>同名的<code class="highlighter-rouge">.bondle</code>来配合其使用。在<code class="highlighter-rouge">.a</code>中使用<code class="highlighter-rouge">.bondle</code>中的资源时需要指明资源所在的<code class="highlighter-rouge">bondle</code>,例如使用图片： 
+ <code class="highlighter-rouge">[UIImage imageNamed:@“pic” inBundle:&lt;#(nullable NSBundle *)#&gt; compatibleWithTraitCollection:&lt;#(nullable UITraitCollection *)#&gt;])</code><br />
+ 所以我们在使用库的时候尽量使用<code class="highlighter-rouge">.FrameWork</code>的形式比较方便。</p>
+</blockquote>
+
+:ET
