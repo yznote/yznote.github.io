@@ -1,11 +1,18 @@
-I";�<h4 id="置顶">置顶</h4>
+I"[�<h4 id="置顶">置顶</h4>
+
+<p><strong>控件重叠、坐标转换</strong></p>
+
+<p><a href="https://www.jianshu.com/p/ced04a958e8c">超链接</a></p>
 
 <p><strong>iOS13</strong></p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UITextField *textField ;
 if (@available(iOS 13.0,*)) {
-    textField = _search.searchTextField;
+    textField = _searchBar.searchTextField;
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_searchBar.placeholder attributes:@{NSForegroundColorAttributeName:RGB_COLOR(@"#323232", 0.5),NSFontAttributeName:[UIFont systemFontOfSize:16]}];
 }else {
-    textField = [_search valueForKey:@"_searchField"];
+    textField = [_searchBar valueForKey:@"_searchField"];
+    [textField setValue:RGB_COLOR(@"#323232", 0.5) forKeyPath:@"_placeholderLabel.textColor"];
+    [textField setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
 }
 </code></pre></div></div>
 
