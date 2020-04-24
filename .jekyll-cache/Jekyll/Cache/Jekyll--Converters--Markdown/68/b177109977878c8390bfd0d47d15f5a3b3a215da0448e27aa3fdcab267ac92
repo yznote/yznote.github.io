@@ -1,0 +1,38 @@
+I"<h4 id="写一个单例--一个类只有一个实例">写一个单例  （一个类只有一个实例）</h4>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import
+</span><span class="k">@interface</span> <span class="nc">DataModel</span> <span class="p">:</span> <span class="nc">NSObject</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span><span class="o">*</span> <span class="n">imageUrl</span><span class="p">;</span>
+<span class="k">+</span><span class="p">(</span><span class="n">DataModel</span><span class="o">*</span><span class="p">)</span><span class="n">sharedModel</span><span class="p">;</span>
+<span class="k">@end</span>
+</code></pre></div></div>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "DataModel.h"
+</span><span class="k">@implementation</span> <span class="nc">DataModel</span>
+<span class="k">static</span> <span class="n">DataModel</span><span class="o">*</span> <span class="n">dataModel</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>  <span class="c1">//为单例对象实现一个静态实例，并初始化，然后设置成nil，</span>
+<span class="k">+</span><span class="p">(</span><span class="n">DataModel</span><span class="o">*</span><span class="p">)</span><span class="n">sharedModel</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dataModel</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dataModel</span> <span class="o">=</span> <span class="p">[[</span><span class="n">DataModel</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span><span class="c1">//实现一个实例构造方法检查上面声明的静态实例是否为nil，如果是则新建并返回一个本类的实例</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">dataModel</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">-</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">init</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">init</span><span class="p">])</span> <span class="p">{</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">imageUrl</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="p">}</span>  
+    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//重写allocWithZone方法，用来保证其他人直接使用alloc和init试图获得一个新实力的时候不产生一个新实例，</span>
+<span class="k">@end</span>
+</code></pre></div></div>
+<h4 id="在view1中">在view1中</h4>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DataModel</span><span class="o">*</span> <span class="n">dataModel</span>  <span class="o">=</span> <span class="p">[</span><span class="n">DataModel</span> <span class="nf">sharedModel</span><span class="p">];</span>
+<span class="n">dataModel</span><span class="p">.</span><span class="n">imageUrl</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">info</span><span class="p">.</span><span class="n">imageOriginalURL</span><span class="p">;</span>
+</code></pre></div></div>
+<h4 id="在view2中">在view2中</h4>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">retain</span> <span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">DataModel</span><span class="o">*</span> <span class="n">datamodel</span><span class="p">;</span>
+
+<span class="n">self</span><span class="p">.</span><span class="n">datamodel</span> <span class="o">=</span> <span class="p">[</span><span class="n">DataModel</span> <span class="nf">sharedModel</span><span class="p">];</span>
+<span class="n">self</span><span class="p">.</span><span class="n">image</span><span class="p">.</span><span class="n">imageURL</span><span class="o">=</span><span class="p">[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">datamodel</span><span class="p">.</span><span class="n">imageUrl</span><span class="p">];</span>
+</code></pre></div></div>
+:ET

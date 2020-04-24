@@ -1,0 +1,113 @@
+I"B-<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "ViewController.h"
+</span>
+<span class="k">@interface</span> <span class="nc">ViewController</span> <span class="p">()</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutlet</span> <span class="n">UIImageView</span> <span class="o">*</span><span class="n">catImageView</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doCymbal</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doDrink</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doEat</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doFart</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doPie</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doScratch</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">ViewController</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span> <span class="p">{</span>
+
+    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
+
+    <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">didReceiveMemoryWarning</span> <span class="p">{</span>
+
+    <span class="p">[</span><span class="n">super</span> <span class="nf">didReceiveMemoryWarning</span><span class="p">];</span>
+
+    <span class="c1">// Dispose of any resources that can be recreated.</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">beginAnimationWithCount</span><span class="p">:(</span><span class="kt">int</span><span class="p">)</span><span class="nv">count</span> <span class="nf">andName</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">name</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">_catImageView</span><span class="p">.</span><span class="n">isAnimating</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="p">[</span><span class="n">_catImageView</span> <span class="nf">stopAnimating</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="c1">//接收图片</span>
+
+    <span class="n">NSMutableArray</span><span class="o">*</span> <span class="n">image_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="nf">array</span><span class="p">];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">NSString</span><span class="o">*</span> <span class="n">imageName</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%@_d.jpg"</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">i</span><span class="p">];</span>
+        <span class="c1">//有缓存</span>
+
+        <span class="c1">//UIImage *image = [UIImage imageNamed:imageName];</span>
+
+        <span class="c1">//没有缓存</span>
+        <span class="n">NSString</span><span class="o">*</span><span class="n">path</span><span class="o">=</span><span class="p">[[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">]</span><span class="nf">pathForResource</span><span class="p">:</span><span class="n">imageName</span> <span class="nf">ofType</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+        <span class="n">UIImage</span><span class="o">*</span><span class="n">image</span><span class="o">=</span><span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithContentsOfFile</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">image_array</span> <span class="nf">addObject</span><span class="p">:</span><span class="n">image</span><span class="p">];</span>
+
+    <span class="p">}</span>
+
+    <span class="n">_catImageView</span><span class="p">.</span><span class="n">animationImages</span> <span class="o">=</span> <span class="n">image_array</span><span class="p">;</span><span class="c1">//展示动画</span>
+    <span class="n">_catImageView</span><span class="p">.</span><span class="n">animationDuration</span> <span class="o">=</span> <span class="p">[</span><span class="n">image_array</span> <span class="nf">count</span><span class="p">]</span><span class="o">*</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">_catImageView</span><span class="p">.</span><span class="n">animationRepeatCount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">_catImageView</span> <span class="nf">startAnimating</span><span class="p">];</span>
+
+    <span class="c1">//一次动画后释放内存</span>
+
+    <span class="p">[</span><span class="n">_catImageView</span> <span class="nf">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">setAnimationImages</span><span class="p">:)</span> <span class="n">withObject</span><span class="o">:</span><span class="nb">nil</span> <span class="n">afterDelay</span><span class="o">:</span><span class="p">[</span><span class="n">image_array</span> <span class="nf">count</span><span class="p">]</span><span class="o">*</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doCymbal</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">beginAnimationWithCount</span><span class="p">:</span><span class="mi">12</span> <span class="nf">andName</span><span class="p">:</span><span class="s">@"cymbal"</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doDrink</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">{</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">beginAnimationWithCount</span><span class="p">:</span><span class="mi">80</span> <span class="nf">andName</span><span class="p">:</span><span class="s">@"drink"</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doEat</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">{</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">beginAnimationWithCount</span><span class="p">:</span><span class="mi">39</span> <span class="nf">andName</span><span class="p">:</span><span class="s">@"eat"</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doFart</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">{</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">beginAnimationWithCount</span><span class="p">:</span><span class="mi">27</span> <span class="nf">andName</span><span class="p">:</span><span class="s">@"fart"</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doPie</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">{</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">beginAnimationWithCount</span><span class="p">:</span><span class="mi">23</span> <span class="nf">andName</span><span class="p">:</span><span class="s">@"pie"</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">doScratch</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">{</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">beginAnimationWithCount</span><span class="p">:</span><span class="mi">55</span> <span class="nf">andName</span><span class="p">:</span><span class="s">@"scratch"</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+:ET
