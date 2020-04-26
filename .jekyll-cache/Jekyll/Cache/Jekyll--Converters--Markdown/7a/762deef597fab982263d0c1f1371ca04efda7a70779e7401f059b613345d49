@@ -1,9 +1,16 @@
-I"!<h4 id="学习ing">学习ing</h4>
-<p><a href="https://www.jianshu.com/p/86e47d3ced8d">PromiseKit 概要</a></p>
+I"W#<h4 id="学习ing">学习ing</h4>
+<p><a href="https://github.com/Jacke-xu">WYKit(弹窗等)、swift等</a>
+<a href="https://www.jianshu.com/p/86e47d3ced8d">PromiseKit 概要</a></p>
+
+<h4 id="ios-13-新版本适配问题汇总">iOS 13 新版本适配问题汇总</h4>
+<p><a href="https://blog.csdn.net/studying_ios/article/details/52298781">SearchBar相关</a><br />
+<a href="https://www.jianshu.com/p/4654f8f6e16e">私有KVC-0</a><br />
+<a href="https://www.jianshu.com/p/db7c5229f8bb">私有KVC-1</a></p>
 
 <h4 id="网络知识总结">网络知识总结</h4>
 <p><a href="https://gitee.com/Liu0515/iOS-LibraryCollections">iOS知识汇总1</a><br />
-<a href="https://segmentfault.com/a/1190000017438587">iOS知识汇总2</a></p>
+<a href="https://segmentfault.com/a/1190000017438587">iOS知识汇总2</a>
+<a href="http://blog.cocoachina.com/article/95784">手机尺寸信息</a></p>
 
 <h4 id="socket-版本">socket 版本</h4>
 
@@ -12,6 +19,9 @@
 
 <hr />
 <h4 id="github">GitHub：</h4>
+
+<h5 id="page">page</h5>
+<p><a href="https://github.com/YUYINGJIE/YJPageController">页面+导航page</a></p>
 
 <h5 id="下载fmdb存储">下载+FMDB存储</h5>
 <p><a href="https://github.com/HeroWqb/HWDownloadDemo">下载、FMDB</a></p>

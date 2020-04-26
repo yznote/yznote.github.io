@@ -1,0 +1,11 @@
+I"�<p>首先，在<code class="highlighter-rouge">LaunchScreen.storyboard</code>添加一个<code class="highlighter-rouge">Label</code></p>
+
+<p>然后设置<code class="highlighter-rouge">Document</code>-&gt;<code class="highlighter-rouge">APP_VERSION</code> 如图:</p>
+
+<p><img src="/img/20200502/1.png" alt="项目1" /></p>
+
+<p>接着点击选择工程的<code class="highlighter-rouge">target</code>,选择<code class="highlighter-rouge">Build Phases</code>,点击<code class="highlighter-rouge">+</code>按钮，选择<code class="highlighter-rouge">New Run Script Phase</code>,双击新增的条目重命名<code class="highlighter-rouge">Update Version</code>(你开心命名什么都可以),然后拖动这条新增的条目放到<code class="highlighter-rouge">Copy Bundle Resources</code>之前,这个是我操作完毕的截图:</p>
+
+<p><img src="/img/20200202/2.png" alt="项目2" /></p>
+
+:ET

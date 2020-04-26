@@ -1,0 +1,226 @@
+I"p$<h4 id="学习ing">学习ing</h4>
+<p><a href="https://github.com/Jacke-xu">WYKit(弹窗等)、swift等</a>
+<a href="https://www.jianshu.com/p/86e47d3ced8d">PromiseKit 概要</a></p>
+
+<h4 id="ios-13-新版本适配问题汇总">iOS 13 新版本适配问题汇总</h4>
+<p><a href="https://blog.csdn.net/studying_ios/article/details/52298781">SearchBar相关</a><br />
+<a href="https://www.jianshu.com/p/4654f8f6e16e">私有KVC-0</a><br />
+<a href="https://www.jianshu.com/p/db7c5229f8bb">私有KVC-1</a>
+<a href="https://blog.csdn.net/holdsky/article/details/102602213">窗口导航器</a></p>
+
+<h4 id="ios多个target时候运行报错">iOS多个target时候运行报错</h4>
+<p><a href="https://blog.csdn.net/lhy1233212580/article/details/72466820">多个target时候运行报错</a></p>
+
+<h4 id="网络知识总结">网络知识总结</h4>
+<p><a href="https://gitee.com/Liu0515/iOS-LibraryCollections">iOS知识汇总1</a><br />
+<a href="https://segmentfault.com/a/1190000017438587">iOS知识汇总2</a>
+<a href="http://blog.cocoachina.com/article/95784">手机尺寸信息</a></p>
+
+<h4 id="socket-版本">socket 版本</h4>
+<p><a href="https://blog.csdn.net/u013712343/article/details/76234632">服务端</a><br />
+<a href="https://github.com/facebook/SocketRocket">iOS</a></p>
+
+<hr />
+<h4 id="github">GitHub：</h4>
+
+<h5 id="page">page</h5>
+<p><a href="https://github.com/YUYINGJIE/YJPageController">页面+导航page</a></p>
+
+<h5 id="下载fmdb存储">下载+FMDB存储</h5>
+<p><a href="https://github.com/HeroWqb/HWDownloadDemo">下载、FMDB</a></p>
+
+<h5 id="二维码扫描">二维码扫描</h5>
+<p><a href="https://github.com/kingsic/SGQRCode">扫描+相册识别</a></p>
+
+<h5 id="pickerview横向滚动">PickerView横向滚动</h5>
+
+<p><a href="https://github.com/WSGNSLog/CustomPickerView">横向pickerView</a></p>
+
+<h5 id="tabbar">TabBar</h5>
+
+<p><a href="https://github.com/SeriouslyFunny/HSFTabBarController">系统最多支持五个,自定义六个</a></p>
+
+<h5 id="提示框">提示框</h5>
+
+<p><a href="https://github.com/sagiwei/SGActionView">分享弹窗、提示框</a></p>
+
+<h5 id="敏感词">敏感词</h5>
+
+<p><a href="https://github.com/caizhaojin/ZJWordFilter">敏感词过滤</a><br />
+<a href="https://github.com/CodingQ/Sensitive-words-filter">敏感词过滤</a></p>
+
+<h5 id="进度">进度</h5>
+
+<p><a href="https://github.com/mengxianliang/XLCircleProgress">进度条</a><br />
+<a href="https://github.com/search?q=XLProgress">XLProgress</a><br />
+<a href="https://github.com/TomThorpe/TTRangeSlider">选择区域(俩slider)</a></p>
+
+<h5 id="swift">Swift</h5>
+
+<p><a href="https://github.com/ws1227/swiftLearn">swift</a></p>
+
+<h5 id="支付">支付</h5>
+
+<p><a href="https://github.com/gu2890961/PayToolsProject">支付(微信、支付宝、银联)</a></p>
+
+<h5 id="相机相册">相机、相册</h5>
+
+<p><a href="https://github.com/longitachi/ZLPhotoBrowser">相机</a><br />
+<a href="https://github.com/LuckyTruda/SamplePhotosDemo">相册</a><br />
+<a href="https://github.com/tianyamingyuexin/VideoTest/tree/master">相册取视频</a><br />
+<a href="https://github.com/search?q=TZImagePickerController">imagepiker</a></p>
+
+<h5 id="跑马灯">跑马灯</h5>
+
+<p><a href="https://github.com/yvanwang1992/YFRollingLabel">YFRollingLabel</a><br />
+<a href="https://github.com/jinht/Marquee">跑马灯</a><br />
+<a href="https://github.com/iceyouyou/UUMarqueeView">跑马灯、上下翻转</a></p>
+
+<h5 id="弹幕">弹幕</h5>
+
+<p><a href="https://github.com/Wbqqqq/WBQDanmakuKit">弹幕库(不可点、样式易调整-引用简单)</a><br />
+<a href="https://github.com/ChinaFishNews/qyuTanMuDemo">弹幕(可点击、样式难调整-应用简单)</a><br />
+<a href="https://github.com/Initial-C/ZWBarrage">弹幕不重叠可相应点击</a></p>
+
+<h5 id="数字滚动">数字滚动</h5>
+
+<p><a href="https://github.com/iceyouyou/UUAmountBoardView">数字滚动1</a><br />
+<a href="https://github.com/daipeihust/DPScrollNumberLabel">数字滚动2</a><br />
+<a href="https://github.com/search?q=UUAmountBoardView">数字滚动3</a></p>
+
+<h5 id="正则">正则</h5>
+
+<p><a href="https://www.jianshu.com/p/a3dd72eadfa3">正则</a><br />
+<a href="https://www.jianshu.com/p/d8b899ee74bf">正则</a><br />
+<a href="https://www.imooc.com/article/3591">正则</a></p>
+
+<h5 id="key-value">key-value</h5>
+
+<p><a href="https://github.com/Tencent/MMKV/blob/master/readme_cn.md">key-value</a></p>
+
+<h5 id="数组">数组</h5>
+
+<p><a href="https://github.com/MrLujh/SafeObject">数组越界</a></p>
+
+<h5 id="seg">seg</h5>
+
+<p><a href="https://github.com/SPStore/SPMultipleSwitch">segment</a></p>
+
+<h5 id="动画">动画</h5>
+
+<p><a href="https://github.com/yyued/SVGAPlayer-iOS">svga</a><br />
+<a href="https://github.com/yyued?utf8=%E2%9C%93&amp;q=SVGA&amp;type=&amp;language=">svga</a>
+<a href="https://github.com/YouXianMing/Animations">动画</a></p>
+
+<h5 id="二维码">二维码</h5>
+
+<p><a href="https://github.com/SPStore/SPScanning">二维码</a></p>
+
+<h5 id="网络监测">网络监测</h5>
+
+<p><a href="https://github.com/ucloud/netanalysis-sdk-ios">网络监测</a></p>
+
+<h5 id="九宫格">九宫格</h5>
+
+<p><a href="https://github.com/cryboyofyu/XYJGG">九宫格</a></p>
+
+<h5 id="rac">RAC</h5>
+
+<p><a href="https://www.jianshu.com/p/baa5fe76191c">RAC</a></p>
+
+<h5 id="tab-coll">tab coll</h5>
+
+<p><a href="https://github.com/xiaosao6/TableViewSectionIndexChangeCallback">tableview索引</a><br />
+<a href="https://github.com/ra1028/RACollectionViewReorderableTripletLayout">collectionView 长按交换</a></p>
+
+<h5 id="手机主界面一个快捷键">手机主界面一个快捷键</h5>
+<p><a href="https://github.com/liumx666/XXWindowFloatItemDemo">手机主界面一个快捷键</a></p>
+
+<h5 id="标签">标签</h5>
+<p><a href="https://github.com/andreamazz/AMTagListView">标签</a><br />
+<a href="https://github.com/DeftMKJ/SKTag">TagView(搜索、tableview可用)</a></p>
+
+<h5 id="音符">音符</h5>
+
+<p><a href="https://github.com/search?q=CLNoteView">抖音音符</a></p>
+
+<h5 id="屏幕旋转">屏幕旋转</h5>
+
+<p><a href="https://github.com/JmoVxia/CLRotationTools">横屏、屏幕旋转</a></p>
+
+<h5 id="控制台打印">控制台打印</h5>
+
+<p><a href="https://github.com/524429264/HYBUnicodeReadable">控制台打印转中文</a><br />
+<a href="https://github.com/shixueqian/PrintBeautifulLog">控制台 打印json</a></p>
+
+<h5 id="pickerview">PickerView</h5>
+
+<p><a href="https://github.com/hackiftekhar/IQActionSheetPickerView">PickerView</a><br />
+<a href="https://github.com/XHJCoder/XHDatePicker">(可自定义位置)时间选择器</a></p>
+
+<h5 id="轮播">轮播</h5>
+
+<p><a href="https://github.com/PageGuo/NewPagedFlowView">卡片式轮播</a><br />
+<a href="https://github.com/gsdios/SDCycleScrollView">普通轮播</a></p>
+
+<h5 id="渐变色">渐变色</h5>
+
+<p><a href="https://github.com/CoderCLWoo/CAGradientButton">渐变色</a></p>
+
+<h5 id="图片操作">图片操作</h5>
+
+<p><a href="https://github.com/lisongrc/UIImage-Categories">图片操作</a></p>
+
+<h5 id="贝塞尔不规则图形">贝塞尔、不规则图形</h5>
+
+<p><a href="https://github.com/llgbw/UIBezierPathCustomView">贝塞尔曲线画图形并改变点击区域</a></p>
+
+<h5 id="工具-播放器">工具-播放器</h5>
+
+<p><a href="https://github.com/huangxinping/m3u8player/tree/master/SMM3u8Player">m3u8</a><br />
+<a href="https://github.com/liric28/FLAnimatedImage">gif播放工具</a><br />
+<a href="https://github.com/search?q=glmusicbox">音乐播放器</a><br />
+<a href="https://qmuiteam.com/ios/">QMUI</a><br />
+<a href="https://blog.csdn.net/jeikerxiao/article/details/78949459">cocoapod</a><br />
+<a href="https://github.com/lanlin/notes/issues/41">pod 问题</a><br />
+<a href="https://github.com/shaojiankui/SmartPush">Mac下APNS测试工具</a><br />
+<a href="https://github.com/klaus01/KLGenerateSpamCode">马甲应用工具</a><br />
+<a href="https://github.com/liuchunlao/RecordAndPlayVoice">录音</a><br />
+<a href="https://github.com/b3log/baidu-netdisk-downloaderx">百度网盘下载工具</a><br />
+<a href="https://github.com/zsj1992/IJKPlayerDemo">ijkplaer</a></p>
+
+<hr />
+<h4 id="网盘">网盘：</h4>
+
+<p><a href="https://pan.baidu.com/s/1eS20QS6">iPhone 真机支持包-密码: 5v35</a></p>
+
+<hr />
+<h4 id="简书">简书：</h4>
+<p><a href="https://www.jianshu.com/p/854dc9c810c9">网络连接获取尺寸</a></p>
+
+<p><a href="https://www.jianshu.com/p/ac4d62912a5a">签名:</a><br />
+<strong>沙盒日志</strong><br />
+<a href="https://www.jianshu.com/p/5efef567624d">0-1写日志:</a><br />
+<a href="https://www.jianshu.com/p/3d8fce610ee9">0-2输出日志:</a></p>
+
+<p>1、<a href="https://www.jianshu.com/p/5de1965824d4">JPPayer:</a></p>
+
+<p>2、<a href="https://www.jianshu.com/p/91756e72c9e5">UIScrollView自动滚动到屏幕中间</a><br />
+   <a href="https://github.com/uniapp10/ScroolToCenter">git地址</a></p>
+
+<h5 id="项目篇">项目篇：</h5>
+
+<p>1、<a href="https://github.com/MichaelHuyp/Bilibili_Wuxianda">bilibili</a></p>
+
+<p>2、<a href="https://www.jianshu.com/p/abdcd537b70c">网络项目</a></p>
+
+<hr />
+<h4 id="扩展篇">扩展篇：</h4>
+
+<p><strong>美区ID</strong>
+<a href="https://github.com/chinacion/itunes-usa">美区ID</a></p>
+
+<p><strong>安卓</strong><br />
+1.<a href="https://github.com/CarGuo/GSYVideoPlayer">播放器</a></p>
+
+:ET

@@ -1,0 +1,168 @@
+I"p<h4 id="需求">需求</h4>
+
+<blockquote>
+  <p>1、当应用一直保持在前台的情况下，收到推送消息后语音和振动可以正常触发<br />
+2、在第一条的基础上，语音和振动被触发后再按Home键进入后台，这时语音和振动都失效<br />
+3、当应用进入后台的情况下，收到推送消息后语音和振动都不能被触发</p>
+</blockquote>
+
+<h4 id="方案">方案</h4>
+
+<p><strong>方案1.开启后台持续定位</strong></p>
+
+<p>&lt;1&gt;设置<code class="highlighter-rouge">Backgound Modes</code></p>
+
+<p><img src="/img/20200310/1.png" alt="项目1" /></p>
+
+<p>&lt;2&gt;在<code class="highlighter-rouge">info.plist</code>中设置</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Privacy - Location Always Usage Description
+</code></pre></div></div>
+
+<p>&lt;3&gt;在<code class="highlighter-rouge">didFinishLaunchingWithOptions</code>中执行下面的<code class="highlighter-rouge">initLocationManager</code>方法</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)initLocationManager{
+    //1.创建定位管理对象
+    _manager = [[CLLocationManager alloc]init];
+
+    //2.设置属性 distanceFilter、desiredAccuracy
+    _manager.distanceFilter = kCLDistanceFilterNone;//实时更新定位位置
+    _manager.desiredAccuracy = kCLLocationAccuracyBest;//定位精确度
+    if([_manager respondsToSelector:@selector(requestAlwaysAuthorization)]){
+        [_manager requestAlwaysAuthorization];
+    }
+    //该模式是抵抗程序在后台被杀，申明不能够被暂停
+    _manager.pausesLocationUpdatesAutomatically = NO;
+    _manager.allowsBackgroundLocationUpdates = YES;
+    //3.设置代理
+    _manager.delegate = self;
+    //4.开始定位
+    [_manager startUpdatingLocation];
+    //5.获取朝向
+    [_manager startUpdatingHeading];
+}
+
+//定位成功调用的的方法
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+
+    // 获取位置信息
+    CLLocation *newLocation=[locations lastObject];
+    double lat = newLocation.coordinate.latitude;
+    double lon = newLocation.coordinate.longitude;
+    double alt = newLocation.altitude;
+    NSLog(@"纬度:%f,经度:%f,海拔:%f",lat,lon,alt);
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+    [self.manager startUpdatingLocation];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+    NSLog(@"进入后台");
+    UIApplication *app = [UIApplication sharedApplication];
+    __block  UIBackgroundTaskIdentifier bgTask;
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (bgTask != UIBackgroundTaskInvalid){
+                bgTask = UIBackgroundTaskInvalid;
+            }
+        });
+    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (bgTask != UIBackgroundTaskInvalid){
+            bgTask = UIBackgroundTaskInvalid;
+            }
+        });
+    });
+    
+   [self.manager startUpdatingLocation];
+}
+</code></pre></div></div>
+
+<p><strong>方案2.后台连续播放音乐的方法</strong></p>
+
+<p>&lt;1&gt;设置<code class="highlighter-rouge">Backgound Modes</code></p>
+
+<p><img src="/img/20200310/2.png" alt="项目2" /></p>
+
+<p>&lt;2&gt;在<code class="highlighter-rouge">didFinishLaunchingWithOptions</code>中执行下面的<code class="highlighter-rouge">initPlayMusic</code>方法</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)initPlayMusic{
+  
+    //先注册响应后台控制
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    //处理中断事件的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterreption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+    
+    //设置并激活音频会话类别
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [session setActive:YES error:nil];
+    
+    //播放背景音乐
+    NSString *musicPath = [[NSBundle mainBundle] pathForResource:@"紫藤花" ofType:@"mp3"];
+    NSURL *url = [[NSURL alloc] initFileURLWithPath:musicPath];
+    
+    // 创建播放器
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [_player prepareToPlay];
+    _player.volume = 1;
+    _player.numberOfLoops = -1; //设置音乐播放次数  -1为一直循环
+    [_player play]; //播放
+}
+
+//处理中断事件
+-(void)handleInterreption:(NSNotification *)sender{
+     NSLog(@"--1-&gt;%@",sender.userInfo);
+    
+    if(_isPlayed){
+        [self.player pause];
+        _isPlayed = NO;
+    }else{
+        [self.player play];
+        _isPlayed = YES;
+    }
+}
+
+//应用将要进入不活跃的状态
+-(void)applicationWillResignActive:(UIApplication *)application{
+    //开启后台处理多媒体事件
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    AVAudioSession *session=[AVAudioSession sharedInstance];
+    [session setActive:YES error:nil];
+    //后台播放//这样做，可以在按home键进入后台后 ，播放一段时间，几分钟吧。但是不能持续播放网络歌曲，
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    //若需要持续播放网络歌曲，还需要申请后台任务id，具体做法是：
+    //其中的_bgTaskId是后台任务UIBackgroundTaskIdentifier _bgTaskId;
+    _bgTaskId =[AppDelegate backgroundPlayerID:_bgTaskId];
+}
+
+//实现一下backgroundPlayerID:这个方法:
++(UIBackgroundTaskIdentifier)backgroundPlayerID:(UIBackgroundTaskIdentifier)backTaskId{
+    
+    //允许应用程序接收远程控制
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    //设置后台任务ID
+    UIBackgroundTaskIdentifier newTaskId = UIBackgroundTaskInvalid;
+    newTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    if(newTaskId!=UIBackgroundTaskInvalid&amp;&amp;backTaskId!=UIBackgroundTaskInvalid){
+        [[UIApplication sharedApplication] endBackgroundTask:backTaskId];
+    }
+    return newTaskId;
+}
+</code></pre></div></div>
+
+<h4 id="结语">结语</h4>
+
+<p>以上两种方法经测试，可以一直在后台运行不会被<code class="highlighter-rouge">kill</code>掉</p>
+
+<h4 id="后台监听">后台监听</h4>
+
+<p><a href="https://blog.csdn.net/hero_wqb/article/details/80353604">后台监听</a></p>
+
+:ET

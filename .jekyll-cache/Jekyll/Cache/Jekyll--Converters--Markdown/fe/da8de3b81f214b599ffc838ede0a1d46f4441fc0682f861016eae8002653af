@@ -1,24 +1,8 @@
----
-layout:     post
-title:      封面尺寸获取
-subtitle:   
-date:       2019-02-07 15:21:52 +0800
-rkupdate:   2020-04-26 11:20:03 +0800
-author:     Rookie
-header-img: 
-catalog: true
-stickie: false
-tags:
-    - OC
-    - 封面尺寸
----
+I"�<h4 id="补充">补充</h4>
+<p><a href="https://www.jianshu.com/p/854dc9c810c9">4-24补充</a></p>
 
-#### 补充
-[4-26补充](https://www.jianshu.com/p/854dc9c810c9)
-
-#### 方法一
-```
-NSURL *videoURl = [NSURL URLWithString:_playUrl];
+<h4 id="方法一">方法一</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSURL *videoURl = [NSURL URLWithString:_playUrl];
 AVAsset *asset = [AVAsset assetWithURL:videoURl];
 [asset loadValuesAsynchronouslyForKeys:@[@"tracks"] completionHandler:^{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -30,9 +14,9 @@ AVAsset *asset = [AVAsset assetWithURL:videoURl];
                     videoSize = track.naturalSize;
                 }
             }
-            NSLog(@"width----------------------->%f",videoSize.width);
-            NSLog(@"height----------------------->%f",videoSize.height);
-            if(videoSize.width>videoSize.height){
+            NSLog(@"width-----------------------&gt;%f",videoSize.width);
+            NSLog(@"height-----------------------&gt;%f",videoSize.height);
+            if(videoSize.width&gt;videoSize.height){
                 playerModel.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
             }else{
                 playerModel.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -40,16 +24,14 @@ AVAsset *asset = [AVAsset assetWithURL:videoURl];
         }
     });
 }];
-```
-#### 方法二
-````
-NSMutableString *imageURL = [NSMutableString stringWithFormat:@"%@",_img];
+</code></pre></div></div>
+<h4 id="方法二">方法二</h4>
+<pre><code class="language-`">NSMutableString *imageURL = [NSMutableString stringWithFormat:@"%@",_img];
 CGImageSourceRef source = CGImageSourceCreateWithURL((CFURLRef)[NSURL URLWithString:imageURL], NULL);
 NSDictionary* imageHeader = (__bridge NSDictionary*) CGImageSourceCopyPropertiesAtIndex(source, 0, NULL);
 
 _h = [NSString stringWithFormat:@"%@",[imageHeader objectForKey:@"PixelHeight"]];
 _w = [NSString stringWithFormat:@"%@",[imageHeader objectForKey:@"PixelWidth"]];
-```
+</code></pre>
 
-
-
+:ET
