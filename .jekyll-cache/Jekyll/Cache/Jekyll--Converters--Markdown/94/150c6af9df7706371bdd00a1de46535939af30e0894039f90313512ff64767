@@ -1,12 +1,18 @@
-I"-$<h4 id="学习ing">学习ing</h4>
+I"�%<h4 id="学习ing">学习ing</h4>
 <p><a href="https://github.com/Jacke-xu">WYKit(弹窗等)、swift等</a>
 <a href="https://www.jianshu.com/p/86e47d3ced8d">PromiseKit 概要</a></p>
+
+<h4 id="语言包国际化">语言包(国际化)</h4>
+<p><a href="https://www.jianshu.com/p/1cd7a15f6993">国际化</a></p>
 
 <h4 id="ios-13-新版本适配问题汇总">iOS 13 新版本适配问题汇总</h4>
 <p><a href="https://blog.csdn.net/studying_ios/article/details/52298781">SearchBar相关</a><br />
 <a href="https://www.jianshu.com/p/4654f8f6e16e">私有KVC-0</a><br />
 <a href="https://www.jianshu.com/p/db7c5229f8bb">私有KVC-1</a>
 <a href="https://blog.csdn.net/holdsky/article/details/102602213">窗口导航器</a></p>
+
+<h4 id="ios多个target时候运行报错">iOS多个target时候运行报错</h4>
+<p><a href="https://blog.csdn.net/lhy1233212580/article/details/72466820">多个target时候运行报错</a></p>
 
 <h4 id="网络知识总结">网络知识总结</h4>
 <p><a href="https://gitee.com/Liu0515/iOS-LibraryCollections">iOS知识汇总1</a><br />
@@ -16,9 +22,6 @@
 <h4 id="socket-版本">socket 版本</h4>
 <p><a href="https://blog.csdn.net/u013712343/article/details/76234632">服务端</a><br />
 <a href="https://github.com/facebook/SocketRocket">iOS</a></p>
-
-<h4 id="后代不会被kill">后代不会被kill</h4>
-<p><a href="https://www.jianshu.com/p/e48d3e438377">定位+音乐</a></p>
 
 <hr />
 <h4 id="github">GitHub：</h4>
@@ -179,7 +182,8 @@
 
 <p><a href="https://github.com/huangxinping/m3u8player/tree/master/SMM3u8Player">m3u8</a><br />
 <a href="https://github.com/liric28/FLAnimatedImage">gif播放工具</a><br />
-<a href="https://github.com/search?q=glmusicbox">音乐播放器</a><br />
+<a href="https://github.com/search?q=glmusicbox">音乐播放器1</a><br />
+<a href="https://github.com/Aufree/ESTMusicPlayer">音乐播放器2</a><br />
 <a href="https://qmuiteam.com/ios/">QMUI</a><br />
 <a href="https://blog.csdn.net/jeikerxiao/article/details/78949459">cocoapod</a><br />
 <a href="https://github.com/lanlin/notes/issues/41">pod 问题</a><br />
@@ -196,6 +200,8 @@
 
 <hr />
 <h4 id="简书">简书：</h4>
+<p><a href="https://www.jianshu.com/p/bcc2f6ca4708">UIPopoverPresentationController的使用</a></p>
+
 <p><a href="https://www.jianshu.com/p/854dc9c810c9">网络连接获取尺寸</a></p>
 
 <p><a href="https://www.jianshu.com/p/ac4d62912a5a">签名:</a><br />
