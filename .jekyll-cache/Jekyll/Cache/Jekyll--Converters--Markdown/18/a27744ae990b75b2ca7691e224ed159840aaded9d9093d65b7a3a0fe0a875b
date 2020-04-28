@@ -1,4 +1,4 @@
-I"#*<p>####准备工作</p>
+I"�7<h4 id="准备工作">准备工作</h4>
 
 <p>安装<code class="highlighter-rouge">homebrew, git, yasm.</code>(如果已经安装好可以跳过, 不清楚的再来一遍也无妨,一般mac都已经安装)</p>
 
@@ -89,7 +89,15 @@ echo 'export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --enable-openssl"' &gt;&g
 ./compile-ffmpeg.sh all
 </code></pre></div></div>
 
-<p>ps: 如果提示错误:</p>
+<p>可能出现报错:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!! ERROR
+!! Can not find FFmpeg directory for ffmpeg-armv7
+!! Run 'sh init-ios.sh' first
+</code></pre></div></div>
+<p>解决:==&gt;重新执行<code class="highlighter-rouge">获取 ffmpeg 并初始化</code>步骤</p>
+
+<p>也有可能是这样错误:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./libavutil/arm/asm.S:50:9: error: unknown directive
         .arch armv7-a
@@ -145,8 +153,8 @@ make: *** [libavcodec/arm/aacpsdsp_neon.o] Error 1
 
 <blockquote>
   <p>具体路径<br />
-—-&gt; /Users/chasitu/Desktop/ijkplayer/ijkplayer-ios/ios/build/universal/include/libavutil/avconfig.h<br />
-—–&gt; /Users/chasitu/Desktop/ijkplayer/ijkplayer-ios/ios/build/universal/include/libffmpeg/config.h</p>
+—-&gt; /Users/你的用户名/Desktop/ijkplayer/ijkplayer-ios/ios/build/universal/include/libavutil/avconfig.h<br />
+—–&gt; /Users/你的用户名/Desktop/ijkplayer/ijkplayer-ios/ios/build/universal/include/libffmpeg/config.h</p>
 </blockquote>
 
 <blockquote>
@@ -156,7 +164,10 @@ make: *** [libavcodec/arm/aacpsdsp_neon.o] Error 1
 
 <p>如图操作，然后<code class="highlighter-rouge">command+b</code>编译即可</p>
 
-<p>3.合并<code class="highlighter-rouge">framework</code></p>
+<p>3.打包模拟器<code class="highlighter-rouge">framework</code>
+选择任意模拟器 然后<code class="highlighter-rouge">command+b</code>编译即可</p>
+
+<p>4.合并<code class="highlighter-rouge">framework</code></p>
 
 <p>如果只需要真机运行或者模拟器运行, 可以不用合并, 直接找到对应的<code class="highlighter-rouge">framework</code>导入项目即可; 一般我们为了方便会合并 <code class="highlighter-rouge">framework</code>, 这样就同时支持模拟器和真机运行.
 先找到生成<code class="highlighter-rouge">framework</code>的目录:</p>
@@ -179,31 +190,95 @@ make: *** [libavcodec/arm/aacpsdsp_neon.o] Error 1
 
 <h4 id="集成-framework-到项目中">集成 framework 到项目中</h4>
 
-<blockquote>
-  <p>导入 framework<br />
-直接将 IJKMediaFramework.framework 拖入到工程中即可
-注意记得勾选 Copy items if needed 和 对应的 target</p>
-</blockquote>
+<p><strong>·导入 framework</strong></p>
 
-<blockquote>
-  <p>添加下列依赖到工程</p>
-  <ol>
-    <li><code class="highlighter-rouge">libc++.tbd</code> ( 编译器选 gcc 的请导入libstdc++.tbd)</li>
-    <li><code class="highlighter-rouge">libz.tbd</code></li>
-    <li><code class="highlighter-rouge">libbz2.tbd</code></li>
-    <li><code class="highlighter-rouge">AudioToolbox.framework</code></li>
-    <li><code class="highlighter-rouge">UIKit.framework</code></li>
-    <li><code class="highlighter-rouge">CoreGraphics.framework</code></li>
-    <li><code class="highlighter-rouge">AVFoundation.framework</code></li>
-    <li><code class="highlighter-rouge">CoreMedia.framework</code></li>
-    <li><code class="highlighter-rouge">CoreVideo.framework</code></li>
-    <li><code class="highlighter-rouge">MediaPlayer.framework</code></li>
-    <li><code class="highlighter-rouge">MobileCoreServices.framework</code></li>
-    <li><code class="highlighter-rouge">OpenGLES.framework</code></li>
-    <li><code class="highlighter-rouge">QuartzCore.framework</code></li>
-    <li><code class="highlighter-rouge">VideoToolbox.framework</code></li>
-  </ol>
-</blockquote>
+<p>直接将<code class="highlighter-rouge">IJKMediaFramework.framework</code>拖入到工程中即可注意记得勾选<code class="highlighter-rouge">Copy items if needed</code>和 对应的<code class="highlighter-rouge">target</code></p>
 
-<p><a href="https://www.jianshu.com/p/444194035787">转载简书地址</a></p>
+<p><strong>· 添加下列依赖到工程</strong></p>
+
+<ol>
+  <li><code class="highlighter-rouge">libc++.tbd</code> ( 编译器选 gcc 的请导入libstdc++.tbd)</li>
+  <li><code class="highlighter-rouge">libz.tbd</code></li>
+  <li><code class="highlighter-rouge">libbz2.tbd</code></li>
+  <li><code class="highlighter-rouge">AudioToolbox.framework</code></li>
+  <li><code class="highlighter-rouge">UIKit.framework</code></li>
+  <li><code class="highlighter-rouge">CoreGraphics.framework</code></li>
+  <li><code class="highlighter-rouge">AVFoundation.framework</code></li>
+  <li><code class="highlighter-rouge">CoreMedia.framework</code></li>
+  <li><code class="highlighter-rouge">CoreVideo.framework</code></li>
+  <li><code class="highlighter-rouge">MediaPlayer.framework</code></li>
+  <li><code class="highlighter-rouge">MobileCoreServices.framework</code></li>
+  <li><code class="highlighter-rouge">OpenGLES.framework</code></li>
+  <li><code class="highlighter-rouge">QuartzCore.framework</code></li>
+  <li><code class="highlighter-rouge">VideoToolbox.framework</code></li>
+</ol>
+
+<p>导入<code class="highlighter-rouge">ijkplayer</code>头文件运行一下项目, 如果遇到了类似这样的错误:</p>
+
+<p><img src="/img/20200506/12.webp" alt="项目12" /></p>
+
+<p>可能是因为导入的依赖库不全, 比如缺少<code class="highlighter-rouge">libc++.tbd</code>, 请再次对照添加好所有的依赖库:</p>
+
+<p><img src="/img/20200506/13.webp" alt="项目13" /></p>
+
+<p><strong><a href="https://www.jianshu.com/p/444194035787">简书参考地址地址</a></strong></p>
+
+<h4 id="ijk使用扩展">IJK使用扩展</h4>
+
+<p>创建<code class="highlighter-rouge">IJKFFOptions</code>，配置参数</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    NSURL *url = [NSURL URLWithString:liveStreamString];
+
+    [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
+
+    IJKFFOptions *options = [IJKFFOptions optionsByDefault];
+
+    //设置最大fps
+    [options setPlayerOptionIntValue:30  forKey:@"max-fps"];
+
+    //跳帧开关，如果cpu解码能力不足，可以设置成5，否则
+    //会引起音视频不同步，也可以通过设置它来跳帧达到倍速播放
+    [options setPlayerOptionIntValue:5  forKey:@"framedrop"];
+
+    [options setCodecOptionIntValue:IJK_AVDISCARD_DEFAULT forKey:@"skip_frame"];
+
+    //解码参数，画面更清晰
+    [options setCodecOptionIntValue:IJK_AVDISCARD_DEFAULT forKey:@"skip_loop_filter"];
+
+    //播放前的探测时间
+    [options setFormatOptionIntValue:50000 forKey:@"analyzeduration"];
+
+    //播放前的探测Size，默认是1M, 改小一点会出画面更快
+    [options setFormatOptionIntValue:1024 * 16 forKey:@"probesize"];
+
+    //如果是rtsp协议，可以优先用tcp(默认是用udp)
+    //[options setFormatOptionValue:@"tcp" forKey:@"rtsp_transport"];
+
+    //开启硬解码 1是硬解 0是软解
+    [options setPlayerOptionIntValue:0  forKey:@"videotoolbox"];
+
+    // 帧速率(fps) （可以改，确认非标准桢率会导致音画不同步，所以只能设定为15或者29.97）
+    [options setPlayerOptionIntValue:29.97 forKey:@"r"];
+
+    // -vol——设置音量大小，256为标准音量。（要设置成两倍音量时则输入512，依此类推
+    //[options setPlayerOptionIntValue:512 forKey:@"vol"];
+
+    //静音设置
+    [options setPlayerOptionValue:@"1" forKey:@"an"];
+
+    //帧数
+    [options setPlayerOptionIntValue:5  forKey:@"min-frames"];
+    
+    //Param for living
+    //最大缓存大小是3秒，可以依据自己的需求修改
+    [options setPlayerOptionIntValue:3000 forKey:@"max_cached_duration"];
+
+    //无限读
+    [options setPlayerOptionIntValue:1 forKey:@"infbuf"];
+
+    //关闭播放器缓冲初始化player的时候将option加入
+    [options setPlayerOptionIntValue:0 forKey:@"packet-buffering"];  
+
+    IJKFFMoviePlayerController *moviePlayer = [[IJKFFMoviePlayerController alloc] initWithContentURL:url withOptions:options];
+</code></pre></div></div>
+
 :ET
