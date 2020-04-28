@@ -1,6 +1,9 @@
-I"�%<h4 id="学习ing">学习ing</h4>
+I"�&<h4 id="学习ing">学习ing</h4>
 <p><a href="https://github.com/Jacke-xu">WYKit(弹窗等)、swift等</a>
 <a href="https://www.jianshu.com/p/86e47d3ced8d">PromiseKit 概要</a></p>
+
+<h4 id="iphone型号对照">iPhone型号对照</h4>
+<p><a href="https://www.theiphonewiki.com/wiki/Models">iPhone型号对照</a></p>
 
 <h4 id="语言包国际化">语言包(国际化)</h4>
 <p><a href="https://www.jianshu.com/p/1cd7a15f6993">国际化</a></p>
@@ -83,7 +86,8 @@
 
 <p><a href="https://github.com/Wbqqqq/WBQDanmakuKit">弹幕库(不可点、样式易调整-引用简单)</a><br />
 <a href="https://github.com/ChinaFishNews/qyuTanMuDemo">弹幕(可点击、样式难调整-应用简单)</a><br />
-<a href="https://github.com/Initial-C/ZWBarrage">弹幕不重叠可相应点击</a></p>
+<a href="https://github.com/Initial-C/ZWBarrage">弹幕不重叠可相应点击</a><br />
+<a href="https://github.com/iOS-Strikers/OCBarrage">弹幕-未测试过</a></p>
 
 <h5 id="数字滚动">数字滚动</h5>
 
@@ -184,6 +188,7 @@
 <a href="https://github.com/liric28/FLAnimatedImage">gif播放工具</a><br />
 <a href="https://github.com/search?q=glmusicbox">音乐播放器1</a><br />
 <a href="https://github.com/Aufree/ESTMusicPlayer">音乐播放器2</a><br />
+<a href="https://github.com/QuintGao/GKAudioPlayerDemo">音乐-防网易</a>  <br />
 <a href="https://qmuiteam.com/ios/">QMUI</a><br />
 <a href="https://blog.csdn.net/jeikerxiao/article/details/78949459">cocoapod</a><br />
 <a href="https://github.com/lanlin/notes/issues/41">pod 问题</a><br />
