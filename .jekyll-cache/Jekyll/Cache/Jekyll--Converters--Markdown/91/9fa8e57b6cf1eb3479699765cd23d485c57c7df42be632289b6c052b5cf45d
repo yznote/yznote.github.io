@@ -1,0 +1,214 @@
+I",<h4 id="准备工作">准备工作</h4>
+
+<p>安装<code class="highlighter-rouge">homebrew, git, yasm.</code>(如果已经安装好可以跳过, 不清楚的再来一遍也无妨,一般mac都已经安装)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew install git
+brew install yasm
+</code></pre></div></div>
+
+<p>ps:报错–&gt;(Warning: /usr/local/bin is not in your PATH.)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>终端输入命令: export PATH=/usr/local/bin:$PATH
+</code></pre></div></div>
+
+<h4 id="获取-ijkplayer-源码">获取 ijkplayer 源码</h4>
+
+<p>在一个合适的位置新建一个文件夹, 假设为桌面, 文件夹名为<code class="highlighter-rouge">ijkplayer</code>.</p>
+
+<p>打开终端, 输入下面的指令</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 进入到刚刚新建的文件夹内
+cd ~/Desktop/ijkplayer/
+
+# 获取ijkplayer源码
+git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-ios
+
+# 进入源码目录
+cd ijkplayer-ios
+
+# 切换分支 (目前为k0.8.8, 可以自行去GitHub查看最新版本号)
+git checkout -B latest k0.8.8
+
+</code></pre></div></div>
+
+<h4 id="配置编解码器格式支持">配置编解码器格式支持</h4>
+
+<p>默认为最少支持, 如果足够你使用, 可以跳过这一步. 否则可以改为以下配置:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">module-default.sh</code> 更多的编解码器/格式<br />
+<code class="highlighter-rouge">module-lite-hevc.sh</code> 较少的编解码器/格式(包括hevc)<br />
+<code class="highlighter-rouge">module-lite.sh</code>较少的编解码器/格式(默认情况)</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 进入 config 目录
+cd config
+
+# 删除当前的 module.sh 文件
+rm module.sh
+
+# 可根据需要替换为`module-default.sh`, `module-lite-hevc.sh`, `module-lite.sh`
+# 创建软链接 module.sh 指向 module-lite-hevc.sh
+ln -s module-lite-hevc.sh module.sh
+
+cd ..
+cd ios
+sh compile-ffmpeg.sh clean
+</code></pre></div></div>
+
+<h4 id="获取-ffmpeg-并初始化">获取 ffmpeg 并初始化</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ..
+./init-ios.sh
+</code></pre></div></div>
+
+<h4 id="添加-https-支持">添加 https 支持</h4>
+
+<p>最后会生成支持<code class="highlighter-rouge">https</code>的静态文件<code class="highlighter-rouge">libcrypto.a</code>和<code class="highlighter-rouge">libssl.a</code>,如果不需要可以跳过这一步</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 获取 openssl 并初始化
+./init-ios-openssl.sh
+
+cd ios
+
+# 在模块文件中添加一行配置 以启用 openssl 组件
+echo 'export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --enable-openssl"' &gt;&gt; ../config/module.sh
+
+./compile-ffmpeg.sh clean
+</code></pre></div></div>
+
+<h4 id="编译">编译</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 如果下一步提示错误`xcrun: error: SDK "iphoneos" cannot be located`, 请执行`sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/`, 再重新执行下一步
+
+# 编译openssl, 如果不需要https可以跳过这一步
+./compile-openssl.sh all
+
+# 编译ffmpeg
+./compile-ffmpeg.sh all
+</code></pre></div></div>
+
+<p>ps: 如果提示错误:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./libavutil/arm/asm.S:50:9: error: unknown directive
+        .arch armv7-a
+        ^
+make: *** [libavcodec/arm/aacpsdsp_neon.o] Error 1
+</code></pre></div></div>
+
+<p>最新的<code class="highlighter-rouge">Xcode</code>已经弱化了对 32 位的支持, 解决方法:<br />
+在<code class="highlighter-rouge">compile-ffmpeg.sh</code>文件中删除<code class="highlighter-rouge">armv7</code>, 修改如:<code class="highlighter-rouge">FF_ALL_ARCHS_IOS8_SDK="arm64 i386 x86_64"</code>
+再重新执行出现错误的命令:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ./compile-ffmpeg.sh all
+</code></pre></div></div>
+
+<h4 id="打开-ijkmediaplayer-项目">打开 IJKMediaPlayer 项目</h4>
+
+<p>用命令:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>open IJKMediaPlayer/IJKMediaPlayer.xcodeproj
+</code></pre></div></div>
+
+<p>或者手动用 Xcode 打开 ios 目录下的 IJKMediaPlayer 项目.</p>
+
+<h4 id="添加-openssl-相关包以支持-https">添加 openssl 相关包以支持 https</h4>
+
+<p>如果不使用<code class="highlighter-rouge">https</code>, 可以跳过此步, 直接开始打包<code class="highlighter-rouge">framwork</code>
+如果使用<code class="highlighter-rouge">https</code>, 那么需要手动给<code class="highlighter-rouge">IJKMediaFramework</code>添加<code class="highlighter-rouge">libcrypto.a</code>和<code class="highlighter-rouge">libssl.a</code>文件, 默认不会添加</p>
+
+<p>ps: 这两个依赖库的目录为:<code class="highlighter-rouge">ijkplayer-ios/ios/build/universal/lib</code>, 只有进行了上面跟<code class="highlighter-rouge">openssl</code>相关的操作, 才会在这个目录下有生成<code class="highlighter-rouge">libcrypto.a</code>和<code class="highlighter-rouge">libssl.a</code></p>
+
+<p><img src="/img/20200506/1.webp" alt="项目1" /></p>
+
+<h4 id="打包-framwork">打包 framwork</h4>
+
+<p>大家会发现除了<code class="highlighter-rouge">IJKMediaFramework</code>这个<code class="highlighter-rouge">target</code>, 还有一个叫<code class="highlighter-rouge">IJKMediaFrameworkWithSSL</code>, 但是不推荐使用这个, 因为大部分基于<code class="highlighter-rouge">ijkplayer</code>的第三方框架都是使用的前者, 你把后者导入项目还是会报找不到包的错误, 就算你要支持<code class="highlighter-rouge">https</code>也推荐使用前者, 然后按照上一步添加<code class="highlighter-rouge">openssl</code>即可支持</p>
+
+<p>1.配置<code class="highlighter-rouge">Release</code>模式如果下图</p>
+
+<p><img src="/img/20200506/2.webp" alt="项目2" />
+<img src="/img/20200506/3.webp" alt="项目3" /></p>
+
+<p>2.打包真机<code class="highlighter-rouge">framework</code>
+选择你连接的手机或者<code class="highlighter-rouge">Generic iOS Device</code></p>
+
+<p><img src="/img/20200506/4.webp" alt="项目4" /></p>
+
+<p>如图操作，然后按键<code class="highlighter-rouge">command+b</code>编译即可</p>
+
+<p>如果之前的步骤删除了<code class="highlighter-rouge">compile-ffmpeg.sh</code>中<code class="highlighter-rouge">armv7</code>, 这里会报错, 我们直接注释掉就好(小伙伴仔细看啊,下面两张图不一样的)</p>
+
+<p><img src="/img/20200506/5.webp" alt="项目5" />
+<img src="/img/20200506/6.webp" alt="项目6" /></p>
+
+<blockquote>
+  <p>具体路径<br />
+—-&gt; /Users/chasitu/Desktop/ijkplayer/ijkplayer-ios/ios/build/universal/include/libavutil/avconfig.h<br />
+—–&gt; /Users/chasitu/Desktop/ijkplayer/ijkplayer-ios/ios/build/universal/include/libffmpeg/config.h</p>
+</blockquote>
+
+<blockquote>
+  <p>具体文件路径这样查看<br />
+<img src="/img/20200506/7.webp" alt="项目7" /></p>
+</blockquote>
+
+<p>如图操作，然后<code class="highlighter-rouge">command+b</code>编译即可</p>
+
+<p>3.合并<code class="highlighter-rouge">framework</code></p>
+
+<p>如果只需要真机运行或者模拟器运行, 可以不用合并, 直接找到对应的<code class="highlighter-rouge">framework</code>导入项目即可; 一般我们为了方便会合并 <code class="highlighter-rouge">framework</code>, 这样就同时支持模拟器和真机运行.
+先找到生成<code class="highlighter-rouge">framework</code>的目录:</p>
+
+<p><img src="/img/20200506/8.webp" alt="项目8" />
+<img src="/img/20200506/9.webp" alt="项目9" /></p>
+
+<p>准备合并:
+打开终端, 先<code class="highlighter-rouge">cd</code>到<code class="highlighter-rouge">Products</code>目录下
+然后执行:<code class="highlighter-rouge">lipo -create</code>真机<code class="highlighter-rouge">framework</code>路径 模拟器<code class="highlighter-rouge">framework</code>路径 -<code class="highlighter-rouge">output</code> 合并的文件路径</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lipo -create Release-iphoneos/IJKMediaFramework.framework/IJKMediaFramework Release-iphonesimulator/IJKMediaFramework.framework/IJKMediaFramework -output IJKMediaFramework
+</code></pre></div></div>
+
+<p>合并完成:
+可以看到这里生成了一个大概两倍大小的文件, 将生成的<code class="highlighter-rouge">IJKMediaFramework</code>文件替换掉 真机<code class="highlighter-rouge">framework</code>中的 <code class="highlighter-rouge">IJKMediaFramework</code>文件，然后这个替换掉文件的 真机<code class="highlighter-rouge">framework</code>就是我们需要的 通用的<code class="highlighter-rouge">framework</code>了。</p>
+
+<p><img src="/img/20200506/10.webp" alt="项目10" />
+<img src="/img/20200506/11.webp" alt="项目11" /></p>
+
+<h4 id="集成-framework-到项目中">集成 framework 到项目中</h4>
+
+<p><strong>·导入 framework</strong></p>
+
+<p>直接将<code class="highlighter-rouge">IJKMediaFramework.framework</code>拖入到工程中即可注意记得勾选<code class="highlighter-rouge">Copy items if needed</code>和 对应的<code class="highlighter-rouge">target</code></p>
+
+<p><strong>· 添加下列依赖到工程</strong></p>
+
+<ol>
+  <li><code class="highlighter-rouge">libc++.tbd</code> ( 编译器选 gcc 的请导入libstdc++.tbd)</li>
+  <li><code class="highlighter-rouge">libz.tbd</code></li>
+  <li><code class="highlighter-rouge">libbz2.tbd</code></li>
+  <li><code class="highlighter-rouge">AudioToolbox.framework</code></li>
+  <li><code class="highlighter-rouge">UIKit.framework</code></li>
+  <li><code class="highlighter-rouge">CoreGraphics.framework</code></li>
+  <li><code class="highlighter-rouge">AVFoundation.framework</code></li>
+  <li><code class="highlighter-rouge">CoreMedia.framework</code></li>
+  <li><code class="highlighter-rouge">CoreVideo.framework</code></li>
+  <li><code class="highlighter-rouge">MediaPlayer.framework</code></li>
+  <li><code class="highlighter-rouge">MobileCoreServices.framework</code></li>
+  <li><code class="highlighter-rouge">OpenGLES.framework</code></li>
+  <li><code class="highlighter-rouge">QuartzCore.framework</code></li>
+  <li><code class="highlighter-rouge">VideoToolbox.framework</code></li>
+</ol>
+
+<p>导入<code class="highlighter-rouge">ijkplayer</code>头文件运行一下项目, 如果遇到了类似这样的错误:</p>
+
+<p><img src="/img/20200506/12.webp" alt="项目12" /></p>
+
+<p>可能是因为导入的依赖库不全, 比如缺少<code class="highlighter-rouge">libc++.tbd</code>, 请再次对照添加好所有的依赖库:</p>
+
+<p><img src="/img/20200506/13.webp" alt="项目13" /></p>
+
+<p><strong><a href="https://www.jianshu.com/p/444194035787">简书参考地址地址</a></strong></p>
+:ET
