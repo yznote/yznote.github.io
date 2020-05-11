@@ -1,22 +1,22 @@
-I"<p>1.重要说明</p>
+I"!<h4 id="1重要说明">1.重要说明</h4>
 
 <p>为了防止被服务商封杀，搭建后不要选择S-h-a-d-o-w-s-o-c-k-s（去掉-识别）协议，也不要多人使用同一台服务器。</p>
 
-<p>2.服务器</p>
+<h4 id="2服务器">2.服务器</h4>
 
 <p>阿里云的轻量云服务器【24元/月】</p>
 
-<p>3.对应客户端下载</p>
+<h4 id="3对应客户端下载">3.对应客户端下载</h4>
 
-<p>安卓：https://al.gt520.com/v2rayNG-v1.2.2.apk</p>
+<p>安卓：<a href="https://al.gt520.com/v2rayNG-v1.2.2.apk">https://al.gt520.com/v2rayNG-v1.2.2.apk</a></p>
 
-<p>iOS：https://al.gt520.com/s.ipa   【下载后使用爱思助手安装】</p>
+<p>iOS：<a href="https://al.gt520.com/s.ipa">https://al.gt520.com/s.ipa</a>【下载后使用爱思助手安装】</p>
 
 <p>Mac：https://al.gt520.com/v2rayU-v2.1.0.dmg</p>
 
 <p>Win：https://al.gt520.com/v2rayN-v3.8.zip</p>
 
-<p>4.在线工具（模板生成器）</p>
+<h4 id="4在线工具模板生成器">4.在线工具（模板生成器）</h4>
 
 <blockquote>
   <p>1.https://github.com/KiriKira/vTemplate<br />
@@ -26,8 +26,8 @@
 5.https://github.com/KiriKira/vTemplate</p>
 </blockquote>
 
-<p>5.搭建
-官网地址（需翻—墙）：https://www.v2ray.com/</p>
+<h4 id="5搭建">5.搭建</h4>
+<p>官网地址（需翻—墙）：https://www.v2ray.com/</p>
 
 <p><code class="highlighter-rouge">V2Ray</code>提供了一个在<code class="highlighter-rouge">Linux</code>中的自动化安装脚本。这个脚本会自动检测有没有安装过<code class="highlighter-rouge">V2Ray</code>，如果没有，则进行完整的安装和配置；如果之前安装过<code class="highlighter-rouge">V2Ray</code>，则只更新<code class="highlighter-rouge">V2Ray</code>二进制程序而不更新配置。
 以下指令假设已在<code class="highlighter-rouge">su</code>环境下，如果不是，请先运行<code class="highlighter-rouge">sudo su</code>。
@@ -62,8 +62,8 @@ service v2ray restart #重启
 service v2ray force-reload #强制重载
 </code></pre></div></div>
 
-<p>6.使用
-下面使用方法以<code class="highlighter-rouge">Mac</code>为例，其他大同小异，注意好协议，对应参数即可。</p>
+<h4 id="6使用">6.使用</h4>
+<p>下面使用方法以<code class="highlighter-rouge">Mac</code>为例，其他大同小异，注意好协议，对应参数即可。</p>
 
 <p>1.从服务器的配置文件查看默认的账户信息，执行下述命令</p>
 
@@ -86,7 +86,7 @@ service v2ray force-reload #强制重载
 
 <p><img src="/img/20200511/4.png" alt="项目4" /></p>
 
-<p>过程</p>
+<h4 id="7执行过程">7.执行过程</h4>
 
 <p><img src="/img/20200511/5.png" alt="项目5" /></p>
 
