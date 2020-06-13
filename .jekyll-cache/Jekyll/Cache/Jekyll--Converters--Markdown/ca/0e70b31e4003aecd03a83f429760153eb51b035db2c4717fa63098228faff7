@@ -1,0 +1,13 @@
+I"(<h4 id="ios-13-cell-箭头适配">iOS 13 cell 箭头适配</h4>
+
+<p>iOS13适配 UITableView 种Cell出现带方框的小箭头</p>
+
+<p><img src="/img/20200613/1.png" alt="项目1" /></p>
+
+<p>出现这个的原因是有个类扩展的方法名和系统方法名重名了(如下)，将扩展的方法名更改为其他名称即可</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (UIImage *)imageWithTintColor:(UIColor *)tintColor;
+</code></pre></div></div>
+
+<p><img src="/img/20200613/2.png" alt="项目" /></p>
+:ET
