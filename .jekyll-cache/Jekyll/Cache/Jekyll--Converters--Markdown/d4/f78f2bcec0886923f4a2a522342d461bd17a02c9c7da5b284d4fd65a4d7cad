@@ -1,0 +1,100 @@
+I"k<h4 id="多层scrollview嵌套">多层Scrollview嵌套</h4>
+
+<blockquote>
+  <p>底部是一个scrllview,子类是collectionview,要求向上滑动的时候scrllview和collectionview可以做到连续滑动</p>
+</blockquote>
+
+<p>约定: 底部ScollView我们称之为MainScroll,子类CollectionView称之为SubCollectionView</p>
+
+<p><strong>首先我们写一个ScrollView的基类</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface RKScrollView : UIScrollView&lt;UIGestureRecognizerDelegate&gt;
+
+@end
+
+@implementation HoverPageScrollView
+
+- (BOOL)touchesShouldCancelInContentView:(UIView *)view{
+    return YES;
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    
+    return YES;
+}
+@end
+</code></pre></div></div>
+
+<p><strong>MainScrollView继承RKScrollView</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    //注意这里父类有个属性_canScroll默认设置为YES
+    _canScroll = YES;
+    
+    _mainScrollview = [[RKScrollView alloc]initWithFrame:CGRectMake(0, 0, _window_width, _window_height-78-statusbarHeight-ShowDiff-49)];
+    _mainScrollview.backgroundColor = [UIColor whiteColor];
+    _mainScrollview.contentSize = CGSizeMake(0, _mainScrollview.height+400);
+    //重要属性【如果需要下拉刷新可在didscroll代理中更改此属性】
+    _mainScrollview.bounces = NO;
+    _mainScrollview.delegate = self;
+    _mainScrollview.scrollViewWhites = [NSMutableArray array];
+    [self.view addSubview:_mainScrollview];
+</code></pre></div></div>
+
+<p><strong>MainScrollview代理方法中的实现</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+    //MainScrollview不需要刷新这里可不做处理
+    if (scrollView == _mainScrollview){
+        
+        if (scrollView.contentOffset.y &lt;= 0) {
+            _mainScrollview.bounces = YES;
+            subCollectionView.bounces = NO;
+            
+        }else{
+            _mainScrollview.bounces = NO;
+            subCollectionView.bounces = YES;
+        }
+    }
+    
+    CGFloat bottomCellOffset = tableHeaderView.height-40;//这里高度设置为头部视图高度即可
+    if (scrollView.contentOffset.y &gt;= bottomCellOffset) {
+        scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
+        if (_canScroll) {
+            _canScroll = NO;
+            subCollectionView.canScroll = YES;
+        }
+    }else{
+        if (!_canScroll) {//子视图没到顶部
+            scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
+        }
+    }
+    _mainScrollview.showsVerticalScrollIndicator = _canScroll?YES:NO;
+    
+}
+- (void)changeScrollStatus {
+    _canScroll = YES;
+    subCollectionView.canScroll = NO;
+}
+</code></pre></div></div>
+
+<p><strong>子类subCollectionView</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if (!_canScroll) {
+        scrollView.contentOffset = CGPointZero;
+    }
+    if (scrollView.contentOffset.y &lt;= 0) {
+        
+        _canScroll = NO;
+        scrollView.contentOffset = CGPointZero;
+        //这里就是通知父类改变父类的canScroll属性
+        if (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(changeScrollStatus)]) {
+            [_delegate changeScrollStatus];
+        }
+    }
+    _dynamicCollectionView.showsVerticalScrollIndicator = _canScroll?YES:NO;
+}
+
+</code></pre></div></div>
+
+:ET
