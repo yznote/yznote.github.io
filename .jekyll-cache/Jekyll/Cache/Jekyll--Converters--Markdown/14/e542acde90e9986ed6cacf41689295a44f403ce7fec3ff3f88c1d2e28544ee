@@ -1,0 +1,25 @@
+I"�<h4 id="后台保活的几个方向">后台保活的几个方向</h4>
+
+<p>1.<strong>短时间保活</strong></p>
+<blockquote>
+  <p><code class="highlighter-rouge">beginBackgroundTaskWithName</code>和<code class="highlighter-rouge">endBackgroundTask</code><br />
+测试机型【iPhone6-12.4.7】后台运行时间约3分钟(176秒)左右;
+测试机型【iPhone6s-13.5.1】</p>
+</blockquote>
+
+<!-- http://www.cocoachina.com/articles/896173   -->
+<!-- https://juejin.im/post/5cf7eb0351882576710e5c15#heading-14 -->
+
+<p>/**
+     * 参考学习网址：
+     * App 接入 iOS 11 的 Files App：https://www.jianshu.com/p/61b4e26ab413
+     * iOS 后台挂起的一些坑：https://www.cnblogs.com/saytome/p/7080056.html
+     * iOS如何实时查看App运行日志：http://www.cocoachina.com/articles/19933
+     * iOS 版微信推送即时消息是如何实现的：https://www.zhihu.com/question/20654687
+     * iPhone在一个小时内，接受推送的次数有限制吗：https://community.jiguang.cn/t/iphone/2511
+     * 为什么 iOS 的微信没有常驻后台，也能收到新消息通知：https://mlog.club/article/45386
+     * iOS后台运行的相关方案总结：https://ctinusdev.github.io/2016/05/10/BackgroundTask/
+     * iOS之原生地图的使用详解：https://blog.csdn.net/u011146511/article/details/51245469
+     * iOS项目技术还债之路《一》后台下载趟坑：https://juejin.im/post/5cf7eb0351882576710e5c15
+     */</p>
+:ET
