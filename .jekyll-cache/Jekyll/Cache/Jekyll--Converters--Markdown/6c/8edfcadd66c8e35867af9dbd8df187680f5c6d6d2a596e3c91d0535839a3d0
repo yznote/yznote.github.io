@@ -1,0 +1,35 @@
+I"�<h4 id="wkwebview截图">WKWebView截图</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/** webView截屏 deviation:底部偏移量*/
++(UIImage *)screenshotWhitWK:(WKWebView *)wkweb andDeviation:(CGFloat)deviation{
+    
+    CGFloat boundsWidth = wkweb.bounds.size.width;
+    CGFloat boundsHeight = wkweb.bounds.size.height;
+    
+    UIScrollView *scrollView = wkweb.scrollView;
+    CGPoint oldOffset = scrollView.contentOffset;
+    [scrollView setContentOffset:CGPointZero animated:NO];
+    
+    CGFloat contentHeight = scrollView.contentSize.height-deviation;
+    CGSize shotSize = CGSizeMake(scrollView.contentSize.width, contentHeight);
+    CGFloat scale = [UIScreen mainScreen].scale;
+    NSMutableArray *images = [NSMutableArray array];
+    while (contentHeight &gt; 0) {UIGraphicsBeginImageContextWithOptions(wkweb.bounds.size, NO, scale);
+        [wkweb.layer renderInContext:UIGraphicsGetCurrentContext()];UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        [images addObject:image];
+        CGFloat offsetY = scrollView.contentOffset.y;
+        [scrollView setContentOffset:CGPointMake(0, offsetY + boundsHeight) animated:NO];
+        contentHeight -= boundsHeight;
+    }
+    [scrollView setContentOffset:oldOffset animated:NO];UIGraphicsBeginImageContextWithOptions(shotSize, NO, scale);
+    for (NSInteger index = 0; index &lt; images.count; index++) {
+        UIImage *image = images[index];
+        [image drawInRect:CGRectMake(0, boundsHeight * index, boundsWidth, boundsHeight)];
+    }
+    UIImage *fullImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return fullImage;
+}
+</code></pre></div></div>
+:ET

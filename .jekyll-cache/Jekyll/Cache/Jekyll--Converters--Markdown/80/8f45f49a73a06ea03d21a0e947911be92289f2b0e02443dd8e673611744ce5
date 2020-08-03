@@ -1,10 +1,16 @@
-I"�<h4 id="后台保活的几个方向">后台保活的几个方向</h4>
+I"�<h4 id="后台保活的几个方向">后台保活的几个方向</h4>
+
+<div style="background-color:rgba(0,0,0,0.8); width: 100%;height: 600px;border-radius: 5px;color: #fff;padding-top: 10px;">
+     <div style="float:left;border:solid 1px 000;width: 45%;padding-left: 5%"><img src="/img/20200722/1.jpg" width="200" height="260" /></div>
+     <div style="float:left; border:solid 1px 000;width: 45%;padding-left: 5%"><img src="/img/20200722/2.jpg" width="200" height="260" /></div>
+</div>
+<div style="float:none;clear:both;width: 100%;height: 50px"> </div>
 
 <p>1.<strong>短时间保活</strong></p>
 <blockquote>
   <p><code class="highlighter-rouge">beginBackgroundTaskWithName</code>和<code class="highlighter-rouge">endBackgroundTask</code><br />
 测试机型【iPhone6-12.4.7】后台运行时间约3分钟(176秒)左右;
-测试机型</p>
+测试机型【iPhone6s-13.5.1】</p>
 </blockquote>
 
 <!-- http://www.cocoachina.com/articles/896173   -->
