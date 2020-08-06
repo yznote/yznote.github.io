@@ -1,0 +1,102 @@
+I"�<h4 id="基本">基本</h4>
+
+<p>当前代码放入缓存区做准备:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add ./
+</code></pre></div></div>
+<p>提交到本地并注释(wu):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit -m wu
+</code></pre></div></div>
+<p>推送到远程服务器:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin yangzhou
+</code></pre></div></div>
+
+<p>切换分支:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout yangzhou
+</code></pre></div></div>
+
+<p>切换之后更新一下分支:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull origin yangzhou
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：切换分支前先提交一下</p>
+</blockquote>
+
+<p>拉取远程分支(拉取所有新的)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch
+</code></pre></div></div>
+
+<p>拉取远程制定分支</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch origin XXX
+</code></pre></div></div>
+
+<h4 id="更新索引">更新索引</h4>
+
+<p>更新索引</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod repo update
+pod repo update --verbose //是打印详细信息.
+pod install --verbose --no-repo-update
+
+pod repo remove trunk
+rm ~/Library/Caches/CocoaPods/search_index.json
+</code></pre></div></div>
+
+<h4 id="新用户初次">新用户初次</h4>
+
+<p>配置</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//新用户 初次连接仓库
+git config --global user.name "Firstname Lastname"
+git config --global user.email "your_email@youremail.com"
+</code></pre></div></div>
+
+<h4 id="新工程">新工程</h4>
+
+<ol>
+  <li>创建桌面文件夹 <code class="highlighter-rouge">cd ……</code></li>
+  <li>初始化 <code class="highlighter-rouge">git init</code></li>
+  <li>放入缓存区 <code class="highlighter-rouge">git add ./</code></li>
+  <li>第一次提交 <code class="highlighter-rouge">git commit -m first</code></li>
+  <li>关联仓库 <code class="highlighter-rouge">git remote add origin 远程地址</code></li>
+  <li>强制提交 <code class="highlighter-rouge">git push -f origin master</code></li>
+</ol>
+
+<h4 id="克隆某一个">克隆某一个</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /Users/apple/Desktop/直播
+git clone -b JinShanThird 远程仓库地址
+</code></pre></div></div>
+
+<h4 id="放弃本地拉取远程最新">放弃本地、拉取远程最新</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --hard origin/master    //origin/master替换为要拉取的远程分支名称
+git add ./
+git commit -m XXX
+git pull
+</code></pre></div></div>
+
+<h4 id="命令行执行-git-branch-就进入编辑状态">命令行执行 <code class="highlighter-rouge">git branch</code> 就进入编辑状态</h4>
+
+<p>解决方案:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global core.pager mor
+</code></pre></div></div>
+
+<h4 id="查询命令">查询命令</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep  -r --colour "tx123" /Users/yb007/Library/MobileDevice/Provisioning\ Profiles
+</code></pre></div></div>
+
+<h4 id="移除">移除</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lipo -remove i386 tracking -o tracking 
+lipo -remove x86_64 tracking -o tracking 
+</code></pre></div></div>
+
+:ET
