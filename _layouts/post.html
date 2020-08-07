@@ -52,7 +52,7 @@ layout: default
                     {% endif %}
                     </span>
                     <span class="meta" style="font-size: 13px;padding-top: 15px;">
-                        <strong>发布:</strong>  {{ page.date | date: "%Y-%-m-%-d %H:%M" }}
+                        <strong>发布:</strong>  {{ page.date | date: "%Y/%-m/%-d %H:%M" }}
                         {% if page.rkupdate %}
                         <strong>更新:</strong>  {% include updatetime.html date=page.rkupdate %}
                         {% endif %}

@@ -59,7 +59,7 @@ description: "砥砺前行"
     </p> -->
     <!-- <p class="post-meta">{% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%m %-d, %Y" }}
     </p> -->
-    <p class="post-meta">on {{ post.date | date: "%Y-%-m-%-d %H:%M" }}</p>
+    <p class="post-meta">{{ post.date | date: "%Y/%-m/%-d %H:%M" }}</p>
 </div>
 <hr>
 {% endfor %}
