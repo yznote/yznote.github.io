@@ -1,4 +1,4 @@
-I"�<h4 id="基本">基本</h4>
+I"�<h4 id="基本">基本</h4>
 
 <p>当前代码放入缓存区做准备:</p>
 
@@ -90,7 +90,7 @@ rm ~/Library/Caches/CocoaPods/search_index.json
 
 <h4 id="查询命令">查询命令</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep  -r --colour "tx123" /Users/yb007/Library/MobileDevice/Provisioning\ Profiles
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep -r --colour "tx123" /Users/yb007/Library/MobileDevice/Provisioning\ Profiles
 </code></pre></div></div>
 
 <h4 id="移除">移除</h4>
