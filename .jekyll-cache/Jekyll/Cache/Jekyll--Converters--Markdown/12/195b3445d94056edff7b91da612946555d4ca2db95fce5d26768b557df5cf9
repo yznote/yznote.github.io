@@ -1,4 +1,4 @@
-I"FC<h4 id="网络监测">网络监测</h4>
+I"RC<h4 id="网络监测">网络监测</h4>
 
 <h5 id="rknetmonitorh"><code class="highlighter-rouge">RKNetMonitor.h</code></h5>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
@@ -194,19 +194,19 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
         }
 #pragma clang diagnostic pop
         if (statusBar) {
-//            UIStatusBarDataCellularEntry
+            //UIStatusBarDataCellularEntry
             id currentData = [[statusBar valueForKeyPath:@"_statusBar"] valueForKeyPath:@"currentData"];
             id _wifiEntry = [currentData valueForKeyPath:@"wifiEntry"];
             id _cellularEntry = [currentData valueForKeyPath:@"cellularEntry"];
             if (_wifiEntry &amp;&amp; [[_wifiEntry valueForKeyPath:@"isEnabled"] boolValue]) {
-//                If wifiEntry is enabled, is WiFi.
+                //If wifiEntry is enabled, is WiFi.
                 network = @"WIFI";
             } else if (_cellularEntry &amp;&amp; [[_cellularEntry valueForKeyPath:@"isEnabled"] boolValue]) {
                 NSNumber *type = [_cellularEntry valueForKeyPath:@"type"];
                 if (type) {
                     switch (type.integerValue) {
                         case 0:
-//                            无sim卡
+                            //无sim卡
                             network = @"NONE";
                             break;
                         case 1:
@@ -219,7 +219,7 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
                             network = @"4G";
                             break;
                         default:
-//                            默认WWAN类型
+                            //默认WWAN类型
                             network = @"WWAN";
                             break;
                             }
@@ -229,28 +229,28 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
     }else {
         statusBar = [app valueForKeyPath:@"statusBar"];
         if (IS_IPHONE_X== 1) {
-//            刘海屏
+                //刘海屏
                 id statusBarView = [statusBar valueForKeyPath:@"statusBar"];
                 UIView *foregroundView = [statusBarView valueForKeyPath:@"foregroundView"];
                 NSArray *subviews = [[foregroundView subviews][2] subviews];
                 
                 if (subviews.count == 0) {
-//                    iOS 12
+                    //iOS 12
                     id currentData = [statusBarView valueForKeyPath:@"currentData"];
                     id wifiEntry = [currentData valueForKey:@"wifiEntry"];
                     if ([[wifiEntry valueForKey:@"_enabled"] boolValue]) {
                         network = @"WIFI";
                     }else {
-//                    卡1:
+                        //卡1:
                         id cellularEntry = [currentData valueForKey:@"cellularEntry"];
-//                    卡2:
+                        //卡2:
                         id secondaryCellularEntry = [currentData valueForKey:@"secondaryCellularEntry"];
 
                         if (([[cellularEntry valueForKey:@"_enabled"] boolValue]|[[secondaryCellularEntry valueForKey:@"_enabled"] boolValue]) == NO) {
-//                            无卡情况
+                            //无卡情况
                             network = @"NONE";
                         }else {
-//                            判断卡1还是卡2
+                            //判断卡1还是卡2
                             BOOL isCardOne = [[cellularEntry valueForKey:@"_enabled"] boolValue];
                             int networkType = isCardOne ? [[cellularEntry valueForKey:@"type"] intValue] : [[secondaryCellularEntry valueForKey:@"type"] intValue];
                             switch (networkType) {
@@ -284,7 +284,7 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
                 }
                 
             }else {
-//                非刘海屏
+                //非刘海屏
                 UIView *foregroundView = [statusBar valueForKeyPath:@"foregroundView"];
                 NSArray *subviews = [foregroundView subviews];
                 
@@ -392,7 +392,7 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
                 }
                 if ([subview isKindOfClass:[NSClassFromString(@"UIStatusBarSignalStrengthItemView") class]] &amp;&amp; ![[self getNetworkType] isEqualToString:@"WIFI"] &amp;&amp; ![[self getNetworkType] isEqualToString:@"NONE"]) {
                     dataNetworkItemView = subview;
-//                    signalStrength = [[dataNetworkItemView valueForKey:@"_signalStrengthRaw"] intValue];
+                    //signalStrength = [[dataNetworkItemView valueForKey:@"_signalStrengthRaw"] intValue];
                     signalStrength = [[dataNetworkItemView valueForKey:@"_signalStrengthBars"] intValue];
                     break;
                 }
