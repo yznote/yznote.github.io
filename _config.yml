@@ -77,7 +77,9 @@ ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
 ga_domain: auto
 
 
-
+#不蒜子统计
+# busuanzi:
+# enable: true
 
 
 # Featured Tags
