@@ -1,0 +1,66 @@
+I"A<h4 id="场景需求">场景+需求</h4>
+
+<blockquote>
+  <p>场景:评论视图包含主评论(mainTableView)和子评论(subTableView);
+需求:长按主评论或者子评论进行内容复制,同时主、子评论的cell的点击事件不能被拦截</p>
+</blockquote>
+
+<h4 id="实现">实现</h4>
+
+<p><strong>主评论(mainTableView)</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+          initWithTarget:self action:@selector(longPressGestureRecognized:)];
+[_mainTableview addGestureRecognizer:longPress];
+
+
+-(void)longPressGestureRecognized:(UILongPressGestureRecognizer*)longPressGesture {
+    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
+    	//手势开始
+        CGPoint point = [longPressGesture locationInView:_mainTableview];
+        //可以获取我们在哪个cell上长按
+        NSIndexPath *currentIndexPath = [_mainTableview indexPathForRowAtPoint:point]; 
+        NSLog(@"comment0====%@",currentIndexPath);
+    }
+    if (longPressGesture.state == UIGestureRecognizerStateEnded) {
+    	//手势结束
+       CGPoint point = [longPressGesture locationInView:_mainTableview];
+       //可以获取我们在哪个cell上长按
+       NSIndexPath *currentIndexPath = [_mainTableview indexPathForRowAtPoint:point]; 
+       NSLog(@"comment1====%@",currentIndexPath);
+    } 
+}
+
+</code></pre></div></div>
+
+<p><strong>子评论(subTableView)</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+      initWithTarget:self action:@selector(longPressGestureRecognized:)];
+    longPress.delegate = self;
+[_subTableView addGestureRecognizer:longPress];
+
+-(void)longPressGestureRecognized:(UILongPressGestureRecognizer*)longPressGesture {
+    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
+    	//手势开始
+        CGPoint point = [longPressGesture locationInView:_subTableView];
+        //可以获取我们在哪个cell上长按
+        NSIndexPath *currentIndexPath = [_subTableView indexPathForRowAtPoint:point]; 
+        NSLog(@"detail0====%@",currentIndexPath);
+    }
+    if (longPressGesture.state == UIGestureRecognizerStateEnded) {
+    	//手势结束
+       CGPoint point = [longPressGesture locationInView:_subTableView];
+       // 可以获取我们在哪个cell上长按
+       NSIndexPath *currentIndexPath = [_subTableView indexPathForRowAtPoint:point]; 
+       NSLog(@"detail1====%@",currentIndexPath);
+    }
+}
+
+</code></pre></div></div>
+
+<h4 id="总结">总结</h4>
+
+<p><code class="highlighter-rouge">不能将手势添加到Cell上，因为父类、与子类同时存在手势的时候只有父类响应,另外tableView的didsel方法也会失去响应</code></p>
+
+:ET
