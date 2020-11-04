@@ -1,0 +1,11 @@
+I"n<h4 id="描述以uitextview为例">描述以<code class="highlighter-rouge">UITextView</code>为例</h4>
+<p>当<code class="highlighter-rouge">UITextView</code>处于编辑状态时,即键盘存在时,<code class="highlighter-rouge">UITextView</code>是第一响应者,而当需要弹出<code class="highlighter-rouge">UIMenuController</code>时,第一响应者需要变更为处理<code class="highlighter-rouge">UIMenuController</code>菜单事件的对象,此时UITextView就不是第一响应者,键盘就会隐藏,造成键盘和<code class="highlighter-rouge">UIMenuController</code>不能同时出现.</p>
+
+<h4 id="解决方案">解决方案</h4>
+
+<p><strong>参考</strong></p>
+<blockquote>
+  <p><a href="https://www.jianshu.com/p/2e074db792ba">iOS事件响应机制</a><br />
+<a href="https://www.jianshu.com/p/c294d1bd963d">iOS响应链全家桶</a></p>
+</blockquote>
+:ET
