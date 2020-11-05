@@ -1,21 +1,6 @@
----
-layout:     post
-title:      iOS截长图
-subtitle:  	WKWebView截图、View生成图片
-date:       2020-07-24 19:21:20 +0800
-author:     Rookie
-header-img: 
-catalog: true
-stickie: false
-tags:
-    - 截图
----
+I"�<h4 id="wkwebview截图">WKWebView截图</h4>
 
-
-#### WKWebView截图
-
-```
-/** webView截屏 deviation:底部偏移量*/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/** webView截屏 deviation:底部偏移量*/
 +(UIImage *)screenshotWhitWK:(WKWebView *)wkweb andDeviation:(CGFloat)deviation{
     
     CGFloat boundsWidth = wkweb.bounds.size.width;
@@ -29,7 +14,7 @@ tags:
     CGSize shotSize = CGSizeMake(scrollView.contentSize.width, contentHeight);
     CGFloat scale = [UIScreen mainScreen].scale;
     NSMutableArray *images = [NSMutableArray array];
-    while (contentHeight > 0) {UIGraphicsBeginImageContextWithOptions(wkweb.bounds.size, NO, scale);
+    while (contentHeight &gt; 0) {UIGraphicsBeginImageContextWithOptions(wkweb.bounds.size, NO, scale);
         [wkweb.layer renderInContext:UIGraphicsGetCurrentContext()];UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         [images addObject:image];
@@ -38,7 +23,7 @@ tags:
         contentHeight -= boundsHeight;
     }
     [scrollView setContentOffset:oldOffset animated:NO];UIGraphicsBeginImageContextWithOptions(shotSize, NO, scale);
-    for (NSInteger index = 0; index < images.count; index++) {
+    for (NSInteger index = 0; index &lt; images.count; index++) {
         UIImage *image = images[index];
         [image drawInRect:CGRectMake(0, boundsHeight * index, boundsWidth, boundsHeight)];
     }
@@ -46,15 +31,13 @@ tags:
     UIGraphicsEndImageContext();
     return fullImage;
 }
-```
+</code></pre></div></div>
 
+<p>####<code class="highlighter-rouge">View</code>生成图片</p>
 
-####`View`生成图片
+<p>#####1.将传入的View生成图片：</p>
 
-#####1.将传入的View生成图片：
-
-```
-+ (UIImage *)makeImageWithView:(UIView *)view{
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)makeImageWithView:(UIView *)view{
     CGSize s = view.bounds.size;
     UIGraphicsBeginImageContextWithOptions(s, NO, [UIScreen mainScreen].scale); 
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];   
@@ -62,24 +45,22 @@ tags:
     UIGraphicsEndImageContext(); 
     return image;
 }
-```
+</code></pre></div></div>
 
-#####2.将传入的`View`生成图片,可以显示`layer`(分享分时图、k线)
+<p>#####2.将传入的<code class="highlighter-rouge">View</code>生成图片,可以显示<code class="highlighter-rouge">layer</code>(分享分时图、k线)</p>
 
-```
-+ (UIImage *)imageFromView:(UIView *)view{
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)imageFromView:(UIView *)view{
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0.0);  
     [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
     UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return theImage;
 }
-```
+</code></pre></div></div>
 
-#####3.将`tableview`生成图片
+<p>#####3.将<code class="highlighter-rouge">tableview</code>生成图片</p>
 
-```
-+ (UIImage *)getTableViewimage:(UITableView *)tableview{
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)getTableViewimage:(UITableView *)tableview{
     UIImage* viewImage = nil;
     UIScrollView *scrollView = tableview;
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(scrollView.contentSize.width, scrollView.contentSize.height), NO, 0.0);
@@ -102,25 +83,6 @@ tags:
     }
     return nil;
 }
-```
+</code></pre></div></div>
 
-#####4.图片拼接
-
-```
-+ (UIImage *)addSlaveImage:(UIImage *)slaveImage toMasterImage:(UIImage *)masterImage {
-    CGSize size;
-    size.width = masterImage.size.width;
-    size.height = masterImage.size.height + slaveImage.size.height;  
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0.0);  
-    [masterImage drawInRect:CGRectMake(0, 0, masterImage.size.width, masterImage.size.height)];
-    [slaveImage drawInRect:CGRectMake(0, masterImage.size.height, masterImage.size.width, slaveImage.size.height)];   
-    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();  
-    UIGraphicsEndImageContext();
-    return resultImage;
-}
-```
-
-
-
-
-
+:ET
