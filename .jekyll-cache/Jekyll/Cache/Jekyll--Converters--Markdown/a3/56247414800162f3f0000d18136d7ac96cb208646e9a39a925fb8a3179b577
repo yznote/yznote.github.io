@@ -1,0 +1,76 @@
+I"�)<h4 id="知识扩展">知识扩展</h4>
+
+<p><a href="https://www.jianshu.com/p/3e0e25fd9b85">iOS渐变方案</a></p>
+
+<h4 id="利用uiimage扩展实现渐变背景">利用<code class="highlighter-rouge">UIImage</code>扩展实现渐变背景</h4>
+
+<!-- ![项目1](/img/20190820/1.PNG) -->
+<div style="float:center;border:solid 1px 000;width: 100%;padding-left: 5%"><img src="/img/20190820/1.PNG" style="width:30%" /></div>
+
+<h5 id="h"><code class="highlighter-rouge">.h</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">UIImage</span> <span class="p">(</span><span class="nl">RKImgCategory</span><span class="p">)</span>
+
+<span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">RKGradientType</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">RKGradientTypeTopToBottom</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="c1">//从上到下</span>
+    <span class="n">RKGradientTypeLeftToRight</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="c1">//从左到右</span>
+    <span class="n">RKGradientTypeUpleftToLowright</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span><span class="c1">//左上到右下</span>
+    <span class="n">RKGradientTypeUprightToLowleft</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span><span class="c1">//右上到左下</span>
+<span class="p">};</span>
+<span class="cm">/**  设置图片的渐变色(颜色-&gt;图片)
+@param colors 渐变颜色数组  @param gradientType 渐变样式  @param imgSize 图片大小  @return 颜色-&gt;图片  */</span>
+<span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">rk_gradientColorImageFromColors</span><span class="p">:(</span><span class="n">NSArray</span><span class="o">*</span><span class="p">)</span><span class="nv">colors</span> <span class="nf">gradientType</span><span class="p">:(</span><span class="n">RKGradientType</span><span class="p">)</span><span class="nv">gradientType</span> <span class="nf">imgSize</span><span class="p">:(</span><span class="n">CGSize</span><span class="p">)</span><span class="nv">imgSize</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+
+<h5 id="m"><code class="highlighter-rouge">.m</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "UIImage+RKImgCategory.h"
+</span>
+<span class="k">@implementation</span> <span class="nc">UIImage</span> <span class="p">(</span><span class="nl">RKImgCategory</span><span class="p">)</span>
+
+<span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">rk_gradientColorImageFromColors</span><span class="p">:(</span><span class="n">NSArray</span><span class="o">*</span><span class="p">)</span><span class="nv">colors</span> <span class="nf">gradientType</span><span class="p">:(</span><span class="n">RKGradientType</span><span class="p">)</span><span class="nv">gradientType</span> <span class="nf">imgSize</span><span class="p">:(</span><span class="n">CGSize</span><span class="p">)</span><span class="nv">imgSize</span> <span class="p">{</span>
+    <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">ar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="nf">array</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="n">c</span> <span class="k">in</span> <span class="n">colors</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">[</span><span class="n">ar</span> <span class="nf">addObject</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="n">c</span><span class="p">.</span><span class="n">CGColor</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">imgSize</span><span class="p">,</span> <span class="nb">YES</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">CGContextRef</span> <span class="n">context</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+    <span class="n">CGContextSaveGState</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+    <span class="n">CGColorSpaceRef</span> <span class="n">colorSpace</span> <span class="o">=</span> <span class="n">CGColorGetColorSpace</span><span class="p">([[</span><span class="n">colors</span> <span class="nf">lastObject</span><span class="p">]</span> <span class="nf">CGColor</span><span class="p">]);</span>
+    <span class="n">CGGradientRef</span> <span class="n">gradient</span> <span class="o">=</span> <span class="n">CGGradientCreateWithColors</span><span class="p">(</span><span class="n">colorSpace</span><span class="p">,</span> <span class="p">(</span><span class="n">CFArrayRef</span><span class="p">)</span><span class="n">ar</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">CGPoint</span> <span class="n">start</span><span class="p">;</span>
+    <span class="n">CGPoint</span> <span class="n">end</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">gradientType</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">RKGradientTypeTopToBottom</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">imgSize</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">RKGradientTypeLeftToRight</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="n">imgSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">RKGradientTypeUpleftToLowright</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="n">imgSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">imgSize</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">RKGradientTypeUprightToLowleft</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="n">imgSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">imgSize</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">CGContextDrawLinearGradient</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span><span class="n">kCGGradientDrawsBeforeStartLocation</span> <span class="o">|</span> <span class="n">kCGGradientDrawsAfterEndLocation</span><span class="p">);</span>
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+    <span class="n">CGGradientRelease</span><span class="p">(</span><span class="n">gradient</span><span class="p">);</span>
+    <span class="n">CGContextRestoreGState</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+    <span class="n">CGColorSpaceRelease</span><span class="p">(</span><span class="n">colorSpace</span><span class="p">);</span>
+    <span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+:ET
