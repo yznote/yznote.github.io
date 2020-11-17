@@ -1,4 +1,4 @@
-I";(<h4 id="学习ing">学习ing</h4>
+I"�(<h4 id="学习ing">学习ing</h4>
 <p><a href="http://www.swift51.com/">swift-教程</a><br />
 <a href="https://github.com/allenwong/30DaysofSwift">swift-github</a><br />
 <a href="https://github.com/Jacke-xu">WYKit(弹窗等)、swift等</a><br />
@@ -71,7 +71,8 @@
 
 <h5 id="swift">Swift</h5>
 
-<p><a href="https://github.com/ws1227/swiftLearn">swift</a></p>
+<p><a href="https://github.com/ws1227/swiftLearn">swift</a><br />
+<a href="https://github.com/iOShuyang/Book-Recommend-Github">swift常用库</a></p>
 
 <h5 id="支付">支付</h5>
 
@@ -176,7 +177,8 @@
 <h5 id="轮播">轮播</h5>
 
 <p><a href="https://github.com/PageGuo/NewPagedFlowView">卡片式轮播</a><br />
-<a href="https://github.com/gsdios/SDCycleScrollView">普通轮播</a></p>
+<a href="https://github.com/gsdios/SDCycleScrollView">普通轮播</a><br />
+<a href="https://github.com/shunFSKi/FSLoopScrollView">文字向上翻滚</a></p>
 
 <h5 id="渐变色">渐变色</h5>
 
