@@ -173,7 +173,8 @@ https://sandbox.braintreegateway.com/
 ID wesaygaming  
 PW Kaifa123  
 
-
+[参考1](https://www.jianshu.com/p/1a59e0a0ed28)  
+[参考2](https://github.com/hw20101101/TestBraintree)
 
 
 
