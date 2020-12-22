@@ -1,9 +1,0 @@
-I"<h4 id="网上例子比较多步骤简单回顾">网上例子比较多步骤简单回顾</h4>
-
-<p><strong>第一步:<code class="highlighter-rouge">Projext</code> - <code class="highlighter-rouge">Localizations</code> - <code class="highlighter-rouge">+</code>自己需要的语言</strong></p>
-
-<p><strong>第二步:<code class="highlighter-rouge">Targets</code> - <code class="highlighter-rouge">Info</code> 添加 <code class="highlighter-rouge">Localized resources can be mixed</code> <code class="highlighter-rouge">YES</code> 好像非必须,还未搞懂…</strong></p>
-
-<p>**第三步:创建 <code class="highlighter-rouge">Strings File</code> 命名 <code class="highlighter-rouge">InfoPlist</code> 和 <code class="highlighter-rouge">Localizable</code> **</p>
-
-:ET

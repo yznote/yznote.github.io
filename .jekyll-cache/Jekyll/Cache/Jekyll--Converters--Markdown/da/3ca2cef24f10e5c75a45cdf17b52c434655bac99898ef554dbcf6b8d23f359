@@ -1,0 +1,32 @@
+I"�<h4 id="ios集成braintreepaypal支付">iOS集成Braintree+Paypal支付</h4>
+
+<p><strong>官方文档</strong></p>
+
+<p><a href="https://developers.braintreepayments.com/guides/paypal/client-side/ios/v4">iOS SDK Url0</a><br />
+<a href="https://developers.braintreepayments.com/guides/paypal/client-side/ios/v4#setup-for-app-switch">iOS SDK Url1</a></p>
+
+<p><strong>第一步:创建沙盒/生产账号</strong></p>
+
+<blockquote>
+  <p><a href="https://www.braintreepayments.com/sandbox">沙盒注册链接</a><br />
+<a href="https://sandbox.braintreegateway.com/">沙盒登陆链接</a><br />
+<a href="https://www.braintreegateway.com/login">生产登陆链接</a></p>
+</blockquote>
+
+<p>注册、登陆之后点击<code class="highlighter-rouge">设置-API-Generate New Tokenization Key</code>生成沙盒/生产环境的<code class="highlighter-rouge">Token</code>如图所示:</p>
+
+<p><img src="/img/20201222/1.png" alt="图1" /></p>
+
+<p><strong>第二步:下载SDK</strong></p>
+
+<p><strong>Pod</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod 'BraintreeDropIn'
+</code></pre></div></div>
+
+<p><strong>手动导入</strong></p>
+<blockquote>
+  <p>链接:<a href="https://github.com/braintree/braintree_ios">https://github.com/braintree/braintree_ios</a><br />
+导入文件:<code class="highlighter-rouge">BraintreeCore、BraintreePaypal</code></p>
+</blockquote>
+
+:ET
