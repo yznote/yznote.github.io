@@ -1,0 +1,772 @@
+I"�x<h4 id="亚马逊s3app上传配置">亚马逊S3App上传配置</h4>
+
+<h5 id="角色创建基于服务端创建的存储桶">角色创建【基于服务端创建的存储桶】</h5>
+
+<p><a href="https://ap-southeast-1.console.aws.amazon.com/cognito/home?region=ap-southeast-1">角色创建:https://ap-southeast-1.console.aws.amazon.com/cognito/home?region=ap-southeast-1</a></p>
+
+<p>1.选择区域【例如:Asia Pacific,这里的区域要和存储桶区域一致】<br />
+2.点击<code class="highlighter-rouge">Manage Identity Pools</code><br />
+<img src="/img/20201224/1.png" alt="图1" /><br />
+3.点击<code class="highlighter-rouge">Create new identity pool</code><br />
+<img src="/img/20201224/2.png" alt="图2" /><br />
+4.填写<code class="highlighter-rouge">Identity pool name</code>如图勾选保存即可:
+<img src="/img/20201224/3.png" alt="图3" /><br />
+5.第4步保存完会跳转至下图界面【如如果是已创建过,点击创建的identitypool是一样的】
+<img src="/img/20201224/4.png" alt="图4" /><br />
+至此,<code class="highlighter-rouge">identitypool</code>创建完毕.</p>
+
+<h5 id="存储访问规则编写">存储/访问规则编写</h5>
+
+<p>1.进入<a href="https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1">存储桶:https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1</a>点击已经创建的存储桶名称【如还未创建存储桶,需要按照存储桶创建文档创建存储桶,存储桶创建完毕,继续执行此步骤】<br />
+<img src="/img/20201224/5.png" alt="图5" /> 
+2.来到存储桶内,选择<code class="highlighter-rouge">Permissions</code> 向下拉看到<code class="highlighter-rouge">Bucket policy</code>停止,点击右边的<code class="highlighter-rouge">Edit</code>将下列代码填入保存</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+
+<h5 id="app配置部分ios-oc">App配置部分【iOS-OC】</h5>
+
+<p><a href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-credentials.html">App配置文档:https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-credentials.html</a></p>
+
+<p><strong>1.Pod导入</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#AWS
+pod 'AWSS3','2.19.1'
+</code></pre></div></div>
+<p><strong>2.自定义存储类</strong></p>
+<blockquote>
+  <p>此步骤可省略,省略后<code class="highlighter-rouge">yb_awsInitialization</code>的实现要放到<code class="highlighter-rouge">application:didFinishLaunchingWithOptions:</code>里边执行;
+<code class="highlighter-rouge">yb_awsTransferOfBackgroundWithApplication:andIdentifier:completion:</code>的实现要放到<code class="highlighter-rouge">application:handleEventsForBackgroundURLSession:completionHandler:</code>里边执行;</p>
+</blockquote>
+
+<p>i: <code class="highlighter-rouge">YBStorageConfig.h</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+
+
+@interface YBStorageConfig : NSObject
+
+/** 时间戳 */
++(void)saveResTime:(NSDate *)save;
++(NSDate *)getResTime;
++(void)clearResTime;
+
+/** 存储类型 qiniu、aws*/
++(void)saveStorageType:(NSString *)save;
++(NSString *)getStorageType;
+
+/** 七牛相关 */
++(void)saveQNZone:(NSString *)save;
++(NSString *)getQNZone;
+
++(void)saveQNToken:(NSString *)save;
++(NSString*)getQNToken;
+
++(void)saveQNDomain:(NSString *)save;
++(NSString *)getQNDomain;
+
+/** 亚马逊相关-预留 */
+//存储桶
++(void)saveAwsBucket:(NSString *)save;
++(NSString *)getAwsBucket;
+//区域
++(void)saveAwsRegion:(NSString *)save;
++(NSString *)getAwsRegion;
+//标识
++(void)saveAwsIdentityPoolid:(NSString *)save;
++(NSString *)getAwsIdentityPoolid;
+@end
+
+</code></pre></div></div>
+<p><code class="highlighter-rouge">YBStorageConfig.m</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "YBStorageConfig.h"
+
+@implementation YBStorageConfig
+
+#pragma mark - 时间戳
++(void)saveResTime:(NSDate *)save; {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:save forKey:@"ybcos_savetime"];
+    [userDefaults synchronize];
+}
++(NSDate *)getResTime {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDate *getDate = [userDefaults objectForKey:@"ybcos_savetime"];
+    return getDate;
+}
++(void)clearResTime {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:@"ybcos_savetime"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - /** 存储类型 */
++(void)saveStorageType:(NSString *)save {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:save forKey:@"ybcos_type"];
+    [userDefaults synchronize];
+}
++(NSString *)getStorageType {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *getStr = [userDefaults objectForKey:@"ybcos_type"];
+    return getStr;
+}
+
+#pragma mark - /** 七牛相关 */
++(void)saveQNZone:(NSString *)save {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:save forKey:@"ybcos_qn_zone"];
+    [userDefaults synchronize];
+}
++(NSString *)getQNZone {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *getStr = [userDefaults objectForKey:@"ybcos_qn_zone"];
+    return getStr;
+}
++(void)saveQNToken:(NSString *)save {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:save forKey:@"ybcos_qn_token"];
+    [userDefaults synchronize];
+}
++(NSString*)getQNToken {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *getStr = [userDefaults objectForKey:@"ybcos_qn_token"];
+    return getStr;
+}
++(void)saveQNDomain:(NSString *)save {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:save forKey:@"ybcos_qn_domain"];
+    [userDefaults synchronize];
+}
++(NSString *)getQNDomain {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *getStr = [userDefaults objectForKey:@"ybcos_qn_domain"];
+    return getStr;
+}
+#pragma mark -/** 亚马逊相关-预留 */
++(void)saveAwsBucket:(NSString *)save;{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:save forKey:@"ybcos_aws_bucket"];
+    [userDefaults synchronize];
+}
++(NSString *)getAwsBucket;{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *getStr = [userDefaults objectForKey:@"ybcos_aws_bucket"];
+    return getStr;
+}
+
++(void)saveAwsRegion:(NSString *)save {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:save forKey:@"ybcos_aws_region"];
+    [userDefaults synchronize];
+}
++(NSString *)getAwsRegion;{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *getStr = [userDefaults objectForKey:@"ybcos_aws_region"];
+    return getStr;
+}
++(void)saveAwsIdentityPoolid:(NSString *)save;{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:save forKey:@"ybcos_aws_identitypoolid"];
+    [userDefaults synchronize];
+}
++(NSString *)getAwsIdentityPoolid;{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *getStr = [userDefaults objectForKey:@"ybcos_aws_identitypoolid"];
+    return getStr;
+}
+@end
+</code></pre></div></div>
+
+<p>ii:<code class="highlighter-rouge">YBStorageManage.h</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+
+typedef void (^YBStoragePercentBlock)(CGFloat percent);
+
+/** 存储信息获取完毕回调（code 0-成功 小于0-失败） */
+typedef void (^YBStorageTypeBlock)(int code);
+
+/** 存储完成，code 0 成功 -1失败 key：存储后的链接 */
+typedef void (^YBStorageFinishaBlock)(int code, NSString *key);
+
+@interface YBStorageManage : NSObject
+
+
++(instancetype)shareManage;
+
+#pragma mark - 第一步:获取存储信息(qiniu、aws)
+-(void)getCOSInfo:(YBStorageTypeBlock)complete;
+
+#pragma mark - 第二步:开始上传(qiniu、aws)
+//图片
+-(void)yb_storageImg:(UIImage *)img andName:(NSString *)imgName progress:(YBStoragePercentBlock)ybprogress complete:(YBStorageFinishaBlock)complete;
+
+//音、视频
+-(void)yb_storageVideoOrVoice:(NSString *)filePath andName:(NSString *)fileName progress:(YBStoragePercentBlock)ybprogress complete:(YBStorageFinishaBlock)complete;
+
+
+#pragma mark - 亚马逊 扩展配置
+/** 初始化 [application:didFinishLaunchingWithOptions:] */
+-(void)yb_awsInitialization;
+
+/** 后台传输 */
+-(void)yb_awsTransferOfBackgroundWithApplication:(UIApplication *)application andIdentifier:(NSString *)identifier completion:(void (^)(void))completionHandler;
+@end
+
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">YBStorageManage.m</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "YBStorageManage.h"
+
+#import "YBStorageConfig.h"
+
+#import &lt;Qiniu/QiniuSDK.h&gt;
+
+#import &lt;AWSS3/AWSS3.h&gt;
+#import &lt;AWSS3/AWSS3TransferUtility.h&gt;
+@implementation YBStorageManage
+
+static YBStorageManage *storageManeger = nil;
+
++(instancetype)shareManage {
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        storageManeger = [[super allocWithZone:NULL]init];
+    });
+    return storageManeger;
+}
+
++(instancetype)allocWithZone:(struct _NSZone *)zone {
+    return [self shareManage];
+}
+
+#pragma mark - 第一步:获取存储类型(tx 、qiniu)
+-(void)getCOSInfo:(YBStorageTypeBlock)complete {
+    
+    NSDate *oldDate = [YBStorageConfig getResTime] ? [YBStorageConfig getResTime] : [NSDate date];
+    NSDate *curDate = [NSDate date];
+    NSTimeInterval timeInterval  = [curDate timeIntervalSinceDate:oldDate];
+    [MBProgressHUD showMessage:@""];
+    WeakSelf;
+    //这里过期时间默认 10 分钟，不建议改特别大的值(七牛存储token有过期时间,这个时间一定要小于七牛的过期时间)
+    if (![YBStorageConfig getResTime] || timeInterval &gt; 600) {
+        //说明没有存储过或者超过10分钟、获取存储类型(如果是七牛顺带获取token)
+        [YBToolClass postNetworkWithUrl:@"Upload.getCosInfo" andParameter:@{} success:^(int code, id info, NSString *msg) {
+            [MBProgressHUD hideHUD];
+            if (code == 0) {
+                NSDictionary *infoDic = [info firstObject];
+                //保留存储时间、存储类型
+                [YBStorageConfig saveResTime:[NSDate date]];
+                NSString *cloudType = minstr([infoDic valueForKey:@"cloudtype"]);
+                //qiniu----aws
+                [YBStorageConfig saveStorageType:cloudType];
+                //【七牛基本信息】
+                NSDictionary *qnInfo = @{};
+                if ([[infoDic valueForKey:@"qiniuInfo"] isKindOfClass:[NSDictionary class]]) {
+                    qnInfo = [infoDic valueForKey:@"qiniuInfo"];
+                    //注意:加解密
+                    [YBStorageConfig saveQNToken:[YBToolClass decrypt:minstr([qnInfo valueForKey:@"qiniuToken"])]];
+                    [YBStorageConfig saveQNDomain:minstr([qnInfo valueForKey:@"qiniu_domain"])];
+                    [YBStorageConfig saveQNZone:minstr([qnInfo valueForKey:@"qiniu_zone"])];
+                }
+                //【亚马逊预留参数】目前采用App--&gt;服务端--&gt;AWS
+                NSDictionary *awsInfo = @{};
+                if ([[infoDic valueForKey:@"awsInfo"] isKindOfClass:[NSDictionary class]]) {
+                    awsInfo = [infoDic valueForKey:@"awsInfo"];
+                    [YBStorageConfig saveAwsBucket:minstr([awsInfo valueForKey:@"aws_bucket"])];
+                    [YBStorageConfig saveAwsRegion:minstr([awsInfo valueForKey:@"aws_region"])];
+                    [YBStorageConfig saveAwsIdentityPoolid:minstr([awsInfo valueForKey:@"aws_identitypoolid"])];
+                }
+                //基本信息验证
+                if ([cloudType isEqual:@"aws"]) {
+                    //亚马逊
+                    if ([YBToolClass checkNull:minstr([awsInfo valueForKey:@"aws_bucket"])] ||
+                        [YBToolClass checkNull:minstr([awsInfo valueForKey:@"aws_region"])] ||
+                        [YBToolClass checkNull:minstr([awsInfo valueForKey:@"aws_identitypoolid"])]) {
+                        if (complete) {
+                            complete(-1);
+                        }
+                        [MBProgressHUD showError:YZMsg(@"亚马逊存储配置有误")];
+                    }else {
+                        [weakSelf yb_awsInitialization];
+                        if (complete) {
+                            complete(0);
+                        }
+                    }
+                }else{
+                    //七牛
+                    if ([YBToolClass checkNull:minstr([qnInfo valueForKey:@"qiniuToken"])] ||
+                        [YBToolClass checkNull:minstr([qnInfo valueForKey:@"qiniu_zone"])]) {
+                        if (complete) {
+                            complete(-1);
+                        }
+                        [MBProgressHUD showError:YZMsg(@"七牛存储配置有误")];
+                    }else {
+                        if (complete) {
+                            complete(0);
+                        }
+                    }
+                }
+                //不进行上述验证就直接回调 0
+//                if (complete) {
+//                    complete(0);
+//                }
+            }else {
+                if (complete) {
+                    complete(-1);
+                }
+                [MBProgressHUD showError:msg];
+            }
+        } fail:^{
+            [MBProgressHUD hideHUD];
+            if (complete) {
+                complete(-2);
+            }
+        }];
+        
+    }else {
+        //10分钟内不请求接口,使用本地存贮的值
+        [MBProgressHUD hideHUD];
+        if (complete) {
+            complete(0);
+        }
+    }
+}
+
+#pragma mark - 第二步:开始上传(tx 、qiniu)
+//图片
+-(void)yb_storageImg:(UIImage *)img andName:(NSString *)imgName progress:(YBStoragePercentBlock)ybprogress complete:(YBStorageFinishaBlock)complete{
+    
+    NSString *cloudType = minstr([YBStorageConfig getStorageType]);
+    NSData *thumbData = UIImagePNGRepresentation(img);
+    if ([cloudType isEqual:@"aws"]) {
+        //亚马逊
+        
+        AWSS3TransferUtilityUploadCompletionHandlerBlock completionHandler = ^(AWSS3TransferUtilityUploadTask *task, NSError *error) {
+            if (error) {
+                NSLog(@"uploadfail:%@",error);
+                if (complete) {
+                    complete(-1,@"");
+                }
+            } else {
+                NSLog(@"uploadSur:%@",task.key);
+                if (complete) {
+                    complete(0,task.key);
+                }
+            }
+        };
+        AWSS3TransferUtilityUploadExpression *expression = [AWSS3TransferUtilityUploadExpression new];
+        expression.progressBlock = ^(AWSS3TransferUtilityTask *task, NSProgress *progress) {
+            NSLog(@"pro:%f",progress.fractionCompleted);
+        };
+        AWSS3TransferUtility *transferUtility = [AWSS3TransferUtility defaultS3TransferUtility];
+        [[transferUtility uploadData:thumbData bucket:[YBStorageConfig getAwsBucket] key:imgName contentType:@"image/png" expression:expression completionHandler:completionHandler] continueWithBlock:^id _Nullable(AWSTask&lt;AWSS3TransferUtilityUploadTask *&gt; * _Nonnull t) {
+            if (t.error) {
+                NSLog(@"Error: %@", t.error);
+                if (complete) {
+                    complete(-1,@"");
+                }
+            }
+            if (t.result) {
+                AWSS3TransferUtilityUploadTask *uploadTask = t.result;
+                // Do something with uploadTask.
+                NSLog(@"restult:%@",uploadTask);
+            }
+            return nil;
+        }];
+        
+        
+    }else {
+        //七牛
+        QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+            builder.zone = [self getQNZone];
+        }];
+        QNUploadOption *option = [[QNUploadOption alloc]initWithMime:nil progressHandler:^(NSString *key, float percent) {
+            //NSLog(@"=====%@9999:%f",imgName,percent);
+            if (ybprogress) {
+                ybprogress(percent);
+            }
+        } params:nil checkCrc:NO cancellationSignal:nil];
+        QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
+        
+        [upManager putData:thumbData key:imgName token:minstr([YBStorageConfig getQNToken]) complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            NSLog(@"info ===== %@ \n resp ===== %@", info,resp);
+            if (info.ok) {
+                //成功
+                if (complete) {
+                    complete(0,key);
+                }
+            }else {
+                //失败
+                if (complete) {
+                    complete(-1,@"");
+                }
+            }
+        } option:option];
+    }
+}
+//音、视频
+-(void)yb_storageVideoOrVoice:(NSString *)filePath andName:(NSString *)fileName progress:(YBStoragePercentBlock)ybprogress complete:(YBStorageFinishaBlock)complete{
+    NSString *cloudType = minstr([YBStorageConfig getStorageType]);
+    
+    if ([cloudType isEqual:@"aws"]) {
+        //亚马逊
+        NSString *mineType = @"video/mp4";
+        if ([filePath hasSuffix:@".m4a"]) {
+            mineType = @"audio/x-m4a";
+        }else if ([filePath hasSuffix:@".wav"]){
+            mineType = @"audio/wav";
+        }
+        
+        AWSS3TransferUtilityUploadCompletionHandlerBlock completionHandler = ^(AWSS3TransferUtilityUploadTask *task, NSError *error) {
+            if (error) {
+                NSLog(@"uploadfail:%@",error);
+                if (complete) {
+                    complete(-1,@"");
+                }
+            } else {
+                NSLog(@"uploadSur:%@",task.key);
+                if (complete) {
+                    complete(0,task.key);
+                }
+            }
+        };
+        AWSS3TransferUtilityUploadExpression *expression = [AWSS3TransferUtilityUploadExpression new];
+        expression.progressBlock = ^(AWSS3TransferUtilityTask *task, NSProgress *progress) {
+            NSLog(@"pro:%f",progress.fractionCompleted);
+        };
+        AWSS3TransferUtility *transferUtility = [AWSS3TransferUtility defaultS3TransferUtility];
+        [[transferUtility uploadFile:[NSURL URLWithString:filePath] bucket:[YBStorageConfig getAwsBucket] key:fileName contentType:mineType expression:expression completionHandler:completionHandler] continueWithBlock:^id _Nullable(AWSTask&lt;AWSS3TransferUtilityUploadTask *&gt; * _Nonnull t) {
+            if (t.error) {
+                NSLog(@"Error: %@", t.error);
+                if (complete) {
+                    complete(-1,@"");
+                }
+            }
+            if (t.result) {
+                AWSS3TransferUtilityUploadTask *uploadTask = t.result;
+                // Do something with uploadTask.
+                NSLog(@"restult:%@",uploadTask);
+            }
+            return nil;
+        }];
+        
+        
+    }else {
+        //七牛
+        QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+            builder.zone = [self getQNZone];
+        }];
+        QNUploadOption *option = [[QNUploadOption alloc]initWithMime:nil progressHandler:^(NSString *key, float percent) {
+            //NSLog(@"=====%@9999:%f",fileName,percent);
+            if (ybprogress) {
+                ybprogress(percent);
+            }
+        } params:nil checkCrc:NO cancellationSignal:nil];
+        QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
+        [upManager putFile:filePath key:fileName token:minstr([YBStorageConfig getQNToken]) complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            NSLog(@"info ===== %@ \n resp ===== %@", info,resp);
+            if (info.ok) {
+                //成功
+                if (complete) {
+                    complete(0,key);
+                }
+            }else {
+                //失败
+                if (complete) {
+                    complete(-1,@"");
+                }
+            }
+        } option:option];
+    }
+}
+
+#pragma makr - 七牛划分区域开始
+-(QNZone *)getQNZone{
+    //华东:qiniu_hd 华北:qiniu_hb  华南:qiniu_hn  北美:qiniu_bm   新加坡:qiniu_xjp
+    NSString *qnStr = minstr([YBStorageConfig getQNZone]);
+    //默认:华东
+    QNZone *zone = [QNFixedZone zone0];
+    if ([qnStr isEqual:@"qiniu_hb"]) {
+        //华北
+        zone = [QNFixedZone zone1];
+        
+    }else if ([qnStr isEqual:@"qiniu_hn"]){
+        //华南
+        zone = [QNFixedZone zone2];
+        
+    }else if ([qnStr isEqual:@"qiniu_bm"]){
+        //北美
+        zone = [QNFixedZone zoneNa0];
+        
+    }else if ([qnStr isEqual:@"qiniu_xjp"]){
+        //新加坡
+        zone = [QNFixedZone zoneAs0];
+    }
+    return zone;
+}
+
+#pragma makr - 七牛划分区域结束
+
+#pragma mark - 亚马逊扩展配置开始
+-(void)yb_awsInitialization {
+    //identityPoolId格式: @"ap-southeast-1:f972XXXX-cc7d-431a-80c6-581266daXXXX"
+    AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:[self getAwsRegion] identityPoolId:[YBStorageConfig getAwsIdentityPoolid]];
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:[self getAwsRegion] credentialsProvider:credentialsProvider];
+    AWSServiceManager.defaultServiceManager.defaultServiceConfiguration = configuration;
+}
+-(void)yb_awsTransferOfBackgroundWithApplication:(UIApplication *)application andIdentifier:(NSString *)identifier completion:(void (^)(void))completionHandler{
+    [AWSS3TransferUtility interceptApplication:application handleEventsForBackgroundURLSession:identifier completionHandler:completionHandler];
+}
+-(AWSRegionType)getAwsRegion {
+    NSString *awsStr = minstr([YBStorageConfig getAwsRegion]);
+    if ([awsStr isEqual:@"AWSRegionUSEast1"]
+        || [awsStr isEqual:@"USEast1"]
+        || [awsStr isEqual:@"us-east-1"]) {
+        return AWSRegionUSEast1;
+    }
+    if ([awsStr isEqual:@"AWSRegionUSEast2"]
+        || [awsStr isEqual:@"USEast2"]
+        || [awsStr isEqual:@"us-east-2"]) {
+        return AWSRegionUSEast2;
+    }
+    if ([awsStr isEqual:@"AWSRegionUSWest1"]
+        || [awsStr isEqual:@"USWest1"]
+        || [awsStr isEqual:@"us-west-1"]) {
+        return AWSRegionUSWest1;
+    }
+    if ([awsStr isEqual:@"AWSRegionUSWest2"]
+        || [awsStr isEqual:@"USWest2"]
+        || [awsStr isEqual:@"us-west-2"]) {
+        return AWSRegionUSWest2;
+    }
+    if ([awsStr isEqual:@"AWSRegionEUWest1"]
+        || [awsStr isEqual:@"EUWest1"]
+        || [awsStr isEqual:@"eu-west-1"]) {
+        return AWSRegionEUWest1;
+    }
+    if ([awsStr isEqual:@"AWSRegionEUWest2"]
+        || [awsStr isEqual:@"EUWest2"]
+        || [awsStr isEqual:@"eu-west-2"]) {
+        return AWSRegionEUWest2;
+    }
+    if ([awsStr isEqual:@"AWSRegionEUCentral1"]
+        || [awsStr isEqual:@"EUCentral1"]
+        || [awsStr isEqual:@"eu-central-1"]) {
+        return AWSRegionEUCentral1;
+    }
+    if ([awsStr isEqual:@"AWSRegionAPNortheast1"]
+        || [awsStr isEqual:@"APNortheast1"]
+        || [awsStr isEqual:@"ap-northeast-1"]) {
+        return AWSRegionAPNortheast1;
+    }
+    if ([awsStr isEqual:@"AWSRegionAPNortheast2"]
+        || [awsStr isEqual:@"APNortheast2"]
+        || [awsStr isEqual:@"ap-northeast-2"]) {
+        return AWSRegionAPNortheast2;
+    }
+    if ([awsStr isEqual:@"AWSRegionAPSoutheast1"]
+        || [awsStr isEqual:@"APSoutheast1"]
+        || [awsStr isEqual:@"ap-southeast-1"]) {
+        return AWSRegionAPSoutheast1;
+    }
+    if ([awsStr isEqual:@"AWSRegionAPSoutheast2"]
+        || [awsStr isEqual:@"APSoutheast2"]
+        || [awsStr isEqual:@"ap-southeast-2"]) {
+        return AWSRegionAPSoutheast2;
+    }
+    if ([awsStr isEqual:@"AWSRegionAPSouth1"]
+        || [awsStr isEqual:@"APSouth1"]
+        || [awsStr isEqual:@"ap-south-1"]) {
+        return AWSRegionAPSouth1;
+    }
+    if ([awsStr isEqual:@"AWSRegionSAEast1"]
+        || [awsStr isEqual:@"SAEast1"]
+        || [awsStr isEqual:@"sa-east-1"]) {
+        return AWSRegionSAEast1;
+    }
+    if ([awsStr isEqual:@"AWSRegionCACentral1"]
+        || [awsStr isEqual:@"CACentral1"]
+        || [awsStr isEqual:@"ca-central-1"]) {
+        return AWSRegionCACentral1;
+    }
+    if ([awsStr isEqual:@"AWSRegionUSGovWest1"]
+        || [awsStr isEqual:@"USGovWest1"]
+        || [awsStr isEqual:@"us-gov-west-1"]) {
+        return AWSRegionUSGovWest1;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionCNNorth1"]
+        || [awsStr isEqual:@"CNNorth1"]
+        || [awsStr isEqual:@"cn-north-1"]) {
+        return AWSRegionCNNorth1;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionCNNorthWest1"]
+        || [awsStr isEqual:@"CNNorthWest1"]
+        || [awsStr isEqual:@"cn-northwest-1"]) {
+        return AWSRegionCNNorthWest1;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionEUWest3"]
+        || [awsStr isEqual:@"EUWest3"]
+        || [awsStr isEqual:@"eu-west-3"]) {
+        return AWSRegionEUWest3;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionUSGovEast1"]
+        || [awsStr isEqual:@"USGovEast1"]
+        || [awsStr isEqual:@"us-gov-east-1"]) {
+        return AWSRegionUSGovEast1;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionEUNorth1"]
+        || [awsStr isEqual:@"EUNorth1"]
+        || [awsStr isEqual:@"eu-north-1"]) {
+        return AWSRegionEUNorth1;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionAPEast1"]
+        || [awsStr isEqual:@"APEast1"]
+        || [awsStr isEqual:@"ap-east-1"]) {
+        return AWSRegionAPEast1;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionMESouth1"]
+        || [awsStr isEqual:@"MESouth1"]
+        || [awsStr isEqual:@"me-south-1"]) {
+        return AWSRegionMESouth1;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionAFSouth1"]
+        || [awsStr isEqual:@"AFSouth1"]
+        || [awsStr isEqual:@"af-south-1"]) {
+        return AWSRegionAFSouth1;
+    }
+    
+    if ([awsStr isEqual:@"AWSRegionEUSouth1"]
+        || [awsStr isEqual:@"EUSouth1"]
+        || [awsStr isEqual:@"eu-south-1"]) {
+        return AWSRegionEUSouth1;
+    }
+    
+    return AWSRegionUnknown;
+}
+
+#pragma mark - 亚马逊扩展配置结束
+@end
+
+//亚马逊 接口【类FTP上传】
+//图片
+/*
+ NSString *requestUrl = [purl stringByAppendingFormat:@"?s=Upload.uploadImage&amp;lang=%@",lagType];
+ [YBToolClass ybnetManager].requestSerializer.timeoutInterval = 300;
+ [[YBToolClass ybnetManager]POST:requestUrl parameters:@{@"uid":[Config getOwnID],@"token":[Config getOwnToken]} headers:nil constructingBodyWithBlock:^(id&lt;AFMultipartFormData&gt;  _Nonnull formData) {
+ if (thumbData) {
+ [formData appendPartWithFileData:thumbData name:@"file" fileName:imgName mimeType:@"image/jpeg"];
+ }
+ } progress:^(NSProgress * _Nonnull uploadProgress) {
+ if (ybprogress) {
+ CGFloat percent = uploadProgress.completedUnitCount/uploadProgress.totalUnitCount;
+ NSLog(@"aws:%f",percent);
+ ybprogress(percent);
+ }
+ } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+ NSDictionary *data = [responseObject valueForKey:@"data"];
+ NSString *ret = minstr([responseObject valueForKey:@"ret"]);
+ if ([ret isEqual:@"200"]) {
+ NSString *code = minstr([data valueForKey:@"code"]);
+ NSDictionary *infoDic = [[data valueForKey:@"info"] firstObject];
+ if ([code isEqual:@"0"]) {
+ NSString *keyStr = minstr([infoDic valueForKey:@"aws_url"]);
+ if (complete) {
+ complete(0,keyStr);
+ }
+ }else {
+ if (complete) {
+ complete(-1,@"");
+ }
+ }
+ }else{
+ if (complete) {
+ complete(-1,@"");
+ }
+ }
+ } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+ if (complete) {
+ complete(-1,@"");
+ }
+ NSLog(@"======:%@",error);
+ }];
+ */
+//视频
+/*
+ NSString *requestUrl = [purl stringByAppendingFormat:@"?s=Upload.uploadVideo&amp;lang=%@",lagType];
+ NSData *videoData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:filePath]];
+ [YBToolClass ybnetManager].requestSerializer.timeoutInterval = 300;
+ [[YBToolClass ybnetManager]POST:requestUrl parameters:@{@"uid":[Config getOwnID],@"token":[Config getOwnToken]} headers:nil constructingBodyWithBlock:^(id&lt;AFMultipartFormData&gt;  _Nonnull formData) {
+ if (videoData) {
+ [formData appendPartWithFileData:videoData name:@"file" fileName:fileName mimeType:mineType];
+ }
+ } progress:^(NSProgress * _Nonnull uploadProgress) {
+ if (ybprogress) {
+ CGFloat percent = uploadProgress.completedUnitCount/uploadProgress.totalUnitCount;
+ NSLog(@"aws:%f",percent);
+ ybprogress(percent);
+ }
+ } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+ NSDictionary *data = [responseObject valueForKey:@"data"];
+ NSString *ret = minstr([responseObject valueForKey:@"ret"]);
+ if ([ret isEqual:@"200"]) {
+ NSString *code = minstr([data valueForKey:@"code"]);
+ NSDictionary *infoDic = [[data valueForKey:@"info"] firstObject];
+ if ([code isEqual:@"0"]) {
+ NSString *keyStr = minstr([infoDic valueForKey:@"aws_url"]);
+ if (complete) {
+ complete(0,keyStr);
+ }
+ }else {
+ if (complete) {
+ complete(-1,@"");
+ }
+ }
+ }else{
+ if (complete) {
+ complete(-1,@"");
+ }
+ }
+ } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+ if (complete) {
+ complete(-1,@"");
+ }
+ }];
+ */
+
+</code></pre></div></div>
+<p><strong>3.番外篇【非必须】</strong>
+info.plist中配置亚马逊的存储信息</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;key&gt;AWS&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;CredentialsProvider&lt;/key&gt;
+        &lt;dict&gt;
+            &lt;key&gt;CognitoIdentity&lt;/key&gt;
+            &lt;dict&gt;
+                &lt;key&gt;Default&lt;/key&gt;
+                &lt;dict&gt;
+                    &lt;key&gt;PoolId&lt;/key&gt;
+                    &lt;string&gt;ap-southeast-1:f972630e-cc7d-431a-80c6-581266da25bb&lt;/string&gt;
+                    &lt;key&gt;Region&lt;/key&gt;
+                    &lt;string&gt;AWSRegionAPSoutheast1&lt;/string&gt;
+                &lt;/dict&gt;
+            &lt;/dict&gt;
+        &lt;/dict&gt;
+        &lt;key&gt;S3TransferUtility&lt;/key&gt;
+        &lt;dict&gt;
+            &lt;key&gt;Default&lt;/key&gt;
+            &lt;dict&gt;
+                &lt;key&gt;Region&lt;/key&gt;
+                &lt;string&gt;AWSRegionAPSoutheast1&lt;/string&gt;
+            &lt;/dict&gt;
+        &lt;/dict&gt;
+    &lt;/dict&gt;
+</code></pre></div></div>
+
+:ET

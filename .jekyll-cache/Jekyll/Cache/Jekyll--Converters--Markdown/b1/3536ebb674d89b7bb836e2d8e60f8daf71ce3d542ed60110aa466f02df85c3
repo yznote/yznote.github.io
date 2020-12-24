@@ -1,0 +1,54 @@
+I"�<h4 id="亚马逊存储桶服务端配置">亚马逊存储桶+服务端配置</h4>
+
+<p><strong>亚马逊后台配置:<a href="https://aws.amazon.com/cn/">https://aws.amazon.com/cn/</a></strong><br />
+1.登录账号,进入<code class="highlighter-rouge">Amazon s3</code>创建存储桶<br />
+<img src="/img/20201224/s1" alt="图1" /><br />
+按照上图所示填写内容,剩下的信息默认,点击底部创建存储桶<br />
+2.存储桶权限设置<br />
+<img src="/img/20201224/s2" alt="图2" /><br />
+设置跨域内容如下:更换对应的域名,其他配置信息不做修改.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST",
+            "DELETE"
+        ],
+        "AllowedOrigins": [
+            "https://yunyue.s3.amazonaws.com",//这里更换为自己的存储访问域名
+            "http://yuedantest.yunbaozb.com"//这里更换问自己服务器访问域名
+        ],
+        "ExposeHeaders": [
+            "x-amz-server-side-encryption",
+            "x-amz-request-id",
+            "x-amz-id-2"
+        ]
+    },
+    {
+        "AllowedHeaders": [],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
+</code></pre></div></div>
+<p>3.添加<code class="highlighter-rouge">IAM</code>用户</p>
+
+<p>i:<a href="https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/users">https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/users</a><br />
+<img src="/img/20201224/s3" alt="图3" /><br />
+<img src="/img/20201224/s4" alt="图4" /></p>
+
+<p>ii:<code class="highlighter-rouge">IAM</code>用户权限设置以下两个即可:然后一直下一步直到创建用户
+<img src="/img/20201224/s5" alt="图5" /></p>
+
+<p>iii:获取密钥
+<img src="/img/20201224/s6" alt="图6" /></p>
+
+:ET

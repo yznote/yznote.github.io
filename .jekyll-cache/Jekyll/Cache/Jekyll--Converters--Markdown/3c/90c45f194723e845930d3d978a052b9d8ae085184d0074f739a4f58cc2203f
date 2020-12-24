@@ -1,4 +1,4 @@
-I"�<h4 id="ios集成braintreepaypal支付">iOS集成Braintree+Paypal支付</h4>
+I"�<h4 id="ios集成braintreepaypal支付">iOS集成Braintree+Paypal支付</h4>
 
 <p><strong>官方文档</strong></p>
 
@@ -164,5 +164,8 @@ https://sandbox.braintreegateway.com/<br />
 ID wesaygaming<br />
 PW Kaifa123</p>
 </blockquote>
+
+<p><a href="https://www.jianshu.com/p/1a59e0a0ed28">参考1</a><br />
+<a href="https://github.com/hw20101101/TestBraintree">参考2</a></p>
 
 :ET

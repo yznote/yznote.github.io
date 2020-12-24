@@ -1,0 +1,15 @@
+I"<h4 id="亚马逊s3app上传配置">亚马逊S3App上传配置</h4>
+
+<p><strong>App配置部分【iOS-OC】</strong></p>
+
+<p>1.Pod导入</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#AWS
+pod 'AWSS3','2.19.1'
+</code></pre></div></div>
+<p>2.自定义存储类</p>
+<blockquote>
+  <p>此步骤可省略,省略后<code class="highlighter-rouge">yb_awsInitialization</code>的实现要放到<code class="highlighter-rouge">application:didFinishLaunchingWithOptions:</code>里边执行;
+<code class="highlighter-rouge">yb_awsTransferOfBackgroundWithApplication:andIdentifier:completion:</code>的实现要放到<code class="highlighter-rouge">application:handleEventsForBackgroundURLSession:completionHandler:</code>里边执行;</p>
+</blockquote>
+
+:ET
