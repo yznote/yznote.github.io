@@ -1,19 +1,59 @@
-I"�s<h4 id="亚马逊s3app上传配置">亚马逊S3App上传配置</h4>
+I"�<h4 id="亚马逊s3app上传配置">亚马逊S3App上传配置</h4>
 
-<h5 id="角色创建基于服务端创建的存储桶">角色创建【基于服务端创建的存储桶】</h5>
+<h5 id="创建identitypool基于服务端创建的存储桶">创建<code class="highlighter-rouge">identitypool</code>【基于服务端创建的存储桶】</h5>
 
-<p><a href="https://ap-southeast-1.console.aws.amazon.com/cognito/home?region=ap-southeast-1">角色创建:https://ap-southeast-1.console.aws.amazon.com/cognito/home?region=ap-southeast-1</a></p>
+<p><a href="https://ap-southeast-1.console.aws.amazon.com/cognito/home?region=ap-southeast-1">创建地址:https://ap-southeast-1.console.aws.amazon.com/cognito/home?region=ap-southeast-1</a></p>
 
 <p>1.选择区域【例如:Asia Pacific,这里的区域要和存储桶区域一致】<br />
 2.点击<code class="highlighter-rouge">Manage Identity Pools</code><br />
 <img src="/img/20201224/1.png" alt="图1" /><br />
 3.点击<code class="highlighter-rouge">Create new identity pool</code><br />
 <img src="/img/20201224/2.png" alt="图2" /><br />
-4.</p>
+4.填写<code class="highlighter-rouge">Identity pool name</code>如图勾选保存即可:
+<img src="/img/20201224/3.png" alt="图3" /><br />
+5.第4步保存完会跳转至下图界面【如如果是已创建过,点击创建的identitypool是一样的】注意记录下列截图中的<code class="highlighter-rouge">identitypoolid</code>后续会用到<br />
+<img src="/img/20201224/4.png" alt="图4" /><br />
+至此,<code class="highlighter-rouge">identitypool</code>创建完毕.</p>
 
-<p><a href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-credentials.html">App配置文档:https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-credentials.html</a></p>
+<h5 id="存储访问规则编写">存储/访问规则编写</h5>
+
+<p>1.进入<a href="https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1">存储桶:https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1</a>点击已经创建的存储桶名称【如还未<a href="https://rookie920.github.io/2020/12/24/亚马逊S3-2/">创建存储桶</a>,需要按照存储桶创建文档创建存储桶,存储桶创建完毕,继续执行此步骤】<br />
+<img src="/img/20201224/5.png" alt="图5" /> 
+2.来到存储桶内,选择<code class="highlighter-rouge">Permissions</code> 向下拉看到<code class="highlighter-rouge">Bucket policy</code>停止,点击右边的<code class="highlighter-rouge">Edit</code>将下列代码填入保存</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "Version": "2012-10-17",
+    "Id": "将创建identitypool步骤5中的identitypoolid填到此处",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::【你的存储桶名称】",
+            "Condition": {
+                "StringLike": {
+                    "s3:prefix": "/*"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::【你的存储桶名称】/*"
+        }
+    ]
+}
+</code></pre></div></div>
+<p><img src="/img/20201224/6.png" alt="图6" /></p>
+
+<p>至此,存储/访问规则编写完毕.接下来APP接入SDK</p>
 
 <h5 id="app配置部分ios-oc">App配置部分【iOS-OC】</h5>
+
+<p><a href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-credentials.html">App配置文档:https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-credentials.html</a></p>
 
 <p><strong>1.Pod导入</strong></p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#AWS
@@ -497,6 +537,21 @@ static YBStorageManage *storageManeger = nil;
 
 #pragma mark - 亚马逊扩展配置开始
 -(void)yb_awsInitialization {
+
+    //重设info.plist中AWS默认值
+    NSDictionary *infoDic = [NSBundle mainBundle].infoDictionary;
+    
+    NSDictionary *awsDic = @{@"CredentialsProvider":@{@"CognitoIdentity":@{@"Default":@{
+                                                                  @"PoolId":[YBStorageConfig getAwsIdentityPoolid],
+                                                                  @"Region":[YBStorageConfig getAwsRegion],
+                                                                }
+                                                        }
+                                            },
+                             @"S3TransferUtility":@{@"Default":@{@"Region":[YBStorageConfig getAwsRegion]}}
+    };
+    [infoDic setValue:awsDic forKey:@"AWS"];
+    NSLog(@"==info:%@",infoDic);
+
     //identityPoolId格式: @"ap-southeast-1:f972XXXX-cc7d-431a-80c6-581266daXXXX"
     AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:[self getAwsRegion] identityPoolId:[YBStorageConfig getAwsIdentityPoolid]];
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:[self getAwsRegion] credentialsProvider:credentialsProvider];
@@ -730,7 +785,7 @@ static YBStorageManage *storageManeger = nil;
  */
 
 </code></pre></div></div>
-<p><strong>3.番外篇【非必须】</strong>
+<p><strong>3.番外篇【iOS13之后非必须,之前必须,可以在上面yb_awsInitialization重新设置默认值】</strong>
 info.plist中配置亚马逊的存储信息</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;key&gt;AWS&lt;/key&gt;
     &lt;dict&gt;
