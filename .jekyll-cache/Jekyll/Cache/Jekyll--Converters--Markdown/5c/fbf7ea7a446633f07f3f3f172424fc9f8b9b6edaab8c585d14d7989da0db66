@@ -1,4 +1,4 @@
-I"�(<h4 id="学习ing">学习ing</h4>
+I"Y)<h4 id="学习ing">学习ing</h4>
 <p><a href="http://www.swift51.com/">swift-教程</a><br />
 <a href="https://github.com/allenwong/30DaysofSwift">swift-github</a><br />
 <a href="https://github.com/Jacke-xu">WYKit(弹窗等)、swift等</a><br />
@@ -30,6 +30,9 @@
 
 <hr />
 <h4 id="github">GitHub：</h4>
+
+<h5 id="截屏">截屏</h5>
+<p><a href="https://github.com/ohswift/VTAntiScreenCapture">截屏提示操作</a></p>
 
 <h5 id="卡顿检测">卡顿检测</h5>
 <p><a href="https://github.com/sindrilin/LXDAppMonitor">检测卡顿</a></p>
