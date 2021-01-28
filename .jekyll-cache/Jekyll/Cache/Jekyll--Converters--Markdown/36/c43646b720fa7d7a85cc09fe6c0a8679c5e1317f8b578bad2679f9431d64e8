@@ -1,4 +1,4 @@
-I"RC<h4 id="网络监测">网络监测</h4>
+I"wC<h4 id="网络监测">网络监测</h4>
 
 <h5 id="rknetmonitorh"><code class="highlighter-rouge">RKNetMonitor.h</code></h5>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
@@ -370,7 +370,7 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
                 if ([subview isKindOfClass:NSClassFromString(@"_UIStatusBarWifiSignalView")]) {
                     signalStrength = [[subview valueForKey:@"numberOfActiveBars"] intValue];
                     break;
-                }else if ([subview isKindOfClass:NSClassFromString(@"_UIStatusBarStringView")]) {
+                }else if ([subview isKindOfClass:NSClassFromString(@"_UIStatusBarPersistentAnimationView")]) {//_UIStatusBarStringView
                     signalStrength = [[subview valueForKey:@"numberOfActiveBars"] intValue];
                     break;
                 }

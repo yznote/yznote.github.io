@@ -1,6 +1,9 @@
-I"Y)<h4 id="学习ing">学习ing</h4>
-<p><a href="http://www.swift51.com/">swift-教程</a><br />
-<a href="https://github.com/allenwong/30DaysofSwift">swift-github</a><br />
+I"+<h4 id="学习ing">学习ing</h4>
+<p><a href="https://beeth0ven.github.io/RxSwift-Chinese-Documentation/">RxSwift中文【完结】</a><br />
+<a href="https://www.runoob.com/">Node.js、Vue.js【完结】、python【ing】</a><br />
+<a href="http://www.swift51.com/">swift-教程【完结】</a><br />
+<a href="https://github.com/allenwong/30DaysofSwift">swift-github【完结】</a><br />
+<strong>资料扩展</strong><br />
 <a href="https://github.com/Jacke-xu">WYKit(弹窗等)、swift等</a><br />
 <a href="https://www.jianshu.com/p/86e47d3ced8d">PromiseKit 概要</a></p>
 
@@ -30,6 +33,9 @@
 
 <hr />
 <h4 id="github">GitHub：</h4>
+
+<h5 id="切换主题">切换主题</h5>
+<p><a href="https://github.com/wxxsw/SwiftTheme">Swift版本</a></p>
 
 <h5 id="截屏">截屏</h5>
 <p><a href="https://github.com/ohswift/VTAntiScreenCapture">截屏提示操作</a></p>
@@ -123,7 +129,8 @@
 
 <h5 id="seg">seg</h5>
 
-<p><a href="https://github.com/SPStore/SPMultipleSwitch">segment</a></p>
+<p><a href="https://github.com/SPStore/SPMultipleSwitch">segment</a><br />
+<a href="https://github.com/pujiaxin33/JXSegmentedView">类头条、简书等</a></p>
 
 <h5 id="动画">动画</h5>
 

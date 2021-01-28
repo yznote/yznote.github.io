@@ -1,4 +1,4 @@
-I"��<h4 id="置顶">置顶</h4>
+I"7�<h4 id="置顶">置顶</h4>
 
 <p><strong>横竖屏幕适配(安全距离)</strong></p>
 
@@ -34,6 +34,28 @@ if (@available(iOS 13.0,*)) {
     [textField setValue:RGB_COLOR(@"#323232", 0.5) forKeyPath:@"_placeholderLabel.textColor"];
     [textField setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
 }
+
+//searchbar 取消按钮
+- (UIButton *)cancleButton {
+    self.showsCancelButton = YES;
+    for (UIView *view in [[self.subviews lastObject] subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            _cancleButton = (UIButton *)view;
+        }
+    }
+    if (@available(iOS 13.0,*)) {
+        [self setShowsCancelButton:YES animated:YES];
+        for (UIView *view in [[self.subviews lastObject] subviews]) {
+            for (UIView *buttonView in view.subviews) {
+                if ([buttonView isKindOfClass:[UIButton class]]) {
+                    _cancleButton = (UIButton *)buttonView;
+                }
+            }
+        }
+    }
+    return _cancleButton;
+}
+
 </code></pre></div></div>
 
 <p><strong>Url转换</strong></p>
