@@ -1,0 +1,54 @@
+I"e<h4 id="关于三方最低支持版本的更改">关于三方最低支持版本的更改</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+post_install do |pi|
+   pi.pods_project.targets.each do |t|
+       t.build_configurations.each do |bc|
+           bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+       end
+   end
+end
+
+</code></pre></div></div>
+
+<h5 id="关闭cocoapods中的警告">关闭CocoaPods中的警告</h5>
+
+<p>在Podfile中加入<code class="highlighter-rouge">inhibit_all_warnings!</code>即可</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+platform :ios, '9.0'
+inhibit_all_warnings!
+
+</code></pre></div></div>
+
+<h5 id="关闭单个库或整个库警告">关闭单个库或整个库警告</h5>
+
+<p><code class="highlighter-rouge">Pods -&gt; target -&gt; Other Warning Flags 添加 -w</code></p>
+
+<h5 id="关闭文档警告">关闭文档警告</h5>
+
+<p>解决方法关掉Pods的文档警告</p>
+
+<p><code class="highlighter-rouge">Pods -&gt; Build Settings -&gt; Documentation Comments -&gt; NO</code></p>
+
+<h5 id="关闭单个文件警告">关闭单个文件警告</h5>
+
+<p><code class="highlighter-rouge">target -&gt; Build Phases -&gt; Compile Source 找到相关文件，在后面加入-w</code></p>
+
+<h5 id="代码区域警告">代码区域警告</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+//
+要去除警告的代码
+//
+#pragma clang diagnostic pop
+
+</code></pre></div></div>
+<p><strong>常用警告名称</strong></p>
+
+<p><code class="highlighter-rouge">#pragma clang diagnostic ignored "-Wunused-variable"</code> 未使用的变量<br />
+<code class="highlighter-rouge">#pragma clang diagnostic ignored "-Warc-retain-cycles"</code> retain cycle<br />
+<code class="highlighter-rouge">#pragma clang diagnostic ignored "-Wdeprecated-declarations"</code> 方法弃用警告<br />
+<code class="highlighter-rouge">#pragma clang diagnostic ignored "-Wincompatible-pointer-types"</code> 不兼容的指针类型</p>
+
+:ET
