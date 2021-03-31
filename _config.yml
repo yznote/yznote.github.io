@@ -138,6 +138,9 @@ friends: [
     },{
         title: "LD",
         href: "https://github.com/getlantern/lantern"
+    },{
+        title: "YYKit",
+        href: "https://blog.ibireme.com/"
     }
     
 
