@@ -1,0 +1,15 @@
+I"�<h5 id="uiview扩展">UIview扩展</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)rk_shadowWithColor: (UIColor *)color offset: (CGSize)offset opacity: (CGFloat)opacity radius: (CGFloat)radius{
+	
+    self.clipsToBounds = NO;
+    self.layer.shadowColor = color.CGColor;
+    self.layer.shadowOffset = offset;
+    self.layer.shadowOpacity = opacity;
+    self.layer.shadowRadius = radius;
+    
+    CGRect rec = CGRectMake(-offset.width, -offset.height, self.bounds.size.width+offset.width*2, self.bounds.size.height+offset.height*2);
+    self.layer.shadowPath = [UIBezierPath bezierPathWithRect:rec].CGPath;
+}
+</code></pre></div></div>
+:ET
