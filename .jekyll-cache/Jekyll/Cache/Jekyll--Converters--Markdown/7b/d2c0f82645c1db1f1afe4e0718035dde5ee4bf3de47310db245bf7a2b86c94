@@ -1,12 +1,12 @@
-I"�<h4 id="ios14-手势不响应处理"><code class="highlighter-rouge">iOS14</code> 手势不响应处理</h4>
+I"�<h4 id="ios14-手势不响应处理"><code class="language-plaintext highlighter-rouge">iOS14</code> 手势不响应处理</h4>
 
 <p><strong>问题</strong></p>
 <blockquote>
-  <p><code class="highlighter-rouge">VC</code>中是个<code class="highlighter-rouge">tableView</code>列表,<code class="highlighter-rouge">tableViewCell</code>中又添加了各种控件,有部分控件添加了点按、和长按手势,同时<code class="highlighter-rouge">VC</code>中也有点按手势,
-在<code class="highlighter-rouge">iOS14</code>之前手势响应规规矩矩,更新<code class="highlighter-rouge">iOS14</code>之后<code class="highlighter-rouge">cell</code>中的个中手势都失去响应了.</p>
+  <p><code class="language-plaintext highlighter-rouge">VC</code>中是个<code class="language-plaintext highlighter-rouge">tableView</code>列表,<code class="language-plaintext highlighter-rouge">tableViewCell</code>中又添加了各种控件,有部分控件添加了点按、和长按手势,同时<code class="language-plaintext highlighter-rouge">VC</code>中也有点按手势,
+在<code class="language-plaintext highlighter-rouge">iOS14</code>之前手势响应规规矩矩,更新<code class="language-plaintext highlighter-rouge">iOS14</code>之后<code class="language-plaintext highlighter-rouge">cell</code>中的个中手势都失去响应了.</p>
 </blockquote>
 
 <p><strong>解决</strong></p>
 
-<p>上述<code class="highlighter-rouge">cell</code>中控件失去响应是因为控件添加方法都是<code class="highlighter-rouge">[self addSubView:a]</code>,改为<code class="highlighter-rouge">[self.contentView addSubView:a]</code>就可以了.</p>
+<p>上述<code class="language-plaintext highlighter-rouge">cell</code>中控件失去响应是因为控件添加方法都是<code class="language-plaintext highlighter-rouge">[self addSubView:a]</code>,改为<code class="language-plaintext highlighter-rouge">[self.contentView addSubView:a]</code>就可以了.</p>
 :ET

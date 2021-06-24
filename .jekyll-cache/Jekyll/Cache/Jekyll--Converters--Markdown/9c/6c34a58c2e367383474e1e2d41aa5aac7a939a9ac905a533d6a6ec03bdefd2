@@ -1,6 +1,6 @@
-I"q&<h4 id="枚举宏">枚举、宏</h4>
+I"�&<h4 id="枚举宏">枚举、宏</h4>
 
-<h5 id="pragma-mark-1-创建普通的枚举类型"><code class="highlighter-rouge">#</code>pragma mark 1 创建普通的枚举类型</h5>
+<h5 id="pragma-mark-1-创建普通的枚举类型"><code class="language-plaintext highlighter-rouge">#</code>pragma mark 1 创建普通的枚举类型</h5>
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include 
 </span><span class="kt">int</span> <span class="nf">enumOne</span><span class="p">()</span>
 <span class="p">{</span>
@@ -9,7 +9,7 @@
     <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<h5 id="pragma-mark-2-模拟ios中label的文本对齐方式"><code class="highlighter-rouge">#</code>pragma mark 2 模拟ios中label的文本对齐方式</h5>
+<h5 id="pragma-mark-2-模拟ios中label的文本对齐方式"><code class="language-plaintext highlighter-rouge">#</code>pragma mark 2 模拟ios中label的文本对齐方式</h5>
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">textAligment</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">enum</span> <span class="n">NSTextAligment</span> <span class="p">{</span><span class="n">NSTextAligmentLeft</span><span class="p">,</span><span class="n">NSTextAligmentCenter</span><span class="p">,</span><span class="n">NSTextAligmentRight</span><span class="p">}</span> <span class="n">al</span><span class="o">=</span><span class="n">NSTextAligmentRight</span><span class="p">;</span>
@@ -23,7 +23,7 @@
     <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">%d-%d-%d"</span><span class="p">,</span><span class="n">label1</span><span class="p">.</span><span class="n">aligment</span><span class="p">,</span><span class="n">label2</span><span class="p">.</span><span class="n">aligment</span><span class="p">,</span><span class="n">label3</span><span class="p">.</span><span class="n">aligment</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<h5 id="pragma-mark-宏替换"><code class="highlighter-rouge">#</code>pragma mark 宏替换</h5>
+<h5 id="pragma-mark-宏替换"><code class="language-plaintext highlighter-rouge">#</code>pragma mark 宏替换</h5>
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">typedefOne</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">Integer</span><span class="p">;</span><span class="c1">//给数据类型long int起一个别名</span>
@@ -39,7 +39,7 @@
     <span class="n">String1</span> <span class="n">name1</span><span class="p">,</span><span class="n">address1</span><span class="p">;</span>      <span class="c1">//char *name1,char address1;</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<h5 id="pragma-mark-宏替换结构体"><code class="highlighter-rouge">#</code>pragma mark 宏替换结构体</h5>
+<h5 id="pragma-mark-宏替换结构体"><code class="language-plaintext highlighter-rouge">#</code>pragma mark 宏替换结构体</h5>
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">typedefTwo</span><span class="p">()</span>
 <span class="p">{</span>
    
@@ -52,7 +52,7 @@
     <span class="n">AAA</span> <span class="n">xiaozhang</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<h5 id="pragma-mark-宏替换枚举"><code class="highlighter-rouge">#</code>pragma mark 宏替换枚举</h5>
+<h5 id="pragma-mark-宏替换枚举"><code class="language-plaintext highlighter-rouge">#</code>pragma mark 宏替换枚举</h5>
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">typedefThree</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">typedef</span> <span class="k">enum</span><span class="p">{</span><span class="n">spring</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">summer</span><span class="p">,</span><span class="n">autumn</span><span class="p">,</span><span class="n">winter</span><span class="p">}</span> <span class="n">Season</span><span class="p">;</span>

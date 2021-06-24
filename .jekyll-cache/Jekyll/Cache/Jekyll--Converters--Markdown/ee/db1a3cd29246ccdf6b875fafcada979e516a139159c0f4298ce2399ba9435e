@@ -1,16 +1,16 @@
-I"Y<h4 id="xcode报错">Xcode报错</h4>
+I"�<h4 id="xcode报错">Xcode报错</h4>
 
-<p>问题描述:源码在开发电脑(<code class="highlighter-rouge">A电脑</code>)运行一切都正常,将源码发送给客户电脑(<code class="highlighter-rouge">B电脑</code>)怎么都无法运行:</p>
+<p>问题描述:源码在开发电脑(<code class="language-plaintext highlighter-rouge">A电脑</code>)运行一切都正常,将源码发送给客户电脑(<code class="language-plaintext highlighter-rouge">B电脑</code>)怎么都无法运行:</p>
 
-<p>报错:<code class="highlighter-rouge">xxx not find -objc</code></p>
+<p>报错:<code class="language-plaintext highlighter-rouge">xxx not find -objc</code></p>
 
-<p><code class="highlighter-rouge">search path</code> 问题 ？ <code class="highlighter-rouge">NO</code>;</p>
+<p><code class="language-plaintext highlighter-rouge">search path</code> 问题 ？ <code class="language-plaintext highlighter-rouge">NO</code>;</p>
 
-<p><code class="highlighter-rouge">other linker flag ?</code>   <code class="highlighter-rouge">NO</code>;</p>
+<p><code class="language-plaintext highlighter-rouge">other linker flag ?</code>   <code class="language-plaintext highlighter-rouge">NO</code>;</p>
 
 <p>找了半天,谷歌+百度了半天,然并卵…</p>
 
-<p>期间,发现有个文件总是在报大小写的问题,然而在<code class="highlighter-rouge">A电脑</code>没有任何问题,最后定位到了磁盘格式问题:</p>
+<p>期间,发现有个文件总是在报大小写的问题,然而在<code class="language-plaintext highlighter-rouge">A电脑</code>没有任何问题,最后定位到了磁盘格式问题:</p>
 
 <p><img src="/img/20190910/1.png" alt="项目1" /></p>
 

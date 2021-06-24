@@ -1,4 +1,4 @@
-I"�T<h4 id="标签">标签</h4>
+I"�T<h4 id="标签">标签</h4>
 
 <p><img src="/img/20191025/1.jpg" alt="项目1" /></p>
 
@@ -65,7 +65,7 @@
 
 <blockquote>
   <p>注:使用YYLabel<br />
-上面方法添加按钮的同时计算文本高度,不涉及计算高度至<code class="highlighter-rouge">lb.attributedText = introText;</code>结束。</p>
+上面方法添加按钮的同时计算文本高度,不涉及计算高度至<code class="language-plaintext highlighter-rouge">lb.attributedText = introText;</code>结束。</p>
 </blockquote>
 
 <h4 id="按钮文字">按钮+文字</h4>

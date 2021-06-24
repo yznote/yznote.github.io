@@ -1,4 +1,4 @@
-I""<h4 id="场景需求">场景+需求</h4>
+I"[<h4 id="场景需求">场景+需求</h4>
 
 <blockquote>
   <p>场景:评论视图包含主评论(mainTableView)和子评论(subTableView);
@@ -9,7 +9,7 @@
 
 <p><strong>主评论(mainTableView)</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
           initWithTarget:self action:@selector(longPressGestureRecognized:)];
 [_mainTableview addGestureRecognizer:longPress];
 
@@ -35,7 +35,7 @@
 
 <p><strong>子评论(subTableView)</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
       initWithTarget:self action:@selector(longPressGestureRecognized:)];
 [_subTableView addGestureRecognizer:longPress];
 
@@ -60,6 +60,6 @@
 
 <h4 id="总结">总结</h4>
 
-<p><code class="highlighter-rouge">不能将手势添加到Cell上，因为父类、与子类同时存在手势的时候只有父类响应,另外tableView的didsel方法也会失去响应</code></p>
+<p><code class="language-plaintext highlighter-rouge">不能将手势添加到Cell上，因为父类、与子类同时存在手势的时候只有父类响应,另外tableView的didsel方法也会失去响应</code></p>
 
 :ET

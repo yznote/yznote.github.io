@@ -1,4 +1,4 @@
-I"@<h4 id="switch"><code class="highlighter-rouge">switch</code></h4>
+I"S<h4 id="switch"><code class="language-plaintext highlighter-rouge">switch</code></h4>
 
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">switchIsChanged</span><span class="p">:(</span><span class="n">UISwitch</span> <span class="o">*</span><span class="p">)</span><span class="nv">paramSender</span><span class="p">{</span>
    

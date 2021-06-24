@@ -1,6 +1,6 @@
-I"�'<h4 id="实例0">实例0</h4>
+I"�'<h4 id="实例0">实例0</h4>
 
-<p><code class="highlighter-rouge">.m</code></p>
+<p><code class="language-plaintext highlighter-rouge">.m</code></p>
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="n">YBRechargeType</span> <span class="o">*</span><span class="n">chargeManeger</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
 
 <span class="k">+</span><span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="n">chargeManeger</span> <span class="p">{</span>

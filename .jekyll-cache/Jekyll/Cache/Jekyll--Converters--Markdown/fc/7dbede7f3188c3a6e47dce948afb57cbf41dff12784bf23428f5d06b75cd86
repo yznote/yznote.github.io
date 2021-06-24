@@ -1,4 +1,4 @@
-I"p<h4 id="需求">需求</h4>
+I"A<h4 id="需求">需求</h4>
 
 <blockquote>
   <p>1、当应用一直保持在前台的情况下，收到推送消息后语音和振动可以正常触发<br />
@@ -10,18 +10,18 @@
 
 <p><strong>方案1.开启后台持续定位</strong></p>
 
-<p>&lt;1&gt;设置<code class="highlighter-rouge">Backgound Modes</code></p>
+<p>&lt;1&gt;设置<code class="language-plaintext highlighter-rouge">Backgound Modes</code></p>
 
 <p><img src="/img/20200310/1.png" alt="项目1" /></p>
 
-<p>&lt;2&gt;在<code class="highlighter-rouge">info.plist</code>中设置</p>
+<p>&lt;2&gt;在<code class="language-plaintext highlighter-rouge">info.plist</code>中设置</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Privacy - Location Always Usage Description
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Privacy - Location Always Usage Description
 </code></pre></div></div>
 
-<p>&lt;3&gt;在<code class="highlighter-rouge">didFinishLaunchingWithOptions</code>中执行下面的<code class="highlighter-rouge">initLocationManager</code>方法</p>
+<p>&lt;3&gt;在<code class="language-plaintext highlighter-rouge">didFinishLaunchingWithOptions</code>中执行下面的<code class="language-plaintext highlighter-rouge">initLocationManager</code>方法</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)initLocationManager{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)initLocationManager{
     //1.创建定位管理对象
     _manager = [[CLLocationManager alloc]init];
 
@@ -86,13 +86,13 @@
 
 <p><strong>方案2.后台连续播放音乐的方法</strong></p>
 
-<p>&lt;1&gt;设置<code class="highlighter-rouge">Backgound Modes</code></p>
+<p>&lt;1&gt;设置<code class="language-plaintext highlighter-rouge">Backgound Modes</code></p>
 
 <p><img src="/img/20200310/2.png" alt="项目2" /></p>
 
-<p>&lt;2&gt;在<code class="highlighter-rouge">didFinishLaunchingWithOptions</code>中执行下面的<code class="highlighter-rouge">initPlayMusic</code>方法</p>
+<p>&lt;2&gt;在<code class="language-plaintext highlighter-rouge">didFinishLaunchingWithOptions</code>中执行下面的<code class="language-plaintext highlighter-rouge">initPlayMusic</code>方法</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)initPlayMusic{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)initPlayMusic{
   
     //先注册响应后台控制
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
@@ -159,7 +159,7 @@
 
 <h4 id="结语">结语</h4>
 
-<p>以上两种方法经测试，可以一直在后台运行不会被<code class="highlighter-rouge">kill</code>掉</p>
+<p>以上两种方法经测试，可以一直在后台运行不会被<code class="language-plaintext highlighter-rouge">kill</code>掉</p>
 
 <h4 id="后台监听">后台监听</h4>
 

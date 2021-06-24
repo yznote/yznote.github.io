@@ -1,6 +1,6 @@
-I"<<h5 id="nsdictionary扩展">NSDictionary扩展</h5>
+I"O<h5 id="nsdictionary扩展">NSDictionary扩展</h5>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation NSDictionary (RKLogJson)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation NSDictionary (RKLogJson)
 
 #if DEBUG
 - (NSString *)descriptionWithLocale:(nullable id)locale indent:(NSUInteger)level{

@@ -1,8 +1,8 @@
-I".<h5 id="将控制台的unicode编码转为中文输出">将控制台的Unicode编码转为中文输出</h5>
+I"A<h5 id="将控制台的unicode编码转为中文输出">将控制台的Unicode编码转为中文输出</h5>
 
 <p><strong>方法:添加一个NSDictionary扩展将下列代码丢进.m即可</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 #if DEBUG
 - (NSString *)descriptionWithLocale:(nullable id)locale{
     

@@ -1,13 +1,13 @@
-I"�<h4 id="rvm警告">RVM警告</h4>
+I"�<h4 id="rvm警告">RVM警告</h4>
 
-<p>今天利用<code class="highlighter-rouge">rvm</code>更新<code class="highlighter-rouge">ruby</code>时执行</p>
+<p>今天利用<code class="language-plaintext highlighter-rouge">rvm</code>更新<code class="language-plaintext highlighter-rouge">ruby</code>时执行</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm -v
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm -v
 </code></pre></div></div>
 
 <p>出现了如下警告:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning! PATH is not properly set up, '/.../ruby-2.4.0/bin' is not at first place.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning! PATH is not properly set up, '/.../ruby-2.4.0/bin' is not at first place.
 Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
 You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
 To fix it temporarily in this shell session run: 'rvm use ruby-2.4.0'.
@@ -20,7 +20,7 @@ To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc
 
 <p><strong>谨慎使用</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm reset
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm reset
 </code></pre></div></div>
 
 :ET

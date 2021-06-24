@@ -1,8 +1,8 @@
-I"k(<h4 id="后台保活的几个方向">后台保活的几个方向</h4>
+I"�/<h4 id="后台保活的几个方向">后台保活的几个方向</h4>
 
 <p>1.<strong>短时间保活</strong></p>
 <blockquote>
-  <p><code class="highlighter-rouge">beginBackgroundTaskWithName</code>和<code class="highlighter-rouge">endBackgroundTask</code>  <br />
+  <p><code class="language-plaintext highlighter-rouge">beginBackgroundTaskWithName</code>和<code class="language-plaintext highlighter-rouge">endBackgroundTask</code>  <br />
 测试机型【iPhone6-12.4.7】后台运行时间约3分钟(176秒)左右;<br />
 测试机型【iPhone6s-13.5.1】后台运行时间34秒左右;</p>
 </blockquote>
@@ -24,7 +24,7 @@
 
 <p><strong>上代码</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RKKeepAlive.h
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RKKeepAlive.h
 #import &lt;Foundation/Foundation.h&gt;
 
 #import &lt;AVFoundation/AVFoundation.h&gt;
@@ -42,7 +42,7 @@ static NSString *const kBgTaskName = @"com.rk.root777.KeepAlive";
 @end
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RKKeepAlive.m
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RKKeepAlive.m
 #import "RKKeepAlive.h"
 #import "AppDelegate.h"
 
@@ -77,7 +77,26 @@ static RKKeepAlive *_keepInstance = nil;
         AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:&amp;error];
         audioPlayer.numberOfLoops = NSUIntegerMax;
         _player = audioPlayer;
-        NSLog(@"%s 初始化报错了==:%@",__FUNCTION__,error);
+        
+         AVAudioSession *session = [AVAudioSession sharedInstance];
+        [[AVAudioSession sharedInstance] setMode:AVAudioSessionModeDefault error:nil];
+        NSString* route = [[[[[AVAudioSession sharedInstance] currentRoute] outputs] objectAtIndex:0] portType];
+        if ([route isEqualToString:AVAudioSessionPortHeadphones] || [route isEqualToString:AVAudioSessionPortBluetoothA2DP] || [route isEqualToString:AVAudioSessionPortBluetoothLE] || [route isEqualToString:AVAudioSessionPortBluetoothHFP]) {
+            if (@available(iOS 10.0, *)) {
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord
+                                                 withOptions:(AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionAllowBluetooth | AVAudioSessionCategoryOptionAllowBluetoothA2DP)
+                                                       error:nil];
+            } else {
+                // Fallback on earlier versions
+            }
+        }else{
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord
+                                             withOptions:(AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker)
+                                                   error:nil];
+        }
+        
+        [session setActive:YES error:nil];
+        NSLog(@"%s 初始化==:%@",__FUNCTION__,error?[NSString stringWithFormat:@"失败:%@",error]:@"成功");
     }
     return _player;
 }
@@ -160,8 +179,8 @@ static RKKeepAlive *_keepInstance = nil;
 
 <h4 id="使用">使用</h4>
 
-<p>1.在<code class="highlighter-rouge">AppDelegate.h</code>中声明一下结构体和属性</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typedef NS_ENUM(NSInteger,YBAppLifeCycle) {
+<p>1.在<code class="language-plaintext highlighter-rouge">AppDelegate.h</code>中声明一下结构体和属性</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typedef NS_ENUM(NSInteger,YBAppLifeCycle) {
     APPLifeCycle_Default,           //默认
     APPLifeCycle_EnterForeground,   //进入前台
     APPLifeCycle_EnterBackground,   //进入后台
@@ -173,12 +192,12 @@ typedef void(^YBAppLifeCycleBlock) (YBAppLifeCycle lifeCycleType);
 
 @property(nonatomic,copy)YBAppLifeCycleBlock lifeCycleEvent;
 </code></pre></div></div>
-<p>2.在<code class="highlighter-rouge">launchOptions</code>中设置监听</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    //生命周期监听
+<p>2.在<code class="language-plaintext highlighter-rouge">launchOptions</code>中设置监听</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    //生命周期监听
     [[RKKeepAlive sharedKeepInstance] startAppLifeCycleMonitor];
 </code></pre></div></div>
 <p>3.在以下几个系统方法中设置回调</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#pragma mark - 杀进程
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#pragma mark - 杀进程
 - (void)applicationWillTerminate:(UIApplication *)application{
     if (self.lifeCycleEvent) {
         self.lifeCycleEvent(APPLifeCycle_WillTerminate);
@@ -234,15 +253,15 @@ typedef void(^YBAppLifeCycleBlock) (YBAppLifeCycle lifeCycleType);
 
 <ul>
   <li>参考学习网址：</li>
-  <li><code class="highlighter-rouge">App</code>接入<code class="highlighter-rouge">iOS 11</code>的<code class="highlighter-rouge">Files App</code>:<a href="https://www.jianshu.com/p/61b4e26ab413">https://www.jianshu.com/p/61b4e26ab413</a></li>
-  <li><code class="highlighter-rouge">iOS</code>后台挂起的一些坑:<a href="https://www.cnblogs.com/saytome/p/7080056.html">https://www.cnblogs.com/saytome/p/7080056.html</a></li>
-  <li><code class="highlighter-rouge">iOS</code>如何实时查看<code class="highlighter-rouge">App</code>运行日志:<a href="http://www.cocoachina.com/articles/19933">http://www.cocoachina.com/articles/19933</a></li>
-  <li><code class="highlighter-rouge">iOS</code>版微信推送即时消息是如何实现的:<a href="https://www.zhihu.com/question/20654687">https://www.zhihu.com/question/20654687</a></li>
-  <li><code class="highlighter-rouge">iPhone</code>在一个小时内,接受推送的次数有限制吗:<a href="https://community.jiguang.cn/t/iphone/2511">https://community.jiguang.cn/t/iphone/2511</a></li>
-  <li>为什么<code class="highlighter-rouge">iOS</code>的微信没有常驻后台,也能收到新消息通知:<a href="https://mlog.club/article/45386">https://mlog.club/article/45386</a></li>
-  <li><code class="highlighter-rouge">iOS</code>后台运行的相关方案总结:<a href="https://ctinusdev.github.io/2016/05/10/BackgroundTask/">https://ctinusdev.github.io/2016/05/10/BackgroundTask/</a></li>
-  <li><code class="highlighter-rouge">iOS</code>之原生地图的使用详解:<a href="https://blog.csdn.net/u011146511/article/details/51245469">https://blog.csdn.net/u011146511/article/details/51245469</a></li>
-  <li><code class="highlighter-rouge">iOS</code>项目技术还债之路《一》后台下载趟坑:<a href="https://juejin.im/post/5cf7eb0351882576710e5c15">https://juejin.im/post/5cf7eb0351882576710e5c15</a></li>
+  <li><code class="language-plaintext highlighter-rouge">App</code>接入<code class="language-plaintext highlighter-rouge">iOS 11</code>的<code class="language-plaintext highlighter-rouge">Files App</code>:<a href="https://www.jianshu.com/p/61b4e26ab413">https://www.jianshu.com/p/61b4e26ab413</a></li>
+  <li><code class="language-plaintext highlighter-rouge">iOS</code>后台挂起的一些坑:<a href="https://www.cnblogs.com/saytome/p/7080056.html">https://www.cnblogs.com/saytome/p/7080056.html</a></li>
+  <li><code class="language-plaintext highlighter-rouge">iOS</code>如何实时查看<code class="language-plaintext highlighter-rouge">App</code>运行日志:<a href="http://www.cocoachina.com/articles/19933">http://www.cocoachina.com/articles/19933</a></li>
+  <li><code class="language-plaintext highlighter-rouge">iOS</code>版微信推送即时消息是如何实现的:<a href="https://www.zhihu.com/question/20654687">https://www.zhihu.com/question/20654687</a></li>
+  <li><code class="language-plaintext highlighter-rouge">iPhone</code>在一个小时内,接受推送的次数有限制吗:<a href="https://community.jiguang.cn/t/iphone/2511">https://community.jiguang.cn/t/iphone/2511</a></li>
+  <li>为什么<code class="language-plaintext highlighter-rouge">iOS</code>的微信没有常驻后台,也能收到新消息通知:<a href="https://mlog.club/article/45386">https://mlog.club/article/45386</a></li>
+  <li><code class="language-plaintext highlighter-rouge">iOS</code>后台运行的相关方案总结:<a href="https://ctinusdev.github.io/2016/05/10/BackgroundTask/">https://ctinusdev.github.io/2016/05/10/BackgroundTask/</a></li>
+  <li><code class="language-plaintext highlighter-rouge">iOS</code>之原生地图的使用详解:<a href="https://blog.csdn.net/u011146511/article/details/51245469">https://blog.csdn.net/u011146511/article/details/51245469</a></li>
+  <li><code class="language-plaintext highlighter-rouge">iOS</code>项目技术还债之路《一》后台下载趟坑:<a href="https://juejin.im/post/5cf7eb0351882576710e5c15">https://juejin.im/post/5cf7eb0351882576710e5c15</a></li>
 </ul>
 
 :ET

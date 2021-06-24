@@ -1,18 +1,18 @@
-I"�T<p>最近在做一个app，内容主要是 一个 <code class="highlighter-rouge">table view</code> 的 <code class="highlighter-rouge">cell</code> 中有一张宽度一定高度不一定的图片和不一样高度的文字。每次从服务器楼数据会返回图片的 <code class="highlighter-rouge">URL</code> 地址和文字等内容，但只有图片下载完成后才能知道图片的大小。文字可以通过一些 <code class="highlighter-rouge">API</code> 计算固定宽度后的高度，但是图片在不下载完成后是不知道图片的宽高的。我们“很硬”的后台没有提供相关的接口。因为项目比较紧，两个星期完成一个 APP…</p>
+I"�W<p>最近在做一个app，内容主要是 一个 <code class="language-plaintext highlighter-rouge">table view</code> 的 <code class="language-plaintext highlighter-rouge">cell</code> 中有一张宽度一定高度不一定的图片和不一样高度的文字。每次从服务器楼数据会返回图片的 <code class="language-plaintext highlighter-rouge">URL</code> 地址和文字等内容，但只有图片下载完成后才能知道图片的大小。文字可以通过一些 <code class="language-plaintext highlighter-rouge">API</code> 计算固定宽度后的高度，但是图片在不下载完成后是不知道图片的宽高的。我们“很硬”的后台没有提供相关的接口。因为项目比较紧，两个星期完成一个 APP…</p>
 
 <p>好了言归正传，交代了背景，再介绍下我遇到的问题： <br />
-1、在不知道图片宽高的情况下如何动态适配 <code class="highlighter-rouge">cell</code> 中的高度。 <br />
-2、在我重写 <code class="highlighter-rouge">cell</code> 时因为在 <code class="highlighter-rouge">cell</code> 底部有可以点击的<code class="highlighter-rouge">button</code>，但是突然在某一天无法点击了，找了半天也没有找到原因。</p>
+1、在不知道图片宽高的情况下如何动态适配 <code class="language-plaintext highlighter-rouge">cell</code> 中的高度。 <br />
+2、在我重写 <code class="language-plaintext highlighter-rouge">cell</code> 时因为在 <code class="language-plaintext highlighter-rouge">cell</code> 底部有可以点击的<code class="language-plaintext highlighter-rouge">button</code>，但是突然在某一天无法点击了，找了半天也没有找到原因。</p>
 
-<p>对于第一个问题，首先先介绍下 <code class="highlighter-rouge">Table view</code> 的加载流程，主要的就 3 步： 
-1、通过代理获得一共有多少个 <code class="highlighter-rouge">cell</code> <br />
-2、通过代理获得每个 <code class="highlighter-rouge">cell</code> 的高度<br />
-3、通过代理填充当前显示的 <code class="highlighter-rouge">cell</code> 中的内容。<code class="highlighter-rouge">table view</code> 会在 <code class="highlighter-rouge">layoutSubviews</code> 中做这三件事，而 <code class="highlighter-rouge">layoutSubviews</code> 方法除了在 <code class="highlighter-rouge">frame</code> 改变后调用还会在 <code class="highlighter-rouge">scroll view</code> 滚动时调用， 每次滚动时 !</p>
+<p>对于第一个问题，首先先介绍下 <code class="language-plaintext highlighter-rouge">Table view</code> 的加载流程，主要的就 3 步： 
+1、通过代理获得一共有多少个 <code class="language-plaintext highlighter-rouge">cell</code> <br />
+2、通过代理获得每个 <code class="language-plaintext highlighter-rouge">cell</code> 的高度<br />
+3、通过代理填充当前显示的 <code class="language-plaintext highlighter-rouge">cell</code> 中的内容。<code class="language-plaintext highlighter-rouge">table view</code> 会在 <code class="language-plaintext highlighter-rouge">layoutSubviews</code> 中做这三件事，而 <code class="language-plaintext highlighter-rouge">layoutSubviews</code> 方法除了在 <code class="language-plaintext highlighter-rouge">frame</code> 改变后调用还会在 <code class="language-plaintext highlighter-rouge">scroll view</code> 滚动时调用， 每次滚动时 !</p>
 
-<p>一开始的做法比较糙，直接用 <code class="highlighter-rouge">SDWebImage</code> 的异步加载图片的方法，在图片加载完后图片的高度变了，<code class="highlighter-rouge">cell</code> 非常恶心。。。脑补下吧。 方法直接 <code class="highlighter-rouge">pass</code> 了。 
-然后我改进了做法，准备一个 <code class="highlighter-rouge">dictionary</code> 记录每个 <code class="highlighter-rouge">cell</code> 的高度（为什么不用 <code class="highlighter-rouge">array</code> 后面再谈）， 在 <code class="highlighter-rouge">configure cell</code> 时下载图片，然后在下载完成的回调里记录下当前行的行高，然后 <code class="highlighter-rouge">reload table cell at indexPaths …</code>， 这样做的后果是样式比上一种方法好点了，但是在某一刻，它居然崩溃了。。。。。。刷的太快了。。。。</p>
+<p>一开始的做法比较糙，直接用 <code class="language-plaintext highlighter-rouge">SDWebImage</code> 的异步加载图片的方法，在图片加载完后图片的高度变了，<code class="language-plaintext highlighter-rouge">cell</code> 非常恶心。。。脑补下吧。 方法直接 <code class="language-plaintext highlighter-rouge">pass</code> 了。 
+然后我改进了做法，准备一个 <code class="language-plaintext highlighter-rouge">dictionary</code> 记录每个 <code class="language-plaintext highlighter-rouge">cell</code> 的高度（为什么不用 <code class="language-plaintext highlighter-rouge">array</code> 后面再谈）， 在 <code class="language-plaintext highlighter-rouge">configure cell</code> 时下载图片，然后在下载完成的回调里记录下当前行的行高，然后 <code class="language-plaintext highlighter-rouge">reload table cell at indexPaths …</code>， 这样做的后果是样式比上一种方法好点了，但是在某一刻，它居然崩溃了。。。。。。刷的太快了。。。。</p>
 
-<p>最后参考苹果的示例程序 <code class="highlighter-rouge">LazyTable</code> 实现了现在很满意的效果。以下关键数据和名称已替换，但不影响阅读。</p>
+<p>最后参考苹果的示例程序 <code class="language-plaintext highlighter-rouge">LazyTable</code> 实现了现在很满意的效果。以下关键数据和名称已替换，但不影响阅读。</p>
 
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#pragma mark - Table view datasource and delegate
 </span><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">tableView</span><span class="p">:(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">numberOfRowsInSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span> <span class="p">{</span>
@@ -125,9 +125,9 @@
     <span class="p">[</span><span class="n">self</span> <span class="nf">loadImageForOnScreenRows</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<p>现在来解释下为什么我保存 <code class="highlighter-rouge">cell</code> 高度用字典文件不用 <code class="highlighter-rouge">array</code>。 因为。。。。。。我懒。用 <code class="highlighter-rouge">array</code>保存，每个没有数据的项要填充默认数据，否则脑补下。而字典文件没有物理上的顺序性，可以脑补出一个逻辑上的顺序性，通过自定义 <code class="highlighter-rouge">key</code>。</p>
+<p>现在来解释下为什么我保存 <code class="language-plaintext highlighter-rouge">cell</code> 高度用字典文件不用 <code class="language-plaintext highlighter-rouge">array</code>。 因为。。。。。。我懒。用 <code class="language-plaintext highlighter-rouge">array</code>保存，每个没有数据的项要填充默认数据，否则脑补下。而字典文件没有物理上的顺序性，可以脑补出一个逻辑上的顺序性，通过自定义 <code class="language-plaintext highlighter-rouge">key</code>。</p>
 
-<p>现在谈谈第二个问题： 自定义的 <code class="highlighter-rouge">cell</code> 中的的 <code class="highlighter-rouge">button</code> 都没法点击了，我重写了 <code class="highlighter-rouge">hit test</code> 方法，强制返回那个 <code class="highlighter-rouge">button</code>，重写了 <code class="highlighter-rouge">touch began</code>, <code class="highlighter-rouge">touch end</code> 强制向下一个响应者发送事件，没用。。。。坑爹啊。最后我调整 <code class="highlighter-rouge">button</code> 的位置，原点移动到了 （0,0） 可以点击了！！！！ 给 <code class="highlighter-rouge">contentView</code> 补了个色，尼玛怎么还是默认高度！！！！！！！原来在重写 <code class="highlighter-rouge">layoutSubviews</code> 方法中我只顾着调整我自己的子 <code class="highlighter-rouge">view</code> 的位置了，忘了调整 <code class="highlighter-rouge">content view</code>。在方法开头补上</p>
+<p>现在谈谈第二个问题： 自定义的 <code class="language-plaintext highlighter-rouge">cell</code> 中的的 <code class="language-plaintext highlighter-rouge">button</code> 都没法点击了，我重写了 <code class="language-plaintext highlighter-rouge">hit test</code> 方法，强制返回那个 <code class="language-plaintext highlighter-rouge">button</code>，重写了 <code class="language-plaintext highlighter-rouge">touch began</code>, <code class="language-plaintext highlighter-rouge">touch end</code> 强制向下一个响应者发送事件，没用。。。。坑爹啊。最后我调整 <code class="language-plaintext highlighter-rouge">button</code> 的位置，原点移动到了 （0,0） 可以点击了！！！！ 给 <code class="language-plaintext highlighter-rouge">contentView</code> 补了个色，尼玛怎么还是默认高度！！！！！！！原来在重写 <code class="language-plaintext highlighter-rouge">layoutSubviews</code> 方法中我只顾着调整我自己的子 <code class="language-plaintext highlighter-rouge">view</code> 的位置了，忘了调整 <code class="language-plaintext highlighter-rouge">content view</code>。在方法开头补上</p>
 
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">super</span> <span class="nf">layoutSubviews</span><span class="p">];</span>
 </code></pre></div></div>

@@ -1,4 +1,4 @@
-I"�,<h4 id="简介字符串-可变字符串数组-可变数组-及对其操作">简介：字符串 可变字符串、数组 可变数组 及对其操作</h4>
+I"�,<h4 id="简介字符串-可变字符串数组-可变数组-及对其操作">简介：字符串 可变字符串、数组 可变数组 及对其操作</h4>
 
 <h5 id="创建一个空的字符串">创建一个空的字符串</h5>
 
@@ -244,7 +244,7 @@ for (int i=0; icount; i++) {
 
 }
 </code></pre>
-<h5 id="oc独有的forin语法">OC独有的<code class="highlighter-rouge">for...in...</code>语法</h5>
+<h5 id="oc独有的forin语法">OC独有的<code class="language-plaintext highlighter-rouge">for...in...</code>语法</h5>
 <pre><code class="language-objective-c">for (NSString*string in mutableArray2) {
 
     NSLog(@"%@",string);

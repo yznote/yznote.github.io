@@ -1,0 +1,12 @@
+I"�<p><img src="/img/20210624/2.png" alt="图1" />
+<img src="/img/20210624/2.png" alt="图1" /></p>
+
+<p>第一步:填写包名、应用名称;<br />
+第二步:Google自动配置并生成<code class="language-plaintext highlighter-rouge">.plist</code>文件;<br />
+第三步:下载生成的<code class="language-plaintext highlighter-rouge">GoogleService-Info.plist</code>并拖入项目中; 
+第四步:下载SDK <code class="language-plaintext highlighter-rouge">pod 'Firebase/Analytics'</code>;<br />
+第五步:在<code class="language-plaintext highlighter-rouge">launchoption</code>中配置<code class="language-plaintext highlighter-rouge">[FIRApp configure];</code>;<br />
+第六步:卸载原有应用,并重新运行,Google控制台自动检测配置是否正确;</p>
+
+<p>地址:https://analytics.google.com/analytics/web/?authuser=1#/p276130010/realtime/overview?params=_u..nav%3Ddefault</p>
+:ET

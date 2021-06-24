@@ -1,7 +1,7 @@
-I"wC<h4 id="网络监测">网络监测</h4>
+I"D<h4 id="网络监测">网络监测</h4>
 
-<h5 id="rknetmonitorh"><code class="highlighter-rouge">RKNetMonitor.h</code></h5>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+<h5 id="rknetmonitorh"><code class="language-plaintext highlighter-rouge">RKNetMonitor.h</code></h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
 
 @interface RKNetConnect: NSObject
 
@@ -24,9 +24,9 @@
 @end
 </code></pre></div></div>
 
-<h5 id="rknetmonitorm"><code class="highlighter-rouge">RKNetMonitor.m</code></h5>
+<h5 id="rknetmonitorm"><code class="language-plaintext highlighter-rouge">RKNetMonitor.m</code></h5>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "RKNetMonitor.h"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "RKNetMonitor.h"
 
 #include &lt;ifaddrs.h&gt;
 #include &lt;arpa/inet.h&gt;
@@ -147,7 +147,7 @@ static RKNetMonitor *_monitor = nil;
 
 <h5 id="外部调用">外部调用</h5>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 [[RKNetMonitor shareInstance] getInterfaceBytes:5];
 NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/S",[RKNetMonitor shareInstance].connectObj.oBytes,[RKNetMonitor shareInstance].connectObj.oBytesOfRate,[RKNetMonitor shareInstance].connectObj.iBytes,[RKNetMonitor shareInstance].connectObj.iBytesOfRate];
 //_rateBtn显示网速的 按钮
@@ -159,7 +159,7 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
 
 <p><a href="https://www.theiphonewiki.com/wiki/Models">手机型号对照表</a></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 + (NSInteger)getDeviceType;{
     struct utsname systemInfo;
     uname(&amp;systemInfo);
@@ -177,7 +177,7 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
 
 <h4 id="网络类型">网络类型</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 + (NSString *)getNetworkType {
     UIApplication *app = [UIApplication sharedApplication];
     id statusBar = nil;
@@ -325,7 +325,7 @@ NSString *rateShowStr = [NSString stringWithFormat:@"上:%@ R:%@/S\n下:%@ R:%@/
 
 <h4 id="信号质量">信号质量</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 + (int)getSignalStrength {
     int signalStrength = 0;
     if (@available(iOS 13.0, *)) {

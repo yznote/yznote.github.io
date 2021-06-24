@@ -1,13 +1,13 @@
-I"�)<h4 id="一了解几个相关的类">一、了解几个相关的类</h4>
+I"�*<h4 id="一了解几个相关的类">一、了解几个相关的类</h4>
 
 <h5 id="1nsnotification">1、NSNotification</h5>
 
 <p>这个类可以理解为一个消息对象，其中有三个成员变量。这个成员变量是这个消息对象的唯一标识，用于辨别消息对象。<br />
-<code class="highlighter-rouge">@property (readonly, copy) NSString *name;</code><br />
+<code class="language-plaintext highlighter-rouge">@property (readonly, copy) NSString *name;</code><br />
 这个成员变量定义一个对象，可以理解为针对某一个对象的消息。<br />
-<code class="highlighter-rouge">@property (readonly, retain) id object;</code><br />
+<code class="language-plaintext highlighter-rouge">@property (readonly, retain) id object;</code><br />
 这个成员变量是一个字典，可以用其来进行传值。<br />
- <code class="highlighter-rouge">@property (readonly, copy) NSDictionary *userInfo;</code></p>
+ <code class="language-plaintext highlighter-rouge">@property (readonly, copy) NSDictionary *userInfo;</code></p>
 
 <h6 id="nsnotification的初始化方法">NSNotification的初始化方法：</h6>
 
@@ -18,7 +18,7 @@
 <span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">notificationWithName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span> <span class="nf">userInfo</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">aUserInfo</span><span class="p">;</span>
 </code></pre></div></div>
 <blockquote>
-  <p>注意:官方文档有明确的说明，不可以使用<code class="highlighter-rouge">init</code>进行初始化</p>
+  <p>注意:官方文档有明确的说明，不可以使用<code class="language-plaintext highlighter-rouge">init</code>进行初始化</p>
 </blockquote>
 
 <h5 id="2nsnotificationcenter">2、NSNotificationCenter</h5>
@@ -47,8 +47,8 @@
 
 <blockquote>
   <p>几点注意：<br />
-1、如果发送的通知指定了<code class="highlighter-rouge">object</code>对象，那么观察者接收的通知设置的<code class="highlighter-rouge">object</code>对象与其一样，才会接收到通知，但是接收通知如果将这个参数设置为了<code class="highlighter-rouge">nil</code>，则会接收一切通知。<br />
-2、观察者的SEL函数指针可以有一个参数，参数就是发送的死奥西对象本身，可以通过这个参数取到消息对象的<code class="highlighter-rouge">userInfo</code>，实现传值。</p>
+1、如果发送的通知指定了<code class="language-plaintext highlighter-rouge">object</code>对象，那么观察者接收的通知设置的<code class="language-plaintext highlighter-rouge">object</code>对象与其一样，才会接收到通知，但是接收通知如果将这个参数设置为了<code class="language-plaintext highlighter-rouge">nil</code>，则会接收一切通知。<br />
+2、观察者的SEL函数指针可以有一个参数，参数就是发送的死奥西对象本身，可以通过这个参数取到消息对象的<code class="language-plaintext highlighter-rouge">userInfo</code>，实现传值。</p>
 </blockquote>
 
 <h4 id="二通知的使用流程">二、通知的使用流程</h4>

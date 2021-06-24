@@ -1,8 +1,8 @@
-I"�<h4 id="m3u8测试地址">M3U8测试地址</h4>
+I"�<h4 id="m3u8测试地址">M3U8测试地址</h4>
 
-<p>北邮<code class="highlighter-rouge">ivi</code>测试 <code class="highlighter-rouge">http://ivi.bupt.edu.cn/</code>  有PC端和移动端，手机可以直接访问网址，附提取地址方便导入机顶盒</p>
+<p>北邮<code class="language-plaintext highlighter-rouge">ivi</code>测试 <code class="language-plaintext highlighter-rouge">http://ivi.bupt.edu.cn/</code>  有PC端和移动端，手机可以直接访问网址，附提取地址方便导入机顶盒</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CCTV-1高清  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CCTV-1高清  
 http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8  
 
 CCTV-3高清  

@@ -1,13 +1,13 @@
-I"=><h4 id="oc中的类分为h和m">OC中的类分为<code class="highlighter-rouge">.h</code>和<code class="highlighter-rouge">.m</code></h4>
+I"�><h4 id="oc中的类分为h和m">OC中的类分为<code class="language-plaintext highlighter-rouge">.h</code>和<code class="language-plaintext highlighter-rouge">.m</code></h4>
 
-<h5 id="h主要做声明成员变量属性方法"><code class="highlighter-rouge">.h</code>主要做声明：成员变量、属性、方法</h5>
+<h5 id="h主要做声明成员变量属性方法"><code class="language-plaintext highlighter-rouge">.h</code>主要做声明：成员变量、属性、方法</h5>
 <p>表示类的接口@interface</p>
 
-<h5 id="m作为函数的实现部分实现方法"><code class="highlighter-rouge">.m</code>作为函数的实现部分：实现方法</h5>
+<h5 id="m作为函数的实现部分实现方法"><code class="language-plaintext highlighter-rouge">.m</code>作为函数的实现部分：实现方法</h5>
 <p>@implementation</p>
 
 <h4 id="面向对象的三大特性">面向对象的三大特性：</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>封装：隐藏内部实现，稳定外部接口；
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>封装：隐藏内部实现，稳定外部接口；
 继承：子类复用父类的成员变量、属性、方法（重写）；
 多态：父类对象指向子类空间   
 // student作为一个类存在
@@ -99,7 +99,7 @@
 <span class="k">-</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">getKilometer</span><span class="p">;</span>
 <span class="k">@end</span>
 </code></pre></div></div>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Car.m
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Car.m
 #import "Car.h"
 @implementation Car
 -(float)getKilometer
@@ -110,7 +110,7 @@
 }
 @end
 </code></pre></div></div>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main.m
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main.m
 Car *s1=[[Car alloc] init];
     s1-&gt;speed=100;
     s1-&gt;oil=200;

@@ -1,9 +1,9 @@
-I"i<h4 id="alertcontroller">AlertController</h4>
+I"�<h4 id="alertcontroller">AlertController</h4>
 <p><strong>iOS8以后系统的提示框改为了UIAlertController,下面利用KVC来更改标题、提示的字体以及颜色</strong></p>
 
 <p><img src="/img/20200107/1.png" alt="项目1" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc]initWithString:@"标题1" attributes:@{NSForegroundColorAttributeName:[UIColor blueColor],NSFontAttributeName:[UIFont systemFontOfSize:17]}];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc]initWithString:@"标题1" attributes:@{NSForegroundColorAttributeName:[UIColor blueColor],NSFontAttributeName:[UIFont systemFontOfSize:17]}];
 NSMutableAttributedString *attMessage = [[NSMutableAttributedString alloc]initWithString:@"message" attributes:@{NSForegroundColorAttributeName:[UIColor purpleColor],NSFontAttributeName:[UIFont systemFontOfSize:14]}];
 
 UIAlertController *action = [UIAlertController alertControllerWithTitle:@"标题1" message:@"message" preferredStyle:UIAlertControllerStyleActionSheet];
@@ -48,9 +48,9 @@ UIAlertAction *can = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActio
 [self presentViewController:action animated:YES completion:nil];
 </code></pre></div></div>
 
-<h4 id="使用runtime来获取系统属性key">使用<code class="highlighter-rouge">runtime</code>来获取系统属性<code class="highlighter-rouge">key</code></h4>
+<h4 id="使用runtime来获取系统属性key">使用<code class="language-plaintext highlighter-rouge">runtime</code>来获取系统属性<code class="language-plaintext highlighter-rouge">key</code></h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsigned int count = 0;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsigned int count = 0;
 Ivar *ivars = class_copyIvarList(NSClassFromString(@"CYObject"), &amp;count);
 //ivars不是数组而是内存地址
 NSLog(@"count:%d",count);

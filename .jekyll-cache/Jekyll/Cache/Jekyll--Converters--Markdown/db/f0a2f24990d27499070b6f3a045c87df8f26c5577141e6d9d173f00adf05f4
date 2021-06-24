@@ -1,8 +1,8 @@
-I"�<h4 id="补充">补充</h4>
+I"�<h4 id="补充">补充</h4>
 <p><a href="https://www.jianshu.com/p/854dc9c810c9">4-26补充</a></p>
 
 <h4 id="方法一">方法一</h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSURL *videoURl = [NSURL URLWithString:_playUrl];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSURL *videoURl = [NSURL URLWithString:_playUrl];
 AVAsset *asset = [AVAsset assetWithURL:videoURl];
 [asset loadValuesAsynchronouslyForKeys:@[@"tracks"] completionHandler:^{
     dispatch_async(dispatch_get_main_queue(), ^{

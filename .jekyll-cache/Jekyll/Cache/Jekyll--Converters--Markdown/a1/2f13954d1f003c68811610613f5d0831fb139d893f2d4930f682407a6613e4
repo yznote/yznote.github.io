@@ -1,26 +1,26 @@
-I"�<h4 id="亚马逊s3app上传配置">亚马逊S3App上传配置</h4>
+I"́<h4 id="亚马逊s3app上传配置">亚马逊S3App上传配置</h4>
 
-<h5 id="创建identitypool基于服务端创建的存储桶">创建<code class="highlighter-rouge">identitypool</code>【基于服务端创建的存储桶】</h5>
+<h5 id="创建identitypool基于服务端创建的存储桶">创建<code class="language-plaintext highlighter-rouge">identitypool</code>【基于服务端创建的存储桶】</h5>
 
 <p><a href="https://ap-southeast-1.console.aws.amazon.com/cognito/home?region=ap-southeast-1">创建地址:https://ap-southeast-1.console.aws.amazon.com/cognito/home?region=ap-southeast-1</a></p>
 
 <p>1.选择区域【例如:Asia Pacific,这里的区域要和存储桶区域一致】<br />
-2.点击<code class="highlighter-rouge">Manage Identity Pools</code><br />
+2.点击<code class="language-plaintext highlighter-rouge">Manage Identity Pools</code><br />
 <img src="/img/20201224/1.png" alt="图1" /><br />
-3.点击<code class="highlighter-rouge">Create new identity pool</code><br />
+3.点击<code class="language-plaintext highlighter-rouge">Create new identity pool</code><br />
 <img src="/img/20201224/2.png" alt="图2" /><br />
-4.填写<code class="highlighter-rouge">Identity pool name</code>如图勾选保存即可:
+4.填写<code class="language-plaintext highlighter-rouge">Identity pool name</code>如图勾选保存即可:
 <img src="/img/20201224/3.png" alt="图3" /><br />
-5.第4步保存完会跳转至下图界面【如如果是已创建过,点击创建的identitypool是一样的】注意记录下列截图中的<code class="highlighter-rouge">identitypoolid</code>后续会用到<br />
+5.第4步保存完会跳转至下图界面【如如果是已创建过,点击创建的identitypool是一样的】注意记录下列截图中的<code class="language-plaintext highlighter-rouge">identitypoolid</code>后续会用到<br />
 <img src="/img/20201224/4.png" alt="图4" /><br />
-至此,<code class="highlighter-rouge">identitypool</code>创建完毕.</p>
+至此,<code class="language-plaintext highlighter-rouge">identitypool</code>创建完毕.</p>
 
 <h5 id="存储访问规则编写">存储/访问规则编写</h5>
 
 <p>1.进入<a href="https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1">存储桶:https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1</a>点击已经创建的存储桶名称【如还未<a href="https://rookie920.github.io/2020/12/24/亚马逊S3-2/">创建存储桶</a>,需要按照存储桶创建文档创建存储桶,存储桶创建完毕,继续执行此步骤】<br />
 <img src="/img/20201224/5.png" alt="图5" /> 
-2.来到存储桶内,选择<code class="highlighter-rouge">Permissions</code> 向下拉看到<code class="highlighter-rouge">Bucket policy</code>停止,点击右边的<code class="highlighter-rouge">Edit</code>将下列代码填入保存</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+2.来到存储桶内,选择<code class="language-plaintext highlighter-rouge">Permissions</code> 向下拉看到<code class="language-plaintext highlighter-rouge">Bucket policy</code>停止,点击右边的<code class="language-plaintext highlighter-rouge">Edit</code>将下列代码填入保存</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
     "Version": "2012-10-17",
     "Id": "将创建identitypool步骤5中的identitypoolid填到此处",
     "Statement": [
@@ -56,17 +56,17 @@
 <p><a href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-credentials.html">App配置文档:https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-credentials.html</a></p>
 
 <p><strong>1.Pod导入</strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#AWS
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#AWS
 pod 'AWSS3','2.19.1'
 </code></pre></div></div>
 <p><strong>2.自定义存储类</strong></p>
 <blockquote>
-  <p>此步骤可省略,省略后<code class="highlighter-rouge">yb_awsInitialization</code>的实现要放到<code class="highlighter-rouge">application:didFinishLaunchingWithOptions:</code>里边执行;
-<code class="highlighter-rouge">yb_awsTransferOfBackgroundWithApplication:andIdentifier:completion:</code>的实现要放到<code class="highlighter-rouge">application:handleEventsForBackgroundURLSession:completionHandler:</code>里边执行;</p>
+  <p>此步骤可省略,省略后<code class="language-plaintext highlighter-rouge">yb_awsInitialization</code>的实现要放到<code class="language-plaintext highlighter-rouge">application:didFinishLaunchingWithOptions:</code>里边执行;
+<code class="language-plaintext highlighter-rouge">yb_awsTransferOfBackgroundWithApplication:andIdentifier:completion:</code>的实现要放到<code class="language-plaintext highlighter-rouge">application:handleEventsForBackgroundURLSession:completionHandler:</code>里边执行;</p>
 </blockquote>
 
-<p>i: <code class="highlighter-rouge">YBStorageConfig.h</code></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+<p>i: <code class="language-plaintext highlighter-rouge">YBStorageConfig.h</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
 
 
 @interface YBStorageConfig : NSObject
@@ -103,9 +103,9 @@ pod 'AWSS3','2.19.1'
 @end
 
 </code></pre></div></div>
-<p><code class="highlighter-rouge">YBStorageConfig.m</code></p>
+<p><code class="language-plaintext highlighter-rouge">YBStorageConfig.m</code></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "YBStorageConfig.h"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "YBStorageConfig.h"
 
 @implementation YBStorageConfig
 
@@ -204,8 +204,8 @@ pod 'AWSS3','2.19.1'
 @end
 </code></pre></div></div>
 
-<p>ii:<code class="highlighter-rouge">YBStorageManage.h</code></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+<p>ii:<code class="language-plaintext highlighter-rouge">YBStorageManage.h</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
 
 typedef void (^YBStoragePercentBlock)(CGFloat percent);
 
@@ -241,9 +241,9 @@ typedef void (^YBStorageFinishaBlock)(int code, NSString *key);
 
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">YBStorageManage.m</code></p>
+<p><code class="language-plaintext highlighter-rouge">YBStorageManage.m</code></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "YBStorageManage.h"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "YBStorageManage.h"
 
 #import "YBStorageConfig.h"
 
@@ -787,7 +787,7 @@ static YBStorageManage *storageManeger = nil;
 </code></pre></div></div>
 <p><strong>3.番外篇【iOS13之后非必须,之前必须,可以在上面yb_awsInitialization重新设置默认值】</strong>
 info.plist中配置亚马逊的存储信息</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;key&gt;AWS&lt;/key&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;key&gt;AWS&lt;/key&gt;
     &lt;dict&gt;
         &lt;key&gt;CredentialsProvider&lt;/key&gt;
         &lt;dict&gt;

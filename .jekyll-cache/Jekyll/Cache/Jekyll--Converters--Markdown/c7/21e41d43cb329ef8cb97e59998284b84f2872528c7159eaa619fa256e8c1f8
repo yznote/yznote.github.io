@@ -1,6 +1,6 @@
-I"d<h4 id="urlencode新">Urlencode(新)</h4>
+I"�<h4 id="urlencode新">Urlencode(新)</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(NSString *)urlEncodeStr:(NSString *)orUrl {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(NSString *)urlEncodeStr:(NSString *)orUrl {
     NSString *charactersToEscape = @"?!@#$^&amp;%*+,:;='\"`&lt;&gt;()[]{}/\\| ";
     NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
     NSString *encodedUrl = [orUrl stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
@@ -9,7 +9,7 @@
 </code></pre></div></div>
 <h4 id="urldecode新">Urldecode(新)</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(NSString *)urlDecodeStr:(NSString *)orUrl {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(NSString *)urlDecodeStr:(NSString *)orUrl {
     //方式 1
     NSString *decodedUrl = [orUrl stringByRemovingPercentEncoding];
     //方式 2
@@ -22,7 +22,7 @@
 
 <h4 id="urlencode旧">Urlencode(旧)</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(NSString*)encodeString:(NSString*)unencodedString {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(NSString*)encodeString:(NSString*)unencodedString {
 
 // CharactersToBeEscaped = @":/?&amp;=;+!@#$()~',*";
 
@@ -47,7 +47,7 @@ return encodedString;
 
 <h4 id="urldecode旧">Urldecode(旧)</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(NSString *)decodeString:(NSString*)encodedString {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(NSString *)decodeString:(NSString*)encodedString {
 
 //NSString *decodedString = [encodedString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
 

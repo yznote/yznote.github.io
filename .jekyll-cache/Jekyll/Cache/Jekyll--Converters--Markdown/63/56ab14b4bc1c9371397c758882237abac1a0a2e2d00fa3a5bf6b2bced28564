@@ -1,14 +1,14 @@
-I"f<h4 id="取沙盒日志的方法">取沙盒日志的方法</h4>
+I"<h4 id="取沙盒日志的方法">取沙盒日志的方法</h4>
 
-<p>1.手机连接<code class="highlighter-rouge">Mac</code>电脑，打开<code class="highlighter-rouge">Xcode</code>。</p>
+<p>1.手机连接<code class="language-plaintext highlighter-rouge">Mac</code>电脑，打开<code class="language-plaintext highlighter-rouge">Xcode</code>。</p>
 
-<p>2.选择顶栏的 <code class="highlighter-rouge">Windows</code> 下的 <code class="highlighter-rouge">Devices</code>。</p>
+<p>2.选择顶栏的 <code class="language-plaintext highlighter-rouge">Windows</code> 下的 <code class="language-plaintext highlighter-rouge">Devices</code>。</p>
 
-<p>3.在 <code class="highlighter-rouge">Devices</code> 栏下先选择当前连接的手机设备。</p>
+<p>3.在 <code class="language-plaintext highlighter-rouge">Devices</code> 栏下先选择当前连接的手机设备。</p>
 
-<p>4.在 <code class="highlighter-rouge">Installed Apps</code> 栏下选择你开发的<code class="highlighter-rouge">App（需要取沙盒文件的App）</code>。</p>
+<p>4.在 <code class="language-plaintext highlighter-rouge">Installed Apps</code> 栏下选择你开发的<code class="language-plaintext highlighter-rouge">App（需要取沙盒文件的App）</code>。</p>
 
-<p>5.点击底部 <code class="highlighter-rouge">齿轮图案</code> 的按钮，选择 <code class="highlighter-rouge">Download Container…</code></p>
+<p>5.点击底部 <code class="language-plaintext highlighter-rouge">齿轮图案</code> 的按钮，选择 <code class="language-plaintext highlighter-rouge">Download Container…</code></p>
 
 <h4 id="将输出日志nslog写入沙盒文件">将输出日志(NSLog)写入沙盒文件</h4>
 

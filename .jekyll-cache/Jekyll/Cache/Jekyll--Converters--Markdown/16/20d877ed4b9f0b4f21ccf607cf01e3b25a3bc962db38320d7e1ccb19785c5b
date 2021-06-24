@@ -1,10 +1,10 @@
-I"O<h4 id="前言">前言</h4>
+I"u<h4 id="前言">前言</h4>
 
 <p>目的:A、B同时执行，拿到A、B的执行结果再实行C</p>
 
 <h4 id="方式一">方式一</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    NSString *hUrl = @"http://dspceshi.yunbaozb.com/api/public/index.php?service=Video.getVideo&amp;uid=13629&amp;videoid=230&amp;mobileid=123aaa";
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    NSString *hUrl = @"http://dspceshi.yunbaozb.com/api/public/index.php?service=Video.getVideo&amp;uid=13629&amp;videoid=230&amp;mobileid=123aaa";
 
     NSLog(@"start");
     dispatch_group_t group = dispatch_group_create();
@@ -52,7 +52,7 @@
 
 <h4 id="方式二">方式二</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    NSString *hUrl = @"http://dspceshi.yunbaozb.com/api/public/index.php?service=Video.getVideo&amp;uid=13629&amp;videoid=230&amp;mobileid=123aaa";
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    NSString *hUrl = @"http://dspceshi.yunbaozb.com/api/public/index.php?service=Video.getVideo&amp;uid=13629&amp;videoid=230&amp;mobileid=123aaa";
 
     NSLog(@"start");
     dispatch_group_t group = dispatch_group_create();

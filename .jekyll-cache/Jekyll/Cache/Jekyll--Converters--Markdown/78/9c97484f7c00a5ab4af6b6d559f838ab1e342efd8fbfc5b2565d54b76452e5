@@ -1,13 +1,13 @@
-I"�<p>在iOS开发中很多人都会遇到这样的报错:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>: linker command failed with exit code 1 (use -v to see invocation) 
+I".<p>在iOS开发中很多人都会遇到这样的报错:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>: linker command failed with exit code 1 (use -v to see invocation) 
 </code></pre></div></div>
 <p>这个错误让很多iOS开发新人非常的头疼，今天我们就主要介绍说明一下这个错误产生的可能原因。</p>
 
-<p>1.引用出错，把<code class="highlighter-rouge">***.h</code>弄成了<code class="highlighter-rouge">.m</code>,检查一下你的所有引用；</p>
+<p>1.引用出错，把<code class="language-plaintext highlighter-rouge">***.h</code>弄成了<code class="language-plaintext highlighter-rouge">.m</code>,检查一下你的所有引用；</p>
 
-<p>2.再就是你引用第三方的库，你添加文件是系统没有所第三方库的<code class="highlighter-rouge">.m</code>文件参入的编译中去，你向项目添加文件得注意了;</p>
+<p>2.再就是你引用第三方的库，你添加文件是系统没有所第三方库的<code class="language-plaintext highlighter-rouge">.m</code>文件参入的编译中去，你向项目添加文件得注意了;</p>
 
-<p>3.找到<code class="highlighter-rouge">Build settings-&gt;Linking-&gt;Other Linker Flags</code>，将此属性修改成<code class="highlighter-rouge">-all_load或-ObjC</code>;</p>
+<p>3.找到<code class="language-plaintext highlighter-rouge">Build settings-&gt;Linking-&gt;Other Linker Flags</code>，将此属性修改成<code class="language-plaintext highlighter-rouge">-all_load或-ObjC</code>;</p>
 
 <p>4.看看是不是有新添加的文件跟之前文件同名;</p>
 

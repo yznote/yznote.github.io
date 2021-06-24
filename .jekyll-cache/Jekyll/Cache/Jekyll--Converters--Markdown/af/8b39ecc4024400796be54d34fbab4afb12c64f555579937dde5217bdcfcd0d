@@ -1,10 +1,10 @@
-I"7�<h4 id="置顶">置顶</h4>
+I"��<h4 id="置顶">置顶</h4>
 
 <p><strong>横竖屏幕适配(安全距离)</strong></p>
 
-<p>在控制器中重写以下方法其中<code class="highlighter-rouge">self.viewTop self.viewLeft self.viewRight self.viewBottom</code> 分别为子UIView距离四边约束，旋转屏幕可以完全适配。</p>
+<p>在控制器中重写以下方法其中<code class="language-plaintext highlighter-rouge">self.viewTop self.viewLeft self.viewRight self.viewBottom</code> 分别为子UIView距离四边约束，旋转屏幕可以完全适配。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)viewDidLayoutSubviews{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)viewDidLayoutSubviews{
 
     [super viewDidLayoutSubviews];
     
@@ -25,7 +25,7 @@
 <p><a href="https://www.jianshu.com/p/ced04a958e8c">超链接</a></p>
 
 <p><strong>iOS13</strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UITextField *textField ;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UITextField *textField ;
 if (@available(iOS 13.0,*)) {
     textField = _searchBar.searchTextField;
     textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_searchBar.placeholder attributes:@{NSForegroundColorAttributeName:RGB_COLOR(@"#323232", 0.5),NSFontAttributeName:[UIFont systemFontOfSize:16]}];
@@ -60,20 +60,20 @@ if (@available(iOS 13.0,*)) {
 
 <p><strong>Url转换</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 </code></pre></div></div>
 
 <p><strong>按钮</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[_coverBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[_coverBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];
 _coverBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
 _coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 </code></pre></div></div>
 
 <p><strong>版本判断</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 10.0,*)) {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 10.0,*)) {
         NSLog(@"10+");
     }else {
         NSLog(@"10-");
@@ -89,23 +89,23 @@ _coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
 <p>//选择(present)前</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 11, *)) {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 11, *)) {
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
     }
 </code></pre></div></div>
 
 <p>//完成选择(finish)</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 11, *)) {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 11, *)) {
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">present</code>: <code class="highlighter-rouge">[UIApplication sharedApplication].statusBarHidden=YES;</code> <br />
-<code class="highlighter-rouge">dismiss</code>: <code class="highlighter-rouge">[UIApplication sharedApplication].statusBarHidden=NO;</code></p>
+<p><code class="language-plaintext highlighter-rouge">present</code>: <code class="language-plaintext highlighter-rouge">[UIApplication sharedApplication].statusBarHidden=YES;</code> <br />
+<code class="language-plaintext highlighter-rouge">dismiss</code>: <code class="language-plaintext highlighter-rouge">[UIApplication sharedApplication].statusBarHidden=NO;</code></p>
 
 <p>//相册取消按钮不能点击</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ([UIDevice currentDevice].systemVersion.floatValue &lt; 11) {
         return;
     }
@@ -122,12 +122,12 @@ _coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
 <p><strong>时间倒序</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
 </code></pre></div></div>
 
 <p><strong>tableview回弹</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> _tableView.estimatedRowHeight =0;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> _tableView.estimatedRowHeight =0;
  _tableView.estimatedSectionHeaderHeight =0;
  _tableView.estimatedSectionFooterHeight =0;
 </code></pre></div></div>
@@ -255,7 +255,7 @@ _coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
 <h4 id="五禁止右滑返回">五、禁止右滑返回</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.interactivePopGestureRecognizer.delegate =nil;
 
@@ -270,7 +270,7 @@ _coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
 <h4 id="六获取视频第一帧">六、获取视频第一帧</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (UIImage*) getVideoPreViewImageWithPath:(NSURL *)videoPath {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (UIImage*) getVideoPreViewImageWithPath:(NSURL *)videoPath {
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoPath options:nil];
     AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     gen.appliesPreferredTrackTransform = YES;
@@ -322,7 +322,7 @@ _coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
 <h4 id="九刷新">九、刷新</h4>
 
-<p><code class="highlighter-rouge">MJRefreshNormalHeader</code>、<code class="highlighter-rouge">MJRefreshBackNormalFooter</code></p>
+<p><code class="language-plaintext highlighter-rouge">MJRefreshNormalHeader</code>、<code class="language-plaintext highlighter-rouge">MJRefreshBackNormalFooter</code></p>
 
 <h4 id="十打印字体">十、打印字体</h4>
 

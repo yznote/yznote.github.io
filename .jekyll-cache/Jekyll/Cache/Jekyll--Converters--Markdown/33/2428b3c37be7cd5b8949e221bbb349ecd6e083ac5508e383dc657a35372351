@@ -1,13 +1,13 @@
-I"<p>1.在<code class="highlighter-rouge">AppDelegate.h</code>文件中添加</p>
+I"e<p>1.在<code class="language-plaintext highlighter-rouge">AppDelegate.h</code>文件中添加</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/***  是否允许横屏的标记 */
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/***  是否允许横屏的标记 */
 @property (nonatomic,assign)BOOL allowRotation;
 
 </code></pre></div></div>
 
-<p>2.在<code class="highlighter-rouge">AppDelegate.m</code>中添加</p>
+<p>2.在<code class="language-plaintext highlighter-rouge">AppDelegate.m</code>中添加</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     if (self.allowRotation) {//如果设置了allowRotation属性，支持全屏
        return UIInterfaceOrientationMaskAll;
 }
@@ -17,7 +17,7 @@
 
 <p>3.接着在置顶横竖屏UI界面设置</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//进入全屏
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//进入全屏
 -(void)begainFullScreen{
   AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   appDelegate.allowRotation = YES;

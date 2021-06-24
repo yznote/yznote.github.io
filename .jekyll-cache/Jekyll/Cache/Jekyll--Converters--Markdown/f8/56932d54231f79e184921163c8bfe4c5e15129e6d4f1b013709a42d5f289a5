@@ -1,8 +1,8 @@
-I"�<h5 id="uiview扩展">UIview扩展</h5>
+I"�<h5 id="uiview扩展">UIview扩展</h5>
 
 <p><strong>四周阴影</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)rk_shadowWithColor: (UIColor *)color offset: (CGSize)offset opacity: (CGFloat)opacity radius: (CGFloat)radius{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)rk_shadowWithColor: (UIColor *)color offset: (CGSize)offset opacity: (CGFloat)opacity radius: (CGFloat)radius{
 
     self.clipsToBounds = NO;
     self.layer.shadowColor = color.CGColor;

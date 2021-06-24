@@ -1,4 +1,4 @@
-I"�@<h4 id="集合">集合</h4>
+I"�@<h4 id="集合">集合</h4>
 
 <h5 id="创建集合">创建集合</h5>
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSSet</span> <span class="o">*</span><span class="n">set1</span><span class="o">=</span><span class="p">[[</span><span class="n">NSSet</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithObjects</span><span class="p">:</span><span class="s">@"a"</span><span class="p">,</span><span class="s">@"b"</span><span class="p">,</span><span class="s">@"c"</span><span class="p">,</span><span class="s">@"a"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
@@ -29,7 +29,7 @@
 <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Intersects:%d"</span><span class="p">,</span><span class="n">isInset</span><span class="p">);</span>
 </code></pre></div></div>
 <h5 id="判断一个集合是不是另一个集合的子集">判断一个集合是不是另一个集合的子集</h5>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BOOL isSub=[set7 isSubsetOfSet:set8];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BOOL isSub=[set7 isSubsetOfSet:set8];
 NSLog(@"Subset:%d",isSub);
 </code></pre></div></div>
 <h5 id="判断集合中是不是包含某个元素">判断集合中是不是包含某个元素</h5>

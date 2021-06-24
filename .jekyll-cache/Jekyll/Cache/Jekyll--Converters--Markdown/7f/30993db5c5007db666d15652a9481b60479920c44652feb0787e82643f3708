@@ -1,6 +1,6 @@
-I"�<h4 id="wkwebview截图">WKWebView截图</h4>
+I"4<h4 id="wkwebview截图">WKWebView截图</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/** webView截屏 deviation:底部偏移量*/
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/** webView截屏 deviation:底部偏移量*/
 +(UIImage *)screenshotWhitWK:(WKWebView *)wkweb andDeviation:(CGFloat)deviation{
     
     CGFloat boundsWidth = wkweb.bounds.size.width;
@@ -33,11 +33,11 @@
 }
 </code></pre></div></div>
 
-<p>####<code class="highlighter-rouge">View</code>生成图片</p>
+<p>####<code class="language-plaintext highlighter-rouge">View</code>生成图片</p>
 
 <p>#####1.将传入的View生成图片：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)makeImageWithView:(UIView *)view{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)makeImageWithView:(UIView *)view{
     CGSize s = view.bounds.size;
     UIGraphicsBeginImageContextWithOptions(s, NO, [UIScreen mainScreen].scale); 
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];   
@@ -47,9 +47,9 @@
 }
 </code></pre></div></div>
 
-<p>#####2.将传入的<code class="highlighter-rouge">View</code>生成图片,可以显示<code class="highlighter-rouge">layer</code>(分享分时图、k线)</p>
+<p>#####2.将传入的<code class="language-plaintext highlighter-rouge">View</code>生成图片,可以显示<code class="language-plaintext highlighter-rouge">layer</code>(分享分时图、k线)</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)imageFromView:(UIView *)view{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)imageFromView:(UIView *)view{
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0.0);  
     [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
     UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -58,9 +58,9 @@
 }
 </code></pre></div></div>
 
-<p>#####3.将<code class="highlighter-rouge">tableview</code>生成图片</p>
+<p>#####3.将<code class="language-plaintext highlighter-rouge">tableview</code>生成图片</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)getTableViewimage:(UITableView *)tableview{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)getTableViewimage:(UITableView *)tableview{
     UIImage* viewImage = nil;
     UIScrollView *scrollView = tableview;
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(scrollView.contentSize.width, scrollView.contentSize.height), NO, 0.0);
@@ -87,7 +87,7 @@
 
 <p>#####4.图片拼接</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)addSlaveImage:(UIImage *)slaveImage toMasterImage:(UIImage *)masterImage {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)addSlaveImage:(UIImage *)slaveImage toMasterImage:(UIImage *)masterImage {
     CGSize size;
     size.width = masterImage.size.width;
     size.height = masterImage.size.height + slaveImage.size.height;  

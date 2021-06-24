@@ -1,8 +1,8 @@
-I"nI<h4 id="手绘区域">手绘区域</h4>
+I"�I<h4 id="手绘区域">手绘区域</h4>
 
 <p><strong>RKPaintedGiftView.h</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
 //  RKPaintedGiftView.h
 //  iphoneLive
 //
@@ -30,7 +30,7 @@
 
 <p><strong>RKPaintedGiftView.m</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
 //  RKPaintedGiftView.m
 //  iphoneLive
 //
@@ -321,7 +321,7 @@
 <h4 id="手绘绘制完毕送出展示区域">手绘绘制完毕,送出展示区域</h4>
 
 <p><strong>RKShowPaintedView.h</strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
 //  RKShowPaintedView.h
 //  iphoneLive
 //
@@ -344,7 +344,7 @@
 
 <p><strong>RKShowPaintedView.m</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
 //  RKShowPaintedView.m
 //  iphoneLive
 //
@@ -503,7 +503,7 @@
 
 <p><strong>手绘区域</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (RKPaintedGiftView *)paintedRegion {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (RKPaintedGiftView *)paintedRegion {
     if (!_paintedRegion) {
         _paintedRegion  = [[RKPaintedGiftView alloc]init];
         //_paintedRegion.backgroundColor = UIColor.redColor;
@@ -532,7 +532,7 @@ NSMutableDictionary *dic = @{
 
 <p><strong>礼物展示区域</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (RKShowPaintedView *)paintedShowRegion {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (RKShowPaintedView *)paintedShowRegion {
     if (!_paintedShowRegion) {
         _paintedShowRegion = [[RKShowPaintedView alloc]init];
     }

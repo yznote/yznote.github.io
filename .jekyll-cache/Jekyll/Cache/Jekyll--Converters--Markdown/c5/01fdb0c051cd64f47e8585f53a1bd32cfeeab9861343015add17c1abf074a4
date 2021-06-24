@@ -1,6 +1,6 @@
-I"�<h5 id="xib属性栏快速设置控件的边框圆角">xib属性栏快速设置控件的边框、圆角</h5>
+I"<h5 id="xib属性栏快速设置控件的边框圆角">xib属性栏快速设置控件的边框、圆角</h5>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UIView (RKXibSet)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UIView (RKXibSet)
 
 @property (nonatomic,assign)IBInspectable CGFloat borderWidth;
 @property (nonatomic,strong)IBInspectable UIColor *borderColor;
@@ -9,7 +9,7 @@
 @end
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UIView(RKXibSet)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UIView(RKXibSet)
 
 
 @end

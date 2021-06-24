@@ -1,5 +1,5 @@
-I"v<h4 id="描述以uitextview为例">描述以<code class="highlighter-rouge">UITextView</code>为例</h4>
-<p>当<code class="highlighter-rouge">UITextView</code>处于编辑状态时,即键盘存在时,<code class="highlighter-rouge">UITextView</code>是第一响应者,而当需要弹出<code class="highlighter-rouge">UIMenuController</code>时,第一响应者需要变更为处理<code class="highlighter-rouge">UIMenuController</code>菜单事件的对象,此时UITextView就不是第一响应者,键盘就会隐藏,造成键盘和<code class="highlighter-rouge">UIMenuController</code>不能同时出现.</p>
+I"�<h4 id="描述以uitextview为例">描述以<code class="language-plaintext highlighter-rouge">UITextView</code>为例</h4>
+<p>当<code class="language-plaintext highlighter-rouge">UITextView</code>处于编辑状态时,即键盘存在时,<code class="language-plaintext highlighter-rouge">UITextView</code>是第一响应者,而当需要弹出<code class="language-plaintext highlighter-rouge">UIMenuController</code>时,第一响应者需要变更为处理<code class="language-plaintext highlighter-rouge">UIMenuController</code>菜单事件的对象,此时UITextView就不是第一响应者,键盘就会隐藏,造成键盘和<code class="language-plaintext highlighter-rouge">UIMenuController</code>不能同时出现.</p>
 
 <h4 id="解决方案">解决方案</h4>
 <blockquote>
@@ -7,13 +7,13 @@
 <strong>参考</strong><br />
 <a href="https://www.jianshu.com/p/2e074db792ba">iOS事件响应机制</a><br />
 <a href="https://www.jianshu.com/p/c294d1bd963d">iOS响应链全家桶</a><br />
-在保证<code class="highlighter-rouge">UITextVie</code>第一响应者的前提下,我们可以覆盖改变<code class="highlighter-rouge">UITextView</code>的<code class="highlighter-rouge">nextResponder</code>,让<code class="highlighter-rouge">nextResponder</code>指向<code class="highlighter-rouge">UIMenuController</code>菜单事件的执行者,同时也要注意,在<code class="highlighter-rouge">UIMenuController</code>隐藏后,要取消<code class="highlighter-rouge">nextResponder</code>指向,不改变原有的响应链.</p>
+在保证<code class="language-plaintext highlighter-rouge">UITextVie</code>第一响应者的前提下,我们可以覆盖改变<code class="language-plaintext highlighter-rouge">UITextView</code>的<code class="language-plaintext highlighter-rouge">nextResponder</code>,让<code class="language-plaintext highlighter-rouge">nextResponder</code>指向<code class="language-plaintext highlighter-rouge">UIMenuController</code>菜单事件的执行者,同时也要注意,在<code class="language-plaintext highlighter-rouge">UIMenuController</code>隐藏后,要取消<code class="language-plaintext highlighter-rouge">nextResponder</code>指向,不改变原有的响应链.</p>
 </blockquote>
 
 <h4 id="代码实现">代码实现</h4>
 
-<p><strong>自定义<code class="highlighter-rouge">MYTextView</code></strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface MYTextView : UITextView
+<p><strong>自定义<code class="language-plaintext highlighter-rouge">MYTextView</code></strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface MYTextView : UITextView
 //覆盖下一个响应者
 @property (nonatomic, weak) UIResponder *overrideNextResponder; 
 @end
@@ -35,10 +35,10 @@
 @end
 </code></pre></div></div>
 
-<p><strong>长按显示<code class="highlighter-rouge">UIMenuController</code>的<code class="highlighter-rouge">VC</code></strong><br />
-这里以长按<code class="highlighter-rouge">VC</code>中的<code class="highlighter-rouge">self.titleLabel</code>为例:</p>
+<p><strong>长按显示<code class="language-plaintext highlighter-rouge">UIMenuController</code>的<code class="language-plaintext highlighter-rouge">VC</code></strong><br />
+这里以长按<code class="language-plaintext highlighter-rouge">VC</code>中的<code class="language-plaintext highlighter-rouge">self.titleLabel</code>为例:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//长按显示菜单 UIMenuController
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//长按显示菜单 UIMenuController
 - (void)longPressShowMenuView:(UILongPressGestureRecognizer *)longPress {
     //避免长按多次执行
     if (longPress.state != UIGestureRecognizerStateBegan) {

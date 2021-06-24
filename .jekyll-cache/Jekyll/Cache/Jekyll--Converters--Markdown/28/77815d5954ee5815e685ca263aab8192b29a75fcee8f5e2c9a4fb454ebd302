@@ -1,15 +1,15 @@
-I"�<h4 id="将网络图片缓存到本地减少加载时间">将网络图片缓存到本地减少加载时间</h4>
+I"M<h4 id="将网络图片缓存到本地减少加载时间">将网络图片缓存到本地减少加载时间</h4>
 
-<p><code class="highlighter-rouge">GiftCacheUtl.h</code></p>
+<p><code class="language-plaintext highlighter-rouge">GiftCacheUtl.h</code></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(void)downloadOne:(const NSDictionary *)dicGift;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(void)downloadOne:(const NSDictionary *)dicGift;
 +(void) dowloadGif;
 +(NSString*) getGiftCacheDir;
 +(NSURL*) getCacheFileByUrl:( NSString*)giftUrl;
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">GiftCacheUtl.m</code></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(NSString*) getGiftCacheDir{
+<p><code class="language-plaintext highlighter-rouge">GiftCacheUtl.m</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(NSString*) getGiftCacheDir{
     NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
     return documentsDirectory;
@@ -115,11 +115,11 @@
 
 <p><strong>app启动后下载</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[GiftCacheUtl dowloadGif];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[GiftCacheUtl dowloadGif];
 </code></pre></div></div>
 
 <p><strong>从本地沙盒获取图片</strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSURL *giftUrl = [GiftCacheUtl getCacheFileByUrl:gift_url];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSURL *giftUrl = [GiftCacheUtl getCacheFileByUrl:gift_url];
 </code></pre></div></div>
 
 :ET

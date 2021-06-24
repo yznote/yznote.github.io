@@ -1,11 +1,11 @@
-I"�<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UILabel (RKVerticalLabel)
+I"�<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UILabel (RKVerticalLabel)
 
 @property (nonatomic) NSString *verticalText;
 
 @end
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation UILabel (RKVerticalLabel)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation UILabel (RKVerticalLabel)
 
 - (NSString *)verticalText{
     // 利用runtime添加属性

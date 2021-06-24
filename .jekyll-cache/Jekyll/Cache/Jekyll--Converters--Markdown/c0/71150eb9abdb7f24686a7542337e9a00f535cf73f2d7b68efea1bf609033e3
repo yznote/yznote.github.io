@@ -1,7 +1,7 @@
-I"�]<p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+I"�]<p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
 <center style="color: #969696">新浪博客的原始图片丢失了</center>
 <blockquote>
-  <p>说明：蓝色字体的字是五个<code class="highlighter-rouge">butoon</code>“展示时间”是一个<code class="highlighter-rouge">lable</code></p>
+  <p>说明：蓝色字体的字是五个<code class="language-plaintext highlighter-rouge">butoon</code>“展示时间”是一个<code class="language-plaintext highlighter-rouge">lable</code></p>
 </blockquote>
 
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "ViewController.h"

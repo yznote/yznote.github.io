@@ -1,11 +1,11 @@
-I"/<h4 id="a删除i386x8664"><code class="highlighter-rouge">.a</code>删除<code class="highlighter-rouge">i386</code>、<code class="highlighter-rouge">x8664</code></h4>
+I"�<h4 id="a删除i386x8664"><code class="language-plaintext highlighter-rouge">.a</code>删除<code class="language-plaintext highlighter-rouge">i386</code>、<code class="language-plaintext highlighter-rouge">x8664</code></h4>
 
 <p>eg.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lipo liblibKSYMediaEditorKit.a -remove i386 -output liblibKSYMediaEditorKit.a
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lipo liblibKSYMediaEditorKit.a -remove i386 -output liblibKSYMediaEditorKit.a
 $ lipo liblibKSYMediaEditorKit.a -remove x86_64 -output liblibKSYMediaEditorKit.a
 </code></pre></div></div>
 
-<h4 id="解决i386-x86_64问题">解决<code class="highlighter-rouge">i386</code> <code class="highlighter-rouge">x86_64</code>问题</h4>
+<h4 id="解决i386-x86_64问题">解决<code class="language-plaintext highlighter-rouge">i386</code> <code class="language-plaintext highlighter-rouge">x86_64</code>问题</h4>
 
 <p><img src="/img/20180712/1.png" alt="项目1" /></p>
 

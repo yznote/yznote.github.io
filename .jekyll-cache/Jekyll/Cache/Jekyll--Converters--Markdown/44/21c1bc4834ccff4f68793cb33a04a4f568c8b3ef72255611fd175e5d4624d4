@@ -1,6 +1,6 @@
-I"w<h4 id="ios14的分割线变成了块状样式">iOS14的分割线变成了块状样式</h4>
+I"�<h4 id="ios14的分割线变成了块状样式">iOS14的分割线变成了块状样式</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
 	//去除系统的分割线，添加自定义线条
     for(UIView *speartorView in pickerView.subviews) {
         speartorView.backgroundColor = UIColor.clearColor;

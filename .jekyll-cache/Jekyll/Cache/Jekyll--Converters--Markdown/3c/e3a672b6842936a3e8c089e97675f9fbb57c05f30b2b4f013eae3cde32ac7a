@@ -1,4 +1,4 @@
-I"><h4 id="直接代码">直接代码</h4>
+I"�<h4 id="直接代码">直接代码</h4>
 
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "ViewController.h"
 </span>
@@ -52,7 +52,7 @@
 <p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
 <center style="color: #969696">新浪博客的原始图片丢失了</center>
 <blockquote>
-  <p>说明：控制台打印为文件路径归档数据文件后缀我写作了<code class="highlighter-rouge">.plis</code>t是为了方便打开，一般后缀写成不能打开的后缀名左边为归档数据<code class="highlighter-rouge">plist</code>。归档类（<code class="highlighter-rouge">Student</code>）要遵守<code class="highlighter-rouge">NSCoding</code>协议并实现里面的两个必实现方法。</p>
+  <p>说明：控制台打印为文件路径归档数据文件后缀我写作了<code class="language-plaintext highlighter-rouge">.plis</code>t是为了方便打开，一般后缀写成不能打开的后缀名左边为归档数据<code class="language-plaintext highlighter-rouge">plist</code>。归档类（<code class="language-plaintext highlighter-rouge">Student</code>）要遵守<code class="language-plaintext highlighter-rouge">NSCoding</code>协议并实现里面的两个必实现方法。</p>
 </blockquote>
 
 :ET

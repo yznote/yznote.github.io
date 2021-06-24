@@ -1,6 +1,6 @@
-I"<h5 id="uicontrol扩展">UIControl扩展</h5>
+I"'<h5 id="uicontrol扩展">UIControl扩展</h5>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UIControl (RKRepeatClick)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UIControl (RKRepeatClick)
 
 /**
  可以重复点击的时间间隔
@@ -20,7 +20,7 @@
 @end
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "UIControl+RKRepeatClick.h"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "UIControl+RKRepeatClick.h"
 
 #import &lt;objc/runtime.h&gt;
 #define defaultInterval 0.5 //默认时间间隔  0.5

@@ -1,14 +1,14 @@
-I"�3<h4 id="多层scrollview嵌套-scroll顶部刷新">多层<code class="highlighter-rouge">Scrollview</code>嵌套 【scroll顶部刷新】</h4>
+I"5<h4 id="多层scrollview嵌套-scroll顶部刷新">多层<code class="language-plaintext highlighter-rouge">Scrollview</code>嵌套 【scroll顶部刷新】</h4>
 
 <blockquote>
-  <p>底部是一个<code class="highlighter-rouge">scrllview</code>,子类是<code class="highlighter-rouge">collectionview</code>,要求向上滑动的时候<code class="highlighter-rouge">scrllview</code>和<code class="highlighter-rouge">collectionview</code>可以做到连续滑动</p>
+  <p>底部是一个<code class="language-plaintext highlighter-rouge">scrllview</code>,子类是<code class="language-plaintext highlighter-rouge">collectionview</code>,要求向上滑动的时候<code class="language-plaintext highlighter-rouge">scrllview</code>和<code class="language-plaintext highlighter-rouge">collectionview</code>可以做到连续滑动</p>
 </blockquote>
 
-<p>约定: 底部<code class="highlighter-rouge">ScollView</code>我们称之为<code class="highlighter-rouge">MainScroll</code>,子类<code class="highlighter-rouge">CollectionView</code>称之为<code class="highlighter-rouge">SubCollectionView</code></p>
+<p>约定: 底部<code class="language-plaintext highlighter-rouge">ScollView</code>我们称之为<code class="language-plaintext highlighter-rouge">MainScroll</code>,子类<code class="language-plaintext highlighter-rouge">CollectionView</code>称之为<code class="language-plaintext highlighter-rouge">SubCollectionView</code></p>
 
-<p><strong>首先我们写一个<code class="highlighter-rouge">ScrollView</code>的基类</strong></p>
+<p><strong>首先我们写一个<code class="language-plaintext highlighter-rouge">ScrollView</code>的基类</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface RKScrollView : UIScrollView&lt;UIGestureRecognizerDelegate&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface RKScrollView : UIScrollView&lt;UIGestureRecognizerDelegate&gt;
 
 @end
 
@@ -24,9 +24,9 @@
 @end
 </code></pre></div></div>
 
-<p><strong><code class="highlighter-rouge">MainScrollView</code>继承<code class="highlighter-rouge">RKScrollView</code></strong></p>
+<p><strong><code class="language-plaintext highlighter-rouge">MainScrollView</code>继承<code class="language-plaintext highlighter-rouge">RKScrollView</code></strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    //注意这里父类有个属性_canScroll默认设置为YES
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    //注意这里父类有个属性_canScroll默认设置为YES
     _canScroll = YES;
 
     _mainScrollview = [[RKScrollView alloc]initWithFrame:CGRectMake(0, 0, _window_width, _window_height-78-statusbarHeight-ShowDiff-49)];
@@ -39,8 +39,8 @@
     [self.view addSubview:_mainScrollview];
 </code></pre></div></div>
 
-<p><strong><code class="highlighter-rouge">MainScrollview</code>代理方法中的实现</strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+<p><strong><code class="language-plaintext highlighter-rouge">MainScrollview</code>代理方法中的实现</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
 
     //MainScrollview不需要刷新这里可不做处理
     if (scrollView == _mainScrollview){
@@ -76,9 +76,9 @@
 }
 </code></pre></div></div>
 
-<p><strong>子类<code class="highlighter-rouge">subCollectionView</code></strong></p>
+<p><strong>子类<code class="language-plaintext highlighter-rouge">subCollectionView</code></strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     if (!_canScroll) {
         scrollView.contentOffset = CGPointZero;
@@ -103,7 +103,7 @@
 
 <p><strong>完整代码</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "TBRefreshVC.h"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "TBRefreshVC.h"
 
 #import &lt;MJRefresh.h&gt;
 

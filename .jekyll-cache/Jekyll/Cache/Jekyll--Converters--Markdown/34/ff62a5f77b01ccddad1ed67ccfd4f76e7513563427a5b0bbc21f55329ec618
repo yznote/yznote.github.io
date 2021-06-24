@@ -1,4 +1,4 @@
-I"�<h4 id="名词解释">名词解释</h4>
+I"�<h4 id="名词解释">名词解释</h4>
 
 <h5 id="指针数组array-of-pointers">指针数组：array of pointers</h5>
 
@@ -11,7 +11,7 @@
 <h4 id="指针">指针</h4>
 
 <p>指针也是一种数据类型；
-数据类型<code class="highlighter-rouge">*</code>指针变量名=初始化地址</p>
+数据类型<code class="language-plaintext highlighter-rouge">*</code>指针变量名=初始化地址</p>
 
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 <span class="kt">int</span><span class="o">*</span><span class="n">p</span><span class="o">=&amp;</span><span class="n">i</span><span class="p">;</span>

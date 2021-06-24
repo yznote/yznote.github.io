@@ -1,10 +1,10 @@
-I"a<h4 id="苹果的被邮件">苹果的被邮件</h4>
+I"<<h4 id="苹果的被邮件">苹果的被邮件</h4>
 
 <p>4.3是什么？？？</p>
 
-<p>简而言之，4.3是功能或者应用程序重复出现在<code class="highlighter-rouge">App Store</code>，包括相同类型产品功能较一致，以及上传马甲或者分包导致的被拒回复，以下方案希望能帮到大家处理此类问题！</p>
+<p>简而言之，4.3是功能或者应用程序重复出现在<code class="language-plaintext highlighter-rouge">App Store</code>，包括相同类型产品功能较一致，以及上传马甲或者分包导致的被拒回复，以下方案希望能帮到大家处理此类问题！</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>发件人 Apple
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>发件人 Apple
 
 4. 3 Design: Spam
 
@@ -26,11 +26,11 @@ We found that your app provides the same feature set as other apps submitted to 
 
 <p>1.预审核</p>
 
-<p>扫描<code class="highlighter-rouge">api</code>，及<code class="highlighter-rouge">plist</code>文件字符缺失等；此处分两步，第一步为上传时苹果<code class="highlighter-rouge">Application Loador</code>等应用对于适配<code class="highlighter-rouge">icon</code>等的检查，第二步为上传后苹果的功能性检查，例如配置了<code class="highlighter-rouge">Push</code>功能但有缺失或者未打开功能，则会邮件提示等等；</p>
+<p>扫描<code class="language-plaintext highlighter-rouge">api</code>，及<code class="language-plaintext highlighter-rouge">plist</code>文件字符缺失等；此处分两步，第一步为上传时苹果<code class="language-plaintext highlighter-rouge">Application Loador</code>等应用对于适配<code class="language-plaintext highlighter-rouge">icon</code>等的检查，第二步为上传后苹果的功能性检查，例如配置了<code class="language-plaintext highlighter-rouge">Push</code>功能但有缺失或者未打开功能，则会邮件提示等等；</p>
 
 <p>2.机审</p>
 
-<p>此处扫描<code class="highlighter-rouge">支付SDK</code>等，及马甲情况，机器扫描主要看代码块，可参考百度蜘蛛抓取网站模块原理；如遇部分无法过机审情况可尝试加速绕过机审（不是100%成功）；</p>
+<p>此处扫描<code class="language-plaintext highlighter-rouge">支付SDK</code>等，及马甲情况，机器扫描主要看代码块，可参考百度蜘蛛抓取网站模块原理；如遇部分无法过机审情况可尝试加速绕过机审（不是100%成功）；</p>
 
 <p>3.人工审核</p>
 
@@ -40,13 +40,13 @@ We found that your app provides the same feature set as other apps submitted to 
 
 <p><strong>1.元数据方面修改方案</strong></p>
 
-<p>修改应用程序价格，打造与原产品不同的价格级别； <code class="highlighter-rouge">NO</code></p>
+<p>修改应用程序价格，打造与原产品不同的价格级别； <code class="language-plaintext highlighter-rouge">NO</code></p>
 
-<p>修改应用程序发布地区，打造与原产品不同的售卖地区或分不同地区运营； <code class="highlighter-rouge">NO</code></p>
+<p>修改应用程序发布地区，打造与原产品不同的售卖地区或分不同地区运营； <code class="language-plaintext highlighter-rouge">NO</code></p>
 
-<p>修改产品分类，打造与原产品不同的产品侧重属性分类； <code class="highlighter-rouge">YES</code></p>
+<p>修改产品分类，打造与原产品不同的产品侧重属性分类； <code class="language-plaintext highlighter-rouge">YES</code></p>
 
-<p>回复苹果产品设计理念等，表述产品情怀，希望打造独一无二的产品，比如功能目前会跟其他类似，会有相同情况；然后提出产品内某功能加以细节性说明，比如功能在市场上其他人还没做等等（此做法请慎重，描述好了ok，描述差了打脸）； <code class="highlighter-rouge">NO</code></p>
+<p>回复苹果产品设计理念等，表述产品情怀，希望打造独一无二的产品，比如功能目前会跟其他类似，会有相同情况；然后提出产品内某功能加以细节性说明，比如功能在市场上其他人还没做等等（此做法请慎重，描述好了ok，描述差了打脸）； <code class="language-plaintext highlighter-rouge">NO</code></p>
 
 <p>修改后回复内容可参考如下：</p>
 
@@ -62,27 +62,27 @@ We found that your app provides the same feature set as other apps submitted to 
 
 <p><strong>2.二进制方面修改方案</strong></p>
 
-<p>1&gt;.升级version，升级一个版本号提交审核；<code class="highlighter-rouge">YES</code></p>
+<p>1&gt;.升级version，升级一个版本号提交审核；<code class="language-plaintext highlighter-rouge">YES</code></p>
 
-<p>2&gt;.换bundle id，换一个包再提交审核；<code class="highlighter-rouge">YES</code></p>
+<p>2&gt;.换bundle id，换一个包再提交审核；<code class="language-plaintext highlighter-rouge">YES</code></p>
 
-<p>3&gt;.换开发者账号，换不同账号提交审核；<code class="highlighter-rouge">NO</code></p>
+<p>3&gt;.换开发者账号，换不同账号提交审核；<code class="language-plaintext highlighter-rouge">NO</code></p>
 
-<p>4&gt;.修改素材及UI色调等，修改logo，修改主色调；<code class="highlighter-rouge">YES</code></p>
+<p>4&gt;.修改素材及UI色调等，修改logo，修改主色调；<code class="language-plaintext highlighter-rouge">YES</code></p>
 
-<p>5&gt;.修改功能界面等，此处可改功能可做小开关；<code class="highlighter-rouge">NO</code></p>
+<p>5&gt;.修改功能界面等，此处可改功能可做小开关；<code class="language-plaintext highlighter-rouge">NO</code></p>
 
-<p>6&gt;.添加垃圾代码或者注释块，此处主要防苹果机审扫描；<code class="highlighter-rouge">YES</code></p>
+<p>6&gt;.添加垃圾代码或者注释块，此处主要防苹果机审扫描；<code class="language-plaintext highlighter-rouge">YES</code></p>
 
-<p>7&gt;.已有代码的混淆（改类名、改函数名、改文件名、改工程名）；<code class="highlighter-rouge">YES</code></p>
+<p>7&gt;.已有代码的混淆（改类名、改函数名、改文件名、改工程名）；<code class="language-plaintext highlighter-rouge">YES</code></p>
 
-<p>8&gt;.资源改名； <code class="highlighter-rouge">YES</code></p>
+<p>8&gt;.资源改名； <code class="language-plaintext highlighter-rouge">YES</code></p>
 
-<p>9&gt;.适当添加一些无用的资源； <code class="highlighter-rouge">YES</code></p>
+<p>9&gt;.适当添加一些无用的资源； <code class="language-plaintext highlighter-rouge">YES</code></p>
 
-<p>解决代码相似性的问题，在网上找到<code class="highlighter-rouge">KLGenerateSpamCode</code>这个<a href="https://github.com/klaus01/KLGenerateSpamCode">小工具</a></p>
+<p>解决代码相似性的问题，在网上找到<code class="language-plaintext highlighter-rouge">KLGenerateSpamCode</code>这个<a href="https://github.com/klaus01/KLGenerateSpamCode">小工具</a></p>
 
-<p>这个工具用于应对苹果对重复应用的审核（<code class="highlighter-rouge">Guideline 4.3 Design Spam</code>），避免苹果机审检测概率。</p>
+<p>这个工具用于应对苹果对重复应用的审核（<code class="language-plaintext highlighter-rouge">Guideline 4.3 Design Spam</code>），避免苹果机审检测概率。</p>
 
 <blockquote>
   <p>主要功能</p>
@@ -104,7 +104,7 @@ We found that your app provides the same feature set as other apps submitted to 
 
 <h4 id="结语">结语</h4>
 
-<p>如上，对上面提到的重点进行重新配置，然后使用<code class="highlighter-rouge">KLGenerateSpamCode</code>这个工具处理下代码，可以极大避免<code class="highlighter-rouge">4.3</code>情况的出现，祝好运！</p>
+<p>如上，对上面提到的重点进行重新配置，然后使用<code class="language-plaintext highlighter-rouge">KLGenerateSpamCode</code>这个工具处理下代码，可以极大避免<code class="language-plaintext highlighter-rouge">4.3</code>情况的出现，祝好运！</p>
 
 <p>19-10-18补充修改<a href="http://blog.sina.com.cn/s/blog_b4615ebf0102y4hn.html">参考</a></p>
 

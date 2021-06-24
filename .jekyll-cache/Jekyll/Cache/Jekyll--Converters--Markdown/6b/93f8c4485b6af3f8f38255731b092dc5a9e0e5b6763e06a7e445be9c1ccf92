@@ -1,7 +1,7 @@
-I"�<h4 id="库简介">库简介：</h4>
+I"�<h4 id="库简介">库简介：</h4>
 
 <blockquote>
-  <p>库就是程序代码的集合，将N个文件整合起来，实现特定的功能模块儿，从而更好的实现代码共享。本质上是一种可执行文件的二进制格式，可以被载入内存中执行。库可分为开源库和闭源库，开源库比如常用的<code class="highlighter-rouge">AFNNetWorking</code>以及<code class="highlighter-rouge">SDWebImage</code>，其实现的代码是开放可见的。闭源库比如苹果提供的UIKit等库，只能看见其开放的<code class="highlighter-rouge">.h</code>文件，无法查看对应的方法实现部分。<code class="highlighter-rouge">iOS</code>中的闭源库又分为<code class="highlighter-rouge">静态库</code>和<code class="highlighter-rouge">动态库</code>。</p>
+  <p>库就是程序代码的集合，将N个文件整合起来，实现特定的功能模块儿，从而更好的实现代码共享。本质上是一种可执行文件的二进制格式，可以被载入内存中执行。库可分为开源库和闭源库，开源库比如常用的<code class="language-plaintext highlighter-rouge">AFNNetWorking</code>以及<code class="language-plaintext highlighter-rouge">SDWebImage</code>，其实现的代码是开放可见的。闭源库比如苹果提供的UIKit等库，只能看见其开放的<code class="language-plaintext highlighter-rouge">.h</code>文件，无法查看对应的方法实现部分。<code class="language-plaintext highlighter-rouge">iOS</code>中的闭源库又分为<code class="language-plaintext highlighter-rouge">静态库</code>和<code class="language-plaintext highlighter-rouge">动态库</code>。</p>
 </blockquote>
 
 <h4 id="静态库和动态库的区别">静态库和动态库的区别：</h4>
@@ -11,8 +11,8 @@
 </ul>
 
 <blockquote>
-  <p>静态库有<code class="highlighter-rouge">.a</code> 和 <code class="highlighter-rouge">.FrameWork</code>两种形式。<br />
-动态库有<code class="highlighter-rouge">.tbd</code> 和 <code class="highlighter-rouge">.FrameWork</code>两种形式；系统直接提供给我们的<code class="highlighter-rouge">.FrameWork</code>都是动态库。</p>
+  <p>静态库有<code class="language-plaintext highlighter-rouge">.a</code> 和 <code class="language-plaintext highlighter-rouge">.FrameWork</code>两种形式。<br />
+动态库有<code class="language-plaintext highlighter-rouge">.tbd</code> 和 <code class="language-plaintext highlighter-rouge">.FrameWork</code>两种形式；系统直接提供给我们的<code class="language-plaintext highlighter-rouge">.FrameWork</code>都是动态库。</p>
 </blockquote>
 
 <ul>
@@ -20,9 +20,9 @@
 </ul>
 
 <blockquote>
-  <p><code class="highlighter-rouge">.FrameWork = .a + .h + bondle</code>(<code class="highlighter-rouge">.a</code>为纯二进制文件，需要配合<code class="highlighter-rouge">.h</code>文件才能使用，如果其中有用到图片等资源文件的话，需要将资源文件打包成与<code class="highlighter-rouge">.a</code>同名的<code class="highlighter-rouge">.bondle</code>来配合其使用。在<code class="highlighter-rouge">.a</code>中使用<code class="highlighter-rouge">.bondle</code>中的资源时需要指明资源所在的<code class="highlighter-rouge">bondle</code>,例如使用图片:<br />
-<code class="highlighter-rouge">[UIImage imageNamed:@“pic” inBundle:&lt;#(nullable NSBundle *)#&gt; compatibleWithTraitCollection:&lt;#(nullable UITraitCollection *)#&gt;])</code><br />
- 所以我们在使用库的时候尽量使用<code class="highlighter-rouge">.FrameWork</code>的形式比较方便。</p>
+  <p><code class="language-plaintext highlighter-rouge">.FrameWork = .a + .h + bondle</code>(<code class="language-plaintext highlighter-rouge">.a</code>为纯二进制文件，需要配合<code class="language-plaintext highlighter-rouge">.h</code>文件才能使用，如果其中有用到图片等资源文件的话，需要将资源文件打包成与<code class="language-plaintext highlighter-rouge">.a</code>同名的<code class="language-plaintext highlighter-rouge">.bondle</code>来配合其使用。在<code class="language-plaintext highlighter-rouge">.a</code>中使用<code class="language-plaintext highlighter-rouge">.bondle</code>中的资源时需要指明资源所在的<code class="language-plaintext highlighter-rouge">bondle</code>,例如使用图片:<br />
+<code class="language-plaintext highlighter-rouge">[UIImage imageNamed:@“pic” inBundle:&lt;#(nullable NSBundle *)#&gt; compatibleWithTraitCollection:&lt;#(nullable UITraitCollection *)#&gt;])</code><br />
+ 所以我们在使用库的时候尽量使用<code class="language-plaintext highlighter-rouge">.FrameWork</code>的形式比较方便。</p>
 </blockquote>
 
 <ul>
@@ -60,20 +60,20 @@
 </blockquote>
 
 <blockquote>
-  <p>需要注意的是在iOS8之前苹果是不允许第三方框架使用动态库方式实现的，<code class="highlighter-rouge">iOS8</code>之后才允许第三方框架使用动态库，但是只能使用苹果提供的<code class="highlighter-rouge">CocoTouchFrameWork</code>方式创建，使用<code class="highlighter-rouge">CocoTouchFrameWork</code>创建的动态库在打包提交到app的时候会放在<code class="highlighter-rouge">app main bundle</code> 根目录下运行在沙盒中并不是在系统中，所以即使是动态库，多个app使用也是要分别打包和签名的，不过在<code class="highlighter-rouge">iOS8</code>之后可以使用<code class="highlighter-rouge">app extension</code>通过插件的方式来实现动态库的共享。</p>
+  <p>需要注意的是在iOS8之前苹果是不允许第三方框架使用动态库方式实现的，<code class="language-plaintext highlighter-rouge">iOS8</code>之后才允许第三方框架使用动态库，但是只能使用苹果提供的<code class="language-plaintext highlighter-rouge">CocoTouchFrameWork</code>方式创建，使用<code class="language-plaintext highlighter-rouge">CocoTouchFrameWork</code>创建的动态库在打包提交到app的时候会放在<code class="language-plaintext highlighter-rouge">app main bundle</code> 根目录下运行在沙盒中并不是在系统中，所以即使是动态库，多个app使用也是要分别打包和签名的，不过在<code class="language-plaintext highlighter-rouge">iOS8</code>之后可以使用<code class="language-plaintext highlighter-rouge">app extension</code>通过插件的方式来实现动态库的共享。</p>
 </blockquote>
 
 <blockquote>
-  <p>使用动态库开发的项目<strong><code class="highlighter-rouge">不允许在</code></strong><code class="highlighter-rouge">appStore</code>上架，所以如果是企业级的用可以通过动态库实现项目的实时更新。由于动态库的动态更新绕过了苹果的<code class="highlighter-rouge">appStore</code>审核机制，所以苹果不允许使用自定义动态库的应用在<code class="highlighter-rouge">appStore</code>上线。</p>
+  <p>使用动态库开发的项目<strong><code class="language-plaintext highlighter-rouge">不允许在</code></strong><code class="language-plaintext highlighter-rouge">appStore</code>上架，所以如果是企业级的用可以通过动态库实现项目的实时更新。由于动态库的动态更新绕过了苹果的<code class="language-plaintext highlighter-rouge">appStore</code>审核机制，所以苹果不允许使用自定义动态库的应用在<code class="language-plaintext highlighter-rouge">appStore</code>上线。</p>
 </blockquote>
 
 <h4 id="ios中应用代码的编译过程">iOS中应用代码的编译过程</h4>
 
 <ul>
-  <li><code class="highlighter-rouge">pre-process</code> 预处理:替换宏,删除注释,展开头文件,产生<code class="highlighter-rouge">.i</code>文件.</li>
-  <li><code class="highlighter-rouge">compling</code> 编译:将<code class="highlighter-rouge">.i</code>文件转换为汇编语言,产生<code class="highlighter-rouge">.s</code>文件.</li>
-  <li><code class="highlighter-rouge">assembly</code> 汇编:把汇编文件转换为机器码文件，产生<code class="highlighter-rouge">.o</code>文件.</li>
-  <li><code class="highlighter-rouge">link</code> 链接:对<code class="highlighter-rouge">.o</code>文件中引用其他库的地方进行引用,生成最后的可执行文件.</li>
+  <li><code class="language-plaintext highlighter-rouge">pre-process</code> 预处理:替换宏,删除注释,展开头文件,产生<code class="language-plaintext highlighter-rouge">.i</code>文件.</li>
+  <li><code class="language-plaintext highlighter-rouge">compling</code> 编译:将<code class="language-plaintext highlighter-rouge">.i</code>文件转换为汇编语言,产生<code class="language-plaintext highlighter-rouge">.s</code>文件.</li>
+  <li><code class="language-plaintext highlighter-rouge">assembly</code> 汇编:把汇编文件转换为机器码文件，产生<code class="language-plaintext highlighter-rouge">.o</code>文件.</li>
+  <li><code class="language-plaintext highlighter-rouge">link</code> 链接:对<code class="language-plaintext highlighter-rouge">.o</code>文件中引用其他库的地方进行引用,生成最后的可执行文件.</li>
 </ul>
 
 :ET

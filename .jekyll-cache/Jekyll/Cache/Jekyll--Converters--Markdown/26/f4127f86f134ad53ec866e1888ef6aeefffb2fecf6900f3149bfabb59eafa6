@@ -1,21 +1,21 @@
-I"�<h4 id="场景">场景</h4>
+I"><h4 id="场景">场景</h4>
 <ol>
-  <li>用<code class="highlighter-rouge">UINavigationController</code>的时候用<code class="highlighter-rouge">pushViewController:animated</code>
+  <li>用<code class="language-plaintext highlighter-rouge">UINavigationController</code>的时候用<code class="language-plaintext highlighter-rouge">pushViewController:animated</code>
     <blockquote>
-      <p>返回之前的视图<code class="highlighter-rouge">[[self navigationController] popViewControllerAnimated:YES];</code>
-ps：<code class="highlighter-rouge">push</code>以后会在<code class="highlighter-rouge">navigation</code>的<code class="highlighter-rouge">left</code><code class="highlighter-rouge">bar</code>自动添加<code class="highlighter-rouge">back</code>按钮，它的响应方法就是返回。所以一般不需要写返回方法，点<code class="highlighter-rouge">back</code>按钮即可。</p>
+      <p>返回之前的视图<code class="language-plaintext highlighter-rouge">[[self navigationController] popViewControllerAnimated:YES];</code>
+ps：<code class="language-plaintext highlighter-rouge">push</code>以后会在<code class="language-plaintext highlighter-rouge">navigation</code>的<code class="language-plaintext highlighter-rouge">left</code><code class="language-plaintext highlighter-rouge">bar</code>自动添加<code class="language-plaintext highlighter-rouge">back</code>按钮，它的响应方法就是返回。所以一般不需要写返回方法，点<code class="language-plaintext highlighter-rouge">back</code>按钮即可。</p>
     </blockquote>
   </li>
-  <li>其他时候用<code class="highlighter-rouge">presentModalViewController:animated</code>
+  <li>其他时候用<code class="language-plaintext highlighter-rouge">presentModalViewController:animated</code>
     <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="p">[</span><span class="n">self</span> <span class="nf">presentModalViewController</span><span class="p">:</span><span class="n">controller</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span><span class="c1">//YES有动画效果</span>
 </code></pre></div>    </div>
     <blockquote>
-      <p>返回之前的视图<code class="highlighter-rouge">[self dismissModalViewControllerAnimated:YES];</code></p>
+      <p>返回之前的视图<code class="language-plaintext highlighter-rouge">[self dismissModalViewControllerAnimated:YES];</code></p>
     </blockquote>
   </li>
-  <li>切换视图一般用不到<code class="highlighter-rouge">addSubview</code>
-<code class="highlighter-rouge">UINavigationController</code>是导航控制器，如果<code class="highlighter-rouge">pushViewController</code>的话，会跳转到下一个<code class="highlighter-rouge">ViewController</code>，点返回会回到现在这个<code class="highlighter-rouge">ViewController</code>；
-如果是<code class="highlighter-rouge">addSubview</code>的话，其实还是对当前的<code class="highlighter-rouge">ViewController</code>操作，只是在当前视图上面又“盖”住了一层视图，其实原来的画面在下面呢，看不到而已。（当然，也可以用<code class="highlighter-rouge">insertSubView:atIndex:</code>那个方法设置放置的层次)。
+  <li>切换视图一般用不到<code class="language-plaintext highlighter-rouge">addSubview</code>
+<code class="language-plaintext highlighter-rouge">UINavigationController</code>是导航控制器，如果<code class="language-plaintext highlighter-rouge">pushViewController</code>的话，会跳转到下一个<code class="language-plaintext highlighter-rouge">ViewController</code>，点返回会回到现在这个<code class="language-plaintext highlighter-rouge">ViewController</code>；
+如果是<code class="language-plaintext highlighter-rouge">addSubview</code>的话，其实还是对当前的<code class="language-plaintext highlighter-rouge">ViewController</code>操作，只是在当前视图上面又“盖”住了一层视图，其实原来的画面在下面呢，看不到而已。（当然，也可以用<code class="language-plaintext highlighter-rouge">insertSubView:atIndex:</code>那个方法设置放置的层次)。
     <blockquote>
       <p><strong>另加一个</strong><br />
 使用presentModalViewControllerAnimated方法从A-&gt;B-&gt;C，若想在C中直接返回A，则可这样实现：</p>

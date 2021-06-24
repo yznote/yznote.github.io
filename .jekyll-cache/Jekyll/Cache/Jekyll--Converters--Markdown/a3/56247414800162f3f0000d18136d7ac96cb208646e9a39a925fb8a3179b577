@@ -1,13 +1,13 @@
-I"�)<h4 id="知识扩展">知识扩展</h4>
+I"*<h4 id="知识扩展">知识扩展</h4>
 
 <p><a href="https://www.jianshu.com/p/3e0e25fd9b85">iOS渐变方案</a></p>
 
-<h4 id="利用uiimage扩展实现渐变背景">利用<code class="highlighter-rouge">UIImage</code>扩展实现渐变背景</h4>
+<h4 id="利用uiimage扩展实现渐变背景">利用<code class="language-plaintext highlighter-rouge">UIImage</code>扩展实现渐变背景</h4>
 
 <!-- ![项目1](/img/20190820/1.PNG) -->
 <div style="float:center;border:solid 1px 000;width: 100%;padding-left: 5%"><img src="/img/20190820/1.PNG" style="width:30%" /></div>
 
-<h5 id="h"><code class="highlighter-rouge">.h</code></h5>
+<h5 id="h"><code class="language-plaintext highlighter-rouge">.h</code></h5>
 
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">UIImage</span> <span class="p">(</span><span class="nl">RKImgCategory</span><span class="p">)</span>
 
@@ -24,7 +24,7 @@
 <span class="k">@end</span>
 </code></pre></div></div>
 
-<h5 id="m"><code class="highlighter-rouge">.m</code></h5>
+<h5 id="m"><code class="language-plaintext highlighter-rouge">.m</code></h5>
 
 <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "UIImage+RKImgCategory.h"
 </span>

@@ -1,6 +1,6 @@
-I":	<h4 id="帐号转移">帐号转移</h4>
+I"�	<h4 id="帐号转移">帐号转移</h4>
 
-<p>为了方便描述，以下称转出账号为<code class="highlighter-rouge">A账号</code>，接收账号为<code class="highlighter-rouge">B账号</code>。<br />
+<p>为了方便描述，以下称转出账号为<code class="language-plaintext highlighter-rouge">A账号</code>，接收账号为<code class="language-plaintext highlighter-rouge">B账号</code>。<br />
 需求：现在将要A账号下的APP转到B账号下</p>
 
 <p><strong>&gt;登录A帐号，找到App 如下图:</strong></p>
@@ -37,12 +37,12 @@
 <p><img src="/img/20170410/7.webp" alt="项目7" />
 <img src="/img/20170410/8.webp" alt="项目8" /></p>
 
-<p><strong>&gt;点击 <code class="highlighter-rouge">Review</code> 填写 转移后的App信息:</strong></p>
+<p><strong>&gt;点击 <code class="language-plaintext highlighter-rouge">Review</code> 填写 转移后的App信息:</strong></p>
 
 <p><img src="/img/20170410/9.webp" alt="项目9" />
 <img src="/img/20170410/10.webp" alt="项目10" /></p>
 
-<p><strong>&gt;完成后点<code class="highlighter-rouge">Done</code></strong></p>
+<p><strong>&gt;完成后点<code class="language-plaintext highlighter-rouge">Done</code></strong></p>
 
 <p><img src="/img/20170410/11.webp" alt="项目11" /></p>
 
@@ -52,7 +52,7 @@
 
 <h4 id="转移后的证书问题">转移后的证书问题</h4>
 
-<p><strong>&gt;上线证书 与 <code class="highlighter-rouge">Push</code> 证书都需要重新创建</strong></p>
+<p><strong>&gt;上线证书 与 <code class="language-plaintext highlighter-rouge">Push</code> 证书都需要重新创建</strong></p>
 
 <p><img src="/img/20170410/12.webp" alt="项目12" /></p>
 
