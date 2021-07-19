@@ -1,0 +1,110 @@
+I"M <h4 id="关于三方最低支持版本的更改">关于三方最低支持版本的更改</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+post_install do |pi|
+   pi.pods_project.targets.each do |t|
+       t.build_configurations.each do |bc|
+           bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+       end
+   end
+end
+
+</code></pre></div></div>
+
+<h5 id="关闭cocoapods中的警告">关闭CocoaPods中的警告</h5>
+
+<p>在Podfile中加入<code class="language-plaintext highlighter-rouge">inhibit_all_warnings!</code>即可</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+platform :ios, '9.0'
+inhibit_all_warnings!
+
+</code></pre></div></div>
+
+<h5 id="关闭单个库或整个库警告">关闭单个库或整个库警告</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Pods -&gt; target -&gt; Other Warning Flags 添加 -w</code></p>
+
+<h5 id="关闭文档警告">关闭文档警告</h5>
+
+<p>解决方法关掉Pods的文档警告</p>
+
+<p><code class="language-plaintext highlighter-rouge">Pods -&gt; Build Settings -&gt; Documentation Comments -&gt; NO</code></p>
+
+<h5 id="关闭单个文件警告">关闭单个文件警告</h5>
+
+<p><code class="language-plaintext highlighter-rouge">target -&gt; Build Phases -&gt; Compile Source 找到相关文件，在后面加入-w</code></p>
+
+<h5 id="代码区域警告">代码区域警告</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+//
+要去除警告的代码
+//
+#pragma clang diagnostic pop
+
+</code></pre></div></div>
+<p><strong>常用警告名称</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">#pragma clang diagnostic ignored "-Wunused-variable"</code> 未使用的变量<br />
+<code class="language-plaintext highlighter-rouge">#pragma clang diagnostic ignored "-Warc-retain-cycles"</code> retain cycle<br />
+<code class="language-plaintext highlighter-rouge">#pragma clang diagnostic ignored "-Wdeprecated-declarations"</code> 方法弃用警告<br />
+<code class="language-plaintext highlighter-rouge">#pragma clang diagnostic ignored "-Wincompatible-pointer-types"</code> 不兼容的指针类型</p>
+
+<h5 id="block警告">Block警告</h5>
+
+<p>我们定义一个不带参数的block,通常是如下的方式</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typedefvoid (^UpdateSwichBtnBlock)();
+</code></pre></div></div>
+<p>在xcode9之后会提示一个警告</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This block declaration is not a prototype Insert ‘void'
+</code></pre></div></div>
+<p>解决方式可以是如下的几种:</p>
+<blockquote>
+  <p>方案1:<br />
+typedefvoid (^UpdateSwichBtnBlock)(void);
+但是这样,很多第三方要改,涉及的面太大了,目前可能不太适合,虽然这个是趋势,或者,如果只是很少的地方,也可以使用彻底的暂时解决所有这种警告的方式<br />
+2.在工程的设置中<br />
+strict-prototypes 设置为NO,则这些警告就消失了</p>
+</blockquote>
+
+<h5 id="番外">番外</h5>
+
+<p>有时候引入了一个<code class="language-plaintext highlighter-rouge">framework</code>后,在<code class="language-plaintext highlighter-rouge">Generate dSYM</code>的时候报出了大量的<code class="language-plaintext highlighter-rouge">warning</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xxxx.o unable to open object file: No such file or directory
+</code></pre></div></div>
+<p>在<code class="language-plaintext highlighter-rouge">Xcode</code>查看编译过程发现是执行<code class="language-plaintext highlighter-rouge">dsymutil</code>这条命令时产生的。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dsymutil links the DWARF debug information found in the object files for an executable exe_path by using debug symbols information contained in its symbol table.
+</code></pre></div></div>
+
+<p>Xcode编译的时候会处理两种符号：</p>
+
+<blockquote>
+  <p>Mach-O符号: 链接器在链接的时候需要处理.  <br />
+调试符号: 顾名思义,在使用调试器调试用到的符号.<br />
+为了让发行的安装包更小,通常会在编译的时候将调试符号从可执行文件中去掉.这样,在发生<code class="language-plaintext highlighter-rouge">crash</code>后得到的 <code class="language-plaintext highlighter-rouge">crash log</code>里面只能得到 16 进制的地址.</p>
+</blockquote>
+
+<p>Xcode 提供了一个编译设置项:<code class="language-plaintext highlighter-rouge">Debug Information Format</code>,有两个选项:<code class="language-plaintext highlighter-rouge">DWARF 和 DWARF with dSYM File</code>.</p>
+
+<p>其中,<code class="language-plaintext highlighter-rouge">DWARF</code>是一种独立于语言和操作系统的调试文件格式.最初是设计用来配合 <code class="language-plaintext highlighter-rouge">ELF（ Executable and Linkable Format</code>,精灵和矮人 :]）工作的.<code class="language-plaintext highlighter-rouge">DWARF</code>不会在可执行文件中包含调试符号,而是仅仅包含对<code class="language-plaintext highlighter-rouge"> .o </code>文件的引用,而这些<code class="language-plaintext highlighter-rouge">.o</code>文件才真正包含调试符号.</p>
+
+<p><code class="language-plaintext highlighter-rouge">dSYM</code>是 Xcode 用来存储调试符号的文件,可以用它来符号化<code class="language-plaintext highlighter-rouge">crash log</code>或者调试程序.</p>
+
+<p>如果<code class="language-plaintext highlighter-rouge">Debug Information Format</code>设置成了<code class="language-plaintext highlighter-rouge">DWARF with dSYM File</code>,Xcode 在编译结束时会调用 <code class="language-plaintext highlighter-rouge">dsymutil</code>,将 <code class="language-plaintext highlighter-rouge">.o </code>中的符号抽出来生成 <code class="language-plaintext highlighter-rouge">.dSYM</code> 文件。</p>
+
+<blockquote>
+  <p>（生成 .dSYM 文件需要消耗一定的时间,因为 debug 的时候本地有 .o 文件，可以不需要 .dSYM 文件来 debug,所以最好将 debug 版本的 Debug Information Format 设置成 DWARF.）</p>
+</blockquote>
+
+<p>回头来看最初的问题.使用</p>
+
+<p><code class="language-plaintext highlighter-rouge">nm -a /path/to/foo.framework/foo</code>
+来查看所有的符号，其中就包含了</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000000005704a7a2 - 03 0001   OSO /Users/USERNAME/Library/Developer/Xcode/DerivedData/VIVerifyCore-gfjrgtjfcqfqpybbcyouhfavymdn/Build/Intermediates/FRAMEWORKNAME.build/Debug-iphonesimulator/FRAMEWORKNAME.build/Objects-normal/armv7/SOMECLASS.o
+</code></pre></div></div>
+<p>由此可见,因为引入的<code class="language-plaintext highlighter-rouge">framework</code>编译时开启了<code class="language-plaintext highlighter-rouge">Generate Debug Symbols</code>,编译出来的二进制文件包含了对一些 <code class="language-plaintext highlighter-rouge">.o </code>文件的引用.这些 <code class="language-plaintext highlighter-rouge">.o </code>文件是<code class="language-plaintext highlighter-rouge"> framework </code>在编译的过程中产生的,<code class="language-plaintext highlighter-rouge">framework</code>的使用方在执行 <code class="language-plaintext highlighter-rouge">dsymutil</code> 时找不到它们,于是产生 <code class="language-plaintext highlighter-rouge">warning</code>.</p>
+
+<p>在关闭<code class="language-plaintext highlighter-rouge">Generate Debug Symbols</code>后重新编译 <code class="language-plaintext highlighter-rouge">framework</code>,执行同样的命令,生成的可执行文件中就没有这些引用了.再集成到 App 中，编译就不会有前面提到的 <code class="language-plaintext highlighter-rouge">warning</code>.</p>
+
+:ET
