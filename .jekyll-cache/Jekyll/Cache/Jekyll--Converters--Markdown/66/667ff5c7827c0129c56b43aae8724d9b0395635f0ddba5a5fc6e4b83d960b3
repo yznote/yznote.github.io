@@ -1,0 +1,40 @@
+I"-	<h5 id="侧滑返回处理本页面逻辑之前都是禁用侧滑">侧滑返回,处理本页面逻辑【之前都是禁用侧滑】</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>///侧滑
+- (void)willMoveToParentViewController:(UIViewController*)parent{
+    [super willMoveToParentViewController:parent];
+    
+    NSLog(@"viewC-will==%@",parent);
+    if (!parent) {
+       
+    }
+    /**
+     * 测试结论:当侧滑返回或者点击返回按钮  parent  总是为空，，，， 并且 willMoveToPa 方法侧滑一半返回时系统会
+     * 调用 viewWillAppear ，因此可利用 parent 不存在来处理侧滑返回时需要处理的逻辑
+     */
+    
+}
+- (void)didMoveToParentViewController:(UIViewController*)parent{
+    [super didMoveToParentViewController:parent];
+    
+    NSLog(@"viewC-did==%@",parent);
+    if(!parent){
+        
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSLog(@"viewC-viewWillAppear");
+}
+</code></pre></div></div>
+
+<blockquote>
+  <p>说明:<br />
+1.页面首次<code class="language-plaintext highlighter-rouge">push</code>进来的时候<code class="language-plaintext highlighter-rouge">willMove</code>和<code class="language-plaintext highlighter-rouge">didMove</code>都会调用,此时<code class="language-plaintext highlighter-rouge">parent</code>的值不为空;<br />
+2.当侧滑的时候,会先触发<code class="language-plaintext highlighter-rouge">willMove</code>,而<code class="language-plaintext highlighter-rouge">parent</code>的值为空【点击左上角返回按钮,同理也会触发此方法,<code class="language-plaintext highlighter-rouge">parent</code>也为空】;<br />
+3.当滑动完成并且返回了上个页面,则会调用<code class="language-plaintext highlighter-rouge">didMove</code>,<code class="language-plaintext highlighter-rouge">parent</code>的值也为空,如果滑动结束没有返回上个页面,而是留在了当前页面,那么不会调用<code class="language-plaintext highlighter-rouge">didMove</code>方法,但是这时会触发<code class="language-plaintext highlighter-rouge">viewWillAppear</code><br />
+4.总结:可利用<code class="language-plaintext highlighter-rouge">parent</code>为空,处理响应的返回操作;</p>
+</blockquote>
+
+:ET
