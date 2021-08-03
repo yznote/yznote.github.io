@@ -1,0 +1,39 @@
+I"�<h4 id="ios-13-新特性之-uiwindowscene">iOS 13 新特性之 <code class="language-plaintext highlighter-rouge">UIWindowScene</code></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(UIWindow *)getRootWindow {
+    if (@available(iOS 13.0,*)) {
+        /*
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow *window in [windows reverseObjectEnumerator]) {
+            if ([window isKindOfClass:[UIWindow class]] &amp;&amp;
+                window.windowLevel == UIWindowLevelNormal &amp;&amp;
+                CGRectEqualToRect(window.bounds, [UIScreen mainScreen].bounds) &amp;&amp;
+                window.hidden == NO){
+                return window;
+            }
+        }
+        */
+        for (UIWindowScene* windowScene in [UIApplication sharedApplication].connectedScenes) {
+            if (windowScene.activationState == UISceneActivationStateForegroundActive) {
+                NSLog(@"get==:%@",windowScene.windows);
+                for (UIView *view in windowScene.windows) {
+                    if ([view isKindOfClass:[UIWindow class]]) {
+                        UIWindow *window = (UIWindow *)view;
+                        return window;
+                    }
+                }
+            }
+        }
+        return [UIApplication sharedApplication].delegate.window;
+    }else {
+        return [UIApplication sharedApplication].delegate.window;
+    }
+}
+</code></pre></div></div>
+
+<p><strong>拿到<code class="language-plaintext highlighter-rouge">window</code>就可以按照之前的方法进行重置跟控制器了:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> UIWindow *window = [self getRootWindow];
+ window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[ViewController alloc]init]];
+</code></pre></div></div>
+
+:ET

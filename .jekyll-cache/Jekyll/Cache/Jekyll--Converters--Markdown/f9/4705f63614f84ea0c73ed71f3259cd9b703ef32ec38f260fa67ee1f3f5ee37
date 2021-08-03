@@ -1,0 +1,464 @@
+I"V:<h4 id="zfplayer">ZFPlayer</h4>
+
+<p><a href="https://github.com/renzifeng/ZFPlayer">ZFPlayer直达</a></p>
+
+<p>作者对播放器的介绍:</p>
+<blockquote>
+  <p>Support customization of any player SDK and control layer(支持定制任何播放器SDK和控制层)</p>
+</blockquote>
+
+<p>ZFPlayer demo 支持的播放器:</p>
+
+<blockquote>
+  <p><strong>AVPlayer</strong><br />
+<strong>ijkplayer</strong><br />
+<strong><del>KSYPlayer</del></strong>【作者已移除】</p>
+</blockquote>
+
+<h5 id="拓展阿里播放器">拓展阿里播放器</h5>
+
+<p><a href="https://help.aliyun.com/document_detail/124708.html?spm=a2c4g.11186623.6.1161.62ea24c5aMDma5">阿里播放器直达</a></p>
+
+<blockquote>
+  <p>pod ‘AliPlayerSDK_iOS’, ‘5.3.0’		#[核心库]<br />
+pod ‘AliPlayerSDK_iOS_ARTP’, ‘5.3.0’	#[按需索取]<br />
+pod ‘AliPlayerSDK_iOS_ARTC’, ‘5.3.0’	#[按需索取]<br />
+pod ‘RtsSDK’, ‘5.3.0’					#[按需索取]</p>
+</blockquote>
+
+<p>1.按上述说明在<strong>podfile</strong>中添加需要的依赖库;</p>
+
+<p>2.参考ZFPlayer的demo中<strong>ZFAVPlayerManager</strong>或者<strong>ZFIJKPlayerManager</strong>创建一个播放器管理类;</p>
+
+<p>如:<code class="language-plaintext highlighter-rouge">RKAliPlayerManager</code></p>
+
+<p>3.遵循代理<strong>ZFPlayerMediaPlayback</strong>;</p>
+
+<p>4.管理类详细代码:</p>
+
+<p><em>RKAliPlayerManager.h</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+
+#import &lt;ZFPlayer/ZFPlayerMediaPlayback.h&gt;
+
+#import &lt;AliyunPlayer/AliyunPlayer.h&gt;
+
+@interface RKAliPlayerManager : NSObject&lt;ZFPlayerMediaPlayback&gt;
+
+@property (nonatomic, strong, readonly) AVURLAsset *asset;
+@property(nonatomic,strong,readonly)AliPlayer *player;
+/// 视频请求头
+@property (nonatomic, strong) NSDictionary *requestHeader;
+
+@end
+
+</code></pre></div></div>
+
+<p><em>RKAliPlayerManager.m</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "RKAliPlayerManager.h"
+
+
+#import &lt;ZFPlayer/ZFPlayer.h&gt;
+#import &lt;ZFPlayer/ZFPlayerConst.h&gt;
+
+@interface RKAliPlayerManager()&lt;AVPDelegate&gt;
+
+@property(nonatomic,strong)AliPlayer *player;
+@property (nonatomic, assign) BOOL isReadyToPlay;
+@property (nonatomic, strong) AVAssetImageGenerator *imageGenerator;
+
+@property (nonatomic, strong) UIView *playerView;
+
+@end
+
+@implementation RKAliPlayerManager
+
+@synthesize view                           = _view;
+@synthesize currentTime                    = _currentTime;
+@synthesize totalTime                      = _totalTime;
+@synthesize playerPlayTimeChanged          = _playerPlayTimeChanged;
+@synthesize playerBufferTimeChanged        = _playerBufferTimeChanged;
+@synthesize playerDidToEnd                 = _playerDidToEnd;
+@synthesize bufferTime                     = _bufferTime;
+@synthesize playState                      = _playState;
+@synthesize loadState                      = _loadState;
+@synthesize assetURL                       = _assetURL;
+@synthesize playerPrepareToPlay            = _playerPrepareToPlay;
+@synthesize playerReadyToPlay              = _playerReadyToPlay;
+@synthesize playerPlayStateChanged         = _playerPlayStateChanged;
+@synthesize playerLoadStateChanged         = _playerLoadStateChanged;
+@synthesize seekTime                       = _seekTime;
+@synthesize muted                          = _muted;
+@synthesize volume                         = _volume;
+@synthesize presentationSize               = _presentationSize;
+@synthesize isPlaying                      = _isPlaying;
+@synthesize rate                           = _rate;
+@synthesize isPreparedToPlay               = _isPreparedToPlay;
+@synthesize shouldAutoPlay                 = _shouldAutoPlay;
+@synthesize scalingMode                    = _scalingMode;
+@synthesize playerPlayFailed               = _playerPlayFailed;
+@synthesize presentationSizeChanged        = _presentationSizeChanged;
+
+- (void)dealloc {
+    [self stop];
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _scalingMode = ZFPlayerScalingModeAspectFit;
+        _shouldAutoPlay = YES;
+    }
+    return self;
+}
+
+- (void)prepareToPlay {
+    if (!_assetURL) return;
+    _isPreparedToPlay = YES;
+    [self initializePlayer];
+    if (self.shouldAutoPlay) {
+        [self play];
+    }
+    self.loadState = ZFPlayerLoadStatePrepare;
+    if (self.playerPrepareToPlay) self.playerPrepareToPlay(self, self.assetURL);
+}
+
+- (void)reloadPlayer {
+    [self prepareToPlay];
+}
+
+- (void)play {
+    if (!_isPreparedToPlay) {
+        [self prepareToPlay];
+    } else {
+        [self.player start];
+        self.player.rate = self.rate;
+        _isPlaying = YES;
+        self.playState = ZFPlayerPlayStatePlaying;
+    }
+}
+
+- (void)pause {
+    [self.player pause];
+    _isPlaying = NO;
+    self.playState = ZFPlayerPlayStatePaused;
+    
+    [_asset cancelLoading];
+}
+
+- (void)stop {
+    
+    [_asset cancelLoading];
+    
+    [self.player stop];
+    [self.player destroy];
+    self.player = nil;
+    _assetURL = nil;
+    self.presentationSize = CGSizeZero;
+    _isPlaying = NO;
+    _isPreparedToPlay = NO;
+    self-&gt;_currentTime = 0;
+    self-&gt;_totalTime = 0;
+    self-&gt;_bufferTime = 0;
+    self.isReadyToPlay = NO;
+    self.playState = ZFPlayerPlayStatePlayStopped;
+}
+
+- (void)replay {
+    @zf_weakify(self)
+    [self seekToTime:0 completionHandler:^(BOOL finished) {
+        @zf_strongify(self)
+        if (finished) {
+            [self play];
+        }
+    }];
+}
+
+- (void)seekToTime:(NSTimeInterval)time completionHandler:(void (^ __nullable)(BOOL finished))completionHandler {
+    if (self.player.duration &gt; 0) {
+        self-&gt;_currentTime = time;
+        [self.player seekToTime:time seekMode:AVP_SEEKMODE_ACCURATE];
+        if (completionHandler) completionHandler(YES);
+    } else {
+        self.seekTime = time;
+    }
+}
+
+- (UIImage *)thumbnailImageAtCurrentTime {
+    /// 第二个参数存疑
+    CMTime expectedTime = CMTimeMake(_currentTime, self.rate);
+    CGImageRef cgImage = NULL;
+    
+    self.imageGenerator.requestedTimeToleranceBefore = kCMTimeZero;
+    self.imageGenerator.requestedTimeToleranceAfter = kCMTimeZero;
+    cgImage = [self.imageGenerator copyCGImageAtTime:expectedTime actualTime:NULL error:NULL];
+
+    if (!cgImage) {
+        self.imageGenerator.requestedTimeToleranceBefore = kCMTimePositiveInfinity;
+        self.imageGenerator.requestedTimeToleranceAfter = kCMTimePositiveInfinity;
+        cgImage = [self.imageGenerator copyCGImageAtTime:expectedTime actualTime:NULL error:NULL];
+    }
+    
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    return image;
+}
+
+#pragma mark - private method
+
+- (void)initializePlayer {
+    _asset = [AVURLAsset URLAssetWithURL:self.assetURL options:self.requestHeader];
+    _imageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:_asset];
+    
+    self.player = [[AliPlayer alloc] init];
+    self.player.scalingMode =  AVP_SCALINGMODE_SCALEASPECTFIT;
+    self.player.rate = 1;
+    self.player.delegate = self;
+    self.player.autoPlay = self.shouldAutoPlay;
+    
+    AVPUrlSource *playerSource = [[AVPUrlSource alloc]init];
+    playerSource.playerUrl = _assetURL;
+    [self.player setUrlSource:playerSource];
+    
+    if ([_requestHeader valueForKey:@"referer"]) {
+        AVPConfig *config = [self.player getConfig];
+        config.referer = [_requestHeader valueForKey:@"referer"];
+        [self.player setConfig:config];
+    }
+    self.player.playerView = self.playerView;
+    [self.player prepare];
+    self.view.playerView = self.player.playerView;
+    
+    self.scalingMode = self-&gt;_scalingMode;
+    
+}
+- (UIView *)playerView {
+    if (!_playerView) {
+        _playerView = [[UIView alloc]init];
+    }
+    return _playerView;
+}
+#pragma mark - ali
+-(void)onPlayerEvent:(AliPlayer*)player eventType:(AVPEventType)eventType {
+    switch (eventType) {
+        case AVPEventPrepareDone: {
+            /// 准备完成事件
+            if (!self.isReadyToPlay) {
+                self.isReadyToPlay = YES;
+                self.loadState = ZFPlayerLoadStatePlaythroughOK;
+                if (self.playerReadyToPlay) self.playerReadyToPlay(self, self.assetURL);
+            }
+            if (self.seekTime) {
+                if (self.shouldAutoPlay) [self pause];
+                @zf_weakify(self)
+                [self seekToTime:self.seekTime completionHandler:^(BOOL finished) {
+                    @zf_strongify(self)
+                    if (finished) {
+                        self-&gt;_currentTime = self.seekTime;
+                        if (self.shouldAutoPlay) [self play];
+                    }
+                }];
+                self.seekTime = 0;
+            } else {
+                if (self.shouldAutoPlay &amp;&amp; self.isPlaying) [self play];
+            }
+            self.player.muted = self.muted;
+        }break;
+        case AVPEventFirstRenderedStart: {
+            ///首帧显示事件
+            if (self.isPlaying) {
+                [self play];
+                self.muted = self.muted;
+                if (self.seekTime &gt; 0) {
+                    [self seekToTime:self.seekTime completionHandler:nil];
+                    self.seekTime = 0; // 滞空, 防止下次播放出错
+                    [self play];
+                }
+            }
+            if (self.playerReadyToPlay) self.playerReadyToPlay(self, self.assetURL);
+            //开启常亮状态
+            [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+            NSLog(@"AVPEventFirstRenderedStart--首帧回调");
+        }break;
+        case AVPEventAutoPlayStart:{
+
+        }break;;
+        case AVPEventCompletion: {
+            /// 播放完成事件
+            self.playState = ZFPlayerPlayStatePlayStopped;
+            if (self.playerDidToEnd){
+                self.playerDidToEnd(self);
+            }
+        }break;
+            /// 缓冲开始事件
+        case AVPEventLoadingStart: {
+            self.loadState = ZFPlayerLoadStatePrepare;
+        } break;
+            /// 缓冲完成事件
+        case AVPEventLoadingEnd: {
+            self.loadState = ZFPlayerLoadStatePlayable;
+        }break;
+        case AVPEventSeekEnd:{
+            /// 跳转完成事件
+            NSLog(@"seekDone");
+        } break;
+           
+        case AVPEventLoopingStart:{
+            /// 循环播放开始事件
+        }break;
+        default:
+            break;
+    }
+}
+
+-(void)onPlayerEvent:(AliPlayer*)player eventWithString:(AVPEventWithString)eventWithString description:(NSString *)description {
+    [self showAliLogCode:(int)eventWithString andMsg:description];
+    //过滤EVENT_PLAYER_DIRECT_COMPONENT_MSG 打印信息
+//    if (eventWithString != EVENT_PLAYER_DIRECT_COMPONENT_MSG) {
+//
+//    }
+}
+- (void)onError:(AliPlayer*)player errorModel:(AVPErrorModel *)errorModel; {
+    [self showAliLogCode:(int)errorModel.code andMsg:errorModel.description];
+}
+
+/**
+ @brief 播放器状态改变回调
+ */
+- (void)onPlayerStatusChanged:(AliPlayer*)player oldStatus:(AVPStatus)oldStatus newStatus:(AVPStatus)newStatus;{
+    if (newStatus == AVPStatusError) {
+        self.playState = ZFPlayerPlayStatePlayFailed;
+        if (self.playerPlayFailed) self.playerPlayFailed(self, @"参考onError:打印信息");
+    }
+}
+/**
+ @brief 视频缓冲进度回调
+ */
+- (void)onLoadingProgress:(AliPlayer*)player progress:(float)progress; {
+    
+}
+
+/**
+ @brief 视频当前播放位置回调
+ */
+- (void)onCurrentPositionUpdate:(AliPlayer*)player position:(int64_t)position; {
+    self-&gt;_currentTime = position;
+    self-&gt;_totalTime = player.duration;
+    if (self.playerPlayTimeChanged) self.playerPlayTimeChanged(self, self.currentTime, self.totalTime);
+}
+/**
+ @brief 视频缓存位置回调
+ */
+- (void)onBufferedPositionUpdate:(AliPlayer*)player position:(int64_t)position; {
+    self-&gt;_bufferTime = player.bufferedPosition;//self.player.playableDuration;
+    if (self.playerBufferTimeChanged) self.playerBufferTimeChanged(self, self.bufferTime);
+}
+/**
+ @brief 视频大小变化回调
+ */
+- (void)onVideoSizeChanged:(AliPlayer*)player width:(int)width height:(int)height rotation:(int)rotation;{
+    self.presentationSize = CGSizeMake(width, height);
+    self.view.presentationSize = self.presentationSize;
+    if (self.presentationSizeChanged) {
+        self.presentationSizeChanged(self, self-&gt;_presentationSize);
+    }
+}
+
+
+-(void)showAliLogCode:(int)aliCode andMsg:(NSString *)aliMsg {
+    NSLog(@"rk_alilog:%d--%@",aliCode,aliMsg);
+}
+#pragma mark - ali
+
+#pragma mark - getter
+
+- (ZFPlayerView *)view {
+    if (!_view) {
+        _view = [[ZFPlayerView alloc] init];
+    }
+    return _view;
+}
+
+- (float)rate {
+    return _rate == 0 ?1:_rate;
+}
+
+#pragma mark - setter
+
+- (void)setPlayState:(ZFPlayerPlaybackState)playState {
+    _playState = playState;
+    if (self.playerPlayStateChanged) self.playerPlayStateChanged(self, playState);
+}
+
+- (void)setLoadState:(ZFPlayerLoadState)loadState {
+    _loadState = loadState;
+    if (self.playerLoadStateChanged) self.playerLoadStateChanged(self, loadState);
+}
+
+- (void)setAssetURL:(NSURL *)assetURL {
+    if (self.player) [self stop];
+    _assetURL = assetURL;
+    [self prepareToPlay];
+}
+
+- (void)setRate:(float)rate {
+    _rate = rate;
+    if (self.player &amp;&amp; fabsf(_player.rate) &gt; 0.00001f) {
+        self.player.rate = rate;
+    }
+}
+
+- (void)setMuted:(BOOL)muted {
+    _muted = muted;
+    self.player.muted = _muted;
+}
+
+- (void)setScalingMode:(ZFPlayerScalingMode)scalingMode {
+    _scalingMode = scalingMode;
+    self.view.scalingMode = scalingMode;
+    switch (scalingMode) {
+        case ZFPlayerScalingModeNone:
+            self.player.scalingMode = AVP_SCALINGMODE_SCALEASPECTFIT;
+            break;
+        case ZFPlayerScalingModeAspectFit:
+            self.player.scalingMode = AVP_SCALINGMODE_SCALEASPECTFIT;
+            break;
+        case ZFPlayerScalingModeAspectFill:
+            self.player.scalingMode = AVP_SCALINGMODE_SCALEASPECTFILL;
+            break;
+        case ZFPlayerScalingModeFill:
+            self.player.scalingMode = AVP_SCALINGMODE_SCALETOFILL;
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)setVolume:(float)volume {
+    _volume = MIN(MAX(0, volume), 1);
+    self.player.volume = volume;
+}
+
+@end
+
+</code></pre></div></div>
+
+<p>5.外部引用:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;ZFPlayer/ZFPlayer.h&gt;
+#import &lt;ZFPlayer/ZFIJKPlayerManager.h&gt;
+#import "RKAliPlayerManager.h"
+
+
+ RKAliPlayerManager *playerManager = [[RKAliPlayerManager alloc]init];
+ NSMutableDictionary * headers = [NSMutableDictionary dictionary];
+ [headers setObject:h5url forKey:@"referer"];
+ playerManager.requestHeader = [NSDictionary dictionaryWithDictionary:headers];
+
+ ...
+ ...
+
+</code></pre></div></div>
+
+:ET

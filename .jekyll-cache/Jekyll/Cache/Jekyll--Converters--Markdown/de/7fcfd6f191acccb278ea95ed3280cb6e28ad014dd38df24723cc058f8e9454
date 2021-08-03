@@ -1,0 +1,58 @@
+I"�<h4 id="zfplayer">ZFPlayer</h4>
+
+<p><a href="https://github.com/renzifeng/ZFPlayer">ZFPlayer直达</a></p>
+
+<p>作者对播放器的介绍:</p>
+<blockquote>
+  <p>Support customization of any player SDK and control layer(支持定制任何播放器SDK和控制层)</p>
+</blockquote>
+
+<p>ZFPlayer demo 支持的播放器:</p>
+
+<blockquote>
+  <p><strong>AVPlayer</strong><br />
+<strong>ijkplayer</strong><br />
+<strong><del>KSYPlayer</del></strong>【作者已移除】</p>
+</blockquote>
+
+<h5 id="拓展阿里播放器">拓展阿里播放器</h5>
+
+<p><a href="https://help.aliyun.com/document_detail/124708.html?spm=a2c4g.11186623.6.1161.62ea24c5aMDma5">阿里播放器直达</a></p>
+
+<blockquote>
+  <p>pod ‘AliPlayerSDK_iOS’, ‘5.3.0’		#[核心库]<br />
+pod ‘AliPlayerSDK_iOS_ARTP’, ‘5.3.0’	#[按需索取]<br />
+pod ‘AliPlayerSDK_iOS_ARTC’, ‘5.3.0’	#[按需索取]<br />
+pod ‘RtsSDK’, ‘5.3.0’					#[按需索取]</p>
+</blockquote>
+
+<p>1.按上述说明在<strong>podfile</strong>中添加需要的依赖库</p>
+
+<p>2.参考ZFPlayer的demo中<strong>ZFAVPlayerManager</strong>或者<strong>ZFIJKPlayerManager</strong>创建一个播放器管理类</p>
+
+<p>如:<code class="language-plaintext highlighter-rouge">RKAliPlayerManager</code></p>
+
+<p>3.遵循代理<strong>ZFPlayerMediaPlayback</strong></p>
+
+<p>4.管理类详细代码</p>
+
+<p><strong>RKAliPlayerManager.h</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+
+#import &lt;ZFPlayer/ZFPlayerMediaPlayback.h&gt;
+
+#import &lt;AliyunPlayer/AliyunPlayer.h&gt;
+
+@interface RKAliPlayerManager : NSObject&lt;ZFPlayerMediaPlayback&gt;
+
+@property (nonatomic, strong, readonly) AVURLAsset *asset;
+@property(nonatomic,strong,readonly)AliPlayer *player;
+/// 视频请求头
+@property (nonatomic, strong) NSDictionary *requestHeader;
+
+@end
+
+</code></pre></div></div>
+
+:ET
