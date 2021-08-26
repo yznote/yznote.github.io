@@ -1,4 +1,4 @@
-I"<h4 id="取沙盒日志的方法">取沙盒日志的方法</h4>
+I"�<h4 id="取沙盒日志的方法">取沙盒日志的方法</h4>
 
 <p>1.手机连接<code class="language-plaintext highlighter-rouge">Mac</code>电脑，打开<code class="language-plaintext highlighter-rouge">Xcode</code>。</p>
 
@@ -31,4 +31,77 @@
     
 <span class="p">}</span>
 </code></pre></div></div>
+
+<h4 id="补充2021-8-4-log-写入文件此方式控制台打印控制台输出">补充[2021-8-4] <code class="language-plaintext highlighter-rouge">Log</code> 写入文件【此方式控制台打印+控制台输出】</h4>
+
+<p>上述<code class="language-plaintext highlighter-rouge">nslogToFile</code>调用后,控制台将不能打印相关日志:</p>
+
+<p><strong>注意引入头文件</strong> <code class="language-plaintext highlighter-rouge">#import &lt;sys/time.h&gt;</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
++(void)writeToFile:(NSString *)name andInfo:(id )info {
+    RKWriteToFile(name, info);
+}
+
+void RKWriteToFile(NSString *name, NSString *format, ...) {
+    va_list L;
+    va_start(L, format);
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:L];
+    message = [name stringByAppendingFormat:@" =&gt; %@",message];
+    NSLog(@"%@", message);
+    // 开启异步子线程，将打印写入文件
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSFileHandle *output = RKLogFileHandle();
+        if (output != nil) {
+            time_t rawtime;
+            struct tm timeinfo;
+            char buffer[64];
+            time(&amp;rawtime);
+            localtime_r(&amp;rawtime, &amp;timeinfo);
+            struct timeval curTime;
+            gettimeofday(&amp;curTime, NULL);
+            int milliseconds = curTime.tv_usec / 1000;
+            strftime(buffer, 64, "%Y-%m-%d %H:%M", &amp;timeinfo);
+            char fullBuffer[128] = { 0 };
+            snprintf(fullBuffer, 128, "%s:%2d.%.3d ", buffer, timeinfo.tm_sec, milliseconds);
+            [output writeData:[[[NSString alloc] initWithCString:fullBuffer encoding:NSASCIIStringEncoding] dataUsingEncoding:NSUTF8StringEncoding]];
+            [output writeData:[message dataUsingEncoding:NSUTF8StringEncoding]];
+            static NSData *returnData = nil;
+            if (returnData == nil)
+                returnData = [@"\n" dataUsingEncoding:NSUTF8StringEncoding];
+            [output writeData:returnData];
+        }
+    });
+    va_end(L);
+}
+static NSFileHandle *RKLogFileHandle(){
+    static NSFileHandle *fileHandle = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        NSFileManager *fileManager = [[NSFileManager alloc] init];
+        
+        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];;
+        NSString *currentFilePath = [documentsDirectory stringByAppendingPathComponent:@"application-0.log"];
+        NSString *oldestFilePath = [documentsDirectory stringByAppendingPathComponent:@"application-60.log"];
+        
+        //60文件存在，删除
+        if ([fileManager fileExistsAtPath:oldestFilePath]){
+            [fileManager removeItemAtPath:oldestFilePath error:nil];
+        }
+        //遍历文件，将文件编号往后移动，新增第0的一个文件
+        for (int i = 60 - 1; i &gt;= 0; i--) {
+            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"application-%d.log", i]];
+            NSString *nextFilePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"application-%d.log", i + 1]];
+            if ([fileManager fileExistsAtPath:filePath]) {
+                [fileManager moveItemAtPath:filePath toPath:nextFilePath error:nil];
+            }
+        }
+        [fileManager createFileAtPath:currentFilePath contents:nil attributes:nil];
+        fileHandle = [NSFileHandle fileHandleForWritingAtPath:currentFilePath];
+        [fileHandle truncateFileAtOffset:0];
+    });
+    return fileHandle;
+}
+</code></pre></div></div>
+
 :ET
