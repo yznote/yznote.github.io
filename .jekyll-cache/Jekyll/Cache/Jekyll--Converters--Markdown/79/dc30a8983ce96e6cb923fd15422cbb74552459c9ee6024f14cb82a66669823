@@ -1,0 +1,33 @@
+I"�<h4 id="1首先使用命令行找到symbolicatecrash">1.首先使用命令行找到<code class="language-plaintext highlighter-rouge">symbolicatecrash</code></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /Applications/Xcode.app -name symbolicatecrash -type f
+</code></pre></div></div>
+<blockquote>
+  <p>你有可能会得到</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/iOSSupport/Library/PrivateFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash
+/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/Library/PrivateFrameworks/DVTFoundation.framework/symbolicatecrash
+/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/DVTFoundation.framework/symbolicatecrash
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/DVTFoundation.framework/symbolicatecrash
+/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash
+</code></pre></div>  </div>
+  <p>我使用的是</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="2在桌面创建一个文件夹">2.在桌面创建一个文件夹</h4>
+<p>我创建的文件夹是<code class="language-plaintext highlighter-rouge">crash</code>,这个文件夹可以是任意名称:<br />
+1&gt;.将<code class="language-plaintext highlighter-rouge">symbolicatecrash</code>拷贝到<code class="language-plaintext highlighter-rouge">crash</code>中;<br />
+2&gt;.将<code class="language-plaintext highlighter-rouge">xcode</code>打包对应的<code class="language-plaintext highlighter-rouge">dsym</code>也复制到<code class="language-plaintext highlighter-rouge">crash</code>中;<br />
+3&gt;.将<code class="language-plaintext highlighter-rouge">ips</code>文件的后缀改为<code class="language-plaintext highlighter-rouge">.crash</code>,为了方便我将名称也改为了<code class="language-plaintext highlighter-rouge">123</code>==&gt;<code class="language-plaintext highlighter-rouge">xxxxxxxx.ips</code>改为<code class="language-plaintext highlighter-rouge">123.crash</code>;</p>
+
+<h4 id="3回到命令行">3.回到命令行</h4>
+<p><code class="language-plaintext highlighter-rouge">cd</code>到桌面的<code class="language-plaintext highlighter-rouge">crash</code>文件夹执行</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./symbolicatecrash 123.crash YBHiMo.app.dSYM &gt; abc.crash
+</code></pre></div></div>
+<blockquote>
+  <p>这时候你可能会得到</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: "DEVELOPER_DIR" is not defined at ./symbolicatecrash line 69.
+</code></pre></div>  </div>
+</blockquote>
+
+:ET

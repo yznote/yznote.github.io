@@ -1,0 +1,79 @@
+I"�<h4 id="1首先使用命令行找到symbolicatecrash">1.首先使用命令行找到<code class="language-plaintext highlighter-rouge">symbolicatecrash</code></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /Applications/Xcode.app -name symbolicatecrash -type f
+</code></pre></div></div>
+<blockquote>
+  <p>你有可能会得到</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/iOSSupport/Library/PrivateFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash
+/Applications/Xcode.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/Library/PrivateFrameworks/DVTFoundation.framework/symbolicatecrash
+/Applications/Xcode.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/DVTFoundation.framework/symbolicatecrash
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/DVTFoundation.framework/symbolicatecrash
+/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash
+</code></pre></div>  </div>
+  <p>我使用的是</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="2在桌面创建一个文件夹">2.在桌面创建一个文件夹</h4>
+<p>我创建的文件夹是<code class="language-plaintext highlighter-rouge">crash</code>,这个文件夹可以是任意名称:<br />
+1&gt;.将<code class="language-plaintext highlighter-rouge">symbolicatecrash</code>拷贝到<code class="language-plaintext highlighter-rouge">crash</code>中;<br />
+2&gt;.将<code class="language-plaintext highlighter-rouge">xcode</code>打包对应的<code class="language-plaintext highlighter-rouge">dsym</code>也复制到<code class="language-plaintext highlighter-rouge">crash</code>中;<br />
+3&gt;.将<code class="language-plaintext highlighter-rouge">ips</code>文件的后缀改为<code class="language-plaintext highlighter-rouge">.crash</code>,为了方便我将名称也改为了<code class="language-plaintext highlighter-rouge">123</code>==&gt;<code class="language-plaintext highlighter-rouge">xxxxxxxx.ips</code>改为<code class="language-plaintext highlighter-rouge">123.crash</code>;</p>
+
+<h4 id="3回到命令行">3.回到命令行</h4>
+<p><code class="language-plaintext highlighter-rouge">cd</code>到桌面的<code class="language-plaintext highlighter-rouge">crash</code>文件夹执行</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./symbolicatecrash 123.crash YBHiMo.app.dSYM &gt; abc.crash
+</code></pre></div></div>
+<blockquote>
+  <p>这时候你可能会得到:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: "DEVELOPER_DIR" is not defined at ./symbolicatecrash line 69.
+</code></pre></div>  </div>
+  <p>需要在命令行中执行:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"
+</code></pre></div>  </div>
+  <p>然后重新</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./symbolicatecrash 123.crash YBHiMo.app.dSYM &gt; abc.crash
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="4执行完毕后你会得到">4.执行完毕后你会得到</h4>
+
+<p><code class="language-plaintext highlighter-rouge">acb.crash</code>文件,打开后找到<code class="language-plaintext highlighter-rouge">Triggered by Thread:  22</code>,这里是说触发崩溃是<code class="language-plaintext highlighter-rouge">Thread:22</code>,向下翻找到这线程</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Thread 22 name:  PanoRtcEngine Aux Thread
+Thread 22 Crashed:
+0   libsystem_kernel.dylib        	0x00000001d41057b0 __pthread_kill + 8
+1   libsystem_pthread.dylib       	0x00000001f08809c0 pthread_kill + 212
+2   libsystem_c.dylib             	0x00000001b0f7fa44 abort + 100
+3   libc++abi.dylib               	0x00000001bc18fbe8 __cxxabiv1::__aligned_malloc_with_fallback+ 76776 (unsigned long) + 0
+4   libc++abi.dylib               	0x00000001bc181cfc demangling_terminate_handler+ 19708 () + 272
+5   libobjc.A.dylib               	0x00000001bc0959b0 _objc_terminate+ 27056 () + 140
+6   libc++abi.dylib               	0x00000001bc18f074 std::__terminate(void (*)+ 73844 ()) + 16
+7   libc++abi.dylib               	0x00000001bc19199c __cxa_get_exception_ptr + 0
+8   libc++abi.dylib               	0x00000001bc19195c __cxxabiv1::exception_cleanup_func+ 84316 (_Unwind_Reason_Code, _Unwind_Exception*) + 0
+9   YBHiMo                        	0x0000000100e845bc __cxa_throw + 348
+10  libc++.1.dylib                	0x00000001bc1694c0 std::__1::__throw_system_error+ 287936 (int, char const*) + 88
+11  libc++.1.dylib                	0x00000001bc16955c std::__1::thread::detach+ 288092 () + 0
+12  PanoRtc                       	0x000000010409d730 0x10401c000 + 530224
+13  PanoRtc                       	0x00000001040cfea0 0x10401c000 + 736928
+14  PanoRtc                       	0x000000010417be6c 0x10401c000 + 1441388
+15  YBHiMo                        	0x0000000100cf0180 -[YBMatchUserVC destroyEngineKit] + 2769280 (YBMatchUserVC.m:498)
+16  YBHiMo                        	0x0000000100cef9b8 -[YBMatchUserVC destroyRoomSource] + 2767288 (YBMatchUserVC.m:437)
+17  YBHiMo                        	0x0000000100ceae28 -[YBMatchUserVC appKilled] + 2747944 (YBMatchUserVC.m:156)
+18  PanoRtc                       	0x0000000104187af4 0x10401c000 + 1489652
+19  PanoRtc                       	0x00000001041070e0 0x10401c000 + 962784
+20  PanoRtc                       	0x00000001041b9b6c 0x10401c000 + 1694572
+21  PanoRtc                       	0x00000001041b5620 0x10401c000 + 1676832
+22  PanoRtc                       	0x00000001040d6478 0x10401c000 + 763000
+23  libsystem_pthread.dylib       	0x00000001f087fc74 _pthread_start + 288
+24  libsystem_pthread.dylib       	0x00000001f0884878 thread_start + 8
+
+</code></pre></div></div>
+<h4 id="5总结">5.总结</h4>
+
+<p>根据上述日志很容易就定位到了:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-[YBMatchUserVC destroyEngineKit] + 2769280 (YBMatchUserVC.m:498)
+-[YBMatchUserVC destroyRoomSource] + 2767288 (YBMatchUserVC.m:437)
+-[YBMatchUserVC appKilled] + 2747944 (YBMatchUserVC.m:156)
+</code></pre></div></div>
+
+:ET
