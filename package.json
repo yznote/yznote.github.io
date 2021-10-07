@@ -1,14 +1,14 @@
 {
     "name": "rk-blog",
-    "title": "Rookie Blog",
-    "author": "Rookie <rookieyuan920@163.com>",
+    "title": "Yuan Blog",
+    "author": "Yuan <yzyuan920@163.com>",
     "version": "1.7.0",
-    "homepage": "https://rookie920.github.io/",
+    "homepage": "https://yuan920.github.io/",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Rookie920/rookie777"
+        "url": "https://github.com/Yuan920/rookie777"
     },
-    "bugs": "https://rookie920.github.io/issues",
+    "bugs": "https://yuan920.github.io/issues",
     "devDependencies": {
         "grunt": "~0.4.5",
         "grunt-contrib-less": "~0.11.4",
