@@ -1,4 +1,0 @@
-I"<p>1.首先找到<code class="language-plaintext highlighter-rouge">symbolicatecrash</code></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /Applications/Xcode.app -name symbolicatecrash -type f
-</code></pre></div></div>
-:ET
