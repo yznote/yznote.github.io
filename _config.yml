@@ -1,13 +1,13 @@
 # Site settings
-title: Rookie Blog
-SEOTitle: Rookie Blog
+title: Yuan's Blog
+SEOTitle: Yuan's Blog
 header-img: img/post-bg-desk.png
-email: rookieyuan920@163.com
+email: yzyuan920@163.com
 description: "还没有更好的描述呢"
-keyword: "rookie, rookie920 Blog, 永震的博客, rookie920, 永震, iOS, Apple, iPhone"
-url: "https://rookie920.github.io"          # your host, for absolute URL
+keyword: "yuan, 920 Blog, 永震的博客, 920, 永震, iOS, Apple, iPhone"
+url: "https://yuan920.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/Rookie920/rookie777" # you code repository
+github_repo: "https://github.com/Yuan920/rookie777" # you code repository
 
 # Publish posts or collection documents with a future date.
 future: true
@@ -22,8 +22,8 @@ sidebar-avatar: /img/RK.png      # use absolute URL, seeing it's used in both `/
 # SNS settings
 RSS: false
 weibo_username:     Memory丶Rookie
-github_username:    Rookie920
-jianshu_username:   Rookie920
+github_username:    Yuan920
+jianshu_username:   Yuan920
 
 
 
@@ -57,7 +57,7 @@ kramdown:
 
 # 评论系统
 # Disqus settings（https://disqus.com/）
-# disqus_username: rookie920
+# disqus_username: yuan920
 
 # 多说 将于2017年6月1日正式关停服务，建议使用 Disqus（http://dev.duoshuo.com/threads/58d1169ae293b89a20c57241）
 # Duoshuo settings
