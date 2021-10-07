@@ -3,7 +3,7 @@ layout:     post
 title:      UIPickerView分割线
 subtitle:  	iOS14背景色变为块状
 date:       2020-10-24 20:10:24 GMT+0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

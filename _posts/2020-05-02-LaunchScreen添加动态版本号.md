@@ -3,7 +3,7 @@ layout:     post
 title:      LaunchScreen添加动态版本号
 subtitle:  	版本号
 date:       2020-05-02 15:19:30 +0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

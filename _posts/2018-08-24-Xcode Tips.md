@@ -3,7 +3,7 @@ layout:     post
 title:      Xcode Tips
 subtitle:   警告、log等
 date:       2018-08-24 12:11:10 +0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

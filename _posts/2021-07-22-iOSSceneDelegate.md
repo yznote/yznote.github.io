@@ -3,7 +3,7 @@ layout:     post
 title:      iOSSceneDelegate
 subtitle:  	iOSSceneDelegate
 date:       2021-07-22 09:57:30 GMT+0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

@@ -3,7 +3,7 @@ layout:     post
 title:      Braintree
 subtitle:  	Objective-C、Swift
 date:       2020-12-22 15:30:30 GMT+0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

@@ -3,7 +3,7 @@ layout:     post
 title:      UIAlertController
 subtitle:   更改颜色、字体
 date:       2020-01-07 17:13:22 +0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

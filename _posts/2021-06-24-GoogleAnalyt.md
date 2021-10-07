@@ -3,7 +3,7 @@ layout:     post
 title:      GoogleAnalyt
 subtitle:  	分析统计
 date:       2021-06-24 13:55:26 GMT+0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

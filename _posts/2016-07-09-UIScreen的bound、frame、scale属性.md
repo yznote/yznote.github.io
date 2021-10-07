@@ -3,7 +3,7 @@ layout:     post
 title:      UIScreen的bound、frame、scale属性
 subtitle:   
 date:       2016-07-09 08:36:30 +0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

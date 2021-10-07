@@ -3,7 +3,7 @@ layout:     post
 title:      'SDWebImage'
 subtitle:   图片类型、防盗链设置等
 date:       2019-05-16 09:30:10 +0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false

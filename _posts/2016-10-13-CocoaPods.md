@@ -3,7 +3,7 @@ layout:     post
 title:      CocoaPods
 subtitle:   解决cocoapods安装完成后不能 pod search的问题
 date:       2016-10-13 22:30:06 +0800
-author:     Rookie
+author:     920
 header-img: 
 catalog: true
 stickie: false
