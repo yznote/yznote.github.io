@@ -1,0 +1,61 @@
+I"�<h4 id="检查本地java版本">检查本地<code class="language-plaintext highlighter-rouge">java</code>版本</h4>
+
+<p>命令行输入:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -version
+</code></pre></div></div>
+<p>显示下列信息说明<code class="language-plaintext highlighter-rouge">JDK</code>安装成功</p>
+<blockquote>
+  <p>控制台信息:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java version "1.8.0_301"  
+Java(TM) SE Runtime Environment (build 1.8.0_301-b09)  
+Java HotSpot(TM) 64-Bit Server VM (build 25.301-b09, mixed mode)  
+</code></pre></div>  </div>
+</blockquote>
+
+<blockquote>
+  <p><strong>注意:</strong></p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.bugly工具上传只能使用`jdk 1.8.0`,其他版本的会报`尝试打开文件buglyqq-upload-symbol.jar时出现意外错误`  
+2.移除java其他版本:`/Library/Java/JavaVirtualMachines/`手动删除即可
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="下载bugly工具包">下载<code class="language-plaintext highlighter-rouge">bugly</code>工具包</h4>
+
+<p><a href="https://bugly.qq.com/v2/downloads">符号表工具下载</a></p>
+
+<h4 id="整理文件">整理文件</h4>
+
+<p>1.在桌面创建文件夹<code class="language-plaintext highlighter-rouge">DSYM</code>【文件名随意】 
+2.将上一步下载的工具包<code class="language-plaintext highlighter-rouge">buglyqq-upload-symbol.jar</code>放入创建的文件夹<br />
+3.将<code class="language-plaintext highlighter-rouge">Xcode</code>生成的<code class="language-plaintext highlighter-rouge">dSYM</code>文件放入创建的文件夹<br />
+注意:<code class="language-plaintext highlighter-rouge">dSYM</code>和<code class="language-plaintext highlighter-rouge">buglyqq-upload-symbol.jar</code>工具包必须在同一个文件</p>
+
+<h4 id="配置信息开始上传">配置信息,开始上传</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar buglyqq-upload-symbol.jar -appid xxxx -appkey xxxx-xxxx-4xxxx-xxxx-xxxxx -bundleid com.xxxxx.xxxx -version 21.10.19.1 -platform IOS -inputSymbol /Users/yb007/Desktop/DSYM/yblove211019-1.dSYM
+</code></pre></div></div>
+
+<p><strong>参数说明:</strong></p>
+<blockquote>
+  <p>参数说明 – <code class="language-plaintext highlighter-rouge">Introduction for arguments</code></p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> -appid APP ID of Bugly
+ -appkey APP Key of Bugly
+ -bundleid Android平台对应的是package name/iOS平台是Bundle Id
+ -version APP版本，需要和bugly平台上面看到的crash版本号保持对齐
+ -platform 平台类型包含三个选项 Android、IOS两个选项，注意大小写要正确
+ -inputSymbol 原始符号表[ios是dsym/android平台是debug so]所在文件夹目录地址
+ -inputMapping mapping所在文件夹目录地址[Android平台特有，ios忽略]
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="控制台输出以下信息代表成功">控制台输出以下信息代表<code class="language-plaintext highlighter-rouge">成功</code></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+##[info]retCode: 200 response message: {"statusCode":0,"msg":"success","uploadReqID":"xxxxxxx"}
+##[info]now begin to uploadFileContent
+##[info]request uploadFileurl is https://symbol-v2.bugly.qq.com/trpc.eff_tool.symbol_upload_gateway.SymbolUploadGateway/uploadFile
+##[info]retCode: 200 response message: {"statusCode":0,"msg":"success","uploadReqID":"xxxxxxx"}
+
+</code></pre></div></div>
+
+:ET

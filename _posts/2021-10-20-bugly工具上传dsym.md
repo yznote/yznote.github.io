@@ -36,6 +36,13 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.301-b09, mixed mode)
 
 [符号表工具下载](https://bugly.qq.com/v2/downloads)
 
+#### 整理文件  
+
+1.在桌面创建文件夹`DSYM`【文件名随意】  
+2.将上一步下载的工具包`buglyqq-upload-symbol.jar`放入创建的文件夹  
+3.将`Xcode`生成的`dSYM`文件放入创建的文件夹  
+注意:`dSYM`和`buglyqq-upload-symbol.jar`工具包必须在同一个文件
+
 #### 配置信息,开始上传
 
 ```
@@ -63,6 +70,16 @@ java -jar buglyqq-upload-symbol.jar -appid xxxx -appkey xxxx-xxxx-4xxxx-xxxx-xxx
 ##[info]request uploadFileurl is https://symbol-v2.bugly.qq.com/trpc.eff_tool.symbol_upload_gateway.SymbolUploadGateway/uploadFile
 ##[info]retCode: 200 response message: {"statusCode":0,"msg":"success","uploadReqID":"xxxxxxx"}
 
+```
+
+#### 生成本地的文件
+
+上传完毕后本地的`DSYM`文件夹会生成以下文件【可以自行删除】
+```
+ cp_buglyQqUploadSymbolLib.jar
+ cp_buglySymboliOS.jar
+ buglybin
+ xxxx.dSYM.zip
 ```
 
 

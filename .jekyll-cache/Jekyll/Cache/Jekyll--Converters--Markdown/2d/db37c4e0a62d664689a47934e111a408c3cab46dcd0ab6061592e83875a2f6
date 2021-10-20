@@ -1,4 +1,4 @@
-I"U<h4 id="检查本地java版本">检查本地<code class="language-plaintext highlighter-rouge">java</code>版本</h4>
+I"�<h4 id="检查本地java版本">检查本地<code class="language-plaintext highlighter-rouge">java</code>版本</h4>
 
 <p>命令行输入:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -version
@@ -22,6 +22,13 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.301-b09, mixed mode)
 <h4 id="下载bugly工具包">下载<code class="language-plaintext highlighter-rouge">bugly</code>工具包</h4>
 
 <p><a href="https://bugly.qq.com/v2/downloads">符号表工具下载</a></p>
+
+<h4 id="整理文件">整理文件</h4>
+
+<p>1.在桌面创建文件夹<code class="language-plaintext highlighter-rouge">DSYM</code>【文件名随意】<br />
+2.将上一步下载的工具包<code class="language-plaintext highlighter-rouge">buglyqq-upload-symbol.jar</code>放入创建的文件夹<br />
+3.将<code class="language-plaintext highlighter-rouge">Xcode</code>生成的<code class="language-plaintext highlighter-rouge">dSYM</code>文件放入创建的文件夹<br />
+注意:<code class="language-plaintext highlighter-rouge">dSYM</code>和<code class="language-plaintext highlighter-rouge">buglyqq-upload-symbol.jar</code>工具包必须在同一个文件</p>
 
 <h4 id="配置信息开始上传">配置信息,开始上传</h4>
 
@@ -49,6 +56,15 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.301-b09, mixed mode)
 ##[info]request uploadFileurl is https://symbol-v2.bugly.qq.com/trpc.eff_tool.symbol_upload_gateway.SymbolUploadGateway/uploadFile
 ##[info]retCode: 200 response message: {"statusCode":0,"msg":"success","uploadReqID":"xxxxxxx"}
 
+</code></pre></div></div>
+
+<h4 id="生成本地的文件">生成本地的文件</h4>
+
+<p>上传完毕后本地的<code class="language-plaintext highlighter-rouge">DSYM</code>文件夹会生成以下文件【可以自行删除】</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cp_buglyQqUploadSymbolLib.jar
+ cp_buglySymboliOS.jar
+ buglybin
+ xxxx.dSYM.zip
 </code></pre></div></div>
 
 :ET
