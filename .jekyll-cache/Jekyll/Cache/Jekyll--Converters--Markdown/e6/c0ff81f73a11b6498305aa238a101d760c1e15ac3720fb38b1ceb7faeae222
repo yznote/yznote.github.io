@@ -1,0 +1,17 @@
+I";<h4 id="检查本地java版本">检查本地<code class="language-plaintext highlighter-rouge">java</code>版本</h4>
+
+<p>命令行输入:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -version
+</code></pre></div></div>
+<p>显示下列信息说明<code class="language-plaintext highlighter-rouge">JDK</code>安装成功</p>
+<blockquote>
+  <p>java version “1.8.0_301”<br />
+Java(TM) SE Runtime Environment (build 1.8.0_301-b09)<br />
+Java HotSpot(TM) 64-Bit Server VM (build 25.301-b09, mixed mode)</p>
+</blockquote>
+
+<p>注意:</p>
+<blockquote>
+  <p>bugly工具上传只能使用<code class="language-plaintext highlighter-rouge">jdk 1.8.0</code>,其他版本的会报’尝试打开文件buglyqq-upload-symbol.jar时出现意外错误’</p>
+</blockquote>
+:ET
