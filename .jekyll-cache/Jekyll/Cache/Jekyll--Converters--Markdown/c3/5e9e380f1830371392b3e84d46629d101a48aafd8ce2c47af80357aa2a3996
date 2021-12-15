@@ -1,0 +1,23 @@
+I"�<h4 id="阿里字体库">阿里字体库</h4>
+<p><a href="https://www.iconfont.cn/">直达</a></p>
+
+<h4 id="挑选图标">挑选图标</h4>
+
+<p>1.挑选合适的图标加入购物车;<br />
+2.选择购物车<br />
+3.将购物车中的图标添加到项目中<br />
+4.如果阿里巴巴矢量图没有合适的图标,需要<code class="language-plaintext highlighter-rouge">UI</code>制作<code class="language-plaintext highlighter-rouge">svg</code>图标,然后选择<code class="language-plaintext highlighter-rouge">上传图标至项目</code><br />
+<img src="/img/20211215/1.png" alt="图1" /></p>
+
+<h4 id="编辑图标">编辑图标</h4>
+<p>1.在项目目录下的导航中选择<code class="language-plaintext highlighter-rouge">项目设置</code><br />
+2.弹出框红勾选<code class="language-plaintext highlighter-rouge">base64</code></p>
+
+<h4 id="显示问题">显示问题</h4>
+
+<p>引用地址前添加【https】</p>
+
+<h4 id="下载本地">下载本地</h4>
+
+<p>我使用的是<code class="language-plaintext highlighter-rouge">在线链接</code>;如担心引用问题,可参考<a href="https://blog.csdn.net/panzina/article/details/105473099/">这里</a>下载到本地使用</p>
+:ET

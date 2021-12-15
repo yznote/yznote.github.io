@@ -1,0 +1,85 @@
+I"�#<h4 id="作用域">作用域</h4>
+<p>如下<code class="language-plaintext highlighter-rouge">success</code>方法内有个外部方法<code class="language-plaintext highlighter-rouge">bookShareSuc()</code>;如果这里使用<code class="language-plaintext highlighter-rouge">this.bookShareSuc()</code>控制台会有报错提示<code class="language-plaintext highlighter-rouge">bookShareSuc not is a function xxxx</code>；这中情况下需要在外部声明一个新变量<code class="language-plaintext highlighter-rouge">that</code>并将<code class="language-plaintext highlighter-rouge">this</code>指向<code class="language-plaintext highlighter-rouge">that</code>然后再内部使用<code class="language-plaintext highlighter-rouge">that.bookShareSuc()</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let that = this;
+uni.share({
+    provider: strProvider,
+    scene: strScene,
+    type: 0,
+    href: strShareUrl,
+    title: strShareTitle,
+    summary: strShareSummary,
+    imageUrl: strShareImageUrl,
+    success: function(res) {
+    	console.log("success:" + JSON.stringify(res) + 'from==&gt;' + that.shareFrom);
+    	if (that.shareFrom == 'read') {
+    		that.bookShareSuc();
+    	}
+    },
+    fail: function(err) {
+    	that.$u.toast(JSON.stringify(err));
+    	console.log("fail:" + JSON.stringify(err));
+    },
+    complete() {
+    	console.log('xxxxxxxx');
+    },
+})
+</code></pre></div></div>
+<h4 id="input标签">input标签</h4>
+<p>1&gt;<code class="language-plaintext highlighter-rouge">input</code>有默认宽度,当<code class="language-plaintext highlighter-rouge">UI</code>上需要的宽度大于默认值时,需要添加一个父视图,约束父视图所要呈现的宽度，然后设置<code class="language-plaintext highlighter-rouge">input</code>宽度<code class="language-plaintext highlighter-rouge">100%</code>;<br />
+2&gt;关于键盘弹起<code class="language-plaintext highlighter-rouge">cursor</code>设置问题,每次需要先设置<code class="language-plaintext highlighter-rouge">false</code>有个延迟在设置为<code class="language-plaintext highlighter-rouge">true</code>否则只能第一次响应键盘弹起,后续操作此属性不起作用,但是设置了延迟之后有个UI体验问题，就是键盘会先收起再弹出;<br />
+3&gt;页面<code class="language-plaintext highlighter-rouge">softinputMode</code>属性和<code class="language-plaintext highlighter-rouge">input</code>的<code class="language-plaintext highlighter-rouge">adjust-position</code><br />
+当页面<code class="language-plaintext highlighter-rouge">softinputMode</code>属性为<code class="language-plaintext highlighter-rouge">adjustResize</code>时，<code class="language-plaintext highlighter-rouge">input</code>的<code class="language-plaintext highlighter-rouge">adjust-position</code>无效【安卓】;<br />
+当页面<code class="language-plaintext highlighter-rouge">softinputMode</code>属性为<code class="language-plaintext highlighter-rouge">adjustPan</code>时，<code class="language-plaintext highlighter-rouge">input</code>的<code class="language-plaintext highlighter-rouge">adjust-position</code>为<code class="language-plaintext highlighter-rouge">false</code>时【iOS12之前有问题】;<br />
+解决方案:<code class="language-plaintext highlighter-rouge">softinputMode</code>设置为<code class="language-plaintext highlighter-rouge">adjustPan</code>；<code class="language-plaintext highlighter-rouge">adjust-position</code>设置为<code class="language-plaintext highlighter-rouge">true</code>【这时整个页面会随着键盘上移,体验差了点，但是对比前两者bug只能退而求其次】;<br />
+【https://uniapp.dcloud.io/component/input】</p>
+
+<h4 id="层级问题">层级问题</h4>
+<p><code class="language-plaintext highlighter-rouge">web-view</code>、<code class="language-plaintext highlighter-rouge">map</code>、<code class="language-plaintext highlighter-rouge">video</code>等标签层级要比<code class="language-plaintext highlighter-rouge">vue</code>页面层级高,要在这些页面上面添加子视图可通过原生子窗体【nvue】来解决【不是唯一】</p>
+
+<h4 id="web-view">web-view</h4>
+<p>1&gt;<code class="language-plaintext highlighter-rouge">app-vue</code>下<code class="language-plaintext highlighter-rouge">web-view</code>组件不支持自定义样式，而<code class="language-plaintext highlighter-rouge">v-show</code>的本质是改变组件的样式。即组件支持<code class="language-plaintext highlighter-rouge">v-if</code>而不是支持<code class="language-plaintext highlighter-rouge">v-show</code>；<br />
+所以如果<code class="language-plaintext highlighter-rouge">html</code>整个页面铺满屏幕可使用<code class="language-plaintext highlighter-rouge">vue+web-view</code>来呈现,如果不是铺满整个屏幕要使用<code class="language-plaintext highlighter-rouge">nvue+web-view</code>来呈现；因此：<code class="language-plaintext highlighter-rouge">vue</code>的<code class="language-plaintext highlighter-rouge">web-view</code>导航栏要使用<code class="language-plaintext highlighter-rouge">uni-app</code>的原生导航；<br />
+ 2&gt;<code class="language-plaintext highlighter-rouge">html</code>与<code class="language-plaintext highlighter-rouge">web-view</code>的交互事件参考
+【https://uniapp.dcloud.io/component/web-view?id=web-view】</p>
+<h4 id="ui布局思路">UI布局思路</h4>
+<p><code class="language-plaintext highlighter-rouge">uniapp</code>的布局跟<code class="language-plaintext highlighter-rouge">html</code>统一,跟<code class="language-plaintext highlighter-rouge">oc</code>不一样,模拟器看不出差别,到了实际真机上由于手机浏览器有自带上下导航,而且随着滑动自带导航会发生变化,<code class="language-plaintext highlighter-rouge">oc</code>的布局思路不适合</p>
+
+<h4 id="css样式">CSS样式</h4>
+<p><code class="language-plaintext highlighter-rouge">vue</code>界面比较友好,基本上<code class="language-plaintext highlighter-rouge">css</code>布局样式上和<code class="language-plaintext highlighter-rouge">html</code>无差异,但是<code class="language-plaintext highlighter-rouge">nvue</code>界面只支持<code class="language-plaintext highlighter-rouge">flex</code>布局,<code class="language-plaintext highlighter-rouge">100%</code>等写法一律不生效；除非破不得已一般尽量使用<code class="language-plaintext highlighter-rouge">vue</code>【遇到上面提到<code class="language-plaintext highlighter-rouge">层级问题</code>需要特殊对待】</p>
+
+<h4 id="控件设置本地背景图">控件设置本地背景图</h4>
+<p>必须先<code class="language-plaintext highlighter-rouge">import</code>再 给<code class="language-plaintext highlighter-rouge">data()</code>中的变量赋值;如果直接给<code class="language-plaintext highlighter-rouge">data()</code>里的属性赋值<code class="language-plaintext highlighter-rouge">app</code>正常，<code class="language-plaintext highlighter-rouge">h5</code>本地运行正常,<code class="language-plaintext highlighter-rouge">h5</code>发布之后背景图是无法显示的；正确方式如下：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;view class="vip-item" 
+  :style="{'background':'url('+vipImgUrl+')',
+  'background-size':'100% 100%'}"&gt; 
+&lt;/view&gt;
+
+///js
+import vipBackimg from "@/static/mine/mine-vip.png";
+export default{
+    data(){
+    	return{
+    		vipImgUrl:vipBackimg,
+    	}
+    }
+}
+</code></pre></div></div>
+
+<h4 id="三方配置">三方配置</h4>
+<p>所有三方配置信息,需要打包后生效</p>
+
+<h4 id="app打包和h5发布"><code class="language-plaintext highlighter-rouge">app</code>打包和<code class="language-plaintext highlighter-rouge">h5</code>发布</h4>
+<p>云端打包有次数限制,这个次数的定义不是唯一不变的,有时候3次字后就需要付费了,有时候1次之后就需要付费；<br />
+建议:<br />
+1&gt;.我遇到的情况一般都是安卓打包受限,【估计安卓打包需求大】,当受限收可单独云端打包iOS<br />
+2&gt;.采用制作自定义基座的方式打debug包测试,但是有时候debug包无法完成；例如openinstall的debug包测试无效<br />
+3&gt;.h5发布的时候注意manifest-&gt;h5配置路由模式【hash】运行路径【/h5/】发布的时候域名填写栏内【域名（带http）+/h5/】<br />
+4&gt;.h5默认的静态html页面有个js路径【原dmeo中没有/h5/】要补充；自定义的html路径也需要注意:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script src="/h5/static/common/js/touch-emulator.js"&gt;&lt;/script&gt;
+</code></pre></div></div>
+
+<h4 id="其他扩展">其他扩展</h4>
+<p>1.例如阿里巴巴矢量图的使用问题:<br />
+2.全局变量的挂载使用：【例如:小说中的$yb的使用 ybhttp.js、mian.js】<br />
+【参考:https://cn.vuejs.org/v2/api/#Vue-use】</p>
+:ET
