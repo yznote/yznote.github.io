@@ -141,6 +141,9 @@ friends: [
     },{
         title: "YYKit",
         href: "https://blog.ibireme.com/"
+    },{
+        title: "Git",
+        href: "https://git-scm.com/book/en/v2"
     }
     
 
