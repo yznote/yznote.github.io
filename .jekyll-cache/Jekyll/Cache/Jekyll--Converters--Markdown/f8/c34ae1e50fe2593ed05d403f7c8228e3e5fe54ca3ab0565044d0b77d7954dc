@@ -1,4 +1,4 @@
-I"�<h4 id="置顶">置顶</h4>
+I"F�<h4 id="置顶">置顶</h4>
 
 <p><strong>iOS15</strong><br />
 UITableView分组高度显示异常:</p>
@@ -680,4 +680,47 @@ _coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
     <span class="k">return</span> <span class="n">titleAttrStr</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
+
+<h4 id="二十九自定义加解密">二十九、自定义加解密</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#pragma mark - 解密
++(NSString *)getnewCode:(NSString *)type{
+    NSString *str = @"g-PLGVI5oRwn:SJZbMyODETY3rq08fjaAv&amp;CN4Kkctu1sXiBlW6.9dFxzHeQ2hU7pm";
+    long strLength = str.length;
+    long codeLength = type.length;
+    NSString *newCode = [NSString string];
+    for (int i=0; i&lt;codeLength; i++) {
+        for (int j=0; j&lt;strLength; j++) {
+            if ([[str substringWithRange:NSMakeRange(j, 1)] isEqual:[type substringWithRange:NSMakeRange(i, 1)]]) {
+                if(j-1&lt;0){
+                    newCode = [newCode stringByAppendingFormat:@"%@", [str substringWithRange:NSMakeRange(strLength-1, 1)]];
+                }else{
+                    newCode = [newCode stringByAppendingFormat:@"%@", [str substringWithRange:NSMakeRange(j-1, 1)]];
+                }
+            }
+        }
+    }
+    return newCode;
+}
+#pragma mark - 加密
++(NSString *)savenewCode:(NSString *)type {
+    NSString *str = @"g-PLGVI5oRwn:SJZbMyODETY3rq08fjaAv&amp;CN4Kkctu1sXiBlW6.9dFxzHeQ2hU7pm";
+    long strLength = str.length;
+    long codeLength = type.length;
+    NSString *newCode = [NSString string];
+    for (int i=0; i&lt;codeLength; i++) {
+        for (int j=0; j&lt;strLength; j++) {
+            if ([[str substringWithRange:NSMakeRange(j, 1)] isEqual:[type substringWithRange:NSMakeRange(i, 1)]]) {
+                if(j-1&lt;0){
+                    newCode = [newCode stringByAppendingFormat:@"%@", [str substringWithRange:NSMakeRange(strLength-1, 1)]];
+                }else{
+                    newCode = [newCode stringByAppendingFormat:@"%@", [str substringWithRange:NSMakeRange(j+1, 1)]];
+                }
+            }
+        }
+    }
+    return newCode;
+}
+</code></pre></div></div>
+
 :ET

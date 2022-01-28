@@ -1,0 +1,32 @@
+I"�	<h4 id="修饰词">修饰词</h4>
+
+<p>修饰词包括:<code class="language-plaintext highlighter-rouge">private</code>、<code class="language-plaintext highlighter-rouge">fileprivate</code>、<code class="language-plaintext highlighter-rouge">internal</code>、<code class="language-plaintext highlighter-rouge">public</code>、<code class="language-plaintext highlighter-rouge">open</code>五种.其中<code class="language-plaintext highlighter-rouge">fileprivate</code>和<code class="language-plaintext highlighter-rouge">open</code>是<code class="language-plaintext highlighter-rouge">Swift3</code>新加是对<code class="language-plaintext highlighter-rouge">private</code>和<code class="language-plaintext highlighter-rouge">public</code>的细分,区别如下:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">private</code>:只能在当前源文件的当前类访问;<br />
+<code class="language-plaintext highlighter-rouge">fileprivate</code>:在当前swift源文件能够访问;<br />
+<code class="language-plaintext highlighter-rouge">internal</code>:默认,在这个源代码所在的模块或者整个APP代码均可访问.当是框架或者库代码则在这个框架内部可访问,外部引用时不能访问;<br />
+<code class="language-plaintext highlighter-rouge">public</code>:公开的,能够呗任意处使用,但是其余module中不能被override和继承,在module内是可以的;<br />
+<code class="language-plaintext highlighter-rouge">open</code>:任意处使用、override、继承</p>
+</blockquote>
+
+<p>权限排序:<code class="language-plaintext highlighter-rouge">open</code>&gt;<code class="language-plaintext highlighter-rouge">public</code>&gt;<code class="language-plaintext highlighter-rouge">interal</code>&gt;<code class="language-plaintext highlighter-rouge">fileprivate</code>&gt;<code class="language-plaintext highlighter-rouge">private</code></p>
+
+<h4 id="class和struct">Class和Struct</h4>
+
+<p><strong>相同点:</strong></p>
+<ul>
+  <li>都能定义property、method、initalizers</li>
+  <li>都支持protocol、extension</li>
+</ul>
+
+<p><strong>不同点:</strong>
+class是引用类型|struct是值类型
+class支持继承|struct不支持继承
+class声明的方法修改属性不需要mutating关键字|struct需要
+class没有提供默认的memberwise initializer|struct提供默认的memberwise initializer
+class支持引用计数(Reference counting)|struct不支持
+class支持Type casting|struct不支持
+class支持Deinitializers|struct不支持</p>
+
+:ET

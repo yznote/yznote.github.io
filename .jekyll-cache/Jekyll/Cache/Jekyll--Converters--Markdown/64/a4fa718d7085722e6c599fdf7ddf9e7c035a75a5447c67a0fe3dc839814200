@@ -1,0 +1,91 @@
+I"�<h4 id="修饰词">修饰词</h4>
+
+<p>修饰词包括:<code class="language-plaintext highlighter-rouge">private</code>、<code class="language-plaintext highlighter-rouge">fileprivate</code>、<code class="language-plaintext highlighter-rouge">internal</code>、<code class="language-plaintext highlighter-rouge">public</code>、<code class="language-plaintext highlighter-rouge">open</code>五种.其中<code class="language-plaintext highlighter-rouge">fileprivate</code>和<code class="language-plaintext highlighter-rouge">open</code>是<code class="language-plaintext highlighter-rouge">Swift3</code>新加是对<code class="language-plaintext highlighter-rouge">private</code>和<code class="language-plaintext highlighter-rouge">public</code>的细分,区别如下:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">private</code>:只能在当前源文件的当前类访问;<br />
+<code class="language-plaintext highlighter-rouge">fileprivate</code>:在当前swift源文件能够访问;<br />
+<code class="language-plaintext highlighter-rouge">internal</code>:默认,在这个源代码所在的模块或者整个APP代码均可访问.当是框架或者库代码则在这个框架内部可访问,外部引用时不能访问;<br />
+<code class="language-plaintext highlighter-rouge">public</code>:公开的,能够呗任意处使用,但是其余module中不能被override和继承,在module内是可以的;<br />
+<code class="language-plaintext highlighter-rouge">open</code>:任意处使用、override、继承</p>
+</blockquote>
+
+<p>权限排序:<code class="language-plaintext highlighter-rouge">open</code>&gt;<code class="language-plaintext highlighter-rouge">public</code>&gt;<code class="language-plaintext highlighter-rouge">interal</code>&gt;<code class="language-plaintext highlighter-rouge">fileprivate</code>&gt;<code class="language-plaintext highlighter-rouge">private</code></p>
+
+<h4 id="class和struct">Class和Struct</h4>
+
+<p><strong>相同点:</strong></p>
+<ul>
+  <li>都能定义property、method、initalizers</li>
+  <li>都支持protocol、extension</li>
+</ul>
+
+<p><strong>不同点:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Class</th>
+      <th style="text-align: center">Struct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">class是引用类型</td>
+      <td style="text-align: center">struct是值类型</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">class支持继承</td>
+      <td style="text-align: center">struct不支持继承</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">class声明的方法修改属性不需要mutating关键字</td>
+      <td style="text-align: center">struct需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">class没有提供默认的memberwise initializer</td>
+      <td style="text-align: center">struct提供默认的memberwise initializer</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">class支持引用计数(Reference counting)</td>
+      <td style="text-align: center">struct不支持</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">class支持Type casting</td>
+      <td style="text-align: center">struct不支持</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">class支持Deinitializers</td>
+      <td style="text-align: center">struct不支持</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th style="text-align: center">技能</th>
+      <th style="text-align: right">排行</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>刘备</td>
+      <td style="text-align: center">哭</td>
+      <td style="text-align: right">大哥</td>
+    </tr>
+    <tr>
+      <td>关羽</td>
+      <td style="text-align: center">打</td>
+      <td style="text-align: right">二哥</td>
+    </tr>
+    <tr>
+      <td>张飞</td>
+      <td style="text-align: center">骂</td>
+      <td style="text-align: right">三弟</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET
