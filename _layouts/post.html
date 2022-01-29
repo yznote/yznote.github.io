@@ -54,6 +54,7 @@ layout: default
                     <span class="meta" style="font-size: 13px;padding-top: 15px;">
                         <!-- <strong>发布:</strong>  {{ page.date | date: "%Y/%-m/%-d %H:%M" }} -->
                         {% if page.rkupdate %}
+                            <strong>创建:</strong>  {% include updatetime.html date=page.createdate %}
                             <strong>更新:</strong>  {% include updatetime.html date=page.rkupdate %}
                         {% else %}
                             <strong>发布:</strong>  {{ page.date | date: "%Y/%-m/%-d %H:%M" }}
