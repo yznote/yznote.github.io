@@ -1,4 +1,4 @@
-I"�<h4 id="修饰词">修饰词</h4>
+I"!<h4 id="修饰词">修饰词</h4>
 
 <p>修饰词包括:<code class="language-plaintext highlighter-rouge">private</code>、<code class="language-plaintext highlighter-rouge">fileprivate</code>、<code class="language-plaintext highlighter-rouge">internal</code>、<code class="language-plaintext highlighter-rouge">public</code>、<code class="language-plaintext highlighter-rouge">open</code>五种.其中<code class="language-plaintext highlighter-rouge">fileprivate</code>和<code class="language-plaintext highlighter-rouge">open</code>是<code class="language-plaintext highlighter-rouge">Swift3</code>新加是对<code class="language-plaintext highlighter-rouge">private</code>和<code class="language-plaintext highlighter-rouge">public</code>的细分,区别如下:</p>
 
@@ -74,62 +74,101 @@
 在<code class="language-plaintext highlighter-rouge">Objective-C</code>中我们常常用运行时<code class="language-plaintext highlighter-rouge">Associated Object</code>关联对象来给<code class="language-plaintext highlighter-rouge">Category</code>添加属性,而在<code class="language-plaintext highlighter-rouge">Swift</code> 里,我们同样可以利用关联对象在<code class="language-plaintext highlighter-rouge">Extension</code>中添加计算属性,以达到所谓的存储属性的效果.</p>
 
 <p><strong>使用</strong></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    // 按钮
-    let btn: UIButton = UIButton(type: .custom)
-    btn.setTitle("你好", for: .normal)
-    btn.frame = CGRect(x: 100, y: 100, width: 50, height: 30)
-    btn.layer.cornerRadius = 5
-    btn.addTarget(self, action: #selector(clickBtn), for: .touchUpInside)
-    btn.backgroundColor = .red
-    btn.clickType = .unfollow
-    btn.oneTest = "oooo"
-    self.view.addSubview(btn)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 按钮
+let btn: UIButton = UIButton(type: .custom)
+btn.setTitle("你好", for: .normal)
+btn.frame = CGRect(x: 100, y: 100, width: 50, height: 30)
+btn.layer.cornerRadius = 5
+btn.addTarget(self, action: #selector(clickBtn), for: .touchUpInside)
+btn.backgroundColor = .red
+btn.clickType = .unfollow
+btn.oneTest = "oooo"
+self.view.addSubview(btn)
 
 
-    // 点击事件
-    @objc func clickBtn(_ sender:UIButton){
-        print("click-btn:\(sender.oneTest)")
-        print("click-btn:\(sender.clickType)")
-    }
+// 点击事件
+@objc func clickBtn(_ sender:UIButton){
+    print("click-btn:\(sender.oneTest)")
+    print("click-btn:\(sender.clickType)")
+}
 
-    // 输出
-    click-btn:oooo
-    click-btn:unfollow
+// 输出
+click-btn:oooo
+click-btn:unfollow
 
 </code></pre></div></div>
 <p><strong>扩展写法</strong></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    extension UIButton {
-        enum btntype :Int{
-            case `default`
-            case follow
-            case unfollow
-            case other
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>extension UIButton {
+    enum btntype :Int{
+        case `default`
+        case follow
+        case unfollow
+        case other
+    }
+    struct RkBtnKey {
+        static var rkkey: String = "rk_btn_key"
+        static var rkkey1: String = "rk_btn_key1"
+    }
+    var clickType: btntype {
+        set {
+            objc_setAssociatedObject(self,&amp;RkBtnKey.rkkey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
-        struct RkBtnKey {
-            static var rkkey: String = "rk_btn_key"
-            static var rkkey1: String = "rk_btn_key1"
-        }
-        var clickType: btntype {
-            set {
-                objc_setAssociatedObject(self,&amp;RkBtnKey.rkkey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        get {
+            if let action = objc_getAssociatedObject(self, &amp;RkBtnKey.rkkey) as? btntype {
+                return action
             }
-            get {
-                if let action = objc_getAssociatedObject(self, &amp;RkBtnKey.rkkey) as? btntype {
-                    return action
-                }
-                return .default
-            }
-        }
-        var oneTest: String {
-            set {
-                objc_setAssociatedObject(self,&amp;RkBtnKey.rkkey1, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-            get {
-                return objc_getAssociatedObject(self, &amp;RkBtnKey.rkkey1) as? String ?? "nil"
-            }
+            return .default
         }
     }
+    var oneTest: String {
+        set {
+            objc_setAssociatedObject(self,&amp;RkBtnKey.rkkey1, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &amp;RkBtnKey.rkkey1) as? String ?? "nil"
+        }
+    }
+}
 
 </code></pre></div></div>
+
+<p><strong>番外</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>0</th>
+      <th>0</th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OBJC_ASSOCIATION_ASSIGN</td>
+      <td>给关联对象指定弱引用</td>
+      <td>@property(assign)或@property(unsafe_unretained)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_RETAIN_NONATOMIC</td>
+      <td>给关联对象指定非原子的强引用</td>
+      <td>@property(nonatomic,strong)或@property(nonatomic,retain)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_COPY_NONATOMIC</td>
+      <td>给关联对象指定非原子的copy特性</td>
+      <td>@property(nonatomic,copy)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_RETAIN</td>
+      <td>给关联对象指定原子强引用</td>
+      <td>@property(atomic,strong)或@property(atomic,retain)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_COPY</td>
+      <td>给关联对象指定原子copy特性</td>
+      <td>@property(atomic,copy)</td>
+    </tr>
+  </tbody>
+</table>
 
 :ET

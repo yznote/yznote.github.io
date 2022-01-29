@@ -1,0 +1,174 @@
+I"K<h4 id="修饰词">修饰词</h4>
+
+<p>修饰词包括:<code class="language-plaintext highlighter-rouge">private</code>、<code class="language-plaintext highlighter-rouge">fileprivate</code>、<code class="language-plaintext highlighter-rouge">internal</code>、<code class="language-plaintext highlighter-rouge">public</code>、<code class="language-plaintext highlighter-rouge">open</code>五种.其中<code class="language-plaintext highlighter-rouge">fileprivate</code>和<code class="language-plaintext highlighter-rouge">open</code>是<code class="language-plaintext highlighter-rouge">Swift3</code>新加是对<code class="language-plaintext highlighter-rouge">private</code>和<code class="language-plaintext highlighter-rouge">public</code>的细分,区别如下:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">private</code>:只能在当前源文件的当前类访问;<br />
+<code class="language-plaintext highlighter-rouge">fileprivate</code>:在当前swift源文件能够访问;<br />
+<code class="language-plaintext highlighter-rouge">internal</code>:默认,在这个源代码所在的模块或者整个APP代码均可访问.当是框架或者库代码则在这个框架内部可访问,外部引用时不能访问;<br />
+<code class="language-plaintext highlighter-rouge">public</code>:公开的,能够呗任意处使用,但是其余module中不能被override和继承,在module内是可以的;<br />
+<code class="language-plaintext highlighter-rouge">open</code>:任意处使用、override、继承</p>
+</blockquote>
+
+<p>权限排序:<code class="language-plaintext highlighter-rouge">open</code>&gt;<code class="language-plaintext highlighter-rouge">public</code>&gt;<code class="language-plaintext highlighter-rouge">interal</code>&gt;<code class="language-plaintext highlighter-rouge">fileprivate</code>&gt;<code class="language-plaintext highlighter-rouge">private</code></p>
+
+<h4 id="class-和-struct">Class 和 Struct</h4>
+
+<p><strong>相同点:</strong></p>
+<ul>
+  <li>都能定义property、method、initalizers</li>
+  <li>都支持protocol、extension</li>
+</ul>
+
+<p><strong>不同点:</strong></p>
+
+<p><a href="https://juejin.cn/post/6844903775816155144">参考</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Struct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>class是引用类型</td>
+      <td>struct是值类型</td>
+    </tr>
+    <tr>
+      <td>class支持继承</td>
+      <td>struct不支持继承</td>
+    </tr>
+    <tr>
+      <td>class声明的方法修改属性不需要mutating关键字</td>
+      <td>struct需要</td>
+    </tr>
+    <tr>
+      <td>class没有提供默认的memberwise initializer</td>
+      <td>struct提供默认的memberwise initializer</td>
+    </tr>
+    <tr>
+      <td>class支持引用计数(Reference counting)</td>
+      <td>struct不支持</td>
+    </tr>
+    <tr>
+      <td>class支持Type casting</td>
+      <td>struct不支持</td>
+    </tr>
+    <tr>
+      <td>class支持Deinitializers</td>
+      <td>struct不支持</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="swift-扩展类的属性">Swift 扩展类的属性</h4>
+
+<p>在<code class="language-plaintext highlighter-rouge">Swift</code>的<code class="language-plaintext highlighter-rouge">Extension</code>里是不能添加存储属性的,这里可以类比<code class="language-plaintext highlighter-rouge">Objective-C</code>的<code class="language-plaintext highlighter-rouge">Category</code>分类,分类是<strong>不能</strong>添加实例变量和属性的.</p>
+<blockquote>
+  <p>因为不管是<code class="language-plaintext highlighter-rouge">Swift</code>的<code class="language-plaintext highlighter-rouge">Extension</code>还是<code class="language-plaintext highlighter-rouge">Objective-C</code>的<code class="language-plaintext highlighter-rouge">Category</code>都不能改变原有的类或者结构体的内存结构,在实例化这些类的时候,内存结构是确定的,而添加属性或者实例变量需要内存空间,会改变原有的内存结构.</p>
+</blockquote>
+
+<p><strong>关联对象</strong><br />
+在<code class="language-plaintext highlighter-rouge">Objective-C</code>中我们常常用运行时<code class="language-plaintext highlighter-rouge">Associated Object</code>关联对象来给<code class="language-plaintext highlighter-rouge">Category</code>添加属性,而在<code class="language-plaintext highlighter-rouge">Swift</code> 里,我们同样可以利用关联对象在<code class="language-plaintext highlighter-rouge">Extension</code>中添加计算属性,以达到所谓的存储属性的效果.</p>
+
+<p><strong>使用</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 按钮
+let btn: UIButton = UIButton(type: .custom)
+btn.setTitle("你好", for: .normal)
+btn.frame = CGRect(x: 100, y: 100, width: 50, height: 30)
+btn.layer.cornerRadius = 5
+btn.addTarget(self, action: #selector(clickBtn), for: .touchUpInside)
+btn.backgroundColor = .red
+btn.clickType = .unfollow
+btn.oneTest = "oooo"
+self.view.addSubview(btn)
+
+
+// 点击事件
+@objc func clickBtn(_ sender:UIButton){
+    print("click-btn:\(sender.oneTest)")
+    print("click-btn:\(sender.clickType)")
+}
+
+// 输出
+click-btn:oooo
+click-btn:unfollow
+
+</code></pre></div></div>
+<p><strong>扩展写法</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>extension UIButton {
+    enum btntype :Int{
+        case `default`
+        case follow
+        case unfollow
+        case other
+    }
+    struct RkBtnKey {
+        static var rkkey: String = "rk_btn_key"
+        static var rkkey1: String = "rk_btn_key1"
+    }
+    var clickType: btntype {
+        set {
+            objc_setAssociatedObject(self,&amp;RkBtnKey.rkkey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            if let action = objc_getAssociatedObject(self, &amp;RkBtnKey.rkkey) as? btntype {
+                return action
+            }
+            return .default
+        }
+    }
+    var oneTest: String {
+        set {
+            objc_setAssociatedObject(self,&amp;RkBtnKey.rkkey1, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &amp;RkBtnKey.rkkey1) as? String ?? "nil"
+        }
+    }
+}
+
+</code></pre></div></div>
+
+<p><strong>番外</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>关联策略</th>
+      <th>说明</th>
+      <th>对应属性</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><br />OBJC_ASSOCIATION_ASSIGN</td>
+      <td>给关联对象指定弱引用</td>
+      <td>@property(assign)<br />@property(unsafe_unretained)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_RETAIN_NONATOMIC</td>
+      <td>给关联对象指定非原子的强引用</td>
+      <td>@property(nonatomic,strong)<br />@property(nonatomic,retain)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_COPY_NONATOMIC</td>
+      <td>给关联对象指定非原子的copy特性</td>
+      <td>@property(nonatomic,copy)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_RETAIN</td>
+      <td>给关联对象指定原子强引用</td>
+      <td>@property(atomic,strong)<br />@property(atomic,retain)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_COPY</td>
+      <td>给关联对象指定原子copy特性</td>
+      <td>@property(atomic,copy)</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET
