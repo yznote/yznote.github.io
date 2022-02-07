@@ -144,6 +144,9 @@ friends: [
     },{
         title: "Git",
         href: "https://git-scm.com/book/en/v2"
+    },{
+        title: "Hyperzsb",
+        href: "https://blog.hyperzsb.tech/"
     }
     
 
