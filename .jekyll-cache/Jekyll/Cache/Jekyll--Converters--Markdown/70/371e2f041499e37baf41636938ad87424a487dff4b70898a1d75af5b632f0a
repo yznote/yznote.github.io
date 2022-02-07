@@ -1,4 +1,4 @@
-I"T<h4 id="修饰词">修饰词</h4>
+I"U<h4 id="修饰词">修饰词</h4>
 
 <p>修饰词包括:<code class="language-plaintext highlighter-rouge">private</code>、<code class="language-plaintext highlighter-rouge">fileprivate</code>、<code class="language-plaintext highlighter-rouge">internal</code>、<code class="language-plaintext highlighter-rouge">public</code>、<code class="language-plaintext highlighter-rouge">open</code>五种.其中<code class="language-plaintext highlighter-rouge">fileprivate</code>和<code class="language-plaintext highlighter-rouge">open</code>是<code class="language-plaintext highlighter-rouge">Swift3</code>新加是对<code class="language-plaintext highlighter-rouge">private</code>和<code class="language-plaintext highlighter-rouge">public</code>的细分,区别如下:</p>
 
@@ -63,7 +63,7 @@
   </tbody>
 </table>
 
-<h4 id="swift-扩展类的属性">Swift 扩展类的属性</h4>
+<h4 id="swift-扩展类的属性1button">Swift 扩展类的属性1[Button]</h4>
 
 <p>在<code class="language-plaintext highlighter-rouge">Swift</code>的<code class="language-plaintext highlighter-rouge">Extension</code>里是不能添加存储属性的,这里可以类比<code class="language-plaintext highlighter-rouge">Objective-C</code>的<code class="language-plaintext highlighter-rouge">Category</code>分类,分类是<strong>不能</strong>添加实例变量和属性的.</p>
 <blockquote>
@@ -133,45 +133,40 @@ click-btn:unfollow
 </code></pre></div></div>
 
 <p><strong>番外</strong></p>
-<style>
-table {
-margin: auto;
-}
-</style>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: center">关联策略</th>
-      <th style="text-align: center">说明</th>
-      <th style="text-align: center">对应属性</th>
+      <th>关联策略</th>
+      <th>说明</th>
+      <th>对应属性</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center">OBJC_ASSOCIATION_ASSIGN</td>
-      <td style="text-align: center">给关联对象指定弱引用</td>
-      <td style="text-align: center">@property(assign)<br />@property(unsafe_unretained)</td>
+      <td>OBJC_ASSOCIATION_ASSIGN</td>
+      <td>给关联对象指定弱引用</td>
+      <td>@property(assign)<br />@property(unsafe_unretained)</td>
     </tr>
     <tr>
-      <td style="text-align: center">OBJC_ASSOCIATION_RETAIN_NONATOMIC</td>
-      <td style="text-align: center">给关联对象指定非原子的强引用</td>
-      <td style="text-align: center">@property(nonatomic,strong)<br />@property(nonatomic,retain)</td>
+      <td>OBJC_ASSOCIATION_RETAIN_NONATOMIC</td>
+      <td>给关联对象指定非原子的强引用</td>
+      <td>@property(nonatomic,strong)<br />@property(nonatomic,retain)</td>
     </tr>
     <tr>
-      <td style="text-align: center">OBJC_ASSOCIATION_COPY_NONATOMIC</td>
-      <td style="text-align: center">给关联对象指定非原子的copy特性</td>
-      <td style="text-align: center">@property(nonatomic,copy)</td>
+      <td>OBJC_ASSOCIATION_COPY_NONATOMIC</td>
+      <td>给关联对象指定非原子的copy特性</td>
+      <td>@property(nonatomic,copy)</td>
     </tr>
     <tr>
-      <td style="text-align: center">OBJC_ASSOCIATION_RETAIN</td>
-      <td style="text-align: center">给关联对象指定原子强引用</td>
-      <td style="text-align: center">@property(atomic,strong)<br />@property(atomic,retain)</td>
+      <td>OBJC_ASSOCIATION_RETAIN</td>
+      <td>给关联对象指定原子强引用</td>
+      <td>@property(atomic,strong)<br />@property(atomic,retain)</td>
     </tr>
     <tr>
-      <td style="text-align: center">OBJC_ASSOCIATION_COPY</td>
-      <td style="text-align: center">给关联对象指定原子copy特性</td>
-      <td style="text-align: center">@property(atomic,copy)</td>
+      <td>OBJC_ASSOCIATION_COPY</td>
+      <td>给关联对象指定原子copy特性</td>
+      <td>@property(atomic,copy)</td>
     </tr>
   </tbody>
 </table>

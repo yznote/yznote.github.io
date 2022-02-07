@@ -1,4 +1,4 @@
-I"�<h4 id="修饰词">修饰词</h4>
+I"�#<h4 id="修饰词">修饰词</h4>
 
 <p>修饰词包括:<code class="language-plaintext highlighter-rouge">private</code>、<code class="language-plaintext highlighter-rouge">fileprivate</code>、<code class="language-plaintext highlighter-rouge">internal</code>、<code class="language-plaintext highlighter-rouge">public</code>、<code class="language-plaintext highlighter-rouge">open</code>五种.其中<code class="language-plaintext highlighter-rouge">fileprivate</code>和<code class="language-plaintext highlighter-rouge">open</code>是<code class="language-plaintext highlighter-rouge">Swift3</code>新加是对<code class="language-plaintext highlighter-rouge">private</code>和<code class="language-plaintext highlighter-rouge">public</code>的细分,区别如下:</p>
 
@@ -63,7 +63,7 @@
   </tbody>
 </table>
 
-<h4 id="swift-扩展类的属性">Swift 扩展类的属性</h4>
+<h4 id="swift-扩展类的属性button">Swift 扩展类的属性[Button]</h4>
 
 <p>在<code class="language-plaintext highlighter-rouge">Swift</code>的<code class="language-plaintext highlighter-rouge">Extension</code>里是不能添加存储属性的,这里可以类比<code class="language-plaintext highlighter-rouge">Objective-C</code>的<code class="language-plaintext highlighter-rouge">Category</code>分类,分类是<strong>不能</strong>添加实例变量和属性的.</p>
 <blockquote>
@@ -137,27 +137,101 @@ click-btn:unfollow
 <table>
   <thead>
     <tr>
-      <th>0</th>
-      <th>0</th>
-      <th>0</th>
+      <th>关联策略</th>
+      <th>说明</th>
+      <th>对应属性</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>OBJC_ASSOCIATION_ASSIGN</td>
       <td>给关联对象指定弱引用</td>
-      <td>相当于@property(assign)或@property(unsafe_unretained)</td>
+      <td>@property(assign)<br />@property(unsafe_unretained)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_RETAIN_NONATOMIC</td>
+      <td>给关联对象指定非原子的强引用</td>
+      <td>@property(nonatomic,strong)<br />@property(nonatomic,retain)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_COPY_NONATOMIC</td>
+      <td>给关联对象指定非原子的copy特性</td>
+      <td>@property(nonatomic,copy)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_RETAIN</td>
+      <td>给关联对象指定原子强引用</td>
+      <td>@property(atomic,strong)<br />@property(atomic,retain)</td>
+    </tr>
+    <tr>
+      <td>OBJC_ASSOCIATION_COPY</td>
+      <td>给关联对象指定原子copy特性</td>
+      <td>@property(atomic,copy)</td>
     </tr>
   </tbody>
 </table>
 
-<p>OBJC_ASSOCIATION_RETAIN_NONATOMIC,给关联对象指定非原子的强引用:<br />
-相当于@property(nonatomic,strong)或@property(nonatomic,retain)<br />
-OBJC_ASSOCIATION_COPY_NONATOMIC,给关联对象指定非原子的copy特性:<br />
-相当于@property(nonatomic,copy)<br />
-OBJC_ASSOCIATION_RETAIN,给关联对象指定原子强引用:<br />
-相当于@property(atomic,strong)或@property(atomic,retain)<br />
-OBJC_ASSOCIATION_COPY,给关联对象指定原子copy特性:<br />
-相当于@property(atomic,copy)</p>
+<h4 id="swift-扩展类的属性string">Swift 扩展类的属性[String]</h4>
+
+<p><strong>使用</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var ss: String? = nil
+print("aaaaa===&gt;\(ss.isBlank)")
+if testStr.isEmpty {
+    print("str-empty")
+}else{
+    print("str-no-empty")
+}
+        
+ss = ""
+        
+let dic: [String:Any] = ["key1":ss]
+/*
+var aaa: Dictionary&lt;String,Any?&gt; = [:]
+var bbb: [String:Any?] = [:]
+var ccc = [String:Any]()
+*/
+        
+print("hhhhhh:\(String.strFormat(dic["key1"]))")
+</code></pre></div></div>
+
+<p><strong>写法</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>extension String {
+    var isBlank: Bool {
+        return allSatisfy({$0.isWhitespace})
+    }
+    
+//    static func strFormat(_ original:Any) -&gt; String {
+//        if original is String {
+//            let transStr = original as! String
+//            if transStr.isBlank {
+//                return ""
+//            }else{
+//                return transStr
+//            }
+//        }else{
+//            return ""
+//        }
+//    }
+    
+    static func strFormat(_ original:Optional&lt;Any&gt;) -&gt; String {
+        if original is String {
+            let transStr = original as! String
+            if transStr.isBlank {
+                return ""
+            }else{
+                return transStr
+            }
+        }else{
+            return ""
+        }
+    }
+}
+extension Optional where Wrapped == String {
+    var isBlank: Bool{
+        return self?.isBlank ?? true
+    }
+}
+</code></pre></div></div>
 
 :ET
