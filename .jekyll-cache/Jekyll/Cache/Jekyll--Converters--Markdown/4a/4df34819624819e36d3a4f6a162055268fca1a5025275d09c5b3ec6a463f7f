@@ -1,0 +1,16 @@
+I"d<h4 id="devserver-配置">devServer 配置</h4>
+
+<p><strong>1.代理</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxy: {
+   '/phalapi':{                     // 要替换的位置
+   target: 'http://www.abc.com'     // 被替换的目标地址
+}
+</code></pre></div></div>
+<p><strong>说明</strong></p>
+
+<ul>
+  <li>初始地址<code class="language-plaintext highlighter-rouge">localhost:8080/phalapi/login</code>的请求会被代理到<code class="language-plaintext highlighter-rouge">http://www.abc.com/phalapi/login</code></li>
+</ul>
+
+:ET
