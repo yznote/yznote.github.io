@@ -1,4 +1,4 @@
-I"�<h4 id="准备">准备</h4>
+I"�<h4 id="准备">准备</h4>
 
 <p>需要下载<code class="language-plaintext highlighter-rouge">Apple Configurator 2</code></p>
 
@@ -17,17 +17,36 @@
 <p><strong>注意:<code class="language-plaintext highlighter-rouge">viewport-fit=cover</code>是必写项</strong></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-&lt;meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"&gt;
-&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
-&lt;meta name="theme-color" content="#fff"&gt;
+    &lt;link rel="shortcut icon" type="image/x-icon" href="/h5/static/app/ios/icon/40_40.png"&gt;
+    &lt;meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;!-- iOS13之前 --&gt;
+    &lt;meta name="apple-mobile-web-app-status-bar-style" content="default"&gt;
+    &lt;!-- iOS13之后 --&gt;
+    &lt;meta name="theme-color" content="#fff"&gt;
+
+    &lt;!-- 默认标题 --&gt;
+    &lt;meta name ="apple-mobile-web-app-title"content ="小说"&gt;
+    &lt;!-- 桌面图标 --&gt;
+    &lt;link href="/h5/static/app/ios/icon/120_120.png"  rel="apple-touch-icon" sizes="120x120"/&gt;
+    &lt;link href="/h5/static/app/ios/icon/180_180.png"  rel="apple-touch-icon" sizes="180x180"/&gt;
+    &lt;!-- 启动图 --&gt;
+    &lt;!-- iPhone Xs Max (1242px x 2688px) --&gt; 
+    &lt;link href="/h5/static/app/ios/launch/1242_2688.png" rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"&gt; 
+    &lt;!-- iPhone Xr (828px x 1792px) --&gt; 
+    &lt;link href="/h5/static/app/ios/launch/828_1792.png" rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"&gt; 
+    &lt;!-- iPhone X, Xs (1125px x 2436px) --&gt; 
+    &lt;link href="/h5/static/app/ios/launch/1125_2436.png" rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"&gt; 
+    &lt;!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) --&gt; 
+    &lt;link href="/h5/static/app/ios/launch/1242_2208.png" rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"&gt; 
+    &lt;!-- iPhone 8, 7, 6s, 6 (750px x 1334px) --&gt; 
+    &lt;link href="/h5/static/app/ios/launch/750_1334.png" rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"&gt; 
 
 </code></pre></div></div>
 
 <h4 id="番外">番外</h4>
 
 <p><strong>以下方式可以改变tabbar高度以及样式;书写位置App.vue或者任意公共css</strong></p>
-
-<p><a href="https://www.lervor.com/archives/54/">参考</a></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 &lt;style lang="scss"&gt;
@@ -61,5 +80,7 @@
 &lt;/style&gt;
 
 </code></pre></div></div>
+
+<p><a href="https://www.lervor.com/archives/54/">参考</a></p>
 
 :ET
