@@ -1,0 +1,211 @@
+I"�(<h5 id="需求">需求</h5>
+
+<p>1.判断是否安装导航软件【高德、百度、腾讯、苹果、谷歌】;<br />
+2.在本App内打开已安装导航软件,进行导航;</p>
+
+<h5 id="注意">注意</h5>
+<p>百度和别家使用坐标系不一样需要进行转换,具体参考<code class="language-plaintext highlighter-rouge">方法实现</code>;</p>
+<blockquote>
+  <p>目前国内主流坐标系类型主要有三种：WGS84、GCJ02、BD09;<br />
+WGS84: 为一种大地坐标系,也是目前广泛使用的GPS全球卫星定位系统使用的坐标系;<br />
+GCJ02: 是由中国国家测绘局制订的地理信息系统的坐标系统,是由WGS84坐标系经加密后的坐标系;<br />
+BD09: 百度坐标系,在GCJ02坐标系基础上再次加密.其中BD09ll表示百度经纬度坐标,BD09mc表示百度墨卡托米制坐标.</p>
+</blockquote>
+
+<h5 id="白名单">白名单</h5>
+<p><strong>在LSApplicationQueriesSchemes中添加以下</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;string&gt;baidumap&lt;/string&gt;
+ &lt;string&gt;iosamap&lt;/string&gt;
+ &lt;string&gt;comgooglemaps&lt;/string&gt;
+ &lt;string&gt;qqmap&lt;/string&gt;
+</code></pre></div></div>
+
+<h5 id="外部调用">外部调用</h5>
+<p><strong>注意这里参数使用的极光定位中的参数,根据需要修改,传入经纬度、目的地即可.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JMSGLocationContent *locationContent = (JMSGLocationContent *)_message.content;
+NSData *mix_data = [locationContent.address dataUsingEncoding:NSUTF8StringEncoding];
+NSDictionary *mix_dic = [NSJSONSerialization JSONObjectWithData:mix_data options:NSJSONReadingAllowFragments error:nil];
+NSString *endName = YZMsg(@"终点位置");
+if ([mix_dic isKindOfClass:[NSDictionary class]]) {
+    endName = [NSString stringWithFormat:@"%@",[mix_dic valueForKey:@"name"]];
+}
+NSLog(@"点击了定位=lng:%@==lat:%@",locationContent.longitude,locationContent.latitude);
+[[RKLBSManager shareManager]showNavigationsWithLat:locationContent.latitude lng:locationContent.longitude endName:endName];
+
+</code></pre></div></div>
+
+<h5 id="方法实现">方法实现</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#pragma mark - 打开导航软件开始
+-(void)showNavigationsWithLat:(NSNumber *)lat lng:(NSNumber *)lng endName:(NSString *)endName{
+    
+    UIApplication * app = [UIApplication sharedApplication];
+    YBWeakSelf;
+    RKActionSheet *sheet = [[RKActionSheet alloc]initWithTitle:YZMsg(@"")];
+    if ([app canOpenURL:[NSURL URLWithString:@"iosamap://"]]) {
+        [sheet addActionWithType:RKSheet_Default andTitle:YZMsg(@"高德地图") complete:^{
+            [weakSelf openGdMapWithLat:lat lng:lng endName:endName];
+        }];
+    }
+    if ([app canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
+        [sheet addActionWithType:RKSheet_Default andTitle:YZMsg(@"百度地图") complete:^{
+            [weakSelf openBdMapWithLat:lat lng:lng endName:endName];
+        }];
+    }
+    if ([app canOpenURL:[NSURL URLWithString:@"qqmap://"]]) {
+        [sheet addActionWithType:RKSheet_Default andTitle:YZMsg(@"腾讯地图") complete:^{
+            [weakSelf openTxMapWithLat:lat lng:lng endName:endName];
+        }];
+    }
+    [sheet addActionWithType:RKSheet_Default andTitle:YZMsg(@"Apple地图") complete:^{
+        [weakSelf openAppleMapWithLat:lat lng:lng endName:endName];
+    }];
+    /*
+    // 谷歌
+    if ([app canOpenURL:[NSURL URLWithString:@"comgooglemaps://"]]) {
+        [sheet addActionWithType:RKSheet_Default andTitle:YZMsg(@"谷歌地图") complete:^{
+            [weakSelf openGoogleMapWithLat:lat lng:lng endName:endName];
+        }];
+    }
+    */
+    [sheet addActionWithType:RKSheet_Cancle andTitle:YZMsg(@"取消") complete:^{
+    }];
+    [sheet showSheet];
+}
+/// 高德
+-(void)openGdMapWithLat:(NSNumber *)lat lng:(NSNumber *)lng endName:(NSString *)endName{
+    NSString *appName = [PublicObj getAppName];
+    NSString *urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=%@&amp;sid=&amp;sname=%@&amp;did=&amp;dlat=%@&amp;dlon=%@&amp;dname=%@&amp;dev=0&amp;t=0",appName,@"我的位置",lat,lng,endName] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
+}
+/// 百度
+-(void)openBdMapWithLat:(NSNumber *)lat lng:(NSNumber *)lng endName:(NSString *)endName{
+    
+    /// 百度需要坐标转换
+    double old_lat = [lat doubleValue];
+    double old_lng = [lng doubleValue];
+    NSArray *newLocA = [self gcjToBd09llLat:old_lat lon:old_lng];
+    NSNumber *new_lat = newLocA[0];
+    NSNumber *new_lng = newLocA[1];
+    
+    NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin=&amp;destination=latlng:%@,%@|name:%@&amp;mode=driving&amp;coord_type=bd09ll",new_lat,new_lng,endName] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
+}
+/// 腾讯
+-(void)openTxMapWithLat:(NSNumber *)lat lng:(NSNumber *)lng endName:(NSString *)endName{
+    NSString *appName = [PublicObj getAppName];
+    NSString *urlString = [[NSString stringWithFormat:@"qqmap://map/routeplan?type=drive&amp;from=我的位置&amp;to=%@&amp;tocoord=%@,%@&amp;policy=1&amp;referer=%@", endName, lat, lng, appName] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+/// 苹果地图
+-(void)openAppleMapWithLat:(NSNumber *)lat lng:(NSNumber *)lng endName:(NSString *)endName{
+    float latVal = [NSString stringWithFormat:@"%@", lat].floatValue;
+    float lngVal = [NSString stringWithFormat:@"%@", lng].floatValue;
+    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(latVal, lngVal);
+    MKMapItem *currentLoc = [MKMapItem mapItemForCurrentLocation];
+    MKMapItem *toLocation = [[MKMapItem alloc]initWithPlacemark:[[MKPlacemark alloc]initWithCoordinate:loc addressDictionary:nil] ];
+    toLocation.name = endName;
+    NSArray *items = @[currentLoc,toLocation];
+    NSDictionary *dic = @{
+        MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving,
+        MKLaunchOptionsMapTypeKey : @(MKMapTypeStandard),
+        MKLaunchOptionsShowsTrafficKey : @(YES)
+    };
+    [MKMapItem openMapsWithItems:items launchOptions:dic];
+}
+/// 谷歌地图【未启用】
+-(void)openGoogleMapWithLat:(NSNumber *)lat lng:(NSNumber *)lng endName:(NSString *)endName {
+    NSString *appName = [PublicObj getAppName];
+    NSString *urlScheme = [NSBundle mainBundle].bundleIdentifier;
+    NSString *urlString = [[NSString stringWithFormat:@"comgooglemaps://?x-source=%@&amp;x-success=%@&amp;q=%@,%@&amp;saddr=&amp;daddr=%@&amp;directionsmode=driving",appName,urlScheme,lat, lng,endName] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+/*
+/// 百度坐标转高德坐标
+-(NSArray *)bd09llToGCJLat:(double)blat lon:(double)nlon {
+    double X_PI = M_PI * 3000.0 / 180.0;
+    double x = blon - 0.0065;
+    double y = blat - 0.006;
+    double z = sqrt(x * x + y * y) - 0.00002 * sin(y * X_PI);
+    double theta = atan2(y, x) - 0.000003 * cos(x * X_PI);
+    double lat = z * sin(theta);
+    double lon = z * cos(theta);
+    NSArray *latlon = @[[NSNumber numberWithDouble:lat],[NSNumber numberWithDouble:lon]];
+    return latlon;
+}
+*/
+/// 高德坐标转百度坐标
+-(NSArray *)gcjToBd09llLat:(double)glat lon:(double)glon{
+    double X_PI = M_PI * 3000.0 / 180.0;
+    double x = glon;
+    double y = glat;
+    double z = sqrt(x * x + y * y) + 0.00002 * sin(y * X_PI);
+    double theta = atan2(y, x) + 0.000003 * cos(x * X_PI);
+    double lat = z * sin(theta) + 0.006;
+    double lon = z * cos(theta) + 0.0065;
+    NSArray *latlon = @[[NSNumber numberWithDouble:lat],[NSNumber numberWithDouble:lon]];
+    return latlon;
+}
+/*
+//百度坐标转高德（传入经度、纬度）
+function bd_decrypt(bd_lng, bd_lat) {
+    var X_PI = Math.PI * 3000.0 / 180.0;
+    var x = bd_lng - 0.0065;
+    var y = bd_lat - 0.006;
+    var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * X_PI);
+    var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * X_PI);
+    var gg_lng = z * Math.cos(theta);
+    var gg_lat = z * Math.sin(theta);
+    return {lng: gg_lng, lat: gg_lat}
+}*/
+/*
+//高德坐标转百度（传入经度、纬度）
+function bd_encrypt(gg_lng, gg_lat) {
+    var X_PI = Math.PI * 3000.0 / 180.0;
+    var x = gg_lng, y = gg_lat;
+    var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * X_PI);
+    var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * X_PI);
+    var bd_lng = z * Math.cos(theta) + 0.0065;
+    var bd_lat = z * Math.sin(theta) + 0.006;
+    return {
+        bd_lat: bd_lat,
+        bd_lng: bd_lng
+    };
+}
+*/
+#pragma mark - 打开导航软件结束
+</code></pre></div></div>
+
+<h5 id="番外">番外</h5>
+
+<p><strong>高德文档</strong>
+<a href="https://developer.amap.com/api/amap-mobile/guide/ios/route">高德</a></p>
+
+<p><strong>百度文档</strong>
+<a href="https://lbs.baidu.com/index.php?title=uri/api/ios#service-page-anchor6">百度</a></p>
+
+<p><strong>腾讯文档</strong>
+<a href="https://lbs.qq.com/webApi/uriV1/uriGuide/uriMobileRoute">腾讯</a></p>
+
+<p><strong>谷歌传参说明</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q=纬度,经度(标题)
+
+saddr= 出发点地址。
+
+daddr= 目标地址。
+
+z=缩放大小，取值范围1~20。1比例尺最大，20比例尺最小。
+
+hl=语言设置，en代表英语，zh代表中文
+
+dirflg =路线类型，r代表公共交通路线，w代表步行
+
+t=地图类型。m=&gt;常规地图，k=&gt;卫星地图，h=&gt;混合地图，p=&gt;地域地图
+
+sort= 公共交通线路的排序，def缺省的排序方式。最快的行程优先，num最少的换乘优先，walk最少的步行优先
+
+</code></pre></div></div>
+<p><a href="https://developers.google.com/maps/documentation/staticmaps/?hl=zh-cn#URL_Parameters">官网</a></p>
+
+:ET
