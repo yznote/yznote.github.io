@@ -1,4 +1,4 @@
-I"F�<h4 id="置顶">置顶</h4>
+I"ߘ<h4 id="置顶">置顶</h4>
 
 <p><strong>iOS15</strong><br />
 UITableView分组高度显示异常:</p>
@@ -14,6 +14,18 @@ UITableView分组高度显示异常:</p>
 }
 </code></pre></div>  </div>
 </blockquote>
+
+<p><strong>iOS15导航边透明</strong>
+<code class="language-plaintext highlighter-rouge">放到改变tabbar字体或者tintcolor之后</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (@available(iOS 15.0, *)) {
+    UITabBarAppearance * appearance = [[UITabBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundColor = UIColor.whiteColor;
+    [UITabBar appearance].scrollEdgeAppearance = appearance;
+    [UITabBar appearance].standardAppearance = appearance;
+}
+[UITabBar appearance].backgroundColor = UIColor.whiteColor;
+</code></pre></div></div>
 
 <p><strong>横竖屏幕适配(安全距离)</strong></p>
 

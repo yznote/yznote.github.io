@@ -1,4 +1,4 @@
-I"�-<h4 id="网上例子比较多步骤简单回顾">网上例子比较多步骤简单回顾</h4>
+I".9<h4 id="网上例子比较多步骤简单回顾">网上例子比较多步骤简单回顾</h4>
 
 <p><strong>第一步:<code class="language-plaintext highlighter-rouge">Projext</code> - <code class="language-plaintext highlighter-rouge">Localizations</code> - <code class="language-plaintext highlighter-rouge">+</code> 自己需要的语言</strong></p>
 
@@ -120,6 +120,21 @@ Localizable.strings 存放本地的国际化</p>
         [self resetRootViewController];
     }
     
+    // ===&gt;20220426 并新增NSBundle扩展
+    NSMutableArray *userDefaultLanguages = [[NSUserDefaults standardUserDefaults]objectForKey:@"AppleLanguages"];
+    NSLog(@"rk-language-tool-get:%@",userDefaultLanguages);
+    NSString *langStr = @"zh-Hans-US";
+    if (![lagType isEqual:ZH_CN]) {
+        langStr = @"en-US";
+    }
+    [NSBundle setLanguage:langStr];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:langStr,nil] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSMutableArray *userDefaultLanguages1 = [[NSUserDefaults standardUserDefaults]objectForKey:@"AppleLanguages"];
+    NSLog(@"rk-language-tool-set:%@",userDefaultLanguages1);
+    // &lt;===20220426
+
 }
 -(void)resetRootViewController {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -131,6 +146,81 @@ Localizable.strings 存放本地的国际化</p>
 
 //    [root changeLanguage];
     
+}
+
+@end
+
+</code></pre></div></div>
+
+<p><strong>NSBundle扩展</strong></p>
+<blockquote>
+  <p>注意:目前没有发现有什么作用,切换语言立即打开系统相机还是不会立刻发生变化…</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">.h</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
+//  NSBundle+RKLanguage.h
+//  iphoneLive
+//
+//  Created by YB007 on 2022/4/20.
+//  Copyright © 2022 cat. All rights reserved.
+//
+
+#import &lt;Foundation/Foundation.h&gt;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSBundle (RKLanguage)
+
+
+// 设置语言
++ (void)setLanguage:(NSString *)language;
+
+@end
+
+NS_ASSUME_NONNULL_END
+
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">.m</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
+//  NSBundle+RKLanguage.m
+//  iphoneLive
+//
+//  Created by YB007 on 2022/4/20.
+//  Copyright © 2022 cat. All rights reserved.
+//
+
+#import "NSBundle+RKLanguage.h"
+
+#import &lt;objc/runtime.h&gt;
+
+static const char _bundle = 0;
+
+@interface BundleEx : NSBundle
+
+@end
+
+@implementation BundleEx
+
+- (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName {
+    NSBundle *bundle = objc_getAssociatedObject(self, &amp;_bundle);
+    NSString *locStr = bundle ? [bundle localizedStringForKey:key value:value table:tableName] : [super localizedStringForKey:key value:value table:tableName];
+    NSLog(@"rk-language-budle-set-val:%@",locStr);
+    return locStr;
+}
+
+@end
+
+
+@implementation NSBundle (RKLanguage)
+
++ (void)setLanguage:(NSString *)language {
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        object_setClass([NSBundle mainBundle], [BundleEx class]);
+    });
+    objc_setAssociatedObject([NSBundle mainBundle], &amp;_bundle, language ? [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:language ofType:@"lproj"]] : nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    NSLog(@"rk-language-budle-set-language:%@",language);
 }
 
 @end
