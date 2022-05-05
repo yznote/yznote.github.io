@@ -1,0 +1,62 @@
+I"�<h4 id="swift-使用spm拉取三方库">Swift 使用SPM拉取三方库</h4>
+
+<p>报错信息如下:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The operation couldn’t be completed. (SwiftPM.SPMRepositoryError error 5.)
+</code></pre></div></div>
+
+<p><img src="/img/20220505/1.png" alt="图1" /></p>
+
+<h4 id="解决方案">解决方案</h4>
+
+<p><strong>首先操作<code class="language-plaintext highlighter-rouge">Xcode</code></strong></p>
+
+<p><img src="/img/20220505/2.png" alt="图2" /></p>
+
+<p>next-&gt;<br />
+<img src="/img/20220505/3.png" alt="图3" /></p>
+
+<p>next-&gt;<br />
+<img src="/img/20220505/4.png" alt="图4" /></p>
+
+<p>next-&gt;<br />
+<img src="/img/20220505/5.png" alt="图5" /></p>
+
+<p><strong>然后登录你的<code class="language-plaintext highlighter-rouge">GitHub</code>生成<code class="language-plaintext highlighter-rouge">token</code></strong></p>
+
+<p><img src="/img/20220505/6.png" alt="图6" /></p>
+
+<p>next-&gt;<br />
+<img src="/img/20220505/7.png" alt="图7" /></p>
+
+<p>next-&gt;<br />
+<img src="/img/20220505/8.png" alt="图8" /></p>
+
+<p>next-&gt;<br />
+<img src="/img/20220505/9.png" alt="图9" /></p>
+
+<p>next-&gt;<br />
+<img src="/img/20220505/10.png" alt="图10" /></p>
+
+<p>next-&gt;<br />
+<img src="/img/20220505/11.png" alt="图11" /></p>
+
+<p><strong>然后操作<code class="language-plaintext highlighter-rouge">Xcode</code></strong></p>
+
+<p><strong>返回<code class="language-plaintext highlighter-rouge">Xcode</code>填写账号密码</strong><br />
+<img src="/img/20220505/12.png" alt="图12" /></p>
+
+<h4 id="ssh公钥私钥">ssh公钥、私钥</h4>
+
+<p><strong>加密方式ed25519</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen -t ed25519 -C "你的邮箱"
+</code></pre></div></div>
+
+<p><strong>查看公钥</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat ~/.ssh/id_ed25519.pub
+</code></pre></div></div>
+
+<p><strong>验证</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -T git@github.com
+</code></pre></div></div>
+
+:ET
