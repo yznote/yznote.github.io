@@ -1,0 +1,22 @@
+I"<h4 id="vapor">Vapor</h4>
+
+<p><a href="https://cn.docs.vapor.codes/4.0/">Vapor-4.0</a></p>
+
+<h4 id="解决拉取依赖慢的问题">解决拉取依赖慢的问题</h4>
+
+<p>1.命令行链接代理<br />
+【参考上一篇】<code class="language-plaintext highlighter-rouge">命令行设置代理</code></p>
+
+<p>2.终端执行:</p>
+<blockquote>
+  <p>以下命令可使用<code class="language-plaintext highlighter-rouge">xcodebuild -help</code>来获取<br />
+在<code class="language-plaintext highlighter-rouge">shell</code>里面<code class="language-plaintext highlighter-rouge">[]</code>表示这个参数是可选的,<code class="language-plaintext highlighter-rouge">&lt;&gt;</code>表示参数是必须的</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcodebuild -resolvePackageDependencies -scmProvider system
+</code></pre></div>  </div>
+  <p><strong>如果有多个<code class="language-plaintext highlighter-rouge">Project</code>,请根据提示添加<code class="language-plaintext highlighter-rouge">-project</code>参数</strong></p>
+</blockquote>
+
+<p>3.命令行继续执行:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vapor xcode
+</code></pre></div></div>
+:ET

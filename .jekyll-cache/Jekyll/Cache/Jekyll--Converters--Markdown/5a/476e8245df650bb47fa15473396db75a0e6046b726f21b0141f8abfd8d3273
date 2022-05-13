@@ -1,8 +1,8 @@
-I"�<h4 id="首先确定代理的端口号">首先确定代理的端口号</h4>
+I"�<h4 id="首先确定代理的端口号">首先确定代理的端口号</h4>
 
 <p><strong>我使用的蓝灯,其他代理方式自行查看,大同小异</strong></p>
 
-<p><code class="language-plaintext highlighter-rouge">打开蓝灯-show lantern-setting-http(s) proxy</code></p>
+<p><code class="language-plaintext highlighter-rouge">打开【蓝灯】-&gt;【show lantern】-&gt;【setting】-&gt;【http(s) proxy】</code></p>
 
 <h4 id="方式一随写随用">方式一:随写随用</h4>
 
@@ -64,7 +64,7 @@ function proxyOn() {
 }
 </code></pre></div></div>
 
-<p>使用:</p>
+<p><strong>使用:</strong></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxyOn 60742
 
@@ -94,7 +94,7 @@ function proxyOn() {
     echo -e "已开启代理:\nhttp_proxy=$http_proxy\nhttps_proxy=$https_proxy"
 }
 </code></pre></div></div>
-<p><strong>使用</strong></p>
+<p><strong>使用:</strong></p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxyOn
 
 已开启代理:
