@@ -1,0 +1,112 @@
+I"�<h4 id="首先确定代理的端口号">首先确定代理的端口号</h4>
+
+<p><strong>我使用的蓝灯,其他代理方式自行查看,大同小异</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">打开蓝灯-show lantern-setting-http(s) proxy</code></p>
+
+<h4 id="方式一随写随用">方式一:随写随用</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export http_proxy=127.0.0.1:60742
+
+export https_proxy=127.0.0.1:60742
+</code></pre></div></div>
+<p>设置完毕后可使用<code class="language-plaintext highlighter-rouge">env</code>或者<code class="language-plaintext highlighter-rouge">export</code>+<code class="language-plaintext highlighter-rouge">回车</code>,命令行输出的内容里包含以下两行就可以了</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http_proxy=127.0.0.1:60742
+https_proxy=127.0.0.1:60742
+</code></pre></div></div>
+
+<h4 id="方式二写入zshrc">方式二:写入<code class="language-plaintext highlighter-rouge">.zshrc</code></h4>
+
+<p>1.打开</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>open -e ~/.zshrc
+</code></pre></div></div>
+
+<p>2.编辑,将下列方法贴入<code class="language-plaintext highlighter-rouge">.zshrc</code>中</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#close proxy
+function proxyOff(){
+    unset http_proxy
+    unset https_proxy
+    echo -e "已关闭代理"
+}
+ 
+#open proxy
+function proxyOn() {
+    export http_proxy="http://127.0.0.1:60742"
+    export https_proxy=$http_proxy
+    echo -e "已开启代理"
+}
+</code></pre></div></div>
+
+<p>3.保存并关闭文件执行以下方法,使文件生效</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source ~/.zshrc
+</code></pre></div></div>
+
+<p>开启代理:</p>
+
+<p><code class="language-plaintext highlighter-rouge">proxyOn</code></p>
+
+<p>关闭代理:</p>
+
+<p><code class="language-plaintext highlighter-rouge">proxyOff</code></p>
+
+<h5 id="方式二的扩展-1">方式二的扩展-1</h5>
+
+<blockquote>
+  <p>函数可以有参数,但<code class="language-plaintext highlighter-rouge">zsh</code>中无需显式注明有几个参数,直接读取即可.【$1、$2…】</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#open proxy
+function proxyOn() {
+    export http_proxy="http://127.0.0.1:$1"
+    export https_proxy=$http_proxy
+    echo -e "已开启代理,端口为:$1"
+}
+</code></pre></div></div>
+
+<p>使用:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxyOn 60742
+
+输出结果:
+已开启代理,端口为:60742
+</code></pre></div></div>
+
+<h5 id="方式二扩展-2">方式二扩展-2</h5>
+
+<blockquote>
+  <p>不写默认端口选择<code class="language-plaintext highlighter-rouge">60742</code>,写端口的时候就读取写入的端口.<br />
+可以用<code class="language-plaintext highlighter-rouge">$+n</code>快速判断第<code class="language-plaintext highlighter-rouge">n</code>个参数是否存在.格式:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(($+1)) &amp;&amp; {
+    echo $1
+}
+</code></pre></div>  </div>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># open proxy
+function proxyOn() {
+    export http_proxy="http://127.0.0.1:60742"
+    (($+1)) &amp;&amp; {
+     export http_proxy="http://127.0.0.1:$1"
+    }
+    
+    export https_proxy=$http_proxy
+    echo -e "已开启代理:\nhttp_proxy=$http_proxy\nhttps_proxy=$https_proxy"
+}
+</code></pre></div></div>
+<p><strong>使用</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxyOn
+
+已开启代理:
+http_proxy=http://127.0.0.1:60742
+https_proxy=http://127.0.0.1:60742
+
+=========
+proxyOn 123
+
+已开启代理:
+http_proxy=http://127.0.0.1:123
+https_proxy=http://127.0.0.1:123
+</code></pre></div></div>
+
+:ET

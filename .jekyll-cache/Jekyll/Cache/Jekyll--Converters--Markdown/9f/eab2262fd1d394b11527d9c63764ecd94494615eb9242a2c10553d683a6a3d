@@ -1,4 +1,4 @@
-I"j<h4 id="基本">基本</h4>
+I"v<h4 id="基本">基本</h4>
 
 <p>当前代码放入缓存区做准备:</p>
 
@@ -111,6 +111,15 @@ git remote set-url origin git@github.com:xxx/xxx.git
 
 // 检查
 git remote -v
+</code></pre></div></div>
+
+<h4 id="通信协议">通信协议</h4>
+<p>拉取<code class="language-plaintext highlighter-rouge">git</code>仓库提示:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/2 stream 1 was not closed cleanly before end of the underlying stream.
+</code></pre></div></div>
+
+<p>可改为1.1</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global http.version HTTP/1.1
 </code></pre></div></div>
 
 :ET

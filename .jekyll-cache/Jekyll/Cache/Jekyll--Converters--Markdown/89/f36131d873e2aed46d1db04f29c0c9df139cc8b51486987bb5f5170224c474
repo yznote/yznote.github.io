@@ -1,4 +1,4 @@
-I".9<h4 id="网上例子比较多步骤简单回顾">网上例子比较多步骤简单回顾</h4>
+I"�9<h4 id="网上例子比较多步骤简单回顾">网上例子比较多步骤简单回顾</h4>
 
 <p><strong>第一步:<code class="language-plaintext highlighter-rouge">Projext</code> - <code class="language-plaintext highlighter-rouge">Localizations</code> - <code class="language-plaintext highlighter-rouge">+</code> 自己需要的语言</strong></p>
 
@@ -368,6 +368,9 @@ class RKHook:NSObject {
 }
 
 </code></pre></div></div>
+<h4 id="推送">推送</h4>
+
+<p><a href="https://segmentfault.com/a/1190000020720814">推送国际化</a></p>
 
 <h4 id="总结">总结</h4>
 

@@ -1,4 +1,4 @@
-I"�<h4 id="swift-使用spm拉取三方库">Swift 使用SPM拉取三方库</h4>
+I"1<h4 id="swift-使用spm拉取三方库">Swift 使用SPM拉取三方库</h4>
 
 <p>报错信息如下:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The operation couldn’t be completed. (SwiftPM.SPMRepositoryError error 5.)
@@ -40,10 +40,21 @@
 <p>next-&gt;<br />
 <img src="/img/20220505/11.png" alt="图11" /></p>
 
-<p><strong>然后操作<code class="language-plaintext highlighter-rouge">Xcode</code></strong></p>
-
 <p><strong>返回<code class="language-plaintext highlighter-rouge">Xcode</code>填写账号密码</strong><br />
 <img src="/img/20220505/12.png" alt="图12" /></p>
+
+<p><strong>然后</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">File-&gt;Packages-&gt;Reset Package Caches</code></p>
+
+<p><em>如果还是失败</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>退出 Xcode
+rm -rf ~/Libray/Developer/Xcode/DerivedData
+rm -rf ~/Library/Caches/org.swift.swiftpm
+重启 Xcode
+File-&gt;Packages-&gt;Reset Package Caches
+</code></pre></div></div>
 
 <h4 id="ssh公钥私钥">ssh公钥、私钥</h4>
 
@@ -57,6 +68,19 @@
 
 <p><strong>验证</strong></p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -T git@github.com
+</code></pre></div></div>
+
+<h4 id="题外">题外</h4>
+
+<p><strong>如果上述方法还是不能成功,请移步下一篇<code class="language-plaintext highlighter-rouge">命令行设置代理</code></strong></p>
+
+<h5 id="更新完毕控制台提示">更新完毕控制台提示</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Updating https://github.com/vapor/vapor.git
+...
+Building for debugging...
+[1211/1211] Linking Run
+Build complete! (187.85s)
 </code></pre></div></div>
 
 :ET
