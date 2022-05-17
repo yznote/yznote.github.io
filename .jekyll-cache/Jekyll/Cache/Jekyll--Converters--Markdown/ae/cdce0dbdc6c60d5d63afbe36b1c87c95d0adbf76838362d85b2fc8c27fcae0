@@ -1,0 +1,51 @@
+I"~<h4 id="vapor">Vapor</h4>
+
+<p><a href="https://cn.docs.vapor.codes/4.0/">Vapor-4.0</a></p>
+
+<h4 id="解决拉取依赖慢的问题">解决拉取依赖慢的问题</h4>
+
+<p>1.命令行链接代理<br />
+参考上一篇:<a href="https://yuan920.github.io/2022/05/11/%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/"><code class="language-plaintext highlighter-rouge">命令行设置代理</code></a></p>
+
+<p>2.终端执行:</p>
+<blockquote>
+  <p>以下命令可使用<code class="language-plaintext highlighter-rouge">xcodebuild -help</code>来获取<br />
+在<code class="language-plaintext highlighter-rouge">shell</code>里面<code class="language-plaintext highlighter-rouge">[]</code>表示这个参数是可选的,<code class="language-plaintext highlighter-rouge">&lt;&gt;</code>表示参数是必须的</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcodebuild -resolvePackageDependencies -scmProvider system
+</code></pre></div></div>
+<p><strong>如果有多个<code class="language-plaintext highlighter-rouge">Project</code>,请根据提示添加<code class="language-plaintext highlighter-rouge">-project</code>参数</strong></p>
+
+<p>3.命令行继续执行:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vapor xcode
+</code></pre></div></div>
+
+<h4 id="端口">端口</h4>
+
+<p>运行提示:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Address already in use...
+</code></pre></div></div>
+
+<p>首先:查看占用端口的<code class="language-plaintext highlighter-rouge">PID</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo lsof -i:8080
+</code></pre></div></div>
+
+<blockquote>
+  <p>结果</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COMMAND     PID  USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+QQ          576 yb007   30u  IPv4 0xdddc49affcbdffe1      0t0  TCP 192.168.1.238:57715-&gt;106.53.142.30:http-alt (ESTABLISHED)
+QQ          576 yb007   31u  IPv4 0xdddc49affcbdffe1      0t0  TCP 192.168.1.238:57715-&gt;106.53.142.30:http-alt (ESTABLISHED)
+Google     1430 yb007   23u  IPv4 0xdddc49affcbef541      0t0  TCP localhost:59813-&gt;localhost:http-alt (ESTABLISHED)
+Google     1430 yb007   26u  IPv4 0xdddc49affc74efe1      0t0  TCP localhost:59814-&gt;localhost:http-alt (ESTABLISHED)
+Run       41505 yb007    8u  IPv4 0xdddc49affcbf3541      0t0  TCP localhost:http-alt (LISTEN)
+Run       41505 yb007    9u  IPv4 0xdddc49affd1acfe1      0t0  TCP localhost:http-alt-&gt;localhost:59813 (ESTABLISHED)
+Run       41505 yb007   10u  IPv4 0xdddc49affd1c2fe1      0t0  TCP localhost:http-alt-&gt;localhost:59814 (ESTABLISHED)
+</code></pre></div>  </div>
+</blockquote>
+
+<p>然后:根据<code class="language-plaintext highlighter-rouge">PID</code>【如上图的:41505】杀掉进程</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kill -9 41505
+</code></pre></div></div>
+
+:ET
