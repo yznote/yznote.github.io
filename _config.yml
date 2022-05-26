@@ -150,6 +150,9 @@ friends: [
     },{
         title: "Lantern",
         href: "https://github.com/getlantern"
+    },{
+        title: "美团",
+        href: "https://tech.meituan.com/"
     }
     
 
