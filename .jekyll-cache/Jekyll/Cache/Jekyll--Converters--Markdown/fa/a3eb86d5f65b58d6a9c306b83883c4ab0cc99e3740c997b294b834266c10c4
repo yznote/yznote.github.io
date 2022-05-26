@@ -1,4 +1,4 @@
-I"g<h4 id="前言">前言</h4>
+I"|<h4 id="前言">前言</h4>
 
 <p>项目使用<code class="language-plaintext highlighter-rouge">git</code>管理版本的时候没有配置忽略文件<code class="language-plaintext highlighter-rouge">.gitignore</code>文件,就会导致每次提交的时候都会出现<code class="language-plaintext highlighter-rouge">UserInterfaceState.xcuserstate</code>(视图修改缓存文件),<code class="language-plaintext highlighter-rouge">Breakpoints_v2.xcbkptlist</code>(断点调试缓存文件)这两个文件被修改.</p>
 
@@ -24,6 +24,8 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+*.DS_Store
+*.xcscheme
 
 # CocoaPods
 #
@@ -43,7 +45,7 @@ DerivedData
 
 <p>先把本地缓存删除(改变成未<code class="language-plaintext highlighter-rouge">track</code>状态),一般删除项目中全部缓存,然后再提交.命令行操作如下:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rm -r –cached .
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rm -r --cached .
 git add .
 git commit -m ‘update .gitignore’
 </code></pre></div></div>

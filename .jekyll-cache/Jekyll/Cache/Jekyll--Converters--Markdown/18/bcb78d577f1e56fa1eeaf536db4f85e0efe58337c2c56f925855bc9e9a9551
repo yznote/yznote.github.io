@@ -1,4 +1,4 @@
-I"v<h4 id="基本">基本</h4>
+I"�<h4 id="基本">基本</h4>
 
 <p>当前代码放入缓存区做准备:</p>
 
@@ -103,6 +103,7 @@ lipo -remove x86_64 tracking -o tracking
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
 git reflog
 git show xxx
+git status
 </code></pre></div></div>
 
 <h4 id="更换检查远程链接方式">更换、检查远程链接方式</h4>

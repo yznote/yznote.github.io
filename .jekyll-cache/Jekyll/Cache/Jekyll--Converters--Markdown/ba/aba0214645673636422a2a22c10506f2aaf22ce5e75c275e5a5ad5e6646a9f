@@ -1,4 +1,4 @@
-I"�<h4 id="vapor">Vapor</h4>
+I"�<h4 id="vapor">Vapor</h4>
 
 <p><a href="https://cn.docs.vapor.codes/4.0/">Vapor-4.0</a></p>
 
@@ -27,7 +27,7 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Address already in use...
 </code></pre></div></div>
 
-<p>首先:查看占用端口的<code class="language-plaintext highlighter-rouge">PID</code></p>
+<p><strong>首先:</strong>查看占用端口的<code class="language-plaintext highlighter-rouge">PID</code></p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo lsof -i:8080
 </code></pre></div></div>
 
@@ -44,7 +44,7 @@ Run       41505 yb007   10u  IPv4 0xdddc49affd1c2fe1      0t0  TCP localhost:htt
 </code></pre></div>  </div>
 </blockquote>
 
-<p>然后:根据<code class="language-plaintext highlighter-rouge">PID</code>【<strong>如上图的:41505</strong>】杀掉进程</p>
+<p><strong>然后:</strong>根据<code class="language-plaintext highlighter-rouge">PID</code>【<strong>如上图的:41505</strong>】杀掉进程</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kill -9 41505
 </code></pre></div></div>
 
