@@ -1,4 +1,7 @@
-I"�<h4 id="基本">基本</h4>
+I"�<h4 id="基本">基本</h4>
+
+<p><a href="https://www.php.cn/manual/view/34943.html">git中文手册</a><br />
+<a href="https://www.yiibai.com/git">易百</a></p>
 
 <p>当前代码放入缓存区做准备:</p>
 
@@ -101,9 +104,44 @@ lipo -remove x86_64 tracking -o tracking
 
 <h4 id="记录">记录</h4>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
+git log --oneline
 git reflog
+
+#暂存区和远程
 git show xxx
+git show -s
+
+#工作区和暂存区状态
 git status
+
+#工作区和暂存区不同
+git diff
+</code></pre></div></div>
+<p><strong>如何确定代码已经提交远程:</strong><br />
+1.首先根据<code class="language-plaintext highlighter-rouge">git status</code>/<code class="language-plaintext highlighter-rouge">git diff</code>判定<code class="language-plaintext highlighter-rouge">工作区</code>和<code class="language-plaintext highlighter-rouge">暂存区</code>是否同步;<br />
+2.利用<code class="language-plaintext highlighter-rouge">git show -s</code>再次判定<code class="language-plaintext highlighter-rouge">暂存区</code>是否提交远程;</p>
+<blockquote>
+  <p>注意:不能直接使用<code class="language-plaintext highlighter-rouge">git show -s</code>来判断是否提交,因为有可能<code class="language-plaintext highlighter-rouge">工作区</code>的改动都没有同步到<code class="language-plaintext highlighter-rouge">暂存区</code>;因此需要先执行第一步.</p>
+</blockquote>
+
+<p><strong>关于<code class="language-plaintext highlighter-rouge">git show -s</code>的总结:</strong><br />
+未提交远程状态:<code class="language-plaintext highlighter-rouge">(HEAD -&gt; YBLove220421)</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>YBHiMo [YBLove220421] % git show -s
+error: cannot run mor: No such file or directory
+commit d3211c61865ef7437953643fe66cc86263f73dbf (HEAD -&gt; YBLove220421)
+Author: yuan &lt;yzyuan920@163.com&gt;
+Date:   Fri May 27 10:40:31 2022 +0800
+
+    刘海屏水印位置修复
+</code></pre></div></div>
+<p>已提交远程状态:<code class="language-plaintext highlighter-rouge">(HEAD -&gt; YBLove220421, origin/YBLove220421)</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>YBHiMo [YBLove220421] % git show -s
+error: cannot run mor: No such file or directory
+commit d3211c61865ef7437953643fe66cc86263f73dbf (HEAD -&gt; YBLove220421, origin/YBLove220421)
+Author: yuan &lt;yzyuan920@163.com&gt;
+Date:   Fri May 27 10:40:31 2022 +0800
+
+    刘海屏水印位置修复
 </code></pre></div></div>
 
 <h4 id="更换检查远程链接方式">更换、检查远程链接方式</h4>
