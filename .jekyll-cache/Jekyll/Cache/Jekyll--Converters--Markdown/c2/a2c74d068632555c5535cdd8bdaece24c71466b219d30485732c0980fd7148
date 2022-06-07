@@ -1,6 +1,0 @@
-I"<h4 id="旧版api被废弃">旧版<code class="language-plaintext highlighter-rouge">api</code>被废弃</h4>
-
-<p><del>[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];</del></p>
-
-<h4 id="新版设置方法">新版设置方法</h4>
-:ET
