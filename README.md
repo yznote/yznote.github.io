@@ -1,5 +1,5 @@
 # 更新记录
-### 修复安全警告
+### 20220609.修复安全警告
 ```
      "bugs": "https://yuan920.github.io/issues",
      "devDependencies": {
