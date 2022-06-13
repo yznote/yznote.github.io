@@ -1,0 +1,33 @@
+I"k
+<h4 id="ubuntu配置远程登陆"><code class="language-plaintext highlighter-rouge">Ubuntu</code>配置远程登陆</h4>
+
+<blockquote>
+  <p>注意:我自己操作发现<code class="language-plaintext highlighter-rouge">CentOS</code>默认是支持<code class="language-plaintext highlighter-rouge">ssh</code>远程登录,<code class="language-plaintext highlighter-rouge">Ubuntu</code>默认不支持,不知道是否都是这样,如果使用命令行登录提示权限被拒可执行以下步骤</p>
+</blockquote>
+
+<ol>
+  <li>重置服务器密码<br />
+<code class="language-plaintext highlighter-rouge">CentOS</code>、<code class="language-plaintext highlighter-rouge">Ubuntu</code>都需要重置,区别是重置的时候<code class="language-plaintext highlighter-rouge">CentOS</code>默认重置的是<code class="language-plaintext highlighter-rouge">root</code>密码,<code class="language-plaintext highlighter-rouge">Ubuntu</code>需要手动切换<code class="language-plaintext highlighter-rouge">root</code>或者<code class="language-plaintext highlighter-rouge">ubuntu</code>去重置</li>
+  <li>查看<code class="language-plaintext highlighter-rouge">Ubuntu</code>是否开启了<code class="language-plaintext highlighter-rouge">ssh</code>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service sshd status
+</code></pre></div>    </div>
+  </li>
+  <li>切换<code class="language-plaintext highlighter-rouge">root</code>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>su root
+</code></pre></div>    </div>
+  </li>
+  <li>编辑<code class="language-plaintext highlighter-rouge">ssh</code>配置项<br />
+将<code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code>文件中的<code class="language-plaintext highlighter-rouge">PermitRootLogin prohibit-password</code>注释掉,然后加上本段代码:<code class="language-plaintext highlighter-rouge">PermitRootLogin yes</code>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/ssh/sshd_config
+</code></pre></div>    </div>
+  </li>
+  <li>重新启动<code class="language-plaintext highlighter-rouge">SSH</code>服务
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo service ssh restart
+</code></pre></div>    </div>
+  </li>
+  <li>使用命令行重新登录
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@101.35.235.239
+</code></pre></div>    </div>
+  </li>
+</ol>
+:ET
