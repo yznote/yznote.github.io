@@ -1,0 +1,13 @@
+I"�<p><strong>问题</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">Xcode</code>打开项目后提示<code class="language-plaintext highlighter-rouge">Noscheme</code></p>
+
+<p><strong>解决方案</strong></p>
+
+<ol>
+  <li>打开工程目录</li>
+  <li>右键<code class="language-plaintext highlighter-rouge">.xcodeproj</code>-&gt;<code class="language-plaintext highlighter-rouge">显示包内容</code></li>
+  <li>将<code class="language-plaintext highlighter-rouge">xcuserdata</code>内的文件删除</li>
+  <li>针对<code class="language-plaintext highlighter-rouge">.xcworkspace</code>重复上述步骤</li>
+</ol>
+:ET
