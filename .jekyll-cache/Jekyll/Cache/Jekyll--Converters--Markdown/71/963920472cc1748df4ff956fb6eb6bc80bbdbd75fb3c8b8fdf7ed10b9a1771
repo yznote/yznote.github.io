@@ -1,0 +1,156 @@
+I"�<h4 id="ubuntu配置远程登陆"><code class="language-plaintext highlighter-rouge">Ubuntu</code>配置远程登陆</h4>
+
+<p>参考<a href="https://cloud.tencent.com/document/product/1207/44569#ubuntu-.E7.B3.BB.E7.BB.9F.E5.A6.82.E4.BD.95.E4.BD.BF.E7.94.A8-root-.E7.94.A8.E6.88.B7.E7.99.BB.E5.BD.95.E5.AE.9E.E4.BE.8B.EF.BC.9F"><code class="language-plaintext highlighter-rouge">Ubuntu</code>系统如何使用<code class="language-plaintext highlighter-rouge">root</code>用户登录实例</a></p>
+
+<blockquote>
+  <p>注意:我自己操作发现<code class="language-plaintext highlighter-rouge">CentOS</code>默认是支持<code class="language-plaintext highlighter-rouge">ssh</code>远程登录,<code class="language-plaintext highlighter-rouge">Ubuntu</code>默认不支持,不知道是否都是这样,如果使用命令行登录提示权限被拒可执行以下步骤</p>
+</blockquote>
+
+<ol>
+  <li>重置服务器密码<br />
+<code class="language-plaintext highlighter-rouge">CentOS</code>、<code class="language-plaintext highlighter-rouge">Ubuntu</code>都需要重置,区别是重置的时候<code class="language-plaintext highlighter-rouge">CentOS</code>默认重置的是<code class="language-plaintext highlighter-rouge">root</code>密码,<code class="language-plaintext highlighter-rouge">Ubuntu</code>需要手动切换<code class="language-plaintext highlighter-rouge">root</code>或者<code class="language-plaintext highlighter-rouge">ubuntu</code>去重置</li>
+  <li>查看<code class="language-plaintext highlighter-rouge">Ubuntu</code>是否开启了<code class="language-plaintext highlighter-rouge">ssh</code><br />
+如果未安装服务<a href="http://t.zoukankan.com/hellojesson-p-10614993.html">参考</a>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service sshd status
+</code></pre></div>    </div>
+  </li>
+  <li>切换<code class="language-plaintext highlighter-rouge">root</code>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>su root
+</code></pre></div>    </div>
+  </li>
+  <li>编辑<code class="language-plaintext highlighter-rouge">ssh</code>配置项<br />
+编辑<code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code>文件
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/ssh/sshd_config
+输入i进入编辑模式,找到PermitRootLogin和PasswordAuthentication
+PermitRootLogin yes
+......
+PasswordAuthentication yes
+ESC 退出编辑模式 ==&gt; :wq 保存退出  
+</code></pre></div>    </div>
+  </li>
+  <li>重新启动<code class="language-plaintext highlighter-rouge">SSH</code>服务
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo service ssh restart
+</code></pre></div>    </div>
+  </li>
+  <li>使用命令行重新登录
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@101.35.235.239
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="安装swift开发环境">安装<code class="language-plaintext highlighter-rouge">swift</code>开发环境</h4>
+
+<p><a href="https://www.swift.org/getting-started/">官网</a></p>
+
+<ol>
+  <li>安装<code class="language-plaintext highlighter-rouge">swift</code>环境的依赖包
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install \
+       binutils \
+       git \
+       libc6-dev \
+       libcurl4 \
+       libedit2 \
+       libgcc-5-dev \
+       libpython2.7 \
+       libsqlite3-0 \
+       libstdc++-5-dev \
+       libxml2 \
+       pkg-config \
+       tzdata \
+       zlib1g-dev
+</code></pre></div>    </div>
+  </li>
+  <li>下载<code class="language-plaintext highlighter-rouge">swift</code>包<br />
+<a href="https://www.swift.org/download/">下载地址参考</a><br />
+<code class="language-plaintext highlighter-rouge">tips</code>鼠标悬停对应版本右键<strong>复制链接地址</strong>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -c https://download.swift.org/swift-5.6.2-release/ubuntu1804/swift-5.6.2-RELEASE/swift-5.6.2-RELEASE-ubuntu18.04.tar.gz
+</code></pre></div>    </div>
+  </li>
+  <li>解压<br />
+<code class="language-plaintext highlighter-rouge">注意</code>网上有些教程没有<code class="language-plaintext highlighter-rouge">-C</code>参数,会报错,加上就好了
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar -xvzf swift-5.6.2-RELEASE-ubuntu18.04.tar.gz -C ~/swift/
+</code></pre></div>    </div>
+  </li>
+  <li>配置
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi ~/.bashrc
+# 末尾添加:
+export PATH=/root/swift/swift-5.6.2-RELEASE-ubuntu18.04/usr/bin:$PATH
+# 保存退出
+# 执行以下代码使设置生效:
+source ~/.bashrc
+</code></pre></div>    </div>
+  </li>
+  <li>验证
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>swift -version
+# 输出如下：
+# Swift version 5.6.2 (swift-5.6.2-RELEASE)
+# Target: x86_64-unknown-linux-gnu
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="安装vapor">安装<code class="language-plaintext highlighter-rouge">vapor</code></h4>
+
+<p><a href="https://docs.vapor.codes/install/linux/">vapor</a></p>
+
+<ol>
+  <li>安装<code class="language-plaintext highlighter-rouge">toolbox</code><br />
+github上查看<a href="https://github.com/vapor/toolbox/releases">最新版本</a><br />
+```
+git clone https://github.com/vapor/toolbox.git
+cd toolbox
+git checkout <desired version="">
+make install</desired></li>
+</ol>
+
+<h1 id="其他版本安装方案未尝试">其他版本安装方案【未尝试】</h1>
+<p>git clone https://github.com/vapor/toolbox.git
+cd toolbox
+git checkout <desired version="">    #下载下来可能是最新的版本，可以直接使用
+swift build -c release --disable-sandbox --enable-test-discovery
+mv .build/release/vapor /usr/local/bin</desired></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. 查验
+</code></pre></div></div>
+<p>vapor –help</p>
+
+<h1 id="提示如下">提示如下</h1>
+<p>Usage: vapor <command /></p>
+
+<p>Vapor Toolbox (Server-side Swift web framework)</p>
+
+<p>Commands:
+       build Builds an app in the console.
+       clean Cleans temporary files.
+      heroku Commands for working with Heroku.
+         new Generates a new app.
+         run Runs an app from the console.
+             Equivalent to <code class="language-plaintext highlighter-rouge">swift run Run</code>.
+             The –enable-test-discovery flag is automatically set if needed.
+  supervisor Commands for working with supervisord.
+       xcode Opens an app in Xcode.</p>
+
+<p>Use <code class="language-plaintext highlighter-rouge">vapor &lt;command&gt; [--help,-h]</code> for more information on a command.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#### 创建项目
+
+1. 新建`hello`项目
+</code></pre></div></div>
+<p>vapor new hello -n</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. 编译【这个步骤比较慢,翻墙可节约时间】
+</code></pre></div></div>
+<p>cd hello
+vapor build  #编译项目</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3. 运行
+</code></pre></div></div>
+<p>vapor  run serve    #启动项目
+#[ NOTICE ] Server starting on http://127.0.0.1:8080  默认启动的是本地服务，还无法在外网访问
+#另起一个shell，查看端口占用
+lsof -i:8080
+#输出如下：
+#Run     8960 root    8u  IPv4  70957      0t0  TCP localhost:http-alt (LISTEN)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4. 配置外网访问
+</code></pre></div></div>
+<p>vapor run serve -b 0.0.0.0:8080
+```</p>
+
+:ET

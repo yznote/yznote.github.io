@@ -1,5 +1,6 @@
-I"�
-<h4 id="ubuntu配置远程登陆"><code class="language-plaintext highlighter-rouge">Ubuntu</code>配置远程登陆</h4>
+I"(<h4 id="ubuntu配置远程登陆"><code class="language-plaintext highlighter-rouge">Ubuntu</code>配置远程登陆</h4>
+
+<p>参考<a href="https://cloud.tencent.com/document/product/1207/44569#ubuntu-.E7.B3.BB.E7.BB.9F.E5.A6.82.E4.BD.95.E4.BD.BF.E7.94.A8-root-.E7.94.A8.E6.88.B7.E7.99.BB.E5.BD.95.E5.AE.9E.E4.BE.8B.EF.BC.9F"><code class="language-plaintext highlighter-rouge">Ubuntu</code>系统如何使用<code class="language-plaintext highlighter-rouge">root</code>用户登录实例</a></p>
 
 <blockquote>
   <p>注意:我自己操作发现<code class="language-plaintext highlighter-rouge">CentOS</code>默认是支持<code class="language-plaintext highlighter-rouge">ssh</code>远程登录,<code class="language-plaintext highlighter-rouge">Ubuntu</code>默认不支持,不知道是否都是这样,如果使用命令行登录提示权限被拒可执行以下步骤</p>
@@ -18,8 +19,13 @@
 </code></pre></div>    </div>
   </li>
   <li>编辑<code class="language-plaintext highlighter-rouge">ssh</code>配置项<br />
-将<code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code>文件中的<code class="language-plaintext highlighter-rouge">PermitRootLogin prohibit-password</code>注释掉,然后加上本段代码:<code class="language-plaintext highlighter-rouge">PermitRootLogin yes</code>
+编辑<code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code>文件
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/ssh/sshd_config
+输入i进入编辑模式,找到PermitRootLogin和PasswordAuthentication
+PermitRootLogin yes
+......
+PasswordAuthentication yes
+ESC 退出编辑模式 ==&gt; :wq 保存退出  
 </code></pre></div>    </div>
   </li>
   <li>重新启动<code class="language-plaintext highlighter-rouge">SSH</code>服务
