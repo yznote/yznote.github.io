@@ -1,4 +1,23 @@
-I"�<h4 id="1首先使用命令行找到symbolicatecrash">1.首先使用命令行找到<code class="language-plaintext highlighter-rouge">symbolicatecrash</code></h4>
+I"< <h3 id="ios15之后">iOS15之后</h3>
+<h4 id="查询crashsymbolicatorpy的路径">查询CrashSymbolicator.py的路径</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /Applications/Xcode.app -name CrashSymbolicator.py -type f
+</code></pre></div></div>
+<blockquote>
+  <p>输出</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Applications/Xcode.app/Contents/SharedFrameworks/CoreSymbolicationDT.framework/Versions/A/Resources/CrashSymbolicator.py
+</code></pre></div>  </div>
+</blockquote>
+
+<p><strong>解析ips</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 &lt;上面CrashSymbolicator.py路径&gt; -d &lt;Dsym路径&gt; -o &lt;输出哦路径&gt; -p &lt;崩溃的ips路径&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 /Applications/Xcode.app/Contents/SharedFrameworks/CoreSymbolicationDT.framework/Versions/A/Resources/CrashSymbolicator.py -d /Users/yb007/Desktop/bug/ShortProject.app.dSYM -o /Users/yb007/Desktop/bug/new2.crash -p /Users/yb007/Desktop/bug/ShortProject-2022-06-24-170151.ips 
+</code></pre></div></div>
+
+<h3 id="ios15之前">iOS15之前</h3>
+
+<h4 id="1首先使用命令行找到symbolicatecrash">1.首先使用命令行找到<code class="language-plaintext highlighter-rouge">symbolicatecrash</code></h4>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /Applications/Xcode.app -name symbolicatecrash -type f
 </code></pre></div></div>
 <blockquote>
