@@ -1,0 +1,36 @@
+I"�<ol>
+  <li>安装工具<code class="language-plaintext highlighter-rouge">cloc</code>【Count Lines of Code】
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install cloc
+</code></pre></div>    </div>
+  </li>
+  <li>验证
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cloc -version
+# 输出
+1.92
+</code></pre></div>    </div>
+  </li>
+  <li>统计
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd &lt;目标路径&gt;
+cloc .
+</code></pre></div>    </div>
+  </li>
+  <li>统计结果
+```
+581 text files.
+575 unique files.                                        <br />
+538 files ignored.</li>
+</ol>
+
+<h2 id="githubcomaldanialcloc-v-192--t075-s-7670-filess-1017386-liness">github.com/AlDanial/cloc v 1.92  T=0.75 s (767.0 files/s, 101738.6 lines/s)</h2>
+<p>Language                     files          blank        comment           code
+——————————————————————————-
+Objective-C                    244           8082           6473          43046
+C/C++ Header                   287           3293           5209           4909
+XML                             37              0              2           4556
+Objective-C++                    3             98            102            354
+JSON                             4              0              0            149
+——————————————————————————-
+SUM:                           575          11473          11786          53014
+——————————————————————————-
+```</p>
+:ET
