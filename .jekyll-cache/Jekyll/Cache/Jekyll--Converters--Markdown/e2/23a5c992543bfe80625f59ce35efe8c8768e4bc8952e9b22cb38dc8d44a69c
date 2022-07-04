@@ -1,4 +1,4 @@
-I"�<h4 id="库简介">库简介：</h4>
+I""<h4 id="库简介">库简介：</h4>
 
 <blockquote>
   <p>库就是程序代码的集合，将N个文件整合起来，实现特定的功能模块儿，从而更好的实现代码共享。本质上是一种可执行文件的二进制格式，可以被载入内存中执行。库可分为开源库和闭源库，开源库比如常用的<code class="language-plaintext highlighter-rouge">AFNNetWorking</code>以及<code class="language-plaintext highlighter-rouge">SDWebImage</code>，其实现的代码是开放可见的。闭源库比如苹果提供的UIKit等库，只能看见其开放的<code class="language-plaintext highlighter-rouge">.h</code>文件，无法查看对应的方法实现部分。<code class="language-plaintext highlighter-rouge">iOS</code>中的闭源库又分为<code class="language-plaintext highlighter-rouge">静态库</code>和<code class="language-plaintext highlighter-rouge">动态库</code>。</p>
@@ -75,5 +75,27 @@
   <li><code class="language-plaintext highlighter-rouge">assembly</code> 汇编:把汇编文件转换为机器码文件，产生<code class="language-plaintext highlighter-rouge">.o</code>文件.</li>
   <li><code class="language-plaintext highlighter-rouge">link</code> 链接:对<code class="language-plaintext highlighter-rouge">.o</code>文件中引用其他库的地方进行引用,生成最后的可执行文件.</li>
 </ul>
+
+<h4 id="动静态库查验">动、静态库查验</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 静态库
+cd MHBeautySDK.framework
+file MHBeautySDK
+# 输出
+MHBeautySDK: Mach-O universal binary with 2 architectures: [arm64:current ar archivecurrent ar archive] [arm_v7]
+MHBeautySDK (for architecture arm64):   current ar archive
+MHBeautySDK (for architecture armv7):   current ar archive
+
+// 动态库
+cd FaceLandMark.framework
+file FaceLandMark  
+# 输出        
+FaceLandMark: Mach-O universal binary with 2 architectures: [arm_v7:Mach-O dynamically linked shared library arm_v7
+- Mach-O dynamically linked shared library arm_v7] [arm64]
+FaceLandMark (for architecture armv7):  Mach-O dynamically linked shared library arm_v7
+FaceLandMark (for architecture arm64):  Mach-O 64-bit dynamically linked shared library arm64
+
+
+</code></pre></div></div>
 
 :ET
