@@ -1,0 +1,11 @@
+I"T<h4 id="准备">准备</h4>
+
+<p>首次上传需要创建<code class="language-plaintext highlighter-rouge">Trunk</code>账号</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 创建
+pod trunk register 邮箱 '用户名' --verbose 
+
+# 检测
+pod trunk me
+</code></pre></div></div>
+
+:ET

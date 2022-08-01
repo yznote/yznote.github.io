@@ -1,0 +1,77 @@
+I"�<h4 id="准备">准备</h4>
+<p>1.制作<code class="language-plaintext highlighter-rouge">framework</code>移步<a href="https://yuan920.github.io/2020/02/15/iOS%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">这里</a>;<br />
+2.首次上传需要创建<code class="language-plaintext highlighter-rouge">Trunk</code>账号;</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 创建
+pod trunk register 邮箱 '用户名' --verbose 
+
+# 检测
+pod trunk me
+</code></pre></div></div>
+
+<h4 id="上传">上传</h4>
+
+<p>1.创建一个<code class="language-plaintext highlighter-rouge">PodLib</code>模板</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod lib create RKKeepAlive
+</code></pre></div></div>
+<p>2.根据提示完成项目配置</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cloning `https://github.com/CocoaPods/pod-template.git` into `RKKeepAlive`.
+Configuring RKKeepAlive template.
+security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
+
+------------------------------
+
+To get you started we need to ask a few questions, this should only take a minute.
+
+If this is your first time we recommend running through with the guide: 
+ - https://guides.cocoapods.org/making/using-pod-lib-create.html
+ ( hold cmd and double click links to open in a browser. )
+
+
+What platform do you want to use?? [ iOS / macOS ]
+ &gt; ios
+
+What language do you want to use?? [ Swift / ObjC ]
+ &gt; objc
+
+Would you like to include a demo application with your library? [ Yes / No ]
+ &gt; yes
+
+Which testing frameworks will you use? [ Specta / Kiwi / None ]
+ &gt; none
+
+Would you like to do view based testing? [ Yes / No ]
+ &gt; no
+
+What is your class prefix?
+ &gt; RK
+security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
+security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
+security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
+security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
+security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
+security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
+
+Running pod install on your new library.
+
+Analyzing dependencies
+Downloading dependencies
+Installing RKKeepAlive (0.1.0)
+Generating Pods project
+Integrating client project
+
+[!] Please close any current Xcode sessions and use `RKKeepAlive.xcworkspace` for this project from now on.
+Pod installation complete! There is 1 dependency from the Podfile and 1 total pod installed.
+
+[!] Your project does not explicitly specify the CocoaPods master specs repo. Since CDN is now used as the default, you may safely remove it from your repos directory via `pod repo remove master`. To suppress this warning please add `warn_for_unused_master_specs_repo =&gt; false` to your Podfile.
+
+ Ace! you're ready to go!
+ We will start you off by opening your project in Xcode
+  open 'RKKeepAlive/Example/RKKeepAlive.xcworkspace'
+
+To learn more about the template see `https://github.com/CocoaPods/pod-template.git`.
+To learn more about creating a new pod, see `https://guides.cocoapods.org/making/making-a-cocoapod`.
+</code></pre></div></div>
+<p>3.在<code class="language-plaintext highlighter-rouge">GitHub</code>创建一个仓库,并将刚创建的项目<code class="language-plaintext highlighter-rouge">RKKeepAlive</code>关联远程仓库;<br />
+4.在<code class="language-plaintext highlighter-rouge">RKKeepAlive/RKKeepAlive</code>目录下创建<code class="language-plaintext highlighter-rouge">frameworks</code>文件夹<code class="language-plaintext highlighter-rouge">【和Assets、Classes】</code>同级;</p>
+
+:ET
