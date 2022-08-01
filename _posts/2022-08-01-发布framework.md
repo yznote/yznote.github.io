@@ -127,7 +127,7 @@ git push --tags
 ```
 9.上传
 ```
-pod trunk push
+pod trunk push --allow-warnings
 ```
 出现如下提示说明成功
 ```
