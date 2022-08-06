@@ -1,7 +1,7 @@
 ---
-layout:     iyznote
-title:    	
+layout:     iyznote 	
 subtitle:  	资料
+
 ---
 
 

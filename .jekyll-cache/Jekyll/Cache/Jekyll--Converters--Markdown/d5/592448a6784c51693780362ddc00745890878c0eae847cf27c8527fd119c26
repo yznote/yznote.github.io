@@ -1,7 +1,0 @@
-I"�<h3 id="css部分">CSS部分</h3>
-
-<p><strong>背景图写法</strong></p>
-
-<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">background-image</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s2">'~@/static/images/code-bg.png'</span><span class="o">);</span>
-</code></pre></div></div>
-:ET
