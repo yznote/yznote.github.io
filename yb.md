@@ -1,21 +1,11 @@
 ---
-layout:     iyznote
-subtitle:  	资料
-description: 
-date:       2020-05-11 20:12:26 +0800
-createdate: 2021-09-20 08:00:00 +0800
-rkupdate:   2022-08-06 10:30:20 +0800
-author:     920
-header-img: 
-catalog: true
-stickie: false
-tags:
-    - uniapp
+layout: iyznote
+subtitle: 资料
 ---
 
 
 
-### 包名123
+### 包名
 
 ```
 小说【Uni】安卓------------------- com.yunbao.book
