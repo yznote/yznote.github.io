@@ -1933,6 +1933,9 @@ pre code {
   .col-md-8 {
     width: 66.66666667%;
   }
+  .col-md-rk {
+    width: 83.33333333%;
+  }
   .col-md-7 {
     width: 58.33333333%;
   }
@@ -2090,6 +2093,9 @@ pre code {
   }
   .col-lg-8 {
     width: 66.66666667%;
+  }
+  .col-lg-rk {
+    width: 83.33333333%;
   }
   .col-lg-7 {
     width: 58.33333333%;
