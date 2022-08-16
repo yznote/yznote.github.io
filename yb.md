@@ -1,6 +1,8 @@
 ---
-layout: iyznote
+layout: iyzpost
 subtitle: 资料
+author: 920
+catalog: true
 ---
 
 
@@ -42,4 +44,14 @@ key: 5ee69fadf3e470d28a31bd8935a16b2c
 密文:
 appid: VrrofVf9a4r9oo4cWcV9ZsrfrgffeZMs
 key: gcc2ZMsrMocW49raVsoefrVZogse2fax
+```
+
+### 1v1上架
+
+```
+包名: com.yunbao.one
+
+美颜：
+appid: ad0060601f6f2d2f54a2aaaa24d008ae
+key: 1a887987af1dd73819cc5a7a5db5c5fe
 ```
