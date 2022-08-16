@@ -1,4 +1,4 @@
-I"�<h3 id="包名">包名</h3>
+I"E<h3 id="包名">包名</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>小说【Uni】安卓------------------- com.yunbao.book
 悬赏安卓 ------------------------ com.yunbao.xuanshang
@@ -19,6 +19,8 @@
 <h3 id="账号">账号</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>签名账号	teamid		8T57EVQPP4	
 海龙账号	teamid		EP9U5BJZN9	【2022-9-6】
+组织ID   66661591
+泰安云豹网络科技有限公司
 </code></pre></div></div>
 <h3 id="短视频上架">短视频上架</h3>
 
@@ -30,5 +32,14 @@ key: 5ee69fadf3e470d28a31bd8935a16b2c
 密文:
 appid: VrrofVf9a4r9oo4cWcV9ZsrfrgffeZMs
 key: gcc2ZMsrMocW49raVsoefrVZogse2fax
+</code></pre></div></div>
+
+<h3 id="1v1上架">1v1上架</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>包名: com.yunbao.one
+
+美颜：
+appid: ad0060601f6f2d2f54a2aaaa24d008ae
+key: 1a887987af1dd73819cc5a7a5db5c5fe
 </code></pre></div></div>
 :ET
