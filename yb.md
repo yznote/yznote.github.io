@@ -1,5 +1,6 @@
 ---
 layout: iyzpost
+title:
 subtitle: 资料
 author: 920
 catalog: true
@@ -32,6 +33,8 @@ catalog: true
 ```
 签名账号	teamid		8T57EVQPP4	
 海龙账号	teamid		EP9U5BJZN9	【2022-9-6】
+组织ID   66661591
+泰安云豹网络科技有限公司
 ```
 ### 短视频上架
 
