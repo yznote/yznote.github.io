@@ -1,4 +1,53 @@
-I"ߘ<h4 id="置顶">置顶</h4>
+I"ԥ<h4 id="置顶">置顶</h4>
+
+<p><strong>iOS16</strong></p>
+
+<p>线程:  <br />
+<code class="language-plaintext highlighter-rouge">xxx: warning run: Thread running at QOS_CLASS_USER_INITIATED waiting on a lower QoS thread running at QOS_CLASS_DEFAULT. Investigate ways to avoid priority inversions
+</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0);
+dispatch_queue_t queue = dispatch_queue_create("GetIMMessage", attr);
+dispatch_async(queue, ^{
+    unRead = [minstr([JMSGConversation getAllUnreadCount]) intValue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        label.text = [NSString stringWithFormat:@"%d",unRead];
+        if ([label.text isEqual:@"0"]) {
+            label.hidden =YES;
+        }else{
+            label.hidden = NO;
+        }
+    });
+});
+
+</code></pre></div></div>
+
+<p>剪切板：<code class="language-plaintext highlighter-rouge">[UIPasteboard generalPasteboard].string</code><br />
+确定：极光SDK <br />
+嫌疑：YYText</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Binary file .//Braintree/BraintreePayPal/PayPalDataCollector/Risk/libPPRiskMagnesOC.a matches
+.//QCloudCOSXML/QCloudCOSXML/Classes/Base/QCloudLogManager.m:        NSString *currentPasteBoardContent = [UIPasteboard generalPasteboard].string;
+.//QCloudCOSXML/QCloudCOSXML/Classes/Base/QCloudLogManager.m:              [UIPasteboard generalPasteboard].string = @"";
+.//QCloudCOSXML/QCloudCOSXML/Classes/Base/QCloudLogManager.m:    NSString *currentPasteBoardContent = [UIPasteboard generalPasteboard].string;
+Binary file .//AliPay/AlipaySDK.framework/AlipaySDK matches
+.//YYText/YYText/YYTextView.m:    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+.//YYText/YYText/YYTextView.m:            [UIPasteboard generalPasteboard].yy_AttributedString = text;
+.//YYText/YYText/YYTextView.m:            [UIPasteboard generalPasteboard].string = string;
+.//YYText/YYText/YYTextView.m:    UIPasteboard *p = [UIPasteboard generalPasteboard];
+Binary file .//JCore/libjcore-ios-2.3.2.a matches
+Binary file .//CodeInstallSDK/libCodeInstallSDK.a matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/libWeiboSDK.a matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformSDK/FacebookSDK/FBSDKCoreKit.framework/FBSDKCoreKit matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformSDK/WeChatSDKFull/libWeChatSDK.a matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenAPI.framework/TencentOpenAPI matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformConnector/QQConnector.framework/QQConnector matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformConnector/FacebookConnector.framework/FacebookConnector matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformConnector/WechatConnector.framework/WechatConnector matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformConnector/SinaWeiboConnector.framework/SinaWeiboConnector matches
+Binary file .//JPush/libjpush-ios-3.3.4.a matches
+</code></pre></div></div>
+
+<p>微信SDK升级 新增白名单<code class="language-plaintext highlighter-rouge">weixinURLParamsAPI</code></p>
 
 <p><strong>iOS15</strong><br />
 UITableView分组高度显示异常:</p>
