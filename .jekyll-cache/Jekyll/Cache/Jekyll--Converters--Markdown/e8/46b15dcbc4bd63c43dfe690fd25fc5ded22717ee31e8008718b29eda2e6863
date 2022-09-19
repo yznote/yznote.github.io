@@ -1,4 +1,4 @@
-I"�<h4 id="urlencode新">Urlencode(新)</h4>
+I"}<h4 id="urlencode新">Urlencode(新)</h4>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(NSString *)urlEncodeStr:(NSString *)orUrl {
     NSString *charactersToEscape = @"?!@#$^&amp;%*+,:;='\"`&lt;&gt;()[]{}/\\| ";
@@ -15,6 +15,34 @@
     //方式 2
     //NSString *decodedUrl = (__bridge_transfer NSString *)CFURLCreateStringByReplacingPercentEscapes(NULL, (__bridge CFStringRef)orUrl, CFSTR(""));
     return decodedUrl;;
+}
+</code></pre></div></div>
+
+<h4 id="从url中解析参数"><code class="language-plaintext highlighter-rouge">从url中解析参数</code></h4>
+
+<p>dp1.game.163.com/open/tomandjerrychaseasia?rees_id=1&amp;game_id=1&amp;game_mode=0</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *reesid = [self getParamByName:@"rees_id" URLString:url];  
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 获取url后拼接的参数
+- (NSString *)getParamByName:(NSString *)name URLString:(NSString *)url
+{
+    NSError *error;
+    NSString *regTags=[[NSString alloc] initWithFormat:@"(^|&amp;|\\?)+%@=+([^&amp;]*)(&amp;|$)", name];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regTags
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&amp;error];
+     
+    // 执行匹配的过程
+    NSArray *matches = [regex matchesInString:url
+                                      options:0
+                                        range:NSMakeRange(0, [url length])];
+    for (NSTextCheckingResult *match in matches) {
+        NSString *tagValue = [url substringWithRange:[match rangeAtIndex:2]];  // 分组2所对应的串
+        return tagValue;
+    }
+    return @"";
 }
 </code></pre></div></div>
 
