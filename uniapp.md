@@ -128,6 +128,30 @@ new Vue({
 })
 ```
 
+#### 小程序定位权限
+
+>chooseLocation:fail the api need to be declared in the requiredPrivateInfos field in app.json/ext.json错误的解决办法  
+
+解决方案`源码视图`-`"mp-weixin"`节点,添加`requiredPrivateInfos` 如下：
+
+```
+"mp-weixin" : {
+        "appid" : "wxec7ecf3d44019688",
+        "setting" : {
+            "urlCheck" : false,
+            "es6" : false
+        },
+        "usingComponents" : true,
+        "betterScopedSlots" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "演示在onShow生命周期获取地理位置"
+            }
+        },
+    "requiredPrivateInfos" : [ "chooseLocation", "getLocation" ]
+    },
+```
+
 
 
 
