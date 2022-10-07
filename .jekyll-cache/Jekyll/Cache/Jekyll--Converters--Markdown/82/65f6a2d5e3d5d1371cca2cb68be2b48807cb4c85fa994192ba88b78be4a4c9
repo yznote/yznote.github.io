@@ -1,0 +1,196 @@
+I"�2<h3 id="css部分">CSS部分</h3>
+
+<h5 id="背景图写法">背景图写法</h5>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">background-image</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s2">'~@/static/images/code-bg.png'</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h5 id="底部固定布局刘海屏适配">底部固定布局、刘海屏适配</h5>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">position</span><span class="o">:</span> <span class="nt">fixed</span><span class="o">;</span>
+<span class="nt">bottom</span><span class="o">:</span> <span class="err">98</span><span class="nt">rpx</span><span class="o">;</span>
+<span class="nt">bottom</span><span class="o">:</span> <span class="nt">calc</span><span class="o">(</span><span class="err">98</span><span class="nt">rpx</span> <span class="o">+</span> <span class="nt">constant</span><span class="o">(</span><span class="nt">safe-area-inset-bottom</span><span class="o">));</span>
+<span class="nt">bottom</span><span class="o">:</span> <span class="nt">calc</span><span class="o">(</span><span class="err">98</span><span class="nt">rpx</span> <span class="o">+</span> <span class="nt">env</span><span class="o">(</span><span class="nt">safe-area-inset-bottom</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h5 id="返回键">返回键</h5>
+<blockquote>
+  <p>from 触发返回行为的来源：<br />
+‘backbutton’: 左上角导航栏按钮及安卓返回键;<br />
+‘navigateBack’: uni.navigateBack() 方法;<br />
+支付宝小程序端不支持返回此字段.</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{};</span>
+    <span class="p">},</span>
+    <span class="nx">onBackPress</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">from:</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">options</span><span class="p">.</span><span class="k">from</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="获取元素">获取元素</h3>
+
+<h4 id="监听">监听</h4>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">active</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">pageIndexs</span><span class="dl">"</span><span class="p">).</span><span class="nx">children</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">dom</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">dom</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="cm">/*
+         * stopPropagation() 方法防止调用相同事件的传播。
+         * 传播意味着向上冒泡到父元素或向下捕获到子元素。
+         * https://www.w3school.com.cn/jsref/event_preventdefault.asp
+         * https://www.w3school.com.cn/jsref/event_stoppropagation.asp
+         */</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">dom</span> <span class="o">===</span> <span class="nx">active</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="nx">dom</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="dl">"</span><span class="s2">borderShow</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">active</span> <span class="o">&amp;&amp;</span> <span class="nx">active</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="dl">"</span><span class="s2">borderShow</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">active</span> <span class="o">=</span> <span class="nx">dom</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h4 id="复用">复用</h4>
+
+<p><a href="https://v2.cn.vuejs.org/v2/guide/conditional.html#%E7%94%A8-key-%E7%AE%A1%E7%90%86%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E5%85%83%E7%B4%A0">用<code class="language-plaintext highlighter-rouge">key</code>管理可复用的元素</a></p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 会复用
+<span class="nt">&lt;</span><span class="k">template</span> <span class="na">v-if=</span><span class="s">"loginType === 'username'"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label&gt;</span>Username<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">placeholder=</span><span class="s">"Enter your username"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="k">template</span> <span class="na">v-else</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label&gt;</span>Email<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">placeholder=</span><span class="s">"Enter your email address"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+
+# 不会复用
+<span class="nt">&lt;</span><span class="k">template</span> <span class="na">v-if=</span><span class="s">"loginType === 'username'"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label&gt;</span>Username<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">placeholder=</span><span class="s">"Enter your username"</span> <span class="na">key=</span><span class="s">"username-input"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="k">template</span> <span class="na">v-else</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label&gt;</span>Email<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">placeholder=</span><span class="s">"Enter your email address"</span> <span class="na">key=</span><span class="s">"email-input"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<h4 id="v-if-vs-v-show">v-if vs v-show</h4>
+
+<p>一般来说,<code class="language-plaintext highlighter-rouge">v-if</code>有更高的切换开销,而<code class="language-plaintext highlighter-rouge">v-show</code>有更高的初始渲染开销.因此,如果需要非常频繁地切换,则使用<code class="language-plaintext highlighter-rouge">v-show</code>较好;如果在运行时条件很少改变,则使用<code class="language-plaintext highlighter-rouge">v-if</code>较好.</p>
+
+<h4 id="v-for">v-for</h4>
+<p><a href="https://v2.cn.vuejs.org/v2/guide/list.html#%E5%9C%A8-v-for-%E9%87%8C%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1">在<code class="language-plaintext highlighter-rouge">v-for</code>里使用对象</a></p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"v-for-object"</span> <span class="na">class=</span><span class="s">"demo"</span><span class="nt">&gt;</span>
+              值、键、下标
+  <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"(value, name, index) in object"</span><span class="nt">&gt;</span>
+    
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+new Vue({
+  el: '#v-for-object',
+  data: {
+    object: {
+      title: 'How to do lists in Vue',
+      author: 'Jane Doe',
+      publishedAt: '2016-04-10'
+    }
+  }
+})
+</code></pre></div></div>
+
+<h4 id="小程序定位权限">小程序定位权限</h4>
+
+<blockquote>
+  <p>chooseLocation:fail the api need to be declared in the requiredPrivateInfos field in app.json/ext.json错误的解决办法</p>
+</blockquote>
+
+<p>解决方案<code class="language-plaintext highlighter-rouge">源码视图</code>-<code class="language-plaintext highlighter-rouge">"mp-weixin"</code>节点,添加<code class="language-plaintext highlighter-rouge">requiredPrivateInfos</code> 如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"mp-weixin" : {
+        "appid" : "wxec7ecf3d44019688",
+        "setting" : {
+            "urlCheck" : false,
+            "es6" : false
+        },
+        "usingComponents" : true,
+        "betterScopedSlots" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "演示在onShow生命周期获取地理位置"
+            }
+        },
+    "requiredPrivateInfos" : [ "chooseLocation", "getLocation" ]
+    },
+</code></pre></div></div>
+
+<h4 id="h5定位权限">H5定位权限</h4>
+
+<p>h5节点<code class="language-plaintext highlighter-rouge">"h5"</code>内添加:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"sdkConfigs": {
+    // 使用地图或位置相关功能必须填写其一
+    "maps": {
+            "qqmap": {
+                // 腾讯地图秘钥 https://lbs.qq.com/dev/console/key/manage
+                "key": ""
+            },
+            "google": {
+                // 谷歌地图秘钥（HBuilderX 3.2.10+）https://developers.google.com/maps/documentation/javascript/get-api-key
+                "key": ""
+            },
+            "amap": {
+                // 高德地图秘钥（HBuilderX 3.6.0+）https://console.amap.com/dev/key/app
+                "key": "a88713f7236ab59b9a3a537544b6c9bb",
+                // 高德地图安全密钥（HBuilderX 3.6.0+）https://console.amap.com/dev/key/app
+                "securityJsCode": "b5254b0eb737c762b70b83461e2194d8",
+                // 高德地图安全密钥代理服务器地址（HBuilderX 3.6.0+）https://lbs.amap.com/api/jsapi-v2/guide/abc/prepare
+                "serviceHost": "https://api.bspapp.com"
+            }
+    }
+}
+</code></pre></div></div>
+
+<h4 id="uniapp-微信小程序设置打包忽略文件">Uniapp-微信小程序设置打包忽略文件</h4>
+
+<p>设置方法<code class="language-plaintext highlighter-rouge">源码视图</code>-<code class="language-plaintext highlighter-rouge">"mp-weixin"</code>节点,添加<code class="language-plaintext highlighter-rouge">packOptions</code> 如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "packOptions": {
+    "ignore": [{
+      "type": "file",
+      "value": "test/test.js"
+    }, {
+      "type": "folder",
+      "value": "test"
+    }, {
+      "type": "suffix",
+      "value": ".webp"
+    }, {
+      "type": "prefix",
+      "value": "test-"
+    }, {
+      "type": "glob",
+      "value": "test/**/*.js"
+    }, {
+      "type": "regexp",
+      "value": "\\.jsx$"
+    }]
+  }
+}
+</code></pre></div></div>
+<blockquote>
+  <p>其中，type 可以取的值为 folder、file、suffix、prefix、regexp2、glob2，分别对应文件夹、文件、后缀、前缀、正则表达式、Glob 规则。所有规则值都会自动忽略大小写。<br />
+注 1: value 字段的值若表示文件或文件夹路径，以小程序目录 (miniprogramRoot) 为根目录。<br />
+注 2: regexp、glob 仅 1.02.1809260 及以上版本工具支持。</p>
+</blockquote>
+
+<p><a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html">微信文档</a></p>
+
+:ET

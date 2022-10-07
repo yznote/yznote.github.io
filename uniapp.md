@@ -152,6 +152,108 @@ new Vue({
     },
 ```
 
+#### H5定位权限
+
+h5节点`"h5"`内添加:  
+```
+"sdkConfigs": {
+    // 使用地图或位置相关功能必须填写其一
+    "maps": {
+            "qqmap": {
+                // 腾讯地图秘钥 https://lbs.qq.com/dev/console/key/manage
+                "key": ""
+            },
+            "google": {
+                // 谷歌地图秘钥（HBuilderX 3.2.10+）https://developers.google.com/maps/documentation/javascript/get-api-key
+                "key": ""
+            },
+            "amap": {
+                // 高德地图秘钥（HBuilderX 3.6.0+）https://console.amap.com/dev/key/app
+                "key": "a88713f7236ab59b9a3a537544b6c9bb",
+                // 高德地图安全密钥（HBuilderX 3.6.0+）https://console.amap.com/dev/key/app
+                "securityJsCode": "b5254b0eb737c762b70b83461e2194d8",
+                // 高德地图安全密钥代理服务器地址（HBuilderX 3.6.0+）https://lbs.amap.com/api/jsapi-v2/guide/abc/prepare
+                "serviceHost": "https://api.bspapp.com"
+            }
+    }
+}
+```
+
+#### Uniapp-微信小程序设置打包忽略文件
+
+设置方法`源码视图`-`"mp-weixin"`节点,添加`packOptions` 如下：
+
+```
+{
+  "packOptions": {
+    "ignore": [{
+      "type": "file",
+      "value": "test/test.js"
+    }, {
+      "type": "folder",
+      "value": "test"
+    }, {
+      "type": "suffix",
+      "value": ".webp"
+    }, {
+      "type": "prefix",
+      "value": "test-"
+    }, {
+      "type": "glob",
+      "value": "test/**/*.js"
+    }, {
+      "type": "regexp",
+      "value": "\\.jsx$"
+    }]
+  }
+}
+```
+>其中，type 可以取的值为 folder、file、suffix、prefix、regexp2、glob2，分别对应文件夹、文件、后缀、前缀、正则表达式、Glob 规则。所有规则值都会自动忽略大小写。  
+注 1: value 字段的值若表示文件或文件夹路径，以小程序目录 (miniprogramRoot) 为根目录。  
+注 2: regexp、glob 仅 1.02.1809260 及以上版本工具支持。
+
+[微信文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html)
+
+
+#### uniCloud项目配置
+
+【App报错】`Client platform is app, but app-plus was found in config.`  
+【解决】  
+【配置路径】`uni-id的云端配置文件在uniCloud/cloudfunctions/common/uni-config-center/uni-id/config.json中`  
+
+旧项目建议将所有platform为app的场景统一为app-plus，即建议使用如下配置
+```
+// 以下仅列出相关配置
+{
+    "preferedAppPlatform": "app-plus", // uni-id内部会将收到的app平台全部转化为app-plus平台
+    "app-plus": { // 配置内的平台名称和preferedAppPlatform保持一致
+        "oauth": {}
+    }
+}
+```
+
+新项目建议将platform统一为app，即建议使用如下配置
+```
+// 以下仅列出相关配置
+{
+    "preferedAppPlatform": "app", // uni-id内部会将收到的app-plus平台全部转化为app平台
+    "app": { // 配置内的平台名称和preferedAppPlatform保持一致
+        "oauth": {}
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
