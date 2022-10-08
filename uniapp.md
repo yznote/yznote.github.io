@@ -243,8 +243,42 @@ h5节点`"h5"`内添加:
 }
 ```
 
+#### uniapp文件引用
 
+**script**  
+```
+import "./static/yzb-icon.css";
+```
+**style**  
+```
+@import './static/yzb-icon.css';
+```
 
+#### uniapp应用template中点取值问题
+
+1.当返回数据嵌套了三层甚至四层的时候`template`中如果使用`item.one.two.three.content`可能会出问题;  
+2.需要格式化(如：日期);  
+这时候可以采用以下形式    
+
+**template中**
+```
+<text class="text-color-grey">{{ formatDates(item.start_date) }}-{{ formatDates(item.end_date) }}</text>
+```
+**script中**
+```
+export default {
+    methods: {
+        formatDates(time) {
+            if (time == null || time === '') {
+                return 'N/A';
+            }
+            let date = new Date(time);
+            // return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
+            return formatDate(date, 'yyyy.MM');
+        },
+    }
+}
+```
 
 
 
