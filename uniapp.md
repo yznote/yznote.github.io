@@ -261,11 +261,13 @@ import "./static/yzb-icon.css";
 这时候可以采用以下形式    
 
 **template中**
-```
-<text class="text-color-grey">{{ formatDates(item.start_date) }}-{{ formatDates(item.end_date) }}</text>
+```vue
+<template>
+    <text class="text-color-grey">{ formatDates(item.start_date) }-{ formatDates(item.end_date) }</text>
+</template>
 ```
 **script中**
-```
+```js
 export default {
     methods: {
         formatDates(time) {

@@ -1,4 +1,4 @@
-I"`3<h3 id="css部分">CSS部分</h3>
+I"�C<h3 id="css部分">CSS部分</h3>
 
 <h5 id="背景图写法">背景图写法</h5>
 
@@ -193,8 +193,65 @@ new Vue({
 
 <p><a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html">微信文档</a></p>
 
-<h4 id="unicloud">UNiCloud</h4>
+<h4 id="unicloud项目配置">uniCloud项目配置</h4>
 
-<p>【App报错】<code class="language-plaintext highlighter-rouge">Client platform is app, but app-plus was found in config.</code></p>
+<p>【App报错】<code class="language-plaintext highlighter-rouge">Client platform is app, but app-plus was found in config.</code><br />
+【解决】<br />
+【配置路径】<code class="language-plaintext highlighter-rouge">uni-id的云端配置文件在uniCloud/cloudfunctions/common/uni-config-center/uni-id/config.json中</code></p>
+
+<p>旧项目建议将所有platform为app的场景统一为app-plus，即建议使用如下配置</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 以下仅列出相关配置
+{
+    "preferedAppPlatform": "app-plus", // uni-id内部会将收到的app平台全部转化为app-plus平台
+    "app-plus": { // 配置内的平台名称和preferedAppPlatform保持一致
+        "oauth": {}
+    }
+}
+</code></pre></div></div>
+
+<p>新项目建议将platform统一为app，即建议使用如下配置</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 以下仅列出相关配置
+{
+    "preferedAppPlatform": "app", // uni-id内部会将收到的app-plus平台全部转化为app平台
+    "app": { // 配置内的平台名称和preferedAppPlatform保持一致
+        "oauth": {}
+    }
+}
+</code></pre></div></div>
+
+<h4 id="uniapp文件引用">uniapp文件引用</h4>
+
+<p><strong>script</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import "./static/yzb-icon.css";
+</code></pre></div></div>
+<p><strong>style</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@import './static/yzb-icon.css';
+</code></pre></div></div>
+
+<h4 id="uniapp应用template中点语法取值问题">uniapp应用template中点语法取值问题</h4>
+
+<p>1.当返回数据嵌套了三层甚至四层的时候<code class="language-plaintext highlighter-rouge">template</code>中如果使用<code class="language-plaintext highlighter-rouge">item.one.two.three.content</code>可能会出问题;<br />
+2.需要格式化(如：日期);<br />
+这时候可以采用以下形式</p>
+
+<p><strong>template中</strong></p>
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;text</span> <span class="na">class=</span><span class="s">"text-color-grey"</span><span class="nt">&gt;</span>{ formatDates(item.start_date) }-{ formatDates(item.end_date) }<span class="nt">&lt;/text&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+<p><strong>script中</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+    <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">formatDates</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">time</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">time</span> <span class="o">===</span> <span class="dl">''</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="dl">'</span><span class="s1">N/A</span><span class="dl">'</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="kd">let</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">time</span><span class="p">);</span>
+            <span class="c1">// return formatDate(date, 'yyyy-MM-dd hh:mm:ss')</span>
+            <span class="k">return</span> <span class="nx">formatDate</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span> <span class="dl">'</span><span class="s1">yyyy.MM</span><span class="dl">'</span><span class="p">);</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 :ET
