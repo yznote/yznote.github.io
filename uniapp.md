@@ -254,7 +254,7 @@ import "./static/yzb-icon.css";
 @import './static/yzb-icon.css';
 ```
 
-#### uniapp应用template中点取值问题
+#### uniapp应用template中点语法取值问题
 
 1.当返回数据嵌套了三层甚至四层的时候`template`中如果使用`item.one.two.three.content`可能会出问题;  
 2.需要格式化(如：日期);  
