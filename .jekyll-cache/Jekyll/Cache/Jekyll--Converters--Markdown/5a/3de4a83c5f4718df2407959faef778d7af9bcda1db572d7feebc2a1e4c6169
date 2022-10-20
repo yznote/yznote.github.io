@@ -1,4 +1,4 @@
-I"[B<h4 id="nodejs-和-npm-的关系">Node.js 和 NPM 的关系</h4>
+I"�C<h4 id="nodejs-和-npm-的关系">Node.js 和 NPM 的关系</h4>
 
 <h5 id="npm-是什么">NPM 是什么</h5>
 
@@ -19,6 +19,22 @@
 <code class="language-plaintext highlighter-rouge">Node.js</code>作者也将<code class="language-plaintext highlighter-rouge">Node.js</code>开发完成,但是<code class="language-plaintext highlighter-rouge">Node.js</code>缺少一个包管理器,于是他和<code class="language-plaintext highlighter-rouge">NPM</code> 的作者一拍即合、抱团取暖,最终<code class="language-plaintext highlighter-rouge">Node.js</code>内置了<code class="language-plaintext highlighter-rouge">NPM</code>.
 后来的事情大家都知道,<code class="language-plaintext highlighter-rouge">Node.js</code>火了.随着<code class="language-plaintext highlighter-rouge">Node.js</code>的火爆,大家开始用<code class="language-plaintext highlighter-rouge">NPM</code>来共享<code class="language-plaintext highlighter-rouge">JS</code> 代码了,于是<code class="language-plaintext highlighter-rouge">jQuery</code>作者也将<code class="language-plaintext highlighter-rouge">jQuery</code>发布到<code class="language-plaintext highlighter-rouge">NPM</code>了.所以现在,你可以使用<code class="language-plaintext highlighter-rouge">npm install jquery</code>来下载<code class="language-plaintext highlighter-rouge">jQuery</code> 代码.现在用<code class="language-plaintext highlighter-rouge">NPM</code>来分享代码已经成了前端的标配.</p>
 </blockquote>
+
+<h4 id="npmnode更新">NPM、Node更新</h4>
+
+<p><strong>NPM</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#查看版本
+npm -v
+
+#更新到最新版本
+npm install -g npm
+
+#更新到指定版本
+npm -g install npm@14.17.4
+
+#清理缓存数据
+npm cache clean --force
+</code></pre></div></div>
 
 <h4 id="npm-包管理器的常用命令">NPM 包管理器的常用命令</h4>
 
