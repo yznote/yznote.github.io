@@ -1,0 +1,38 @@
+I"�<p><code class="language-plaintext highlighter-rouge">JSON Web Token</code>（缩写<code class="language-plaintext highlighter-rouge">JWT</code>）是目前最流行的跨域认证解决方案</p>
+
+<h5 id="一跨域认证问题">一、跨域认证问题</h5>
+
+<p>一般认证流程如下:</p>
+<blockquote>
+  <p>1、用户向服务器发送用户名和密码.<br />
+2、服务器验证通过后,在当前对话（<code class="language-plaintext highlighter-rouge">session</code>）里面保存相关数据,比如用户角色、登录时间等等.<br />
+3、服务器向用户返回一个<code class="language-plaintext highlighter-rouge">session_id</code>写入用户的<code class="language-plaintext highlighter-rouge">Cookie</code>.<br />
+4、用户随后的每一次请求,都会通过<code class="language-plaintext highlighter-rouge">Cookie</code>将<code class="language-plaintext highlighter-rouge">session_id</code>传回服务器.<br />
+5、服务器收到<code class="language-plaintext highlighter-rouge">session_id</code>找到前期保存的数据,由此得知用户的身份.</p>
+</blockquote>
+
+<p>这种模式的问题在于,扩展性（<code class="language-plaintext highlighter-rouge">scaling</code>）不好.单机当然没有问题,如果是服务器集群,或者是跨域的服务导向架构,就要求<code class="language-plaintext highlighter-rouge">session</code>数据共享,每台服务器都能够读取<code class="language-plaintext highlighter-rouge">session</code>.<br />
+举例来说,<code class="language-plaintext highlighter-rouge">A</code>网站和<code class="language-plaintext highlighter-rouge">B</code>网站是同一家公司的关联服务.现在要求,用户只要在其中一个网站登录,再访问另一个网站就会自动登录,请问怎么实现？</p>
+
+<blockquote>
+  <p>一种解决方案是<code class="language-plaintext highlighter-rouge">session</code>数据持久化,写入数据库或别的持久层.各种服务收到请求后,都向持久层请求数据.这种方案的优点是架构清晰,缺点是工程量比较大.另外,持久层万一挂了,就会单点失败.</p>
+</blockquote>
+
+<blockquote>
+  <p>另一种方案是服务器索性不保存<code class="language-plaintext highlighter-rouge">session</code>数据了,所有数据都保存在客户端,每次请求都发回服务器.<code class="language-plaintext highlighter-rouge">JWT</code>就是这种方案的一个代表.</p>
+</blockquote>
+
+<h5 id="二jwt的原理">二、<code class="language-plaintext highlighter-rouge">JWT</code>的原理</h5>
+
+<p><code class="language-plaintext highlighter-rouge">JWT</code>的原理是,服务器认证以后,生成一个<code class="language-plaintext highlighter-rouge">JSON</code>对象,发回给用户,就像下面这样:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "姓名": "张三",
+  "角色": "管理员",
+  "到期时间": "2022年11月7日0点0分"
+}
+</code></pre></div></div>
+
+<p>以后,用户与服务端通信的时候,都要发回这个<code class="language-plaintext highlighter-rouge">JSON</code>对象.服务器完全只靠这个对象认定用户身份.为了防止用户篡改数据,服务器在生成这个对象的时候,会加上签名（详见后文）.</p>
+
+<p>服务器就不保存任何<code class="language-plaintext highlighter-rouge">session</code>数据了,也就是说,服务器变成无状态了,从而比较容易实现扩展.</p>
+:ET
