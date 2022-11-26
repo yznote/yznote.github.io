@@ -31,6 +31,17 @@ bottom: calc(98rpx + constant(safe-area-inset-bottom));
 bottom: calc(98rpx + env(safe-area-inset-bottom));
 ```
 
+##### 单行、多行文本
+```css
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+```
+
 ##### 返回键
 >from 触发返回行为的来源：  
 'backbutton': 左上角导航栏按钮及安卓返回键;  
