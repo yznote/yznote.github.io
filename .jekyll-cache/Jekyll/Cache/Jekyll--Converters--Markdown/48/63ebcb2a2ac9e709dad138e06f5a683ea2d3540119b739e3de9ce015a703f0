@@ -1,4 +1,4 @@
-I"�C<h3 id="css部分">CSS部分</h3>
+I"�G<h3 id="css部分">CSS部分</h3>
 
 <h5 id="背景图写法">背景图写法</h5>
 
@@ -11,6 +11,16 @@
 <span class="nt">bottom</span><span class="o">:</span> <span class="err">98</span><span class="nt">rpx</span><span class="o">;</span>
 <span class="nt">bottom</span><span class="o">:</span> <span class="nt">calc</span><span class="o">(</span><span class="err">98</span><span class="nt">rpx</span> <span class="o">+</span> <span class="nt">constant</span><span class="o">(</span><span class="nt">safe-area-inset-bottom</span><span class="o">));</span>
 <span class="nt">bottom</span><span class="o">:</span> <span class="nt">calc</span><span class="o">(</span><span class="err">98</span><span class="nt">rpx</span> <span class="o">+</span> <span class="nt">env</span><span class="o">(</span><span class="nt">safe-area-inset-bottom</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h5 id="单行多行文本">单行、多行文本</h5>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">display</span><span class="o">:</span> <span class="nt">-webkit-box</span><span class="o">;</span>
+<span class="nt">overflow</span><span class="o">:</span> <span class="nt">hidden</span><span class="o">;</span>
+<span class="nt">text-overflow</span><span class="o">:</span> <span class="nt">ellipsis</span><span class="o">;</span>
+<span class="nt">word-wrap</span><span class="o">:</span> <span class="nt">break-word</span><span class="o">;</span>
+<span class="nt">white-space</span><span class="o">:</span> <span class="nt">normal</span> <span class="o">!</span><span class="nt">important</span><span class="o">;</span>
+<span class="nt">-webkit-box-orient</span><span class="o">:</span> <span class="nt">vertical</span><span class="o">;</span>
+<span class="nt">-webkit-line-clamp</span><span class="o">:</span> <span class="err">1</span><span class="o">;</span>
 </code></pre></div></div>
 
 <h5 id="返回键">返回键</h5>
