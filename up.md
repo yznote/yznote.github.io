@@ -1,10 +1,10 @@
 ---
-layout:     post
-title:      上架应用汇总
-subtitle:   随时更新
+layout:     iyzpost
+title:      
+subtitle:   上架应用汇总-随时更新
 date:       2022-10-24 08:00:01 +0800
 createdate: 2019-09-20 08:00:00 +0800
-rkupdate:   2022-12-01 17:30:30 +0800
+rkupdate:   2022-12-09 17:30:30 +0800
 author:     920
 header-img: 
 catalog: true
@@ -18,11 +18,21 @@ tags:
 
 #### 2022上架应用
 
+
+#### 元岳电商【小程序】
+时间：2022-12-09  
+![元岳](/img/0appstore/yyds.png) 
+
 #### 元岳多商户【小程序】
+时间：2022-12-01  
 ![元岳](/img/0appstore/yydsh.png)  
 
-#### 岗底斯峰【小程序】
+#### 浩联商贸【小程序】
+时间：2022-11-26  
+![浩联](/img/0appstore/hlsm.png)  
 
+#### 岗底斯峰【小程序】
+时间：2022-11-16  
 ![藏药](/img/0appstore/xzgy.png)  
 ![藏药](/img/0appstore/xzgy1.PNG)  
 
