@@ -1,6 +1,5 @@
 ---
 layout: iyzpost
-title:
 subtitle: 资料
 author: 920
 catalog: true
