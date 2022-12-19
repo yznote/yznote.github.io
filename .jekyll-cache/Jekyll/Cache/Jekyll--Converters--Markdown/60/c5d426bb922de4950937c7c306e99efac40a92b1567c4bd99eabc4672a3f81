@@ -1,4 +1,4 @@
-I"�G<h3 id="css部分">CSS部分</h3>
+I"N<h3 id="css部分">CSS部分</h3>
 
 <h5 id="背景图写法">背景图写法</h5>
 
@@ -21,6 +21,46 @@
 <span class="nt">white-space</span><span class="o">:</span> <span class="nt">normal</span> <span class="o">!</span><span class="nt">important</span><span class="o">;</span>
 <span class="nt">-webkit-box-orient</span><span class="o">:</span> <span class="nt">vertical</span><span class="o">;</span>
 <span class="nt">-webkit-line-clamp</span><span class="o">:</span> <span class="err">1</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h4 id="scroll-view的横向滚动">scroll-view的横向滚动</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;scroll-view :scroll-x="true" class="scrollCon"&gt;
+    &lt;view class="monthItem"&gt;1月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;2月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;3月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;4月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;5月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;6月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;7月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;8月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;9月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;10月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;11月&lt;/view&gt;
+    &lt;view class="monthItem"&gt;12月&lt;/view&gt;
+&lt;/scroll-view&gt;
+</code></pre></div></div>
+<p><strong>CSS部分</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.scrollCon{
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+    
+.monthItem{
+    display: inline-block;
+    width: calc(100% / 6);
+    font-size: 26rpx;
+    color: #3D3D3D;
+    text-align: center;
+}
+</code></pre></div></div>
+<p><strong>核心</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// scroll-view的外层元素需要
+white-space: nowrap;
+
+// scroll-view的内层view元素需要
+display: inline-block;
 </code></pre></div></div>
 
 <h5 id="返回键">返回键</h5>
