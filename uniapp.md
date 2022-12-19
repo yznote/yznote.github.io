@@ -42,6 +42,51 @@ white-space: normal !important;
 -webkit-line-clamp: 1;
 ```
 
+
+#### scroll-view的横向滚动
+
+```
+<scroll-view :scroll-x="true" class="scrollCon">
+    <view class="monthItem">1月</view>
+    <view class="monthItem">2月</view>
+    <view class="monthItem">3月</view>
+    <view class="monthItem">4月</view>
+    <view class="monthItem">5月</view>
+    <view class="monthItem">6月</view>
+    <view class="monthItem">7月</view>
+    <view class="monthItem">8月</view>
+    <view class="monthItem">9月</view>
+    <view class="monthItem">10月</view>
+    <view class="monthItem">11月</view>
+    <view class="monthItem">12月</view>
+</scroll-view>
+```
+**CSS部分**
+```
+.scrollCon{
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+    
+.monthItem{
+    display: inline-block;
+    width: calc(100% / 6);
+    font-size: 26rpx;
+    color: #3D3D3D;
+    text-align: center;
+}
+```
+**核心**
+```
+// scroll-view的外层元素需要
+white-space: nowrap;
+
+// scroll-view的内层view元素需要
+display: inline-block;
+```
+
+
 ##### 返回键
 >from 触发返回行为的来源：  
 'backbutton': 左上角导航栏按钮及安卓返回键;  
