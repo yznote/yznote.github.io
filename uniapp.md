@@ -20,6 +20,8 @@ tags:
 
 ```css
 background-image: url('~@/static/images/code-bg.png');
+
+background:linear-gradient(to bottom, #EA7E00 0%, #E82F00 100%);
 ```
 
 ##### 底部固定布局、刘海屏适配
