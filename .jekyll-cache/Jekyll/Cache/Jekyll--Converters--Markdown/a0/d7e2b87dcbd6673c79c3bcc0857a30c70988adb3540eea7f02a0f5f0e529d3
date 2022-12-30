@@ -1,8 +1,10 @@
-I"N<h3 id="css部分">CSS部分</h3>
+I"oO<h3 id="css部分">CSS部分</h3>
 
 <h5 id="背景图写法">背景图写法</h5>
 
 <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">background-image</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s2">'~@/static/images/code-bg.png'</span><span class="o">);</span>
+
+<span class="nt">background</span><span class="nd">:linear-gradient</span><span class="o">(</span><span class="nt">to</span> <span class="nt">bottom</span><span class="o">,</span> <span class="nf">#EA7E00</span> <span class="err">0</span><span class="o">%,</span> <span class="nf">#E82F00</span> <span class="err">100</span><span class="o">%);</span>
 </code></pre></div></div>
 
 <h5 id="底部固定布局刘海屏适配">底部固定布局、刘海屏适配</h5>
