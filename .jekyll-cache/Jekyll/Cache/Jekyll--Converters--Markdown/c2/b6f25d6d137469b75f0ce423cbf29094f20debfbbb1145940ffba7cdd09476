@@ -1,0 +1,59 @@
+I"�<h5 id="快速跳转到某个位置">快速跳转到某个位置</h5>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"control"</span> <span class="na">id=</span><span class="s">"inputForm"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"input"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"name"</span> <span class="na">placeholder=</span><span class="s">"请输入您的姓名"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+......
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#inputForm"</span> <span class="na">style=</span><span class="s">"color:#ffff"</span><span class="nt">&gt;</span>返回输入框位置<span class="nt">&lt;/a&gt;</span>
+
+</code></pre></div></div>
+
+<h5 id="点击事件">点击事件</h5>
+
+<p><strong>书写方式1</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#html
+<span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"agree"</span> <span class="na">id=</span><span class="s">"agree"</span><span class="nt">&gt;</span>同意<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#</span><span class="nx">js</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#agree</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">点击了</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+
+<p><strong>书写方式2</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#html
+<span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"agree"</span> <span class="na">id=</span><span class="s">"agree"</span><span class="nt">&gt;</span>同意<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#</span><span class="nx">js</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">agree</span><span class="dl">"</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">点击了</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<p><strong>书写方式3</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#html
+<span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"agree"</span> <span class="na">id=</span><span class="s">"agree"</span> <span class="na">onclick=</span><span class="s">"clickAgree()"</span><span class="nt">&gt;</span>同意<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#</span><span class="nx">js</span>
+<span class="nx">clickAgree</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">点击了</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+:ET
