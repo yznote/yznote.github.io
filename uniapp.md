@@ -33,6 +33,40 @@ bottom: calc(98rpx + constant(safe-area-inset-bottom));
 bottom: calc(98rpx + env(safe-area-inset-bottom));
 ```
 
+##### 动画
+
+```css
+.animation-class {
+    // 定义动画名称 mymove
+    animation: mymove 1s;
+    -moz-animation: mymove 1s;
+    -webkit-animation: mymove 1s;
+    -o-animation: mymove 1s;
+
+    // 执行1次
+    animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -webkit-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+
+    // 执行完毕停留在动画结束的最后一帧
+    animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+}
+
+@keyframes mymove {
+    0% {
+        transform: translate(-100%);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+```
+
 ##### 单行、多行文本
 ```css
 display: -webkit-box;
