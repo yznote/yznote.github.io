@@ -14,6 +14,18 @@ tags:
     - uniapp
 ---
 
+### replace()
+```js
+let previewDes = this.desContent;
+this.quickType.forEach(item => {
+    console.log("rk===>[foreach]" + item.title);
+    let filterStr = item.title+':';
+    previewDes = previewDes.replace(RegExp(filterStr, "g"),'');
+}); 
+previewDes = previewDes.replace(/[\r\n]/g,'');
+```
+
+
 ### CSS部分
 
 ##### 背景图写法
@@ -31,6 +43,126 @@ position: fixed;
 bottom: 98rpx;
 bottom: calc(98rpx + constant(safe-area-inset-bottom));
 bottom: calc(98rpx + env(safe-area-inset-bottom));
+```
+
+##### 弹窗
+```html
+<view class="com-alert-pop">
+    <view class="mask" v-if="alertShow"></view>
+    <view class="popup-alert" :class="alertShow?'popup-active':''">
+        <view class="title">{{alertTitle}}</view>
+        <view class="des-box">
+            <text class="des">{{alertContent}}</text>
+        </view>
+        <view class="bot-box">
+            <view v-if="showCancel" class="bot-btn cancel" @click="clickCancel" >{{cancelTitle}}</view>
+            <view class="bot-btn confirm" @click="clickConfirm">{{confirmTitle}}</view>
+        </view>
+        
+    </view>
+</view>
+```
+
+```js
+name:'alertPop',
+props:{
+    alertShow:{
+        type:Boolean,
+        default:false,
+    },
+    showCancel:{
+        type:Boolean,
+        default:true,
+    },
+    alertTitle:{
+        type:String,
+        default:'提示',
+    },
+    alertContent:{
+        type:String,
+        default:'提示内容',
+    },
+    cancelTitle:{
+        type:String,
+        default:'取消',
+    },
+    confirmTitle:{
+        type:String,
+        default:'确认',
+    }
+},
+
+```
+
+```css
+.mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+.popup-alert {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    z-index: 1001;
+    width: 544rpx;
+    padding-top: 48rpx;
+    // padding-bottom: 30rpx;
+    border-radius: 24rpx;
+    background-color: #ffffff;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: 0.3s;
+    line-height: 1;
+    text-align: center;
+    color: #282828;
+    .title {
+        max-width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+        font-weight: bold;
+        font-size: 32rpx;
+    }
+    .des-box {
+        margin-top: 24rpx;
+        padding: 0 30rpx;
+        .des {
+            font-size: 28rpx;
+            color:#323232;
+            line-height: 1.1em;
+        }
+    }
+    
+    .bot-box {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 30rpx 0 0;
+        border-top: 2rpx solid #eee;
+        .bot-btn {
+            width: 50%;
+            padding: 20rpx 50rpx;
+            color:#323232;
+            // border-radius: 50rpx;
+            box-sizing: border-box;
+        }
+        .cancel {
+            // background:#969696;
+            border-right: 3rpx solid #eee;
+        }
+        .confirm {
+            color: $main-color;
+            // background: linear-gradient(to right, #FE6E21 0%, #FF1F13 100%);
+        }
+    }
+}
+.popup-active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
 ```
 
 ##### 动画
