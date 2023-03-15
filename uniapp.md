@@ -63,37 +63,6 @@ bottom: calc(98rpx + env(safe-area-inset-bottom));
 </view>
 ```
 
-```js
-name:'alertPop',
-props:{
-    alertShow:{
-        type:Boolean,
-        default:false,
-    },
-    showCancel:{
-        type:Boolean,
-        default:true,
-    },
-    alertTitle:{
-        type:String,
-        default:'提示',
-    },
-    alertContent:{
-        type:String,
-        default:'提示内容',
-    },
-    cancelTitle:{
-        type:String,
-        default:'取消',
-    },
-    confirmTitle:{
-        type:String,
-        default:'确认',
-    }
-},
-
-```
-
 ```css
 .mask {
     position: fixed;
@@ -163,6 +132,37 @@ props:{
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
 }
+```
+
+```js
+name:'alertPop',
+props:{
+    alertShow:{
+        type:Boolean,
+        default:false,
+    },
+    showCancel:{
+        type:Boolean,
+        default:true,
+    },
+    alertTitle:{
+        type:String,
+        default:'提示',
+    },
+    alertContent:{
+        type:String,
+        default:'提示内容',
+    },
+    cancelTitle:{
+        type:String,
+        default:'取消',
+    },
+    confirmTitle:{
+        type:String,
+        default:'确认',
+    }
+},
+
 ```
 
 ##### 动画
