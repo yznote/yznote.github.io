@@ -15,7 +15,7 @@ catalog: true
 小说【Uni】安卓------------------- com.yunbao.book
 悬赏安卓 ------------------------ com.yunbao.xuanshang
 招聘 --------------------------- com.yunbao.job
-互联网医院----------------------- com.yuanyue.wenzhen
+互联网医院 ---------------------- com.yuanyue.wenzhen
 ```
 
 ### 签名APP
