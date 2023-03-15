@@ -1,4 +1,4 @@
-I"�<h5 id="快速跳转到某个位置">快速跳转到某个位置</h5>
+I"$<h5 id="快速跳转到某个位置">快速跳转到某个位置</h5>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"control"</span> <span class="na">id=</span><span class="s">"inputForm"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"input"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"name"</span> <span class="na">placeholder=</span><span class="s">"请输入您的姓名"</span><span class="nt">&gt;</span>
@@ -54,6 +54,12 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">点击了</span><span class="dl">'</span><span class="p">)</span>
 <span class="p">}</span>
 
+</code></pre></div></div>
+
+<h5 id="字符串0和1转布尔值">字符串<code class="language-plaintext highlighter-rouge">0</code>和<code class="language-plaintext highlighter-rouge">1</code>转布尔值</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let str = '0'
+let bool = !! + str
 </code></pre></div></div>
 
 :ET

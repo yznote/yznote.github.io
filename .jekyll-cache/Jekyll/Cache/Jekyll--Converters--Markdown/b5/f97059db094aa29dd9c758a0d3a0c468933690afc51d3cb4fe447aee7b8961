@@ -1,4 +1,14 @@
-I"oO<h3 id="css部分">CSS部分</h3>
+I"�<h3 id="replace">replace()</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">previewDes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">desContent</span><span class="p">;</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">quickType</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">rk===&gt;[foreach]</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">filterStr</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="o">+</span><span class="dl">'</span><span class="s1">:</span><span class="dl">'</span><span class="p">;</span>
+    <span class="nx">previewDes</span> <span class="o">=</span> <span class="nx">previewDes</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nb">RegExp</span><span class="p">(</span><span class="nx">filterStr</span><span class="p">,</span> <span class="dl">"</span><span class="s2">g</span><span class="dl">"</span><span class="p">),</span><span class="dl">''</span><span class="p">);</span>
+<span class="p">});</span> 
+<span class="nx">previewDes</span> <span class="o">=</span> <span class="nx">previewDes</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">[\r\n]</span><span class="sr">/g</span><span class="p">,</span><span class="dl">''</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="css部分">CSS部分</h3>
 
 <h5 id="背景图写法">背景图写法</h5>
 
@@ -13,6 +23,156 @@
 <span class="nt">bottom</span><span class="o">:</span> <span class="err">98</span><span class="nt">rpx</span><span class="o">;</span>
 <span class="nt">bottom</span><span class="o">:</span> <span class="nt">calc</span><span class="o">(</span><span class="err">98</span><span class="nt">rpx</span> <span class="o">+</span> <span class="nt">constant</span><span class="o">(</span><span class="nt">safe-area-inset-bottom</span><span class="o">));</span>
 <span class="nt">bottom</span><span class="o">:</span> <span class="nt">calc</span><span class="o">(</span><span class="err">98</span><span class="nt">rpx</span> <span class="o">+</span> <span class="nt">env</span><span class="o">(</span><span class="nt">safe-area-inset-bottom</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h5 id="弹窗">弹窗</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"com-alert-pop"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"mask"</span> <span class="na">v-if=</span><span class="s">"alertShow"</span><span class="nt">&gt;&lt;/view&gt;</span>
+    <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"popup-alert"</span> <span class="na">:class=</span><span class="s">"alertShow?'popup-active':''"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;&lt;/view&gt;</span>
+        <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"des-box"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;text</span> <span class="na">class=</span><span class="s">"des"</span><span class="nt">&gt;&lt;/text&gt;</span>
+        <span class="nt">&lt;/view&gt;</span>
+        <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"bot-box"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;view</span> <span class="na">v-if=</span><span class="s">"showCancel"</span> <span class="na">class=</span><span class="s">"bot-btn cancel"</span> <span class="err">@</span><span class="na">click=</span><span class="s">"clickCancel"</span> <span class="nt">&gt;&lt;/view&gt;</span>
+            <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"bot-btn confirm"</span> <span class="err">@</span><span class="na">click=</span><span class="s">"clickConfirm"</span><span class="nt">&gt;&lt;/view&gt;</span>
+        <span class="nt">&lt;/view&gt;</span>
+        
+    <span class="nt">&lt;/view&gt;</span>
+<span class="nt">&lt;/view&gt;</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">name</span><span class="p">:</span><span class="dl">'</span><span class="s1">alertPop</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">props</span><span class="p">:{</span>
+    <span class="nl">alertShow</span><span class="p">:{</span>
+        <span class="na">type</span><span class="p">:</span><span class="nb">Boolean</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">showCancel</span><span class="p">:{</span>
+        <span class="nl">type</span><span class="p">:</span><span class="nb">Boolean</span><span class="p">,</span>
+        <span class="k">default</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">alertTitle</span><span class="p">:{</span>
+        <span class="nl">type</span><span class="p">:</span><span class="nb">String</span><span class="p">,</span>
+        <span class="k">default</span><span class="p">:</span><span class="dl">'</span><span class="s1">提示</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">alertContent</span><span class="p">:{</span>
+        <span class="nl">type</span><span class="p">:</span><span class="nb">String</span><span class="p">,</span>
+        <span class="k">default</span><span class="p">:</span><span class="dl">'</span><span class="s1">提示内容</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">cancelTitle</span><span class="p">:{</span>
+        <span class="nl">type</span><span class="p">:</span><span class="nb">String</span><span class="p">,</span>
+        <span class="k">default</span><span class="p">:</span><span class="dl">'</span><span class="s1">取消</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">confirmTitle</span><span class="p">:{</span>
+        <span class="nl">type</span><span class="p">:</span><span class="nb">String</span><span class="p">,</span>
+        <span class="k">default</span><span class="p">:</span><span class="dl">'</span><span class="s1">确认</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+
+</code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.mask</span> <span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">bottom</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.3</span><span class="p">);</span>
+    <span class="nl">z-index</span><span class="p">:</span> <span class="m">1000</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.popup-alert</span> <span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">45%</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+    <span class="nl">z-index</span><span class="p">:</span> <span class="m">1001</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">544</span><span class="n">rpx</span><span class="p">;</span>
+    <span class="nl">padding-top</span><span class="p">:</span> <span class="m">48</span><span class="n">rpx</span><span class="p">;</span>
+    <span class="err">//</span> <span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">30</span><span class="n">rpx</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">24</span><span class="n">rpx</span><span class="p">;</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#ffffff</span><span class="p">;</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-50%</span><span class="p">,</span> <span class="m">-50%</span><span class="p">)</span> <span class="n">scale</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+    <span class="nl">opacity</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">transition</span><span class="p">:</span> <span class="m">0.3s</span><span class="p">;</span>
+    <span class="nl">line-height</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#282828</span><span class="p">;</span>
+    <span class="err">.title</span> <span class="err">{</span>
+        <span class="nl">max-width</span><span class="p">:</span> <span class="m">90%</span><span class="p">;</span>
+        <span class="nl">margin-right</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+        <span class="nl">margin-left</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+        <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+        <span class="nl">font-size</span><span class="p">:</span> <span class="m">32</span><span class="n">rpx</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nc">.des-box</span> <span class="p">{</span>
+        <span class="nl">margin-top</span><span class="p">:</span> <span class="m">24</span><span class="n">rpx</span><span class="p">;</span>
+        <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span> <span class="m">30</span><span class="n">rpx</span><span class="p">;</span>
+        <span class="err">.des</span> <span class="err">{</span>
+            <span class="nl">font-size</span><span class="p">:</span> <span class="m">28</span><span class="n">rpx</span><span class="p">;</span>
+            <span class="nl">color</span><span class="p">:</span><span class="m">#323232</span><span class="p">;</span>
+            <span class="nl">line-height</span><span class="p">:</span> <span class="m">1.1em</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="err">}</span>
+    
+    <span class="nc">.bot-box</span> <span class="p">{</span>
+        <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+        <span class="nl">justify-content</span><span class="p">:</span> <span class="n">space-evenly</span><span class="p">;</span>
+        <span class="nl">margin</span><span class="p">:</span> <span class="m">30</span><span class="n">rpx</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+        <span class="nl">border-top</span><span class="p">:</span> <span class="m">2</span><span class="n">rpx</span> <span class="nb">solid</span> <span class="m">#eee</span><span class="p">;</span>
+        <span class="err">.bot-btn</span> <span class="err">{</span>
+            <span class="nl">width</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+            <span class="nl">padding</span><span class="p">:</span> <span class="m">20</span><span class="n">rpx</span> <span class="m">50</span><span class="n">rpx</span><span class="p">;</span>
+            <span class="nl">color</span><span class="p">:</span><span class="m">#323232</span><span class="p">;</span>
+            <span class="err">//</span> <span class="nl">border-radius</span><span class="p">:</span> <span class="m">50</span><span class="n">rpx</span><span class="p">;</span>
+            <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nc">.cancel</span> <span class="p">{</span>
+            <span class="err">//</span> <span class="nl">background</span><span class="p">:</span><span class="m">#969696</span><span class="p">;</span>
+            <span class="nl">border-right</span><span class="p">:</span> <span class="m">3</span><span class="n">rpx</span> <span class="nb">solid</span> <span class="m">#eee</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nc">.confirm</span> <span class="p">{</span>
+            <span class="nl">color</span><span class="p">:</span> <span class="err">$</span><span class="n">main-color</span><span class="p">;</span>
+            <span class="err">//</span> <span class="nl">background</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="n">to</span> <span class="nb">right</span><span class="p">,</span> <span class="m">#FE6E21</span> <span class="m">0%</span><span class="p">,</span> <span class="m">#FF1F13</span> <span class="m">100%</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="err">}</span>
+<span class="err">}</span>
+<span class="nc">.popup-active</span> <span class="p">{</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-50%</span><span class="p">,</span> <span class="m">-50%</span><span class="p">)</span> <span class="n">scale</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+    <span class="nl">opacity</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h5 id="动画">动画</h5>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.animation-class</span> <span class="p">{</span>
+    <span class="err">//</span> <span class="err">定义动画名称</span> <span class="err">mymove</span>
+    <span class="nl">animation</span><span class="p">:</span> <span class="n">mymove</span> <span class="m">1s</span><span class="p">;</span>
+    <span class="nl">-moz-animation</span><span class="p">:</span> <span class="n">mymove</span> <span class="m">1s</span><span class="p">;</span>
+    <span class="nl">-webkit-animation</span><span class="p">:</span> <span class="n">mymove</span> <span class="m">1s</span><span class="p">;</span>
+    <span class="nl">-o-animation</span><span class="p">:</span> <span class="n">mymove</span> <span class="m">1s</span><span class="p">;</span>
+
+    <span class="err">//</span> <span class="err">执行1次</span>
+    <span class="nl">animation-iteration-count</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="nl">-moz-animation-iteration-count</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="nl">-webkit-animation-iteration-count</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="nl">-o-animation-iteration-count</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+
+    <span class="err">//</span> <span class="err">执行完毕停留在动画结束的最后一帧</span>
+    <span class="nl">animation-fill-mode</span><span class="p">:</span> <span class="n">forwards</span><span class="p">;</span>
+    <span class="nl">-moz-animation-fill-mode</span><span class="p">:</span> <span class="n">forwards</span><span class="p">;</span>
+    <span class="nl">-webkit-animation-fill-mode</span><span class="p">:</span> <span class="n">forwards</span><span class="p">;</span>
+    <span class="nl">-o-animation-fill-mode</span><span class="p">:</span> <span class="n">forwards</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@keyframes</span> <span class="n">mymove</span> <span class="p">{</span>
+    <span class="err">0</span><span class="o">%</span> <span class="p">{</span>
+        <span class="nl">transform</span><span class="p">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-100%</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="err">100</span><span class="o">%</span> <span class="p">{</span>
+        <span class="nl">transform</span><span class="p">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
 </code></pre></div></div>
 
 <h5 id="单行多行文本">单行、多行文本</h5>

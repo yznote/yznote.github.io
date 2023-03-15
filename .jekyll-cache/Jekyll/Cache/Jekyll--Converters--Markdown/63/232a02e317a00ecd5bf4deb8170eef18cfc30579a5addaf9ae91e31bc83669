@@ -1,0 +1,28 @@
+I"�<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="c">&lt;!--</span> <span class="nx">自定义组件中使用v</span><span class="o">-</span><span class="nx">mode指令</span> <span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="nx">input</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">input</span><span class="dl">"</span> <span class="p">@</span><span class="nd">input</span><span class="o">=</span><span class="dl">"</span><span class="s2">changeInput</span><span class="dl">"</span> <span class="p">:</span><span class="nx">value</span><span class="o">=</span><span class="dl">"</span><span class="s2">rkValue</span><span class="dl">"</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="sr">/template</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+    <span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CustomModel</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">model</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">prop</span><span class="p">:</span> <span class="dl">'</span><span class="s1">rkValue</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// 默认是value</span>
+        <span class="na">event</span><span class="p">:</span> <span class="dl">'</span><span class="s1">rkInput</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// 默认是input</span>
+      <span class="p">},</span>
+      <span class="na">props</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1">// 接收string和number类型的值，</span>
+        <span class="c1">// 注意不能是写成字符串["String","Number"],因为此时它们是构造器，是全局变量</span>
+        <span class="na">rkValue</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">,</span> <span class="nb">Number</span><span class="p">],</span>
+      <span class="p">},</span>
+      <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">changeInput</span> <span class="p">(</span><span class="nx">$event</span><span class="p">)</span> <span class="p">{</span>
+          <span class="c1">// 向上派发rkInput事件，这样model监听rkInput才有意义：当输入字符时触发input事件，</span>
+          <span class="c1">// 进而派发触发自定义的rkInput事件，然后model监听rkInput，就实现了数据绑定</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">rkInput</span><span class="dl">'</span><span class="p">,</span> <span class="nx">$event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+        <span class="p">},</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+:ET
