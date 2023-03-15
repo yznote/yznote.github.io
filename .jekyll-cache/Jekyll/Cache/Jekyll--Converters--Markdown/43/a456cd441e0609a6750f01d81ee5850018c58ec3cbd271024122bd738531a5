@@ -1,0 +1,10 @@
+I"�<p>问题: 命令行执行<code class="language-plaintext highlighter-rouge">cd</code>命令后总是出现<code class="language-plaintext highlighter-rouge">env: python: No such file or directory</code></p>
+
+<p>原因: 因为<code class="language-plaintext highlighter-rouge">MacOS Monterey 12.3</code>系统更新了自带的<code class="language-plaintext highlighter-rouge">python</code>问题</p>
+
+<p>解决:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/bin/python3 /usr/local/bin/python3
+
+ln -s -f /usr/local/bin/python3 /usr/local/bin/python
+</code></pre></div></div>
+:ET

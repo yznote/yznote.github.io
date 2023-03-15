@@ -1,0 +1,94 @@
+I"'<h5 id="uicontrol扩展">UIControl扩展</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface UIControl (RKRepeatClick)
+
+/**
+ 可以重复点击的时间间隔
+ 默认为0 不对按钮重复点击处理
+ */
+@property (nonatomic,assign) NSTimeInterval timeInterval;   //用这个给重复点击加间隔
+/**
+ 内部属性用于判断是否忽略替换的点击事件
+ */
+@property (nonatomic,assign) BOOL isIgnoreEvent;
+
+/**
+ * 如果想要button响应连续点击,此属性要设置为YES【例如:同时响应按钮的按下和抬起】
+ */
+@property(nonatomic,assign)BOOL canResponseRepeatClick;
+
+@end
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import "UIControl+RKRepeatClick.h"
+
+#import &lt;objc/runtime.h&gt;
+#define defaultInterval 0.5 //默认时间间隔  0.5
+
+@implementation UIControl (RKRepeatClick)
+
+- (NSTimeInterval)timeInterval{
+    return [objc_getAssociatedObject(self,_cmd)doubleValue];
+}
+
+- (void)setTimeInterval:(NSTimeInterval)timeInterval{
+    objc_setAssociatedObject(self,@selector(timeInterval),@(timeInterval),OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)setIsIgnoreEvent:(BOOL)isIgnoreEvent{
+    objc_setAssociatedObject(self,@selector(isIgnoreEvent),@(isIgnoreEvent),OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)isIgnoreEvent{
+    return [objc_getAssociatedObject(self,_cmd)boolValue];
+}
+
+- (void)resetState{
+    [self setIsIgnoreEvent:NO];
+}
+
+- (void)setCanResponseRepeatClick:(BOOL)canResponseRepeatClick {
+    objc_setAssociatedObject(self,@selector(canResponseRepeatClick),@(canResponseRepeatClick),OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)canResponseRepeatClick {
+    return [objc_getAssociatedObject(self,_cmd)boolValue];
+}
+
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        SEL selA = @selector(sendAction:to:forEvent:);
+        SEL selB = @selector(mySendAction:to:forEvent:);
+        Method methodA = class_getInstanceMethod(self, selA);
+        Method methodB = class_getInstanceMethod(self, selB);
+        //将methodB的实现添加到系统方法中也就是说将methodA方法指针添加成方法methodB的返回值表示是否添加成功
+        BOOL isAdd = class_addMethod(self, selA,method_getImplementation(methodB),method_getTypeEncoding(methodB));
+        //添加成功了说明本类中不存在methodB所以此时必须将方法b的实现指针换成方法A的，否则b方法将没有实现。
+        if(isAdd) {
+            class_replaceMethod(self, selB,method_getImplementation(methodA),method_getTypeEncoding(methodA));
+        }else{
+            //添加失败了说明本类中有methodB的实现，此时只需要将methodA和methodB的IMP互换一下即可。
+            method_exchangeImplementations(methodA, methodB);
+        }
+    });
+}
+
+- (void)mySendAction:(SEL)action to:(id)target forEvent:(UIEvent*)event{
+    if([NSStringFromClass(self.class) isEqualToString:@"UIButton"] &amp;&amp; !self.canResponseRepeatClick) {
+        self.timeInterval = self.timeInterval == 0 ? defaultInterval:self.timeInterval;
+        if(self.isIgnoreEvent){
+            return;
+        }else if(self.timeInterval &gt; 0){
+            [self performSelector:@selector(resetState)withObject:nil afterDelay:self.timeInterval];
+        }
+    }
+    //此处methodA和methodB方法IMP互换了，实际上执行sendAction；所以不会死循环
+    self.isIgnoreEvent = YES;
+    [self mySendAction:action to:target forEvent:event];
+}
+
+@end
+
+</code></pre></div></div>
+:ET

@@ -1,0 +1,20 @@
+I"<h4 id="objectforkey和valueforkey的区别">objectForKey和valueForKey的区别</h4>
+
+<h5 id="objectforkey是nsdictionary的方法">objectForKey是NSDictionary的方法</h5>
+<p>objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定<code class="language-plaintext highlighter-rouge">key</code>的<code class="language-plaintext highlighter-rouge">value</code>,若没有这个<code class="language-plaintext highlighter-rouge">key</code>返回<code class="language-plaintext highlighter-rouge">nil</code>.</p>
+
+<h5 id="valueforkey是kvc提供的方法">valueForKey是KVC提供的方法</h5>
+<p>valueForKey: returns the value associated with a given key. 同样是返回指定<code class="language-plaintext highlighter-rouge">key</code>的<code class="language-plaintext highlighter-rouge">value</code>.</p>
+
+<p>但官方文档里有额外一点：一般来说<code class="language-plaintext highlighter-rouge">key</code>可以是任意字符串组合,如果<code class="language-plaintext highlighter-rouge">key</code>不是以<code class="language-plaintext highlighter-rouge">@</code>符号开头,这时候<code class="language-plaintext highlighter-rouge">valueForKey:</code>等同于<code class="language-plaintext highlighter-rouge">objectForKey:</code>,如果是以<code class="language-plaintext highlighter-rouge">@</code> 开头,<code class="language-plaintext highlighter-rouge">valueForKey</code>方法执行时会去掉<code class="language-plaintext highlighter-rouge">key</code>里的<code class="language-plaintext highlighter-rouge">@</code>然后用剩下部分作为<code class="language-plaintext highlighter-rouge">key</code>执行<code class="language-plaintext highlighter-rouge">[super valueForKey:]</code>.</p>
+
+<p>在<code class="language-plaintext highlighter-rouge">KVC</code>里可以通过<code class="language-plaintext highlighter-rouge">property</code>同名字符串来获取对应的值。找不到值的时候执行<code class="language-plaintext highlighter-rouge">valueForUndefinedKey:</code>而<code class="language-plaintext highlighter-rouge">valueForUndefinedKey</code>的默认实现是抛出 <code class="language-plaintext highlighter-rouge">NSUndefinedKeyException</code>异常.</p>
+
+<p>举例：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSDictionary *dic = [NSDictionary dictionaryWithObject:@"Value" forKey:@"@Key"];// 注意这个 key 是以 @ 开头
+NSString *value1 = [dic objectForKey:@"@Key"];
+NSString *value2 = [dic valueForKey:@"@Key"];
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">value1</code>可以正确取值,但是<code class="language-plaintext highlighter-rouge">value2</code>取值会直接<code class="language-plaintext highlighter-rouge">crash</code>！
+因此，我们在平时使用<code class="language-plaintext highlighter-rouge">NSDictionary</code>的时候建议使用<code class="language-plaintext highlighter-rouge">objectForKey</code>！</p>
+:ET

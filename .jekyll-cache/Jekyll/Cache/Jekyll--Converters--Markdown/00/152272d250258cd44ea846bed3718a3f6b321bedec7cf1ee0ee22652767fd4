@@ -1,0 +1,77 @@
+I"�<h4 id="描述以uitextview为例">描述以<code class="language-plaintext highlighter-rouge">UITextView</code>为例</h4>
+<p>当<code class="language-plaintext highlighter-rouge">UITextView</code>处于编辑状态时,即键盘存在时,<code class="language-plaintext highlighter-rouge">UITextView</code>是第一响应者,而当需要弹出<code class="language-plaintext highlighter-rouge">UIMenuController</code>时,第一响应者需要变更为处理<code class="language-plaintext highlighter-rouge">UIMenuController</code>菜单事件的对象,此时UITextView就不是第一响应者,键盘就会隐藏,造成键盘和<code class="language-plaintext highlighter-rouge">UIMenuController</code>不能同时出现.</p>
+
+<h4 id="解决方案">解决方案</h4>
+<blockquote>
+  <p>通过改变响应链来解决:<br />
+<strong>参考</strong><br />
+<a href="https://www.jianshu.com/p/2e074db792ba">iOS事件响应机制</a><br />
+<a href="https://www.jianshu.com/p/c294d1bd963d">iOS响应链全家桶</a><br />
+在保证<code class="language-plaintext highlighter-rouge">UITextVie</code>第一响应者的前提下,我们可以覆盖改变<code class="language-plaintext highlighter-rouge">UITextView</code>的<code class="language-plaintext highlighter-rouge">nextResponder</code>,让<code class="language-plaintext highlighter-rouge">nextResponder</code>指向<code class="language-plaintext highlighter-rouge">UIMenuController</code>菜单事件的执行者,同时也要注意,在<code class="language-plaintext highlighter-rouge">UIMenuController</code>隐藏后,要取消<code class="language-plaintext highlighter-rouge">nextResponder</code>指向,不改变原有的响应链.</p>
+</blockquote>
+
+<h4 id="代码实现">代码实现</h4>
+
+<p><strong>自定义<code class="language-plaintext highlighter-rouge">MYTextView</code></strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface MYTextView : UITextView
+//覆盖下一个响应者
+@property (nonatomic, weak) UIResponder *overrideNextResponder; 
+@end
+@implementation MYTextView
+- (UIResponder *)nextResponder {
+    if(_overrideNextResponder == nil){
+        return [super nextResponder];
+    } else {
+        return _overrideNextResponder;
+    }
+}
+//UIMenuController 菜单可以执行操作
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (_overrideNextResponder != nil) {
+        return NO;
+    }
+    return [super canPerformAction:action withSender:sender];
+}
+@end
+</code></pre></div></div>
+
+<p><strong>长按显示<code class="language-plaintext highlighter-rouge">UIMenuController</code>的<code class="language-plaintext highlighter-rouge">VC</code></strong><br />
+这里以长按<code class="language-plaintext highlighter-rouge">VC</code>中的<code class="language-plaintext highlighter-rouge">self.titleLabel</code>为例:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//长按显示菜单 UIMenuController
+- (void)longPressShowMenuView:(UILongPressGestureRecognizer *)longPress {
+    //避免长按多次执行
+    if (longPress.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    //编辑过程中，self.textView是第一响应者
+    if(self.textView.isFirstResponder){
+        //如果textView是第一响应者，则对titleLabel进行响应链透传，覆盖self.textView的下一个响应者
+        self.textView.overrideNextResponder = self.titleLabel;
+        //添加菜单隐藏的监听，当菜单隐藏时，要重置self.textView.overrideNextResponder = nil
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuViewDidHide:) name:UIMenuControllerDidHideMenuNotification object:nil];
+    }else {
+        //如果当前无第一响应者，就成为第一响应者
+        [self.titleLabel becomeFirstResponder];
+    }
+    
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    UIMenuItem *saveItems = [[UIMenuItem alloc] initWithTitle:@"保存" action:@selector(save:)];
+    UIMenuItem *noteItem = [[UIMenuItem alloc] initWithTitle:@"笔记" action:@selector(note:)];
+    menuController.menuItems = @[noteItem, saveItems];
+    if (@available(iOS 13.0, *)) {
+        [menuController showMenuFromView:self.view rect:self.titleLabel.frame];
+    } else {
+        [menuController setTargetRect:self.titleLabel.frame inView:self.view];
+        [menuController setMenuVisible:YES animated:YES];
+    }
+}
+//隐藏菜单UIMenuController的通知
+- (void)menuViewDidHide:(NSNotification*)notification {
+    //重置，不影响原有的响应链
+    self.textView.overrideNextResponder = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIMenuControllerDidHideMenuNotification object:nil];
+}
+</code></pre></div></div>
+
+:ET
