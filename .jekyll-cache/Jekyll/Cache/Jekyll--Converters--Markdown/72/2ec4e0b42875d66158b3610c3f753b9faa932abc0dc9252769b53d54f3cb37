@@ -1,8 +1,0 @@
-I"1<ol>
-  <li><code class="language-plaintext highlighter-rouge">xx.xcodeproj</code>右键-&gt;<code class="language-plaintext highlighter-rouge">显示包内容</code></li>
-  <li>打开<code class="language-plaintext highlighter-rouge">project.pbxproj</code>,搜索<code class="language-plaintext highlighter-rouge">productRefGroup</code></li>
-  <li>将<code class="language-plaintext highlighter-rouge">mainGroup</code>的值复制给<code class="language-plaintext highlighter-rouge">productRefGroup</code></li>
-  <li>保存-&gt;关闭,重新打开</li>
-</ol>
-
-:ET

@@ -34,4 +34,7 @@ Temporary Items
 # debug file
 _site
 
+#rk add 20230317
 node_modules
+.idea
+.jekyll-cache
