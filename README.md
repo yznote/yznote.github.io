@@ -1,4 +1,33 @@
 # 更新记录
+
+### 20230317.node_module
+* 解决方案  
+> 在`.gitignore中忽略node_module即可`
+* 推送到git报错
+```
+// 类型1
+The page build failed for the `master` branch with the following error:
+
+Site contained a symlink that should be dereferenced: /node_modules/grunt/node_modules/.bin/grunt. For more information, see https://docs.github.com/github/working-with-github-pages/troubleshooting-jekyll-build-errors-for-github-pages-sites#config-file-error.
+
+For information on troubleshooting Jekyll see:
+
+  https://docs.github.com/articles/troubleshooting-jekyll-builds
+
+If you have any questions you can submit a request at https://support.github.com/contact?page_build_id=428741705&repo_id=76841037&tags=dotcom-pages
+
+// 类型2
+The page build failed for the `master` branch with the following error:
+
+Site contained a symlink that should be dereferenced: /node_modules/.bin/esparse. For more information, see https://docs.github.com/github/working-with-github-pages/troubleshooting-jekyll-build-errors-for-github-pages-sites#config-file-error.
+
+For information on troubleshooting Jekyll see:
+
+  https://docs.github.com/articles/troubleshooting-jekyll-builds
+
+If you have any questions you can submit a request at https://support.github.com/contact?page_build_id=428741035&repo_id=76841037&tags=dotcom-pages
+```
+
 ### 20220609.修复安全警告
 ```
      "bugs": "https://yuan920.github.io/issues",
