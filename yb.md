@@ -1,9 +1,9 @@
 ---
-layout:		iyzpost
-subtitle:	资料
-date:       2022-10-24 08:00:01 +0800
-author:		920
-catalog:	true
+layout: iyzpost
+subtitle: 资料
+date: 2022-10-24 08:00:01 +0800
+author: 920
+catalog: true
 ---
 
 
