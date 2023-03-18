@@ -14,6 +14,7 @@ catalog: true
 悬赏安卓 ------------------------ com.yunbao.xuanshang
 招聘 --------------------------- com.yunbao.job
 互联网医院 ---------------------- com.yuanyue.wenzhen
+车辆管理系统 --------------------- com.yunbao.car
 ```
 
 ### 签名APP
