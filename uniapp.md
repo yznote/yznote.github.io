@@ -165,6 +165,178 @@ props:{
 
 ```
 
+##### 弹窗2
+```
+<template>
+    <view class="com-alert-pop">
+        <view class="mask" v-if="alertShow"></view>
+        <view class="popup-alert" :class="alertShow?'popup-active':''">
+            <view class="title">{{alertTitle}}</view>
+            <view class="right-top-close" @click="clickClose">
+                <uni-icons type="closeempty" color="#969696"></uni-icons>
+            </view>
+            <view class="des-box">
+                <text class="des">{{alertContent}}</text>
+            </view>
+            <view class="bot-box2">
+                <view v-if="showCancel" class="bot-btn cancel" @click="clickCancel">{{cancelTitle}}</view>
+                <view class="bot-btn confirm" @click="clickConfirm">{{confirmTitle}}</view>
+            </view>
+
+        </view>
+    </view>
+</template>
+
+<script>
+    export default {
+        name: 'rk-alert',
+        props: {
+            alertShow: {
+                type: Boolean,
+                default: false,
+            },
+            showCancel: {
+                type: Boolean,
+                default: true,
+            },
+            alertTitle: {
+                type: String,
+                default: '提示',
+            },
+            alertContent: {
+                type: String,
+                default: '提示内容',
+            },
+            cancelTitle: {
+                type: String,
+                default: '取消',
+            },
+            confirmTitle: {
+                type: String,
+                default: '确认',
+            }
+        },
+        methods:{
+            clickClose(){
+                this.$emit('close')
+            },
+            clickCancel(){
+                this.$emit('cancel')
+            },
+            clickConfirm(){
+                this.$emit('confirm')
+            },
+        }
+    }
+</script>
+
+<style lang="scss">
+    .mask {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+
+    .popup-alert {
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        z-index: 1001;
+        width: 544rpx;
+        padding-top: 48rpx;
+        // padding-bottom: 30rpx;
+        border-radius: 24rpx;
+        background-color: #ffffff;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        transition: 0.3s;
+        line-height: 1;
+        text-align: center;
+        color: #282828;
+
+        .right-top-close{
+            position: absolute;
+            right: 0rpx;
+            top: 0rpx;
+            padding: 20rpx;
+        }
+        
+        .title {
+            max-width: 90%;
+            margin-right: auto;
+            margin-left: auto;
+            font-weight: bold;
+            font-size: 32rpx;
+        }
+
+        .des-box {
+            margin-top: 30rpx;
+            padding: 0 30rpx;
+
+            .des {
+                font-size: 28rpx;
+                color: #323232;
+                line-height: 1.1em;
+            }
+        }
+        // 样式1
+        .bot-box {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 30rpx 0 0;
+            border-top: 2rpx solid #eee;
+            .bot-btn {
+                width: 50%;
+                padding: 20rpx 50rpx;
+                color: #323232;
+                box-sizing: border-box;
+            }
+            .cancel {
+                border-right: 3rpx solid #eee;
+            }
+            .confirm {
+                color: $app-color-main;
+            }
+        }
+        // 样式2
+        .bot-box2{
+            display: flex;
+            justify-content: space-evenly;
+            margin: 30rpx 0;
+            .bot-btn {
+                width: 40%;
+                padding: 20rpx 50rpx;
+                color: #323232;
+                box-sizing: border-box;
+                background-color: $app-color-gold;
+                border-radius: 10rpx;
+                color: #fff;
+                font-size: 13px;
+            }
+            .cancel {
+                
+            }
+            .confirm {
+                background-color: #000;
+                color: $app-color-gold;
+            }
+        }
+    }
+
+    .popup-active {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+</style>
+
+```
+
+
+
 ##### 动画
 
 ```css
