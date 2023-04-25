@@ -14,6 +14,14 @@ tags:
     - uniapp
 ---
 
+### 阻止遮罩层滑动事件穿透
+
+```
+// template 父视图添加
+@touchmove.stop.prevent="moveStop"
+// js method 实现空方法 moveStop 
+```
+
 ### 数据源更新
 >当数据源嵌套有多层的时候,改变最内层的值,页面未刷新,可使用`$set`;如:
 
