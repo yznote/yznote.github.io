@@ -17,7 +17,7 @@ tags:
 ### 阻止遮罩层滑动事件穿透
 
 ```
-// template 父视图添加
+// template 父视图添加 
 @touchmove.stop.prevent="moveStop"
 // js method 实现空方法 moveStop 
 ```
