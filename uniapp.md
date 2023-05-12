@@ -14,6 +14,90 @@ tags:
     - uniapp
 ---
 
+### 自定义返回按钮
+
+```
+<!-- 返回键 -->
+<view class="nav-box">
+    <status-bar></status-bar>
+    <view class="navi" style="height: 44px;">
+        <view class="back-box">
+            <view class="btn-menu">
+                <view class='iconfont icon-fenxiang1' @click="clickBack"></view>
+                <view class="iconfont icon-home" @click="clickHome"></view>
+            </view>
+        </view>
+        <view class="title-box">
+            <view class="title rk-line">房屋详情</view>
+        </view>
+    </view>
+</view>
+<view class="nav-space">
+    <status-bar></status-bar>
+    <view class="navi" style="height: 44px;"></view>
+</view>
+
+// js
+clickBack(){
+    uni.navigateBack();
+},
+clickHome(){
+    uni.reLaunch({
+        url:"/pages/index/index",
+    })
+},
+
+//css
+.nav-box{
+    background-color: #fff;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    right: 0;
+    .navi{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        .back-box {
+            position: absolute;
+            left: 16rpx;
+            .btn-menu{
+                display: flex;
+                align-items: center;
+                width: 140rpx;
+                height: 54rpx;
+                background: rgba(0, 0, 0, .25);
+                border-radius: 100rpx;
+                .iconfont {
+                    flex: 1;
+                    text-align: center;
+                    color: #fff;
+                    box-sizing: border-box;
+                    &.icon-fenxiang1 {
+                        border-right: 1px solid #fff;
+                    }
+                }
+            }
+        }
+        .title-box{
+            max-width: 50%;
+            .title{
+                width: 100%;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+.nav-space {
+    background-color: transparent;
+}
+
+```
+
+
 ### 阻止遮罩层滑动事件穿透
 
 ```
