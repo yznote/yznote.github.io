@@ -14,6 +14,16 @@ tags:
     - uniapp
 ---
 
+### element-ui
+**Col Attributes**
+```
+ xm=x-small（extra small特小号）
+ sm（small小号）
+ md（medium中号）
+ lg（large大号）
+ x-large（特大号）
+```
+
 ### 自定义返回按钮
 
 ```
