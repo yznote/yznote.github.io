@@ -14,6 +14,18 @@ tags:
     - uniapp
 ---
 
+
+### 元素设置z-index之后上层阻挡下层的点击事件
+
+```
+对上层元素使用： 
+pointer-events: none; /元素永远不会成为鼠标事件的target（目标）/  
+
+这样点击事件就能穿透上层元素,但若是你想让上层元素也能得到点击事件,只需要在你需要获得点击的上层元素子元素中加入：
+pointer-events: auto;
+
+```
+
 ### element-ui
 **Col Attributes**
 ```
