@@ -463,7 +463,70 @@ props:{
 </style>
 
 ```
+##### 弹窗3
+```
+<template>
+    <view class="com-wifi-pop">
+        <view class="wifi-mask" v-if="alertShow"></view>
+        <view class="wifi-popup-alert" :class="{'wifi-popup-active':alertShow}">
+            <view class="title">{{alertTitle}}</view>
+            
 
+        </view>
+    </view>
+</template>
+
+<script>
+    export default {
+        name: 'rk-alert',
+        props: {
+            alertShow: {
+                type: Boolean | Number,
+                default: false,
+            },
+            
+        },
+        methods:{
+            
+        }
+    }
+</script>
+
+<style lang="scss">
+    .mask {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 100;
+    }
+    
+    .wifi-popup-alert {
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        z-index: 101;
+        width: 544rpx;
+        padding-top: 48rpx;
+        border-radius: 24rpx;
+        background-color: #ffffff;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        transition: 0.3s;
+        line-height: 1;
+        text-align: center;
+        color: #282828;
+    }
+
+    .wifi-popup-active {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+</style>
+
+```
 
 
 ##### 动画
