@@ -14,7 +14,22 @@ tags:
 
 #### Connection closed
 
+
+报错如下：
+
+```
+kex_exchange_identification: Connection closed by remote host
+Connection closed by 127.0.0.1 port 7890
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+
 究其原因`22`端口被屏蔽
+
+**查看ip**
 
 ```
 nslookup github.com
@@ -27,6 +42,8 @@ Non-authoritative answer:
 Name:   github.com
 Address: 20.205.243.166
 ```
+
+**检测端口**
 
 ```
 ssh 20.205.243.166 -p 22
