@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="还没有更好的描述呢">
+    <meta name="keywords"  content="yuan, 920 Blog, 永震的博客, 920, 永震, iOS, Apple, iPhone">
+    <meta name="theme-color" content="#fff">
+    
+    <title>小结 - Yuan's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <!-- <link rel="shortcut icon" href="/img/favicon.ico"> -->
+    <link rel="shortcut icon" href="/img/apple-touch-icon.png">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yuan920.github.io/2024/10/24/rookie/">
+
+    <!-- Bootstrap Core CSS -->
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.css?t=1">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css?t=5">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yuan's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/about/">About</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags/">Tags</a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/uniapp/">uniapp</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-desk.png" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        /*background-image: url('/img/post-bg-desk.png')*/
+        background-color: #969696;
+        
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#总结" title="总结">总结</a>
+                        
+                    </div>
+                    <h1>小结</h1>
+                    
+                    
+                    <h2 class="subheading">随时更新</h2>
+                    
+
+                    <span class="meta">
+                    
+                        920
+                    
+                    </span>
+                    <span class="meta" style="font-size: 13px;padding-top: 15px;">
+                        <!-- <strong>发布:</strong>  2024/10/24 08:00 -->
+                        
+                            <strong>创建:</strong>  <!-- 文章更新时间格式 -->
+2019/9/20 08:00
+<!-- 置顶时间格式 -->
+
+<!-- 创建时间格式 -->
+
+                            <strong>更新:</strong>  <!-- 文章更新时间格式 -->
+2022/9/16 13:30
+<!-- 置顶时间格式 -->
+
+<!-- 创建时间格式 -->
+
+                        
+                    </span>
+                    <span id="busuanzi_container_page_uv" class="meta" style="font-size: 13px;padding-top: 15px;">
+                        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				    <h4 id="置顶">置顶</h4>
+
+<p><strong>iOS16</strong></p>
+
+<p>线程:  <br />
+<code class="language-plaintext highlighter-rouge">xxx: warning run: Thread running at QOS_CLASS_USER_INITIATED waiting on a lower QoS thread running at QOS_CLASS_DEFAULT. Investigate ways to avoid priority inversions
+</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0);
+dispatch_queue_t queue = dispatch_queue_create("GetIMMessage", attr);
+dispatch_async(queue, ^{
+    unRead = [minstr([JMSGConversation getAllUnreadCount]) intValue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        label.text = [NSString stringWithFormat:@"%d",unRead];
+        if ([label.text isEqual:@"0"]) {
+            label.hidden =YES;
+        }else{
+            label.hidden = NO;
+        }
+    });
+});
+
+</code></pre></div></div>
+
+<p>剪切板：<code class="language-plaintext highlighter-rouge">[UIPasteboard generalPasteboard].string</code><br />
+确定：极光SDK <br />
+嫌疑：YYText</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Binary file .//Braintree/BraintreePayPal/PayPalDataCollector/Risk/libPPRiskMagnesOC.a matches
+.//QCloudCOSXML/QCloudCOSXML/Classes/Base/QCloudLogManager.m:        NSString *currentPasteBoardContent = [UIPasteboard generalPasteboard].string;
+.//QCloudCOSXML/QCloudCOSXML/Classes/Base/QCloudLogManager.m:              [UIPasteboard generalPasteboard].string = @"";
+.//QCloudCOSXML/QCloudCOSXML/Classes/Base/QCloudLogManager.m:    NSString *currentPasteBoardContent = [UIPasteboard generalPasteboard].string;
+Binary file .//AliPay/AlipaySDK.framework/AlipaySDK matches
+.//YYText/YYText/YYTextView.m:    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+.//YYText/YYText/YYTextView.m:            [UIPasteboard generalPasteboard].yy_AttributedString = text;
+.//YYText/YYText/YYTextView.m:            [UIPasteboard generalPasteboard].string = string;
+.//YYText/YYText/YYTextView.m:    UIPasteboard *p = [UIPasteboard generalPasteboard];
+Binary file .//JCore/libjcore-ios-2.3.2.a matches
+Binary file .//CodeInstallSDK/libCodeInstallSDK.a matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/libWeiboSDK.a matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformSDK/FacebookSDK/FBSDKCoreKit.framework/FBSDKCoreKit matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformSDK/WeChatSDKFull/libWeChatSDK.a matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenAPI.framework/TencentOpenAPI matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformConnector/QQConnector.framework/QQConnector matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformConnector/FacebookConnector.framework/FacebookConnector matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformConnector/WechatConnector.framework/WechatConnector matches
+Binary file .//mob_sharesdk/ShareSDK/Support/PlatformConnector/SinaWeiboConnector.framework/SinaWeiboConnector matches
+Binary file .//JPush/libjpush-ios-3.3.4.a matches
+</code></pre></div></div>
+
+<p>微信SDK升级 新增白名单<code class="language-plaintext highlighter-rouge">weixinURLParamsAPI</code><br />
+【OpenSDK-1.9.6 客户端8.0.24】<a href="https://developers.weixin.qq.com/community/develop/doc/000ac2067c82b85b064e79f0455401">详情</a></p>
+
+<p><strong>iOS15</strong><br />
+UITableView分组高度显示异常:</p>
+<blockquote>
+  <p>只处理当前页面:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (@available(iOS 15.0, *)) {
+    _tableView.sectionHeaderTopPadding = 0;
+}
+</code></pre></div>  </div>
+  <p>全局处理:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (@available(iOS 15.0, *)) {
+    [UITableView appearance].sectionHeaderTopPadding = 0;
+}
+</code></pre></div>  </div>
+</blockquote>
+
+<p><strong>iOS15导航边透明</strong>
+<code class="language-plaintext highlighter-rouge">放到改变tabbar字体或者tintcolor之后</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (@available(iOS 15.0, *)) {
+    UITabBarAppearance * appearance = [[UITabBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundColor = UIColor.whiteColor;
+    [UITabBar appearance].scrollEdgeAppearance = appearance;
+    [UITabBar appearance].standardAppearance = appearance;
+}
+[UITabBar appearance].backgroundColor = UIColor.whiteColor;
+</code></pre></div></div>
+
+<p><strong>横竖屏幕适配(安全距离)</strong></p>
+
+<p>在控制器中重写以下方法其中<code class="language-plaintext highlighter-rouge">self.viewTop self.viewLeft self.viewRight self.viewBottom</code> 分别为子UIView距离四边约束，旋转屏幕可以完全适配。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)viewDidLayoutSubviews{
+
+    [super viewDidLayoutSubviews];
+    
+    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+    if (@available(iOS 11.0, *)) {
+        safeAreaInsets = self.view.safeAreaInsets;
+    }
+    
+    self.viewTop.constant = safeAreaInsets.top;
+    self.viewLeft.constant = safeAreaInsets.left;
+    self.viewRight.constant = safeAreaInsets.right;
+    self.viewBottom.constant = safeAreaInsets.bottom;
+}
+</code></pre></div></div>
+
+<p><strong>控件重叠、坐标转换</strong></p>
+
+<p><a href="https://www.jianshu.com/p/ced04a958e8c">超链接</a></p>
+
+<p><strong>iOS13</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UITextField *textField ;
+if (@available(iOS 13.0,*)) {
+    textField = _searchBar.searchTextField;
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_searchBar.placeholder attributes:@{NSForegroundColorAttributeName:RGB_COLOR(@"#323232", 0.5),NSFontAttributeName:[UIFont systemFontOfSize:16]}];
+}else {
+    textField = [_searchBar valueForKey:@"_searchField"];
+    [textField setValue:RGB_COLOR(@"#323232", 0.5) forKeyPath:@"_placeholderLabel.textColor"];
+    [textField setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
+}
+
+//searchbar 取消按钮
+- (UIButton *)cancleButton {
+    self.showsCancelButton = YES;
+    for (UIView *view in [[self.subviews lastObject] subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            _cancleButton = (UIButton *)view;
+        }
+    }
+    if (@available(iOS 13.0,*)) {
+        [self setShowsCancelButton:YES animated:YES];
+        for (UIView *view in [[self.subviews lastObject] subviews]) {
+            for (UIView *buttonView in view.subviews) {
+                if ([buttonView isKindOfClass:[UIButton class]]) {
+                    _cancleButton = (UIButton *)buttonView;
+                }
+            }
+        }
+    }
+    return _cancleButton;
+}
+
+</code></pre></div></div>
+
+<p><strong>Url转换</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+</code></pre></div></div>
+
+<p><strong>按钮</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[_coverBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+_coverBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+_coverBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+</code></pre></div></div>
+
+<p><strong>版本判断</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 10.0,*)) {
+        NSLog(@"10+");
+    }else {
+        NSLog(@"10-");
+    }
+    if (@available(iOS 11.0,*)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+</code></pre></div></div>
+
+<p><strong>系统照片选择器</strong></p>
+
+<p>//选择(present)前</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 11, *)) {
+        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+    }
+</code></pre></div></div>
+
+<p>//完成选择(finish)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if (@available(iOS 11, *)) {
+        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">present</code>: <code class="language-plaintext highlighter-rouge">[UIApplication sharedApplication].statusBarHidden=YES;</code> <br />
+<code class="language-plaintext highlighter-rouge">dismiss</code>: <code class="language-plaintext highlighter-rouge">[UIApplication sharedApplication].statusBarHidden=NO;</code></p>
+
+<p>//相册取消按钮不能点击</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if ([UIDevice currentDevice].systemVersion.floatValue &lt; 11) {
+        return;
+    }
+    if ([viewController isKindOfClass:NSClassFromString(@"PUPhotoPickerHostViewController")]) {
+        [viewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.frame.size.width &lt; 42) {
+                [viewController.view sendSubviewToBack:obj];
+                *stop = YES;
+            }
+        }];
+    }
+}
+</code></pre></div></div>
+
+<p><strong>时间倒序</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+</code></pre></div></div>
+
+<p><strong>tableview回弹</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> _tableView.estimatedRowHeight =0;
+ _tableView.estimatedSectionHeaderHeight =0;
+ _tableView.estimatedSectionFooterHeight =0;
+</code></pre></div></div>
+
+<h4 id="一贝塞尔曲线画圆角">一、贝塞尔曲线画圆角</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">UIBezierPath</span> <span class="o">*</span><span class="n">maskPath</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIBezierPath</span> <span class="nf">bezierPathWithRoundedRect</span><span class="p">:</span><span class="n">litleNav</span><span class="p">.</span><span class="n">bounds</span>  <span class="nf">byRoundingCorners</span><span class="p">:</span><span class="n">UIRectCornerTopRight</span><span class="o">|</span><span class="n">UIRectCornerTopLeft</span> <span class="n">cornerRadii</span><span class="o">:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)];</span>
+    <span class="n">CAShapeLayer</span> <span class="o">*</span><span class="n">maskLayer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CAShapeLayer</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="n">maskLayer</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">litleNav</span><span class="p">.</span><span class="n">bounds</span><span class="p">;</span>
+    <span class="n">maskLayer</span><span class="p">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">maskPath</span><span class="p">.</span><span class="n">CGPath</span><span class="p">;</span>
+    <span class="n">litleNav</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">maskLayer</span><span class="p">;</span>
+    
+    <span class="c1">//延伸:(segment items底部圆角)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">_segmentC</span><span class="p">.</span><span class="n">subviews</span><span class="p">.</span><span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">CGFloat</span> <span class="n">ww</span> <span class="o">=</span> <span class="n">_window_width</span><span class="o">/</span><span class="n">_segmentC</span><span class="p">.</span><span class="n">subviews</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
+        <span class="n">CGRect</span> <span class="n">srect</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">ww</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">64</span><span class="o">+</span><span class="n">statusbarHeight</span><span class="o">+</span><span class="n">_window_width</span><span class="o">/</span><span class="mi">4</span><span class="p">.</span><span class="mi">3</span><span class="p">,</span> <span class="n">ww</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+        <span class="n">UIView</span> <span class="o">*</span><span class="n">subView</span> <span class="o">=</span> <span class="n">_segmentC</span><span class="p">.</span><span class="n">subviews</span><span class="p">[</span><span class="nf">i</span><span class="p">];</span>
+        <span class="n">subView</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">srect</span><span class="p">;</span>
+        <span class="n">UIBezierPath</span> <span class="o">*</span><span class="n">maskPath</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIBezierPath</span> <span class="nf">bezierPathWithRoundedRect</span><span class="p">:</span><span class="n">subView</span><span class="p">.</span><span class="n">bounds</span>    <span class="nf">byRoundingCorners</span><span class="p">:</span><span class="n">UIRectCornerBottomRight</span><span class="o">|</span><span class="n">UIRectCornerBottomLeft</span> <span class="n">cornerRadii</span><span class="o">:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)];</span>
+        <span class="n">CAShapeLayer</span> <span class="o">*</span><span class="n">maskLayer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CAShapeLayer</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+        <span class="n">maskLayer</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">subView</span><span class="p">.</span><span class="n">bounds</span><span class="p">;</span>
+        <span class="n">maskLayer</span><span class="p">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">maskPath</span><span class="p">.</span><span class="n">CGPath</span><span class="p">;</span>
+        <span class="n">_segmentC</span><span class="p">.</span><span class="n">subviews</span><span class="p">[</span><span class="nf">i</span><span class="p">].</span><span class="n">layer</span><span class="p">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">maskLayer</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">//图片切割: maskImage = [maskImage resizableImageWithCapInsets:UIEdgeInsetsMake(30, 20, 30, 20)];</span>
+</code></pre></div></div>
+
+<h4 id="二富文本">二、富文本</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">convertToInt</span><span class="p">:</span><span class="n">amountL</span><span class="p">.</span><span class="n">text</span><span class="p">];</span>
+    <span class="n">NSMutableAttributedString</span> <span class="o">*</span><span class="n">attStr</span><span class="o">=</span><span class="p">[[</span><span class="n">NSMutableAttributedString</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithString</span><span class="p">:</span><span class="n">amountL</span><span class="p">.</span><span class="n">text</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">attStr</span> <span class="nf">addAttribute</span><span class="p">:</span><span class="n">NSFontAttributeName</span> <span class="nf">value</span><span class="p">:[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="p">]</span> <span class="n">range</span><span class="o">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="n">length</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)];</span>
+    <span class="n">amountL</span><span class="p">.</span><span class="n">attributedText</span> <span class="o">=</span> <span class="n">attStr</span><span class="p">;</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nf">convertToInt</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">strtemp</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">strlength</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span> <span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="p">[</span><span class="n">strtemp</span> <span class="nf">lengthOfBytesUsingEncoding</span><span class="p">:</span><span class="n">NSUnicodeStringEncoding</span><span class="p">]</span> <span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">strlength</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">strlength</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+    <span class="c1">//段落样式</span>
+    <span class="n">NSMutableParagraphStyle</span> <span class="o">*</span><span class="n">paragraph</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableParagraphStyle</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+    <span class="c1">//行间距</span>
+    <span class="n">paragraph</span><span class="p">.</span><span class="n">lineSpacing</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="c1">//添加段落设置</span>
+    <span class="p">[</span><span class="n">text</span> <span class="nf">addAttribute</span><span class="p">:</span><span class="n">NSParagraphStyleAttributeName</span> <span class="nf">value</span><span class="p">:</span><span class="n">paragraph</span> <span class="n">range</span><span class="o">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+
+</code></pre></div></div>
+
+<h4 id="三文本计算">三、文本计算</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//计算字符串应该占有的大小</span>
+<span class="k">-</span><span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeWithString</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">string</span> <span class="nf">andFont</span><span class="p">:(</span><span class="n">UIFont</span> <span class="o">*</span><span class="p">)</span><span class="nv">font</span> <span class="p">{</span>
+    <span class="n">CGSize</span> <span class="n">size</span> <span class="o">=</span> <span class="p">[</span><span class="n">string</span> <span class="nf">sizeWithAttributes</span><span class="p">:[</span><span class="n">NSDictionary</span> <span class="nf">dictionaryWithObjectsAndKeys</span><span class="p">:</span><span class="n">font</span><span class="p">,</span><span class="n">NSFontAttributeName</span><span class="p">,</span> <span class="nb">nil</span><span class="p">]];</span>
+    <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//计算文本内容占有的大小</span>
+<span class="k">-</span><span class="p">(</span><span class="n">CGRect</span><span class="p">)</span><span class="nf">rectWithString</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">string</span> <span class="nf">andFont</span><span class="p">:(</span><span class="n">UIFont</span> <span class="o">*</span><span class="p">)</span><span class="nv">font</span> <span class="nf">andWidth</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">width</span> <span class="p">{</span>
+    <span class="n">CGRect</span> <span class="n">rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">string</span> <span class="nf">boundingRectWithSize</span><span class="p">:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">CGFLOAT_MAX</span><span class="p">)</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSStringDrawingUsesLineFragmentOrigin</span> <span class="n">attributes</span><span class="o">:</span><span class="p">[</span><span class="n">NSDictionary</span> <span class="nf">dictionaryWithObjectsAndKeys</span><span class="p">:</span><span class="n">font</span><span class="p">,</span><span class="n">NSFontAttributeName</span><span class="p">,</span> <span class="nb">nil</span><span class="p">]</span> <span class="n">context</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">rect</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="四网址正则判断">四、网址正则判断</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//NSString *pattern = @"http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&amp;=]*)?";</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">pattern</span> <span class="o">=</span> <span class="s">@"(http://|ftp://|https://|www){0,1}[^\u4e00-\u9fa5</span><span class="se">\\</span><span class="s">s]*?</span><span class="se">\\</span><span class="s">.(com|net|cn|me|tw|fr)[^\u4e00-\u9fa5</span><span class="se">\\</span><span class="s">s]*"</span><span class="p">;</span>
+    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="n">NSRegularExpression</span> <span class="o">*</span><span class="n">regex</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSRegularExpression</span> <span class="nf">regularExpressionWithPattern</span><span class="p">:</span><span class="n">pattern</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSRegularExpressionCaseInsensitive</span> <span class="n">error</span><span class="o">:&amp;</span><span class="n">error</span><span class="p">];</span>
+    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSTextCheckingResult</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">regex</span> <span class="nf">matchesInString</span><span class="p">:</span><span class="n">keyField</span><span class="p">.</span><span class="n">text</span> <span class="nf">options</span><span class="p">:</span><span class="mi">0</span> <span class="n">range</span><span class="o">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">keyField</span><span class="p">.</span><span class="n">text</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">result</span><span class="p">.</span><span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">NSTextCheckingResult</span> <span class="o">*</span><span class="n">res</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="nf">i</span><span class="p">];</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"str == %@"</span><span class="p">,</span> <span class="p">[</span><span class="n">keyField</span><span class="p">.</span><span class="n">text</span> <span class="nf">substringWithRange</span><span class="p">:</span><span class="n">res</span><span class="p">.</span><span class="n">range</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"error == %@"</span><span class="p">,</span><span class="n">error</span><span class="p">.</span><span class="n">description</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">//补充：数字字母正则</span>
+    <span class="k">-</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">judgePassWordLegal</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">pass</span> <span class="p">{</span>
+        <span class="n">BOOL</span> <span class="n">result</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">([</span><span class="n">pass</span> <span class="nf">length</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 判断长度大于8位后再接着判断是否同时包含数字和字符</span>
+            <span class="n">NSString</span> <span class="o">*</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">@"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,100}$"</span><span class="p">;</span>
+            <span class="n">NSPredicate</span> <span class="o">*</span><span class="n">pred</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSPredicate</span> <span class="nf">predicateWithFormat</span><span class="p">:</span><span class="s">@"SELF MATCHES %@"</span><span class="p">,</span> <span class="n">regex</span><span class="p">];</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">pred</span> <span class="nf">evaluateWithObject</span><span class="p">:</span><span class="n">pass</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="cm">/**
+     * 手机号码
+     * 移动：134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188,1705
+     * 联通：130,131,132,152,155,156,185,186,1709
+     * 电信：133,1349,153,180,189,1700
+     */</span>
+    <span class="c1">//    NSString * MOBILE = @"^1((3//d|5[0-35-9]|8[025-9])//d|70[059])\\d{7}$";//总况</span>
+    
+    <span class="cm">/**
+     10         * 中国移动：China Mobile
+     11         * 134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188，1705
+     12         */</span>
+    <span class="n">NSString</span> <span class="o">*</span> <span class="n">CM</span> <span class="o">=</span> <span class="s">@"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])</span><span class="se">\\</span><span class="s">d|705)</span><span class="se">\\</span><span class="s">d{7}$"</span><span class="p">;</span>
+    <span class="cm">/**
+     15         * 中国联通：China Unicom
+     16         * 130,131,132,152,155,156,185,186,1709
+     17         */</span>
+    <span class="n">NSString</span> <span class="o">*</span> <span class="n">CU</span> <span class="o">=</span> <span class="s">@"^1((3[0-2]|5[256]|8[56])</span><span class="se">\\</span><span class="s">d|709)</span><span class="se">\\</span><span class="s">d{7}$"</span><span class="p">;</span>
+    <span class="cm">/**
+     20         * 中国电信：China Telecom
+     21         * 133,1349,153,180,189,1700
+     22         */</span>
+    <span class="n">NSString</span> <span class="o">*</span> <span class="n">CT</span> <span class="o">=</span> <span class="s">@"^1((33|53|8[09])</span><span class="se">\\</span><span class="s">d|349|700)</span><span class="se">\\</span><span class="s">d{7}$"</span><span class="p">;</span>
+    
+    
+    <span class="cm">/**
+     25         * 大陆地区固话及小灵通
+     26         * 区号：010,020,021,022,023,024,025,027,028,029
+     27         * 号码：七位或八位
+     28         */</span>
+    <span class="n">NSString</span> <span class="o">*</span> <span class="n">PHS</span> <span class="o">=</span> <span class="s">@"^0(10|2[0-5789]|</span><span class="se">\\</span><span class="s">d{3})</span><span class="se">\\</span><span class="s">d{7,8}$"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="五禁止右滑返回">五、禁止右滑返回</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.interactivePopGestureRecognizer.delegate =nil;
+
+注:手势排除点击范围
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if( [touch.view isDescendantOfView:_agreementOrPrivacy])
+        return NO;
+    return YES;
+}
+</code></pre></div></div>
+
+<h4 id="六获取视频第一帧">六、获取视频第一帧</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (UIImage*) getVideoPreViewImageWithPath:(NSURL *)videoPath {
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoPath options:nil];
+    AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    gen.appliesPreferredTrackTransform = YES;
+    CMTime time   = CMTimeMakeWithSeconds(0.0, 600);
+    NSError *error  = nil;
+    CMTime actualTime;
+    CGImageRef image = [gen copyCGImageAtTime:time actualTime:&amp;actualTime error:&amp;error];
+    UIImage *img   = [[UIImage alloc] initWithCGImage:image];
+    return img;
+}
+</code></pre></div></div>
+
+<h4 id="七textview">七、textView</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 	<span class="n">_desTV</span><span class="p">.</span><span class="n">editable</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="n">_desTV</span><span class="p">.</span><span class="n">bounces</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="n">_desTV</span><span class="p">.</span><span class="n">selectable</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="n">_desTV</span><span class="p">.</span><span class="n">showsVerticalScrollIndicator</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="n">_desTV</span><span class="p">.</span><span class="n">textContainerInset</span> <span class="o">=</span> <span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    
+    <span class="c1">//扩展textView横向滚动</span>
+    <span class="n">_desTV</span><span class="p">.</span><span class="n">textContainer</span><span class="p">.</span><span class="n">lineBreakMode</span> <span class="o">=</span> <span class="n">NSLineBreakByTruncatingHead</span><span class="p">;</span>
+    <span class="n">_desTV</span><span class="p">.</span> <span class="n">textContainer</span><span class="p">.</span><span class="n">maximumNumberOfLines</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">//自定义textfield：</span>
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawPlaceholderInRect</span><span class="p">:(</span><span class="n">CGRect</span><span class="p">)</span><span class="nv">rect</span> <span class="p">{</span>
+    <span class="c1">// 设置富文本属性</span>
+    <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">dictM</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+    <span class="n">dictM</span><span class="p">[</span><span class="nf">NSFontAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">font</span><span class="p">;</span>
+    <span class="n">dictM</span><span class="p">[</span><span class="nf">NSForegroundColorAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">];</span>
+    <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">rect</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">font</span><span class="p">.</span><span class="n">lineHeight</span><span class="p">)</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">placeholder</span> <span class="nf">drawAtPoint</span><span class="p">:</span><span class="n">point</span> <span class="nf">withAttributes</span><span class="p">:</span><span class="n">dictM</span><span class="p">];</span>
+<span class="p">}</span>
+
+    <span class="c1">//textfield placeholder 居中并改变颜色</span>
+    <span class="n">NSMutableParagraphStyle</span> <span class="o">*</span><span class="n">style</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableParagraphStyle</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="n">style</span><span class="p">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="n">NSTextAlignmentCenter</span><span class="p">;</span>
+    <span class="n">NSAttributedString</span> <span class="o">*</span><span class="n">attri</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSAttributedString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithString</span><span class="p">:</span><span class="s">@"输入提现金额"</span>              <span class="nf">attributes</span><span class="p">:@{</span><span class="n">NSForegroundColorAttributeName</span><span class="o">:</span><span class="n">RGB_COLOR</span><span class="p">(</span><span class="s">@"#8c8c8c"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">NSFontAttributeName</span><span class="o">:</span><span class="n">SYS_Font</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span>      <span class="n">NSParagraphStyleAttributeName</span><span class="o">:</span><span class="n">style</span><span class="p">}];</span>
+    <span class="n">_cyConView</span><span class="p">.</span><span class="n">cyWantTF</span><span class="p">.</span><span class="n">attributedPlaceholder</span> <span class="o">=</span> <span class="n">attri</span><span class="p">;</span>
+
+</code></pre></div></div>
+
+<h4 id="八键盘">八、键盘</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">[</span><span class="n">IQKeyboardManager</span> <span class="nf">sharedManager</span><span class="p">].</span><span class="n">enable</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">IQKeyboardManager</span> <span class="nf">sharedManager</span><span class="p">].</span><span class="n">shouldResignOnTouchOutside</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">IQKeyboardManager</span> <span class="nf">sharedManager</span><span class="p">].</span><span class="n">enableAutoToolbar</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="九刷新">九、刷新</h4>
+
+<p><code class="language-plaintext highlighter-rouge">MJRefreshNormalHeader</code>、<code class="language-plaintext highlighter-rouge">MJRefreshBackNormalFooter</code></p>
+
+<h4 id="十打印字体">十、打印字体</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">NSArray</span> <span class="o">*</span> <span class="n">fontArrays</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIFont</span> <span class="nf">familyNames</span><span class="p">]</span> <span class="nf">sortedArrayUsingComparator</span><span class="p">:</span><span class="o">^</span><span class="n">NSComparisonResult</span><span class="p">(</span><span class="n">id</span>  <span class="n">_Nonnull</span> <span class="n">obj1</span><span class="p">,</span> <span class="n">id</span>  <span class="n">_Nonnull</span> <span class="n">obj2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSString</span> <span class="o">*</span><span class="n">str1</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">obj1</span><span class="p">;</span>
+        <span class="n">NSString</span> <span class="o">*</span><span class="n">str2</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">obj2</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">str1</span> <span class="nf">compare</span><span class="p">:</span><span class="n">str2</span><span class="p">];</span>
+    <span class="p">}];</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">fontfamilyname</span> <span class="k">in</span> <span class="n">fontArrays</span><span class="p">){</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"family:'%@'"</span><span class="p">,</span><span class="n">fontfamilyname</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">fontName</span> <span class="k">in</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">fontNamesForFamilyName</span><span class="p">:</span><span class="n">fontfamilyname</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"</span><span class="se">\t</span><span class="s">font:'%@'"</span><span class="p">,</span><span class="n">fontName</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"-------------"</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="十一元素替换">十一、元素替换</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">needReloadDic</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionaryWithDictionary</span><span class="p">:</span><span class="n">_dataArray</span><span class="p">[</span><span class="n">btn</span><span class="p">.</span><span class="n">tag</span> <span class="o">-</span> <span class="mi">202</span><span class="p">]];</span>
+    <span class="p">[</span><span class="n">needReloadDic</span> <span class="nf">setValue</span><span class="p">:</span><span class="n">isAtt</span> <span class="nf">forKey</span><span class="p">:</span><span class="s">@"isAttention"</span><span class="p">];</span>
+    <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">m_arr</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="nf">arrayWithArray</span><span class="p">:</span><span class="n">_dataArray</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">m_arr</span> <span class="nf">replaceObjectAtIndex</span><span class="p">:(</span><span class="n">btn</span><span class="p">.</span><span class="n">tag</span> <span class="o">-</span> <span class="mi">202</span><span class="p">)</span> <span class="nf">withObject</span><span class="p">:</span><span class="n">needReloadDic</span><span class="p">];</span>
+    <span class="n">_dataArray</span> <span class="o">=</span> <span class="p">[</span><span class="n">m_arr</span> <span class="nf">mutableCopy</span><span class="p">];</span>
+    <span class="n">NSIndexPath</span> <span class="o">*</span><span class="n">indexPath</span><span class="o">=</span><span class="p">[</span><span class="n">NSIndexPath</span> <span class="nf">indexPathForRow</span><span class="p">:(</span><span class="n">btn</span><span class="p">.</span><span class="n">tag</span> <span class="o">-</span> <span class="mi">202</span><span class="p">)</span> <span class="nf">inSection</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">_tableView</span> <span class="nf">reloadRowsAtIndexPaths</span><span class="p">:[</span><span class="n">NSArray</span> <span class="nf">arrayWithObjects</span><span class="p">:</span><span class="n">indexPath</span><span class="p">,</span><span class="nb">nil</span><span class="p">]</span> <span class="nf">withRowAnimation</span><span class="p">:</span><span class="n">UITableViewRowAnimationNone</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h4 id="十二url转换">十二、url转换</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//1.数据请求时URL含有中文，需要转码为UTF8</span>
+    <span class="n">NSString</span> <span class="o">*</span> <span class="n">encodingString</span> <span class="o">=</span> <span class="p">[</span><span class="n">urlString</span> <span class="nf">stringByAddingPercentEscapesUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+    <span class="c1">//2.数据请求时，得到的URL有中文乱码，可以按如下方式转码 </span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">decodeString</span> <span class="o">=</span> <span class="p">[</span><span class="n">urlString</span> <span class="nf">stringByReplacingPercentEscapesUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h4 id="十三按钮上图下文字">十三、按钮上图下文字</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">CGFloat</span> <span class="n">totalH</span> <span class="o">=</span> <span class="n">_ruleBtn</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="k">+</span> <span class="n">_ruleBtn</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">;</span>
+    <span class="n">CGFloat</span> <span class="n">spaceH</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="c1">//设置按钮图片偏移</span>
+    <span class="p">[</span><span class="n">_ruleBtn</span> <span class="nf">setImageEdgeInsets</span><span class="p">:</span><span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">totalH</span> <span class="o">-</span> <span class="n">_ruleBtn</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">),</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">_ruleBtn</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">)];</span>
+    <span class="c1">//设置按钮标题偏移</span>
+    <span class="p">[</span><span class="n">_ruleBtn</span> <span class="nf">setTitleEdgeInsets</span><span class="p">:</span><span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="n">spaceH</span><span class="p">,</span> <span class="o">-</span><span class="n">_ruleBtn</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">totalH</span> <span class="o">-</span> <span class="n">_ruleBtn</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">),</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)];</span>
+</code></pre></div></div>
+
+<h4 id="十四监听输入变化">十四、监听输入变化</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#pragma mark - textfield 监听字数变化
+</span><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">textFiledEditChanged</span><span class="p">:(</span><span class="n">NSNotification</span> <span class="o">*</span><span class="p">)</span><span class="nv">noti</span> <span class="p">{</span>
+    <span class="n">MyTextField</span> <span class="o">*</span><span class="n">textField</span> <span class="o">=</span> <span class="p">(</span><span class="n">MyTextField</span> <span class="o">*</span><span class="p">)</span><span class="n">noti</span><span class="p">.</span><span class="n">object</span><span class="p">;</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">toBeString</span> <span class="o">=</span> <span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">;</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">lang</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">UITextInputMode</span> <span class="nf">activeInputModes</span><span class="p">]</span><span class="nf">firstObject</span><span class="p">]</span> <span class="nf">primaryLanguage</span><span class="p">];</span> <span class="c1">// 键盘输入模式</span>
+    <span class="k">if</span> <span class="p">([</span><span class="n">lang</span> <span class="nf">isEqualToString</span><span class="p">:</span><span class="s">@"zh-Hans"</span><span class="p">])</span> <span class="p">{</span> <span class="c1">// 简体中文输入，包括简体拼音，健体五笔，简体手写</span>
+        <span class="n">UITextRange</span> <span class="o">*</span><span class="n">selectedRange</span> <span class="o">=</span> <span class="p">[</span><span class="n">textField</span> <span class="nf">markedTextRange</span><span class="p">];</span><span class="c1">//获取高亮部分</span>
+        <span class="n">UITextPosition</span> <span class="o">*</span><span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="n">textField</span> <span class="nf">positionFromPosition</span><span class="p">:</span><span class="n">selectedRange</span><span class="p">.</span><span class="n">start</span> <span class="nf">offset</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+        <span class="c1">//没有高亮选择的字，则对已输入的文字进行字数统计和限制</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">position</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">toBeString</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">toBeString</span> <span class="nf">substringToIndex</span><span class="p">:</span><span class="mi">20</span><span class="p">];</span>
+                <span class="n">signature_num</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%lu/20"</span><span class="p">,(</span><span class="mi">20</span><span class="o">-</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="n">signature_num</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%lu/20"</span><span class="p">,(</span><span class="mi">20</span><span class="o">-</span><span class="n">toBeString</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="c1">//有高亮选择的字符串，则暂不对文字进行统计和限制</span>
+        <span class="p">}</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="c1">// 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">toBeString</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">toBeString</span> <span class="nf">substringToIndex</span><span class="p">:</span><span class="mi">20</span><span class="p">];</span>
+            <span class="n">signature_num</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%lu/20"</span><span class="p">,(</span><span class="mi">20</span><span class="o">-</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">signature_num</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%lu/20"</span><span class="p">,(</span><span class="mi">20</span><span class="o">-</span><span class="n">toBeString</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="十五json转化">十五、json转化</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">NSData</span> <span class="o">*</span><span class="n">jsonData</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nf">dataWithJSONObject</span><span class="p">:</span><span class="n">mix</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSJSONWritingPrettyPrinted</span> <span class="n">error</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">jsonStr</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithData</span><span class="p">:</span><span class="n">jsonData</span> <span class="nf">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+    <span class="c1">//去除空格、回车</span>
+    <span class="n">jsonStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">jsonStr</span> <span class="nf">stringByTrimmingCharactersInSet</span><span class="p">:[</span><span class="n">NSCharacterSet</span> <span class="nf">whitespaceAndNewlineCharacterSet</span><span class="p">]];</span>
+    <span class="n">jsonStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">jsonStr</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@" "</span> <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
+    <span class="n">jsonStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">jsonStr</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@"</span><span class="se">\n</span><span class="s">"</span> <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
+    
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">mix_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">locationContent</span><span class="p">.</span><span class="n">address</span> <span class="nf">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">mix_dic</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nf">JSONObjectWithData</span><span class="p">:</span><span class="n">mix_data</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSJSONReadingAllowFragments</span> <span class="n">error</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h4 id="十六手势冲突解决">十六、手势冲突解决</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#pragma mark - 左右滑动拦截处理
+</span><span class="k">-</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizerShouldBegin</span><span class="p">:(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="p">{</span>
+    
+    <span class="k">if</span> <span class="p">([</span><span class="n">gestureRecognizer</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">UISwipeGestureRecognizer</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
+        <span class="n">UISwipeGestureRecognizer</span> <span class="o">*</span><span class="n">swipG</span> <span class="o">=</span> <span class="p">(</span><span class="n">UISwipeGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="n">gestureRecognizer</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">swipG</span><span class="p">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">UISwipeGestureRecognizerDirectionLeft</span> <span class="o">&amp;&amp;</span> <span class="p">[[</span><span class="n">Config</span> <span class="nf">getLeftSlip</span><span class="p">]</span> <span class="nf">isEqual</span><span class="p">:</span><span class="s">@"1"</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">_backScrollView</span><span class="p">.</span><span class="n">scrollEnabled</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+            <span class="p">[</span><span class="n">Config</span> <span class="nf">saveLeftSlip</span><span class="p">:</span><span class="s">@"0"</span><span class="p">];</span>
+            <span class="c1">//向左</span>
+            <span class="p">[</span><span class="n">PublicView</span> <span class="nf">showLeftSilpCancel</span><span class="p">:</span><span class="nb">nil</span> <span class="nf">Sure</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">_backScrollView</span><span class="p">.</span><span class="n">scrollEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+            <span class="p">}];</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">swipG</span><span class="p">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">UISwipeGestureRecognizerDirectionRight</span> <span class="o">&amp;&amp;</span> <span class="p">[[</span><span class="n">Config</span> <span class="nf">getRightSlip</span><span class="p">]</span> <span class="nf">isEqual</span><span class="p">:</span><span class="s">@"1"</span><span class="p">]){</span>
+            <span class="n">_backScrollView</span><span class="p">.</span><span class="n">scrollEnabled</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+            <span class="p">[</span><span class="n">Config</span> <span class="nf">saveRightSlip</span><span class="p">:</span><span class="s">@"0"</span><span class="p">];</span>
+            <span class="c1">//向右</span>
+            <span class="p">[</span><span class="n">PublicView</span> <span class="nf">showRightSilpCancel</span><span class="p">:</span><span class="nb">nil</span> <span class="nf">Sure</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">_backScrollView</span><span class="p">.</span><span class="n">scrollEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+            <span class="p">}];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">_backScrollView</span><span class="p">.</span><span class="n">scrollEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">-</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer</span><span class="p">:(</span><span class="n">UIGestureRecognizer</span><span class="o">*</span><span class="p">)</span> <span class="n">gestureRecognizer</span> <span class="n">shouldRecognizeSimultaneouslyWithGestureRecognizer</span><span class="o">:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span><span class="o">*</span><span class="p">)</span><span class="nv">otherGestureRecognizer</span><span class="p">{</span>
+    <span class="k">if</span> <span class="p">([</span><span class="n">otherGestureRecognizer</span><span class="p">.</span><span class="n">view</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">otherGestureRecognizer</span><span class="p">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">UIGestureRecognizerStateBegan</span> <span class="o">&amp;&amp;</span><span class="p">[</span><span class="n">_censhi</span> <span class="nf">isEqual</span><span class="p">:</span><span class="s">@"1"</span><span class="p">])</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">_backScrollView</span><span class="p">.</span><span class="n">scrollEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="十七按钮下划线">十七、按钮下划线</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">NSMutableAttributedString</span> <span class="o">*</span><span class="n">str</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableAttributedString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithString</span><span class="p">:</span><span class="s">@"等级说明?"</span><span class="p">];</span>
+    <span class="n">NSRange</span> <span class="n">strRange</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,[</span><span class="n">str</span> <span class="nf">length</span><span class="p">]};</span>
+    <span class="c1">//    [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];</span>
+    <span class="p">[</span><span class="n">str</span> <span class="nf">addAttributes</span><span class="p">:[</span><span class="n">NSDictionary</span> <span class="nf">dictionaryWithObjectsAndKeys</span><span class="p">:[</span><span class="n">NSNumber</span> <span class="nf">numberWithInteger</span><span class="p">:</span><span class="n">NSUnderlineStyleSingle</span><span class="p">],</span><span class="n">NSUnderlineStyleAttributeName</span><span class="p">,</span><span class="n">RGB</span><span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">NSForegroundColorAttributeName</span><span class="p">,</span><span class="nb">nil</span><span class="p">]</span> <span class="nf">range</span><span class="p">:</span><span class="n">strRange</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">_privateBtn</span> <span class="nf">setAttributedTitle</span><span class="p">:</span><span class="n">str</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">_privateBtn</span> <span class="nf">setTitleColor</span><span class="p">:</span><span class="n">RGB</span><span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="nf">forState</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h4 id="十八导航">十八、导航</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">[[</span><span class="n">UINavigationBar</span> <span class="nf">appearance</span><span class="p">]</span> <span class="nf">setBarTintColor</span><span class="p">:</span><span class="n">UIColor</span><span class="p">.</span><span class="n">blackColor</span><span class="p">];</span>
+    <span class="p">[[</span><span class="n">UINavigationBar</span> <span class="nf">appearance</span><span class="p">]</span> <span class="nf">setTintColor</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">]];</span>
+    <span class="p">[[</span><span class="n">UINavigationBar</span> <span class="nf">appearance</span><span class="p">]</span> <span class="nf">setTitleTextAttributes</span><span class="p">:@{</span><span class="n">NSFontAttributeName</span><span class="o">:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">18</span><span class="p">],</span><span class="n">NSForegroundColorAttributeName</span><span class="o">:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">]}];</span>
+    <span class="p">[[</span><span class="n">UINavigationBar</span> <span class="nf">appearance</span><span class="p">]</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"transparent.png"</span><span class="p">]</span> <span class="nf">forBarMetrics</span><span class="p">:</span><span class="n">UIBarMetricsDefault</span><span class="p">];</span>
+    <span class="p">[[</span><span class="n">UINavigationBar</span> <span class="nf">appearance</span><span class="p">]</span> <span class="nf">setShadowImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">new</span><span class="p">]];</span>
+</code></pre></div></div>
+
+<h4 id="十九横竖屏">十九、横竖屏</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#pragma mark - 进入全屏
+</span><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">EnterFullScreen</span> <span class="p">{</span>
+    
+    <span class="n">CGFloat</span> <span class="n">full_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">_window_height</span><span class="o">-</span><span class="n">_window_width</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+    <span class="n">videoView</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="o">-</span><span class="n">full_y</span><span class="p">,</span> <span class="n">full_y</span><span class="p">,</span> <span class="n">_window_height</span><span class="p">,</span> <span class="n">_window_width</span><span class="p">);</span>
+    <span class="n">_exitScreenBtn</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">_window_height</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="n">_window_width</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+    <span class="p">[</span><span class="n">_player</span><span class="p">.</span><span class="n">view</span> <span class="nf">setFrame</span><span class="p">:</span> <span class="n">videoView</span><span class="p">.</span><span class="n">bounds</span><span class="p">];</span>
+    <span class="n">_fullScreenBtn</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">UIView</span> <span class="nf">animateWithDuration</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">25</span> <span class="nf">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="n">videoView</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformMakeRotation</span><span class="p">(</span><span class="n">M_PI_2</span><span class="p">);</span>
+    <span class="p">}</span> <span class="n">completion</span><span class="o">:^</span><span class="p">(</span><span class="n">BOOL</span> <span class="n">finished</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_isGameFull</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+        <span class="n">_exitScreenBtn</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+        <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsStatusBarAppearanceUpdate</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">bringSubviewToFront</span><span class="p">:</span><span class="n">videoView</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">videoView</span> <span class="nf">bringSubviewToFront</span><span class="p">:</span><span class="n">_exitScreenBtn</span><span class="p">];</span>
+    <span class="p">}];</span>
+<span class="p">}</span>
+<span class="cp">#pragma mark - 退出p全屏
+</span><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">exitFullScreen</span> <span class="p">{</span>
+    
+    <span class="p">[</span><span class="n">UIView</span> <span class="nf">animateWithDuration</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">25</span> <span class="nf">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="n">videoView</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformIdentity</span><span class="p">;</span>
+        <span class="n">videoView</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">_window_width</span><span class="p">,</span> <span class="n">_window_height</span><span class="p">);</span>
+        <span class="p">[</span><span class="n">_player</span><span class="p">.</span><span class="n">view</span> <span class="nf">setFrame</span><span class="p">:</span> <span class="n">videoView</span><span class="p">.</span><span class="n">bounds</span><span class="p">];</span>
+    <span class="p">}</span> <span class="n">completion</span><span class="o">:^</span><span class="p">(</span><span class="n">BOOL</span> <span class="n">finished</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_isGameFull</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+        <span class="n">_fullScreenBtn</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+        <span class="n">_exitScreenBtn</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+        <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsStatusBarAppearanceUpdate</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">sendSubviewToBack</span><span class="p">:</span><span class="n">videoView</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">sendSubviewToBack</span><span class="p">:</span><span class="n">_pkBackImgView</span><span class="p">];</span>
+    <span class="p">}];</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">prefersStatusBarHidden</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">_isGameFull</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="二十图片加文字">二十、图片加文字</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1.将文字添加到图片上;imageName 图片名字， text 需画的字体</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">createShareImage</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">tImage</span> <span class="nf">Context</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">text</span> <span class="p">{</span>
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">sourceImage</span> <span class="o">=</span> <span class="n">tImage</span><span class="p">;</span>
+    <span class="n">CGSize</span> <span class="n">imageSize</span><span class="p">;</span> <span class="c1">//画的背景 大小</span>
+    <span class="n">imageSize</span> <span class="o">=</span> <span class="p">[</span><span class="n">sourceImage</span> <span class="nf">size</span><span class="p">];</span>
+    <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">imageSize</span><span class="p">,</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">[</span><span class="n">sourceImage</span> <span class="nf">drawAtPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)];</span>
+    <span class="c1">//获得 图形上下文</span>
+    <span class="n">CGContextRef</span> <span class="n">context</span><span class="o">=</span><span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+    <span class="n">CGContextDrawPath</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">kCGPathStroke</span><span class="p">);</span>
+    <span class="n">CGFloat</span> <span class="n">nameFont</span> <span class="o">=</span> <span class="mi">8</span><span class="p">.</span><span class="n">f</span><span class="p">;</span>
+    <span class="c1">//画 自己想要画的内容</span>
+    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">attributes</span> <span class="o">=</span> <span class="p">@{</span><span class="n">NSFontAttributeName</span><span class="o">:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="n">nameFont</span><span class="p">]};</span>
+    <span class="n">CGRect</span> <span class="n">sizeToFit</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span> <span class="nf">boundingRectWithSize</span><span class="p">:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="n">CGFLOAT_MAX</span><span class="p">,</span> <span class="n">nameFont</span><span class="p">)</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSStringDrawingUsesDeviceMetrics</span> <span class="n">attributes</span><span class="o">:</span><span class="n">attributes</span> <span class="n">context</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"图片: %f %f"</span><span class="p">,</span><span class="n">imageSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">imageSize</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"sizeToFit: %f %f"</span><span class="p">,</span><span class="n">sizeToFit</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">sizeToFit</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+    <span class="n">CGContextSetFillColorWithColor</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">blackColor</span><span class="p">].</span><span class="n">CGColor</span><span class="p">);</span>
+    <span class="p">[</span><span class="n">text</span> <span class="nf">drawAtPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">((</span><span class="n">imageSize</span><span class="p">.</span><span class="n">width</span><span class="o">-</span><span class="n">sizeToFit</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="nf">withAttributes</span><span class="p">:@{</span><span class="n">NSFontAttributeName</span><span class="o">:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="n">nameFont</span><span class="p">]}];</span>
+    <span class="c1">//返回绘制的新图形</span>
+    
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">newImage</span><span class="o">=</span><span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+    
+    <span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">newImage</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="二十一根据视频地址获取封面">二十一、根据视频地址获取封面</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span> <span class="p">)</span><span class="nf">getImageWithTime</span><span class="p">:(</span><span class="n">CMTime</span><span class="p">)</span><span class="nv">time</span> <span class="p">{</span>
+    <span class="c1">//NSURL *videoUrl = [[NSBundle mainBundle] URLForResource:@"hubblecast.m4v" withExtension:nil];</span>
+    <span class="n">NSURL</span> <span class="o">*</span><span class="n">videoUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="s">@"https://dspdemo-1258629649.cos.ap-shanghai.myqcloud.com/13629_IOS_20190218170618.mp4"</span><span class="p">];</span>
+    <span class="n">AVAsset</span> <span class="o">*</span><span class="n">videoAsset</span> <span class="o">=</span> <span class="p">[</span><span class="n">AVAsset</span> <span class="nf">assetWithURL</span><span class="p">:</span><span class="n">videoUrl</span><span class="p">];</span>
+    
+    <span class="n">AVAssetImageGenerator</span> <span class="o">*</span><span class="n">imageGenerator</span> <span class="o">=</span> <span class="p">[</span><span class="n">AVAssetImageGenerator</span> <span class="nf">assetImageGeneratorWithAsset</span><span class="p">:</span><span class="n">videoAsset</span><span class="p">];</span>
+    <span class="n">imageGenerator</span><span class="p">.</span><span class="n">maximumSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span><span class="c1">//按比例生成， 不指定会默认视频原来的格式大小</span>
+    <span class="n">CMTime</span> <span class="n">actualTime</span><span class="p">;</span><span class="c1">//获取到图片确切的时间</span>
+    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="n">CGImageRef</span> <span class="n">CGImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">imageGenerator</span> <span class="nf">copyCGImageAtTime</span><span class="p">:</span><span class="n">time</span> <span class="nf">actualTime</span><span class="p">:</span><span class="o">&amp;</span><span class="n">actualTime</span> <span class="n">error</span><span class="o">:&amp;</span><span class="n">error</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+        
+        <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithCGImage</span><span class="p">:</span><span class="n">CGImage</span><span class="p">];</span>
+        <span class="n">CMTimeShow</span><span class="p">(</span><span class="n">actualTime</span><span class="p">);</span>   <span class="c1">//{111600/90000 = 1.240}</span>
+        <span class="n">CMTimeShow</span><span class="p">(</span><span class="n">time</span><span class="p">);</span> <span class="c1">// {1/1 = 1.000}</span>
+        
+        <span class="n">UIImageView</span> <span class="o">*</span><span class="n">imgIV</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIImageView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">_window_width</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)];</span>
+        <span class="n">imgIV</span><span class="p">.</span><span class="n">contentMode</span> <span class="o">=</span> <span class="n">UIViewContentModeScaleAspectFill</span><span class="p">;</span>
+        <span class="n">imgIV</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="p">;</span>
+        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">imgIV</span><span class="p">];</span>  
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="二十二外放">二十二、外放</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">UInt32</span> <span class="n">sessionCategory</span> <span class="o">=</span> <span class="n">kAudioSessionCategory_MediaPlayback</span><span class="p">;</span>
+    <span class="n">AudioSessionSetProperty</span><span class="p">(</span><span class="n">kAudioSessionProperty_AudioCategory</span><span class="p">,</span>
+                            <span class="k">sizeof</span><span class="p">(</span><span class="n">sessionCategory</span><span class="p">),</span>
+                            <span class="o">&amp;</span><span class="n">sessionCategory</span><span class="p">);</span>
+    
+    <span class="n">UInt32</span> <span class="n">audioRouteOverride</span> <span class="o">=</span> <span class="n">kAudioSessionOverrideAudioRoute_Speaker</span><span class="p">;</span>
+    <span class="n">AudioSessionSetProperty</span> <span class="p">(</span><span class="n">kAudioSessionProperty_OverrideAudioRoute</span><span class="p">,</span>
+                             <span class="k">sizeof</span> <span class="p">(</span><span class="n">audioRouteOverride</span><span class="p">),</span>
+                             <span class="o">&amp;</span><span class="n">audioRouteOverride</span><span class="p">);</span>
+    
+    <span class="n">AVAudioSession</span> <span class="o">*</span><span class="n">audioSession</span> <span class="o">=</span> <span class="p">[</span><span class="n">AVAudioSession</span> <span class="nf">sharedInstance</span><span class="p">];</span>
+    <span class="c1">//默认情况下扬声器播放</span>
+    <span class="p">[</span><span class="n">audioSession</span> <span class="nf">setCategory</span><span class="p">:</span><span class="n">AVAudioSessionCategoryPlayback</span> <span class="nf">error</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">audioSession</span> <span class="nf">setActive</span><span class="p">:</span><span class="nb">YES</span> <span class="nf">error</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h4 id="二十三延时">二十三、延时</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//设置延时</span>
+    <span class="p">[</span><span class="n">self</span> <span class="nf">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">doRotation</span><span class="p">:)</span> <span class="n">withObject</span><span class="o">:</span><span class="nb">nil</span> <span class="n">afterDelay</span><span class="o">:</span><span class="mi">17</span><span class="p">.</span><span class="mi">0</span><span class="p">];</span>
+    <span class="c1">//取消延时</span>
+    <span class="p">[</span><span class="n">NSObject</span> <span class="nf">cancelPreviousPerformRequestsWithTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">doRotation</span><span class="o">:</span><span class="p">)</span> <span class="n">object</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h4 id="二十四存储沙盒">二十四、存储沙盒</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">nslogToFile</span> <span class="p">{</span>
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">paths</span> <span class="o">=</span> <span class="n">NSSearchPathForDirectoriesInDomains</span><span class="p">(</span><span class="n">NSDocumentDirectory</span><span class="p">,</span> <span class="n">NSUserDomainMask</span><span class="p">,</span> <span class="nb">YES</span><span class="p">);</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">documentDirectory</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths</span> <span class="nf">objectAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">fileName</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"NSLog.txt"</span><span class="p">];</span><span class="c1">// 注意不是NSData!</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">logFilePath</span> <span class="o">=</span> <span class="p">[</span><span class="n">documentDirectory</span> <span class="nf">stringByAppendingPathComponent</span><span class="p">:</span><span class="n">fileName</span><span class="p">];</span>
+    <span class="c1">// 先删除已经存在的文件</span>
+    <span class="n">NSFileManager</span> <span class="o">*</span><span class="n">defaultManager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSFileManager</span> <span class="nf">defaultManager</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">defaultManager</span> <span class="nf">removeItemAtPath</span><span class="p">:</span><span class="n">logFilePath</span> <span class="nf">error</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="c1">// 将log输入到文件</span>
+    <span class="n">freopen</span><span class="p">([</span><span class="n">logFilePath</span> <span class="nf">cStringUsingEncoding</span><span class="p">:</span><span class="n">NSASCIIStringEncoding</span><span class="p">],</span> <span class="s">"a+"</span><span class="p">,</span> <span class="n">stdout</span><span class="p">);</span>
+    <span class="n">freopen</span><span class="p">([</span><span class="n">logFilePath</span> <span class="nf">cStringUsingEncoding</span><span class="p">:</span><span class="n">NSASCIIStringEncoding</span><span class="p">],</span> <span class="s">"a+"</span><span class="p">,</span> <span class="n">stderr</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="二十五计时器">二十五、计时器</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">[</span><span class="n">self</span> <span class="nf">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">hideTabBar</span><span class="p">)</span> <span class="nf">withObject</span><span class="p">:</span><span class="nb">nil</span> <span class="n">afterDelay</span><span class="o">:</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">NSObject</span> <span class="nf">cancelPreviousPerformRequestsWithTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">hideTabBar</span><span class="p">)</span> <span class="n">object</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h4 id="二十六有没有安装应用">二十六、有没有安装应用</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import &lt;Social/SLComposeViewController.h&gt;
+#import &lt;Social/SLServiceTypes.h&gt;
+</span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nf">isAvailableForServiceType</span><span class="p">:</span><span class="n">SLServiceTypeFacebook</span><span class="p">]){</span>
+        <span class="p">[</span><span class="n">MBProgressHUD</span> <span class="nf">showError</span><span class="p">:</span><span class="s">@"您手机没有安装FaceBook,无法进行登陆"</span><span class="p">];</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="二十七afn">二十七、AFN</h4>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">session</span><span class="p">.</span><span class="n">responseSerializer</span><span class="p">.</span><span class="n">acceptableContentTypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">session</span><span class="p">.</span><span class="n">responseSerializer</span><span class="p">.</span><span class="n">acceptableContentTypes</span> <span class="nf">setByAddingObject</span><span class="p">:</span><span class="s">@"text/html”];</span><span class="err">
+</span></code></pre></div></div>
+
+<h4 id="二十八富文本标签">二十八、富文本+标签</h4>
+
+<p><a href="https://rookie920.github.io/2019/10/25/%E5%AF%8C%E6%96%87%E6%9C%AC/">详情</a></p>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="n">NSMutableAttributedString</span><span class="o">*</span><span class="p">)</span><span class="nf">setFlagWithContentDic</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">flagDic</span> <span class="nf">title</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">titleStr</span> <span class="nf">font</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">tFont</span> <span class="p">{</span>
+    
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">flagStr</span> <span class="o">=</span> <span class="n">minstr</span><span class="p">([</span><span class="n">flagDic</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">]);</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">flagColStr</span> <span class="o">=</span> <span class="n">minstr</span><span class="p">([</span><span class="n">flagDic</span> <span class="nf">valueForKey</span><span class="p">:</span><span class="s">@"colour"</span><span class="p">]);</span>
+    <span class="n">UIColor</span> <span class="o">*</span><span class="n">flagBgCol</span> <span class="o">=</span> <span class="n">RGB_COLOR</span><span class="p">(</span><span class="n">flagColStr</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    
+    <span class="n">NSMutableParagraphStyle</span> <span class="o">*</span><span class="n">paragraph</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableParagraphStyle</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+    <span class="n">paragraph</span><span class="p">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="n">NSTextAlignmentCenter</span><span class="p">;</span>
+    <span class="n">paragraph</span><span class="p">.</span><span class="n">lineSpacing</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">paragraph</span><span class="p">.</span><span class="n">hyphenationFactor</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+    
+    <span class="n">NSString</span><span class="o">*</span><span class="n">itemName</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%@ %@"</span><span class="p">,</span><span class="n">titleStr</span><span class="p">,</span><span class="n">flagStr</span><span class="p">];</span>
+    <span class="n">NSMutableAttributedString</span> <span class="o">*</span><span class="n">titleAttrStr</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableAttributedString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithString</span><span class="p">:</span><span class="n">itemName</span> <span class="nf">attributes</span><span class="p">:@{</span><span class="n">NSFontAttributeName</span><span class="o">:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="n">tFont</span><span class="p">],</span><span class="n">NSParagraphStyleAttributeName</span><span class="o">:</span> <span class="n">paragraph</span><span class="p">,</span><span class="n">NSForegroundColorAttributeName</span><span class="o">:</span><span class="n">UIColor</span><span class="p">.</span><span class="n">whiteColor</span><span class="p">}];</span>
+    <span class="c1">//设置标签的背景色</span>
+    <span class="n">YYTextBorder</span> <span class="o">*</span><span class="n">border</span> <span class="o">=</span> <span class="p">[</span><span class="n">YYTextBorder</span> <span class="nf">new</span><span class="p">];</span>
+    <span class="n">border</span><span class="p">.</span><span class="n">fillColor</span><span class="o">=</span> <span class="n">flagBgCol</span><span class="p">;</span>
+    <span class="c1">//调整Insets更改背景显示位置</span>
+    <span class="n">border</span><span class="p">.</span><span class="n">insets</span><span class="o">=</span> <span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">border</span><span class="p">.</span><span class="n">cornerRadius</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">titleAttrStr</span> <span class="nf">yy_setTextBackgroundBorder</span><span class="p">:</span><span class="n">border</span> <span class="nf">range</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="n">titleStr</span><span class="p">.</span><span class="n">length</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">flagStr</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+    <span class="c1">//设置标签的文本颜色</span>
+    <span class="p">[</span><span class="n">titleAttrStr</span> <span class="nf">yy_setColor</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">]</span> <span class="nf">range</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="n">titleStr</span><span class="p">.</span><span class="n">length</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">flagStr</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+    <span class="c1">//设置标签文本的字号</span>
+    <span class="p">[</span><span class="n">titleAttrStr</span> <span class="nf">yy_setFont</span><span class="p">:[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:(</span><span class="n">tFont</span><span class="o">-</span><span class="mi">4</span><span class="p">)]</span><span class="nf">range</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="n">titleStr</span><span class="p">.</span><span class="n">length</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">flagStr</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+    <span class="c1">//小字号偏移</span>
+    <span class="p">[</span><span class="n">titleAttrStr</span> <span class="nf">addAttribute</span><span class="p">:</span><span class="n">NSBaselineOffsetAttributeName</span> <span class="nf">value</span><span class="p">:</span><span class="err">@</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">66</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span> <span class="n">range</span><span class="o">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="n">titleStr</span><span class="p">.</span><span class="n">length</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">flagStr</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+    <span class="k">return</span> <span class="n">titleAttrStr</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="二十九自定义加解密">二十九、自定义加解密</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#pragma mark - 解密
++(NSString *)getnewCode:(NSString *)type{
+    NSString *str = @"g-PLGVI5oRwn:SJZbMyODETY3rq08fjaAv&amp;CN4Kkctu1sXiBlW6.9dFxzHeQ2hU7pm";
+    long strLength = str.length;
+    long codeLength = type.length;
+    NSString *newCode = [NSString string];
+    for (int i=0; i&lt;codeLength; i++) {
+        for (int j=0; j&lt;strLength; j++) {
+            if ([[str substringWithRange:NSMakeRange(j, 1)] isEqual:[type substringWithRange:NSMakeRange(i, 1)]]) {
+                if(j-1&lt;0){
+                    newCode = [newCode stringByAppendingFormat:@"%@", [str substringWithRange:NSMakeRange(strLength-1, 1)]];
+                }else{
+                    newCode = [newCode stringByAppendingFormat:@"%@", [str substringWithRange:NSMakeRange(j-1, 1)]];
+                }
+            }
+        }
+    }
+    return newCode;
+}
+#pragma mark - 加密
++(NSString *)savenewCode:(NSString *)type {
+    NSString *str = @"g-PLGVI5oRwn:SJZbMyODETY3rq08fjaAv&amp;CN4Kkctu1sXiBlW6.9dFxzHeQ2hU7pm";
+    long strLength = str.length;
+    long codeLength = type.length;
+    NSString *newCode = [NSString string];
+    for (int i=0; i&lt;codeLength; i++) {
+        for (int j=0; j&lt;strLength; j++) {
+            if ([[str substringWithRange:NSMakeRange(j, 1)] isEqual:[type substringWithRange:NSMakeRange(i, 1)]]) {
+                if(j-1&lt;0){
+                    newCode = [newCode stringByAppendingFormat:@"%@", [str substringWithRange:NSMakeRange(strLength-1, 1)]];
+                }else{
+                    newCode = [newCode stringByAppendingFormat:@"%@", [str substringWithRange:NSMakeRange(j+1, 1)]];
+                }
+            }
+        }
+    }
+    return newCode;
+}
+</code></pre></div></div>
+
+
+
+                <hr style="visibility: hidden;">
+                
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2024/10/24/%E8%B5%84%E6%96%99%E6%B1%87%E6%80%BB/" data-toggle="tooltip" data-placement="top" title="料汇总">
+                        上一篇:<span>料汇总</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2024/10/24/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" data-toggle="tooltip" data-placement="top" title="git基本命令">
+                        下一篇:<span>git基本命令</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#iOS" title="iOS" rel="31">
+                                    iOS
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OC" title="OC" rel="59">
+                                    OC
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#C" title="C" rel="26">
+                                    C
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Xcode" title="Xcode" rel="11">
+                                    Xcode
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#MIMEType" title="MIMEType" rel="1">
+                                    MIMEType
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#屏幕旋转" title="屏幕旋转" rel="1">
+                                    屏幕旋转
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Mac" title="Mac" rel="9">
+                                    Mac
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#工具" title="工具" rel="4">
+                                    工具
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SQLite3" title="SQLite3" rel="1">
+                                    SQLite3
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#重命名" title="重命名" rel="1">
+                                    重命名
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#证书+内购" title="证书+内购" rel="1">
+                                    证书+内购
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#像素" title="像素" rel="1">
+                                    像素
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#pch" title="pch" rel="1">
+                                    pch
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#支付协议税务" title="支付协议税务" rel="1">
+                                    支付协议税务
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#APP转让" title="APP转让" rel="1">
+                                    APP转让
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#审核" title="审核" rel="1">
+                                    审核
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#银行卡格式化" title="银行卡格式化" rel="1">
+                                    银行卡格式化
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#git" title="git" rel="5">
+                                    git
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#描述文件" title="描述文件" rel="2">
+                                    描述文件
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#命令行" title="命令行" rel="6">
+                                    命令行
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#沙盒日志" title="沙盒日志" rel="1">
+                                    沙盒日志
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#i386" title="i386" rel="1">
+                                    i386
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#x86_64" title="x86_64" rel="1">
+                                    x86_64
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#控制台log" title="控制台log" rel="1">
+                                    控制台log
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#xcode10&iOS12" title="xcode10&iOS12" rel="1">
+                                    xcode10&iOS12
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#正则" title="正则" rel="2">
+                                    正则
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#textfield" title="textfield" rel="1">
+                                    textfield
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#输入限制" title="输入限制" rel="1">
+                                    输入限制
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Pod" title="Pod" rel="3">
+                                    Pod
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#真机支持" title="真机支持" rel="1">
+                                    真机支持
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#封面尺寸" title="封面尺寸" rel="1">
+                                    封面尺寸
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SDWebImage" title="SDWebImage" rel="1">
+                                    SDWebImage
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Ruby" title="Ruby" rel="1">
+                                    Ruby
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#RVM" title="RVM" rel="1">
+                                    RVM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#渐变色" title="渐变色" rel="1">
+                                    渐变色
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jekyll" title="jekyll" rel="1">
+                                    jekyll
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#水印" title="水印" rel="1">
+                                    水印
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#富文本" title="富文本" rel="1">
+                                    富文本
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#标签" title="标签" rel="1">
+                                    标签
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#M3U8" title="M3U8" rel="1">
+                                    M3U8
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#动、静态库" title="动、静态库" rel="2">
+                                    动、静态库
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#异步上传" title="异步上传" rel="1">
+                                    异步上传
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Url编码解码" title="Url编码解码" rel="1">
+                                    Url编码解码
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#AlertController" title="AlertController" rel="1">
+                                    AlertController
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#保活" title="保活" rel="2">
+                                    保活
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#pod报错" title="pod报错" rel="1">
+                                    pod报错
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#特定UI横竖屏" title="特定UI横竖屏" rel="1">
+                                    特定UI横竖屏
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Launch版本号" title="Launch版本号" rel="1">
+                                    Launch版本号
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ijkplayer" title="ijkplayer" rel="1">
+                                    ijkplayer
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#适配" title="适配" rel="1">
+                                    适配
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#手势" title="手势" rel="3">
+                                    手势
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#截图" title="截图" rel="1">
+                                    截图
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#网络和信号" title="网络和信号" rel="1">
+                                    网络和信号
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#礼物缓存" title="礼物缓存" rel="1">
+                                    礼物缓存
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#手绘礼物" title="手绘礼物" rel="1">
+                                    手绘礼物
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#UIPickerView" title="UIPickerView" rel="1">
+                                    UIPickerView
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#文件权限" title="文件权限" rel="1">
+                                    文件权限
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#键盘和菜单" title="键盘和菜单" rel="1">
+                                    键盘和菜单
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#耗时卡顿" title="耗时卡顿" rel="1">
+                                    耗时卡顿
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#国际化" title="国际化" rel="1">
+                                    国际化
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Paypal" title="Paypal" rel="1">
+                                    Paypal
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#AWSS3" title="AWSS3" rel="2">
+                                    AWSS3
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#npm、Node" title="npm、Node" rel="1">
+                                    npm、Node
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#控制台" title="控制台" rel="1">
+                                    控制台
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#warning" title="warning" rel="1">
+                                    warning
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#扩展" title="扩展" rel="5">
+                                    扩展
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#防盗链" title="防盗链" rel="1">
+                                    防盗链
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#动画" title="动画" rel="1">
+                                    动画
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#分析" title="分析" rel="1">
+                                    分析
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#CallKit" title="CallKit" rel="1">
+                                    CallKit
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#侧滑" title="侧滑" rel="1">
+                                    侧滑
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#重置根控制器" title="重置根控制器" rel="1">
+                                    重置根控制器
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#播放器" title="播放器" rel="1">
+                                    播放器
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#裁剪" title="裁剪" rel="1">
+                                    裁剪
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#日志" title="日志" rel="1">
+                                    日志
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#bugly" title="bugly" rel="1">
+                                    bugly
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#uniapp" title="uniapp" rel="9">
+                                    uniapp
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Swift" title="Swift" rel="2">
+                                    Swift
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#文字翻转" title="文字翻转" rel="1">
+                                    文字翻转
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#跨域" title="跨域" rel="1">
+                                    跨域
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#WebClip" title="WebClip" rel="1">
+                                    WebClip
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#网络请求" title="网络请求" rel="1">
+                                    网络请求
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#地图导航" title="地图导航" rel="1">
+                                    地图导航
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ZSH" title="ZSH" rel="1">
+                                    ZSH
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SPM" title="SPM" rel="1">
+                                    SPM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Vapor" title="Vapor" rel="2">
+                                    Vapor
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#导航" title="导航" rel="1">
+                                    导航
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#验证码" title="验证码" rel="1">
+                                    验证码
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#杀进程" title="杀进程" rel="1">
+                                    杀进程
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Ubuntu" title="Ubuntu" rel="1">
+                                    Ubuntu
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Android" title="Android" rel="1">
+                                    Android
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#JWT" title="JWT" rel="1">
+                                    JWT
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#vue" title="vue" rel="7">
+                                    vue
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#html-js" title="html-js" rel="2">
+                                    html-js
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#style-class" title="style-class" rel="3">
+                                    style-class
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ssh" title="ssh" rel="2">
+                                    ssh
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#PHP" title="PHP" rel="2">
+                                    PHP
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jks" title="jks" rel="1">
+                                    jks
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#css" title="css" rel="1">
+                                    css
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Runtime" title="Runtime" rel="1">
+                                    Runtime
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#tree" title="tree" rel="1">
+                                    tree
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#uniCloud" title="uniCloud" rel="1">
+                                    uniCloud
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#总结" title="总结" rel="2">
+                                    总结
+                                </a>
+                            
+                        
+                    </div>
+                </section>
+                               
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://gems.ruby-china.com/">RubyChina</a></li>
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://developer.apple.com/">Apple Developer</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/9e754f67b0e9">简书</a></li>
+                    
+                        <li><a href="https://huxpro.github.io">黄玄</a></li>
+                    
+                        <li><a href="http://sobaigu.com/">搜百谷</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/e6c8dda77e26">Swift</a></li>
+                    
+                        <li><a href="http://applemusic.cc/index.html">applemusic</a></li>
+                    
+                        <li><a href="https://blog.walterlv.com/">吕毅</a></li>
+                    
+                        <li><a href="https://blog.csdn.net/heipingguowenkong">黎明lh</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/f8493395c623">_我们一直在路上_</a></li>
+                    
+                        <li><a href="https://github.com/hw20101101">Braintree-Paypal</a></li>
+                    
+                        <li><a href="https://zhile.io">知了</a></li>
+                    
+                        <li><a href="https://github.com/getlantern/lantern">LD</a></li>
+                    
+                        <li><a href="https://blog.ibireme.com/">YYKit</a></li>
+                    
+                        <li><a href="https://git-scm.com/book/en/v2">Git</a></li>
+                    
+                        <li><a href="https://blog.hyperzsb.tech/">Hyperzsb</a></li>
+                    
+                        <li><a href="https://github.com/getlantern">Lantern</a></li>
+                    
+                        <li><a href="https://tech.meituan.com/">美团</a></li>
+                    
+                        <li><a href="https://github.com/ElfSundae">工具</a></li>
+                    
+                        <li><a href="https://anbig.com/">anbig</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+ <!-- 图片放大222 -->
+<div id="image-cover-modal" class="image-cover-modal">
+  <img id="image-cover-image" class="image-cover-modal-content">
+  <div id="image-cover-caption"></div>
+</div>
+<script>
+// Get the DOM
+var modal = document.getElementById('image-cover-modal');
+var modalImg = document.getElementById("image-cover-image");
+var captionText = document.getElementById("image-cover-caption");
+var span = document.getElementsByClassName("image-cover-close")[0];
+
+// When the user clicks on <span> (x), close the modal
+modal.onclick = function() {
+    this.classList.remove("model-shown");
+}
+
+var i;
+for (i = 0; i < document.images.length; i++) {
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.images[i];
+
+    img.onclick = function(){
+        modal.classList.add("model-shown");
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+}
+</script>
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/Yuan920">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/Memory丶Rookie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Yuan920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yuan's Blog 2024
+                    <br>
+                    Theme on <a href="https://github.com/Yuan920/rookie777">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Yuan920&repo=Yuan920.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+    function fixCount() {   
+
+        //console.log('111 '+document.getElementById("busuanzi_container_site_pv"));
+        //console.log('222 '+document.getElementById("busuanzi_container_page_uv"));
+
+       if (document.getElementById("busuanzi_container_site_pv")) {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none"){
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_site_pv").css("display") != "none"){
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+       if (document.getElementById("busuanzi_container_page_uv")) {
+            if (document.getElementById("busuanzi_container_page_uv").style.display != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_page_uv").css("display") != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+    }
+});
+</script> 
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-90855596-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

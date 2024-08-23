@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="还没有更好的描述呢">
+    <meta name="keywords"  content="yuan, 920 Blog, 永震的博客, 920, 永震, iOS, Apple, iPhone">
+    <meta name="theme-color" content="#fff">
+    
+    <title>Yuan's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <!-- <link rel="shortcut icon" href="/img/favicon.ico"> -->
+    <link rel="shortcut icon" href="/img/apple-touch-icon.png">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yuan920.github.io/page10/">
+
+    <!-- Bootstrap Core CSS -->
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.css?t=1">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css?t=5">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yuan's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/about/">About</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags/">Tags</a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/uniapp/">uniapp</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/post-bg-desk.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Yuan's Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">砥砺前行</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			<!-- 置顶文章 -->
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+
+<div style="font-size: 16px;width: 100%;height: 10px;"></div>
+<!-- <hr style="width: 100%;height: 6px;background-color: #B6C29A"> -->
+
+<!-- 普通文章 -->
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/16/1.switch/">
+        <h2 class="post-title">
+            Switch
+        </h2>
+        
+        <div class="post-content-preview">
+            switch
+
+- (void) switchIsChanged:(UISwitch *)paramSender{
+   
+  NSLog(@"Sender is = %@", paramSender);
+   
+  if ([paramSender isOn]){
+      NSLog(@"The switch is turned on.");
+  } else {
+      NSLo...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 16, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 16, 2015
+    </p> -->
+    <p class="post-meta">2015/11/16 21:16</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/16/0.%E7%AE%80%E6%98%93%E6%B8%B8%E6%88%8F/">
+        <h2 class="post-title">
+            简易游戏
+        </h2>
+        
+        <h3 class="post-subtitle">
+            会说话的Tom猫
+        </h3>
+        
+        <div class="post-content-preview">
+            #import "ViewController.h"
+
+@interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *catImageView;
+
+- (IBAction)doCymbal:(UIButton *)sender;
+
+- (IBAction)doDrink:(UIButton *)...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 16, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 16, 2015
+    </p> -->
+    <p class="post-meta">2015/11/16 20:55</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/10/%E5%8D%95%E4%BE%8B/">
+        <h2 class="post-title">
+            单例
+        </h2>
+        
+        <div class="post-content-preview">
+            实例0
+
+.m
+static YBRechargeType *chargeManeger = nil;
+
++(instancetype)chargeManeger {
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        chargeManeger = [[super allocW...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 10, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 10, 2015
+    </p> -->
+    <p class="post-meta">2015/11/10 16:34</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/09/%E5%8D%8F%E8%AE%AE-%E4%BB%A3%E7%A0%81%E5%9D%97-%E5%88%86%E7%B1%BB/">
+        <h2 class="post-title">
+            协议、代码块、分类
+        </h2>
+        
+        <div class="post-content-preview">
+            前言
+ObjC的语法主要基于smalltalk进行设计的，除了提供常规的面向对象特性外，还增加了很多其他特性，这一节将重点介绍ObjC中一些常用的语法特性。当然这些内容虽然和其他高级语言命名不一样，但是我们都可以在其中找到他们的影子，在文章中我也会对比其他语言进行介绍，这一节的重点内容如下：
+
+协议protocol
+在ObjC中使用@protocol定义一组方法规范，实现此协议的类必须实现对...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 9, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 9, 2015
+    </p> -->
+    <p class="post-meta">2015/11/9 19:09</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/05/2.%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
+        <h2 class="post-title">
+            管理文件和目录
+        </h2>
+        
+        <div class="post-content-preview">
+            常见的NSFileManager文件方法
+
+
+  -(NSData *)contentsAtPath:path从一个文件读取数据
+-(BOOL)createFileAtPath: path contents:(NSData *)data attributes:attr向一个文件写入数据
+-(BOOL)removeItemAtPath:path error:err删除一个文件
+-(BOOL)m...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 5, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 5, 2015
+    </p> -->
+    <p class="post-meta">2015/11/5 21:26</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/05/1.%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+        <h2 class="post-title">
+            文件操作
+        </h2>
+        
+        <h3 class="post-subtitle">
+            查看目录下所有文件、循环遍历递归
+        </h3>
+        
+        <div class="post-content-preview">
+            FileManager.m
+
+#import "FileManager.h"
+
+@implementation FileManager
+
++ (void)showFiles:(NSString *)path;{
+
+    // 1.判断文件还是目录
+    NSFileManager * fileManger = [NSFileManager  defaultManager];
+    BO...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 5, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 5, 2015
+    </p> -->
+    <p class="post-meta">2015/11/5 21:18</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/05/0.%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E8%A7%A3%E6%9E%90/">
+        <h2 class="post-title">
+            文件路径解析
+        </h2>
+        
+        <div class="post-content-preview">
+            文件路径
+
+
+  + (NSString *)pathWithComponents(NSArray *)components根据components中的元素来构建路径.
+- (NSArray *)pathComponents 解析路径,返回构成路径的各个部分.
+- (NSString *)lastPathComponent提取路径中的最后一个组成部分
+- (NSString *)pathEx...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 5, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 5, 2015
+    </p> -->
+    <p class="post-meta">2015/11/5 14:47</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/04/1.%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F/">
+        <h2 class="post-title">
+            判断文件大小
+        </h2>
+        
+        <div class="post-content-preview">
+            单个文件的大小
+
+- (long long) fileSizeAtPath:(NSString*) filePath{
+
+    NSFileManager* manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:filePath]){
+       return [[manager attri...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 4, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 4, 2015
+    </p> -->
+    <p class="post-meta">2015/11/4 16:36</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/04/0.%E9%98%B6%E6%AE%B5%E6%80%A7%E6%95%B4%E7%90%86/">
+        <h2 class="post-title">
+            阶段性整理
+        </h2>
+        
+        <div class="post-content-preview">
+            一.内存管理情况
+
+
+  1.autorelease，当用户的代码在持续运行时，自动释放池是不会被销毁的，这段时间内用户可以安全地使用自动释放的对象。当用户的代码运行告一段落，开始等待用户的操作，自动释放池就会被释放掉（调用dealloc），池中的对象都会收到一个release，有可能会因此被销毁。
+2.成员属性：
+readonly：不指定readonly，默认合成getter和setter...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 4, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 4, 2015
+    </p> -->
+    <p class="post-meta">2015/11/4 15:08</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/11/01/%E5%B8%B8%E8%A7%81%E5%88%86%E7%B1%BB(%E4%B8%89)/">
+        <h2 class="post-title">
+            常见类(三)
+        </h2>
+        
+        <div class="post-content-preview">
+            集合
+
+创建集合
+NSSet *set1=[[NSSet alloc]initWithObjects:@"a",@"b",@"c",@"a", nil];
+NSSet *set2=[NSSet setWithObjects:@"a",@"b",@"c", nil];
+NSLog(@"set1:%@  set2:%@",set1,set2);
+
+根据已有集合创建新的集合
+NSSet *set3...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on November 1, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 11 1, 2015
+    </p> -->
+    <p class="post-meta">2015/11/1 21:08</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/10/29/%E5%B8%B8%E8%A7%81%E7%B1%BB(%E4%BA%8C)/">
+        <h2 class="post-title">
+            常见类(二)
+        </h2>
+        
+        <div class="post-content-preview">
+            创建字典的方式
+NSDictionary*dictionary1 = [NSDictionary dictionaryWithObject:@"value" forKey:@"key"];
+NSLog(@"dictionary1:%@",dictionary1);
+
+NSDictionary*dictionary2 = [[NSDictionary alloc]initWithObjects...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on October 29, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 10 29, 2015
+    </p> -->
+    <p class="post-meta">2015/10/29 13:35</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/10/27/%E5%B8%B8%E8%A7%81%E7%B1%BB(%E4%B8%80)/">
+        <h2 class="post-title">
+            常见类(一)
+        </h2>
+        
+        <div class="post-content-preview">
+            简介：字符串 可变字符串、数组 可变数组 及对其操作
+
+创建一个空的字符串
+
+NSString *string1=[[NSString  alloc]init ];
+NSString *string2=[NSString  string];
+NSLog(@"string1:%@",string1);
+NSLog(@"string2:%@",string2);
+
+创建一个字符串常量
+NSStr...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on October 27, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 10 27, 2015
+    </p> -->
+    <p class="post-meta">2015/10/27 21:22</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/10/26/3.%E7%B1%BB/">
+        <h2 class="post-title">
+            类
+        </h2>
+        
+        <div class="post-content-preview">
+            OC中的类分为.h和.m
+
+.h主要做声明：成员变量、属性、方法
+表示类的接口@interface
+
+.m作为函数的实现部分：实现方法
+@implementation
+
+面向对象的三大特性：
+封装：隐藏内部实现，稳定外部接口；
+继承：子类复用父类的成员变量、属性、方法（重写）；
+多态：父类对象指向子类空间   
+// student作为一个类存在
+// []表示方法调用
+
+eg.1.
+Stu...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on October 26, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 10 26, 2015
+    </p> -->
+    <p class="post-meta">2015/10/26 14:37</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/10/26/2.%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%AE%8F/">
+        <h2 class="post-title">
+            枚举、宏
+        </h2>
+        
+        <div class="post-content-preview">
+            枚举、宏
+
+#pragma mark 1 创建普通的枚举类型
+#include 
+int enumOne()
+{
+    enum Season {spring=1,summer,autumn,winter};
+    enum Season s = summer;//或者：s=2;
+    return s;
+}
+
+#pragma mark 2 模拟ios中label的文本对齐方式
+voi...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on October 26, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 10 26, 2015
+    </p> -->
+    <p class="post-meta">2015/10/26 13:55</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/10/26/1.%E7%BB%93%E6%9E%84%E4%BD%93/">
+        <h2 class="post-title">
+            结构体
+        </h2>
+        
+        <div class="post-content-preview">
+            结构体
+#include 
+void structOne()
+{
+    //定义一个名为Student的结构体类型
+    struct Student {
+        int age;        //年龄
+        float score;    //成绩
+        char *name;     //名字
+    };
+   
+    //定义结构体变量
+    s...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on October 26, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 10 26, 2015
+    </p> -->
+    <p class="post-meta">2015/10/26 13:53</p>
+</div>
+<hr>
+
+
+
+<div class="post-preview">
+    <a href="/2015/10/26/0.%E6%8C%87%E9%92%88/">
+        <h2 class="post-title">
+            指针
+        </h2>
+        
+        <div class="post-content-preview">
+            名词解释
+
+指针数组：array of pointers
+
+即用于存储指针的数组，也就是数组元素都是指针
+
+数组指针：a pointer to an array
+
+即指向数组的指针
+
+指针
+
+指针也是一种数据类型；
+数据类型*指针变量名=初始化地址
+
+int i;
+int*p=&amp;i;
+
+
+eg.1.
+
+  #include
+  int main()
+  {
+     int *p1;...
+        </div>
+    </a>
+    <!-- <p class="post-meta">
+        Posted by 920 on October 26, 2015
+    </p> -->
+    <!-- <p class="post-meta">920 on 10 26, 2015
+    </p> -->
+    <p class="post-meta">2015/10/26 13:26</p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    <!-- 上一页 -->
+    
+    <li class="previous">
+        <a href="/page9">&larr;上一页</a>
+    </li>
+    
+    <!-- 中间 -->
+    <!-- <span class="page_num pagination__page-number">10 / 10</span> -->
+    <span class="pager-show-less">10 / 10</span>
+    <span class="pager-show-greater">
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-first" href="/index.html">1
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-other" href="/page2">2
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-other" href="/page3">3
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-other" href="/page4">4
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-other" href="/page5">5
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-other" href="/page6">6
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-other" href="/page7">7
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-other" href="/page8">8
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <a class="pagelist-other" href="/page9">9
+            </a>
+            
+        </li>
+        
+    
+        
+        <li class="pagelist">
+            
+            <span class="pagesel">
+                <a class="pagelist-cur-last" onclick="return false">10</a>
+            </span>
+            
+        </li>
+        
+    
+    </span>
+    <!-- 下一页 -->
+    
+    <li class="next">
+        <span class="page-nosel">下一页</span>
+    </li>
+    
+</ul>
+
+<script type="text/javascript">
+    var less = document.getElementsByClassName("pager-show-less")[0];
+    var greater = document.getElementsByClassName("pager-show-greater")[0];
+    var w_width = document.body.clientWidth;
+
+    //console.log('===='+less+'------'+greater+'000000---'+w_width);
+    // var lessStyle = window.getComputedStyle(less);
+    // var greaterStyle = window.getComputedStyle(greater);
+
+    if(w_width >= 400){
+            greater.style.display = "";
+            less.style.display = "none";
+        }else{
+            less.style.display = "";
+            greater.style.display = "none";
+        }
+
+</script>
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <hr class="hidden-sm hidden-xs" style="padding: 0px;margin: 0px;">
+
+                <span id="busuanzi_container_site_pv">
+                    访问量:<span id="busuanzi_value_site_pv"></span>次
+                </span> <br>
+                <!-- <span id="busuanzi_container_site_uv">
+                    访客数:<span id="busuanzi_value_site_uv"></span>人
+                </span> -->
+
+                <h5 style="padding: 5px 0px;">文章总数·196</h5>
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#iOS" title="iOS" rel="31">
+                                    iOS
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OC" title="OC" rel="59">
+                                    OC
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#C" title="C" rel="26">
+                                    C
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Xcode" title="Xcode" rel="11">
+                                    Xcode
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#MIMEType" title="MIMEType" rel="1">
+                                    MIMEType
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#屏幕旋转" title="屏幕旋转" rel="1">
+                                    屏幕旋转
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Mac" title="Mac" rel="9">
+                                    Mac
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#工具" title="工具" rel="4">
+                                    工具
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SQLite3" title="SQLite3" rel="1">
+                                    SQLite3
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#重命名" title="重命名" rel="1">
+                                    重命名
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#证书+内购" title="证书+内购" rel="1">
+                                    证书+内购
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#像素" title="像素" rel="1">
+                                    像素
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#pch" title="pch" rel="1">
+                                    pch
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#支付协议税务" title="支付协议税务" rel="1">
+                                    支付协议税务
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#APP转让" title="APP转让" rel="1">
+                                    APP转让
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#审核" title="审核" rel="1">
+                                    审核
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#银行卡格式化" title="银行卡格式化" rel="1">
+                                    银行卡格式化
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#git" title="git" rel="5">
+                                    git
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#描述文件" title="描述文件" rel="2">
+                                    描述文件
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#命令行" title="命令行" rel="6">
+                                    命令行
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#沙盒日志" title="沙盒日志" rel="1">
+                                    沙盒日志
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#i386" title="i386" rel="1">
+                                    i386
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#x86_64" title="x86_64" rel="1">
+                                    x86_64
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#控制台log" title="控制台log" rel="1">
+                                    控制台log
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#xcode10&iOS12" title="xcode10&iOS12" rel="1">
+                                    xcode10&iOS12
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#正则" title="正则" rel="2">
+                                    正则
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#textfield" title="textfield" rel="1">
+                                    textfield
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#输入限制" title="输入限制" rel="1">
+                                    输入限制
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Pod" title="Pod" rel="3">
+                                    Pod
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#真机支持" title="真机支持" rel="1">
+                                    真机支持
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#封面尺寸" title="封面尺寸" rel="1">
+                                    封面尺寸
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SDWebImage" title="SDWebImage" rel="1">
+                                    SDWebImage
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Ruby" title="Ruby" rel="1">
+                                    Ruby
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#RVM" title="RVM" rel="1">
+                                    RVM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#渐变色" title="渐变色" rel="1">
+                                    渐变色
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jekyll" title="jekyll" rel="1">
+                                    jekyll
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#水印" title="水印" rel="1">
+                                    水印
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#富文本" title="富文本" rel="1">
+                                    富文本
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#标签" title="标签" rel="1">
+                                    标签
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#M3U8" title="M3U8" rel="1">
+                                    M3U8
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#动、静态库" title="动、静态库" rel="2">
+                                    动、静态库
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#异步上传" title="异步上传" rel="1">
+                                    异步上传
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Url编码解码" title="Url编码解码" rel="1">
+                                    Url编码解码
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#AlertController" title="AlertController" rel="1">
+                                    AlertController
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#保活" title="保活" rel="2">
+                                    保活
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#pod报错" title="pod报错" rel="1">
+                                    pod报错
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#特定UI横竖屏" title="特定UI横竖屏" rel="1">
+                                    特定UI横竖屏
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Launch版本号" title="Launch版本号" rel="1">
+                                    Launch版本号
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ijkplayer" title="ijkplayer" rel="1">
+                                    ijkplayer
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#适配" title="适配" rel="1">
+                                    适配
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#手势" title="手势" rel="3">
+                                    手势
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#截图" title="截图" rel="1">
+                                    截图
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#网络和信号" title="网络和信号" rel="1">
+                                    网络和信号
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#礼物缓存" title="礼物缓存" rel="1">
+                                    礼物缓存
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#手绘礼物" title="手绘礼物" rel="1">
+                                    手绘礼物
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#UIPickerView" title="UIPickerView" rel="1">
+                                    UIPickerView
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#文件权限" title="文件权限" rel="1">
+                                    文件权限
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#键盘和菜单" title="键盘和菜单" rel="1">
+                                    键盘和菜单
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#耗时卡顿" title="耗时卡顿" rel="1">
+                                    耗时卡顿
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#国际化" title="国际化" rel="1">
+                                    国际化
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Paypal" title="Paypal" rel="1">
+                                    Paypal
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#AWSS3" title="AWSS3" rel="2">
+                                    AWSS3
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#npm、Node" title="npm、Node" rel="1">
+                                    npm、Node
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#控制台" title="控制台" rel="1">
+                                    控制台
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#warning" title="warning" rel="1">
+                                    warning
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#扩展" title="扩展" rel="5">
+                                    扩展
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#防盗链" title="防盗链" rel="1">
+                                    防盗链
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#动画" title="动画" rel="1">
+                                    动画
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#分析" title="分析" rel="1">
+                                    分析
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#CallKit" title="CallKit" rel="1">
+                                    CallKit
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#侧滑" title="侧滑" rel="1">
+                                    侧滑
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#重置根控制器" title="重置根控制器" rel="1">
+                                    重置根控制器
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#播放器" title="播放器" rel="1">
+                                    播放器
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#裁剪" title="裁剪" rel="1">
+                                    裁剪
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#日志" title="日志" rel="1">
+                                    日志
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#bugly" title="bugly" rel="1">
+                                    bugly
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#uniapp" title="uniapp" rel="9">
+                                    uniapp
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Swift" title="Swift" rel="2">
+                                    Swift
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#文字翻转" title="文字翻转" rel="1">
+                                    文字翻转
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#跨域" title="跨域" rel="1">
+                                    跨域
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#WebClip" title="WebClip" rel="1">
+                                    WebClip
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#网络请求" title="网络请求" rel="1">
+                                    网络请求
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#地图导航" title="地图导航" rel="1">
+                                    地图导航
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ZSH" title="ZSH" rel="1">
+                                    ZSH
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SPM" title="SPM" rel="1">
+                                    SPM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Vapor" title="Vapor" rel="2">
+                                    Vapor
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#导航" title="导航" rel="1">
+                                    导航
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#验证码" title="验证码" rel="1">
+                                    验证码
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#杀进程" title="杀进程" rel="1">
+                                    杀进程
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Ubuntu" title="Ubuntu" rel="1">
+                                    Ubuntu
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Android" title="Android" rel="1">
+                                    Android
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#JWT" title="JWT" rel="1">
+                                    JWT
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#vue" title="vue" rel="7">
+                                    vue
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#html-js" title="html-js" rel="2">
+                                    html-js
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#style-class" title="style-class" rel="3">
+                                    style-class
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ssh" title="ssh" rel="2">
+                                    ssh
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#PHP" title="PHP" rel="2">
+                                    PHP
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jks" title="jks" rel="1">
+                                    jks
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#css" title="css" rel="1">
+                                    css
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Runtime" title="Runtime" rel="1">
+                                    Runtime
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#tree" title="tree" rel="1">
+                                    tree
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#uniCloud" title="uniCloud" rel="1">
+                                    uniCloud
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#总结" title="总结" rel="2">
+                                    总结
+                                </a>
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <a href="/about">
+                                <img src="/img/RK.png"/>
+                            </a>
+                        
+                        
+                            <p>免费才会最贵</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            <!-- add jianshu add target = "_blank" to <a> by BY -->
+                            
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/Yuan920">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/Memory丶Rookie">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/Yuan920">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                        
+                            <p>✉️ yzyuan920@163.com</p>
+                        
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://gems.ruby-china.com/">RubyChina</a></li>
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://developer.apple.com/">Apple Developer</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/9e754f67b0e9">简书</a></li>
+                    
+                        <li><a href="https://huxpro.github.io">黄玄</a></li>
+                    
+                        <li><a href="http://sobaigu.com/">搜百谷</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/e6c8dda77e26">Swift</a></li>
+                    
+                        <li><a href="http://applemusic.cc/index.html">applemusic</a></li>
+                    
+                        <li><a href="https://blog.walterlv.com/">吕毅</a></li>
+                    
+                        <li><a href="https://blog.csdn.net/heipingguowenkong">黎明lh</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/f8493395c623">_我们一直在路上_</a></li>
+                    
+                        <li><a href="https://github.com/hw20101101">Braintree-Paypal</a></li>
+                    
+                        <li><a href="https://zhile.io">知了</a></li>
+                    
+                        <li><a href="https://github.com/getlantern/lantern">LD</a></li>
+                    
+                        <li><a href="https://blog.ibireme.com/">YYKit</a></li>
+                    
+                        <li><a href="https://git-scm.com/book/en/v2">Git</a></li>
+                    
+                        <li><a href="https://blog.hyperzsb.tech/">Hyperzsb</a></li>
+                    
+                        <li><a href="https://github.com/getlantern">Lantern</a></li>
+                    
+                        <li><a href="https://tech.meituan.com/">美团</a></li>
+                    
+                        <li><a href="https://github.com/ElfSundae">工具</a></li>
+                    
+                        <li><a href="https://anbig.com/">anbig</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/Yuan920">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/Memory丶Rookie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Yuan920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yuan's Blog 2024
+                    <br>
+                    Theme on <a href="https://github.com/Yuan920/rookie777">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Yuan920&repo=Yuan920.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+    function fixCount() {   
+
+        //console.log('111 '+document.getElementById("busuanzi_container_site_pv"));
+        //console.log('222 '+document.getElementById("busuanzi_container_page_uv"));
+
+       if (document.getElementById("busuanzi_container_site_pv")) {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none"){
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_site_pv").css("display") != "none"){
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+       if (document.getElementById("busuanzi_container_page_uv")) {
+            if (document.getElementById("busuanzi_container_page_uv").style.display != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_page_uv").css("display") != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+    }
+});
+</script> 
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-90855596-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

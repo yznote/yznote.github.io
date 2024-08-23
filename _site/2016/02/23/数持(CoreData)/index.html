@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="还没有更好的描述呢">
+    <meta name="keywords"  content="yuan, 920 Blog, 永震的博客, 920, 永震, iOS, Apple, iPhone">
+    <meta name="theme-color" content="#fff">
+    
+    <title>数持 - Yuan's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <!-- <link rel="shortcut icon" href="/img/favicon.ico"> -->
+    <link rel="shortcut icon" href="/img/apple-touch-icon.png">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yuan920.github.io/2016/02/23/%E6%95%B0%E6%8C%81(CoreData)/">
+
+    <!-- Bootstrap Core CSS -->
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.css?t=1">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css?t=5">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yuan's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/about/">About</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags/">Tags</a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/uniapp/">uniapp</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-desk.png" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        /*background-image: url('/img/post-bg-desk.png')*/
+        background-color: #969696;
+        
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#OC" title="OC">OC</a>
+                        
+                    </div>
+                    <h1>数持</h1>
+                    
+                    
+                    <h2 class="subheading">CoreData</h2>
+                    
+
+                    <span class="meta">
+                    
+                        920
+                    
+                    </span>
+                    <span class="meta" style="font-size: 13px;padding-top: 15px;">
+                        <!-- <strong>发布:</strong>  2016/2/23 16:55 -->
+                        
+                            <strong>发布:</strong>  2016/2/23 16:55
+                        
+                    </span>
+                    <span id="busuanzi_container_page_uv" class="meta" style="font-size: 13px;padding-top: 15px;">
+                        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				    <h4 id="coredata">CoreData</h4>
+
+<h5 id="1coredata概述">1.CoreData概述</h5>
+<blockquote>
+  <p>1.<code class="language-plaintext highlighter-rouge">Core data</code>是数据持久存储的最佳方式<br />
+2.<code class="language-plaintext highlighter-rouge">Core Data</code> 基于<code class="language-plaintext highlighter-rouge">model－view－controller（mvc）</code>模式下，为创建分解的<code class="language-plaintext highlighter-rouge">cocoa</code>应用程序提供了一个灵活和强大的数据模型框架。<br />
+3.<code class="language-plaintext highlighter-rouge">Core Data</code>可以是你以图形界面的方式快速的定义app的数据模型，同时在你的代码中容易获取到它。 <code class="language-plaintext highlighter-rouge">Core Data</code>提供了基础结构去处理常用的功能，例如： 保存，恢复，撤销和重做，允许你在app中继续创建新的任务。 在使用 <code class="language-plaintext highlighter-rouge">Core Data</code>的时候，你不用安装额外的数据库系统，因为 <code class="language-plaintext highlighter-rouge">Core Data</code>使用内置的<code class="language-plaintext highlighter-rouge">SQLite</code>数据库。（里面自动生成三个字段）<br />
+4.<code class="language-plaintext highlighter-rouge">Core Data</code>提供了一个通用的数据管理解决方案来处理那些所有需要数据模型的app，app使用 <code class="language-plaintext highlighter-rouge">Core Data</code>来管理数据对象时很多的益处<br />
+5.苹果的图形用户界面编译器<code class="language-plaintext highlighter-rouge">-interface builder（IB）</code>，提供了对<code class="language-plaintext highlighter-rouge">core data controller</code>对象的预构建，从而来减少app的用户界面和它的数据模型之间的粘滞代码。在使用<code class="language-plaintext highlighter-rouge">core data</code>的时候你不需要考虑<code class="language-plaintext highlighter-rouge">sql</code>的语法问题，也不需要管理相关的逻辑树去追踪用户的行为，更不用建立新的永久机制。当你写你app的用户界面到它的<code class="language-plaintext highlighter-rouge">core data</code>模型的时候，它已经为你把所有的东西都做好了。<br />
+6.<code class="language-plaintext highlighter-rouge">core data</code>将你app的模型层放入到一组定义在内存中的数据对象。<code class="language-plaintext highlighter-rouge">core data</code>会追踪这些对象的改变，同时可以根据需要做相反的改变，例如用户执行撤销命令。当<code class="language-plaintext highlighter-rouge">core data</code>在对你app数据的改变进行保存的时候，<code class="language-plaintext highlighter-rouge">core data</code>会把这些数据归档，并永久性保存。它保存的数据在一些常规的文件，你可以在<code class="language-plaintext highlighter-rouge">Finder</code>中可以进行管理，用<code class="language-plaintext highlighter-rouge">spotlight</code>进行搜索，备份到cd，和<code class="language-plaintext highlighter-rouge">email</code>给朋友或者家人 。<br />
+7.在使用<code class="language-plaintext highlighter-rouge">core data</code>框架的时候，你可以创建一个管理对象的模型，该模型提供了对模型对象的抽象定义，这也就是我们所知道的<code class="language-plaintext highlighter-rouge">entities</code>，它可以在我们的程序中使用。<br />
+8.<code class="language-plaintext highlighter-rouge">core data</code>是一个实体-关系模型 ，该模型是使用Xcode的数据模型设计工具来定义的，对数据实体以及他们的关系提供了丰富的环境。</p>
+</blockquote>
+
+<h5 id="2coredata的构成及特点">2.CoreData的构成及特点</h5>
+<blockquote>
+  <p>1.数据最终的存储类型
+<code class="language-plaintext highlighter-rouge">SQLite</code>数据库，<code class="language-plaintext highlighter-rouge">XML</code>，二进制，内存里，或自定义数据类型（ 在 <code class="language-plaintext highlighter-rouge">Mac OS X 10.5Leopard</code>及以后的版本中，开发者也可以通过继承 <code class="language-plaintext highlighter-rouge">NSPersistentStore</code> 类以创建自定义的存储格式）<br />
+2.好处<br />
+能够合理管理内存，避免使用<code class="language-plaintext highlighter-rouge">sql</code>的麻烦，高效<br />
+3.构成</p>
+  <ol>
+    <li><code class="language-plaintext highlighter-rouge">NSManagedObjectContext</code>（被管理的数据上下文）
+  操作实际内容（操作持久层）
+  作用：插入数据，查询数据，删除数据</li>
+    <li><code class="language-plaintext highlighter-rouge">NSManagedObjectModel</code>（被管理的数据模型）<br />
+  数据库所有表格或数据结构，包含各实体的定义信息<br />
+  作用：添加实体的属性，建立属性之间的关系<br />
+  操作方法：视图编辑器，或代码</li>
+    <li><code class="language-plaintext highlighter-rouge">NSPersistentStoreCoordinator</code>（持久化存储助理）<br />
+  相当于数据库的连接器<br />
+  作用：设置数据存储的名字，位置，存储方式，和存储时机</li>
+    <li><code class="language-plaintext highlighter-rouge">NSManagedObject</code>（被管理的数据记录）<br />
+  相当于数据库中的表格记录</li>
+    <li><code class="language-plaintext highlighter-rouge">NSFetchRequest</code>（获取数据的请求）<br />
+  相当于查询语句</li>
+    <li><code class="language-plaintext highlighter-rouge">NSEntityDescription</code>（实体结构）<br />
+  相当于表格结构</li>
+    <li>后缀为<code class="language-plaintext highlighter-rouge">.xcdatamodeld</code>的包<br />
+  里面是<code class="language-plaintext highlighter-rouge">.xcdatamodel</code>文件，用数据模型编辑器编辑<br />
+  编译后为<code class="language-plaintext highlighter-rouge">.momd</code>或<code class="language-plaintext highlighter-rouge">.mom</code>文件</li>
+  </ol>
+
+  <p>4.依赖关系<br />
+<img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+</blockquote>
+<center style="color: #969696">新浪博客的原始图片丢失了</center>
+
+<h5 id="3基于sqlite数据库时core-data的简单使用">3.基于<code class="language-plaintext highlighter-rouge">SQLite</code>数据库时，<code class="language-plaintext highlighter-rouge">Core Data</code>的简单使用</h5>
+
+<blockquote>
+  <p>和<code class="language-plaintext highlighter-rouge">SQLite</code>的区别：只能取出整个实体记录，然后分解，之后才能得到实体的某个属性</p>
+</blockquote>
+
+<blockquote>
+  <p>.1 构建流程  <br />
+包括：创建数据上下文，创建数据模型，创建数据持久化存储助理</p>
+  <ol>
+    <li>若是新建的工程，选择空白应用程序，<code class="language-plaintext highlighter-rouge">next</code>  <br />
+  <img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" />
+  此时生成的工程文件AppDelegate中，会自动生成被管理的数据上下文等相关代码</li>
+    <li>比如<code class="language-plaintext highlighter-rouge">AppDelegate.h</code>文件中，自动生成
+      <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">@property</span> <span class="p">(</span> <span class="n">readonly</span> <span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSManagedObjectContext</span> <span class="o">*</span><span class="n">managedObjectContext</span><span class="p">;</span>
+  <span class="k">@property</span> <span class="p">(</span> <span class="n">readonly</span> <span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSManagedObjectModel</span> <span class="o">*</span><span class="n">managedObjectModel</span><span class="p">;</span>
+  <span class="k">@property</span> <span class="p">(</span> <span class="n">readonly</span> <span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSPersistentStoreCoordinator</span> <span class="o">*</span><span class="n">persistentStoreCoordinator</span><span class="p">;</span>
+  <span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">saveContext</span><span class="p">;</span>
+  <span class="k">-</span> <span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="n">applicationDocumentsDirectory</span><span class="p">;</span>
+  <span class="c1">//方法`saveContext`表示：保存数据到持久层（数据库）  </span>
+  <span class="c1">//方法`applicationDocumentsDirectory`表示：应用程序沙箱下的`Documents`目录路径</span>
+  <span class="c1">//( 例如/var/mobile/Applications/5FG80A45-DFB5-4087-A1B1-41342A977E21/Documents/ )</span>
+</code></pre></div>      </div>
+    </li>
+    <li>比如AppDelegate.h文件中，自动生成
+      <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">@synthesize</span> <span class="n">managedObjectContext</span> <span class="o">=</span> <span class="n">__managedObjectContext</span><span class="p">;</span>
+  <span class="k">@synthesize</span> <span class="n">managedObjectModel</span> <span class="o">=</span> <span class="n">__managedObjectModel</span><span class="p">;</span>
+  <span class="k">@synthesize</span> <span class="n">persistentStoreCoordinator</span> <span class="o">=</span> <span class="n">__persistentStoreCoordinator</span><span class="p">;</span>
+  <span class="c1">//保存数据到持久层</span>
+  <span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">applicationWillTerminate</span><span class="p">:(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span><span class="p">{</span>
+    	<span class="p">[</span><span class="n">self</span> <span class="nf">saveContext</span><span class="p">];</span>
+  <span class="p">}</span>
+</code></pre></div>      </div>
+      <p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+      <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">-</span> <span class="p">(</span> <span class="kt">void</span> <span class="p">)</span><span class="n">saveContext</span>  <span class="p">{</span>
+    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="n">NSManagedObjectContext</span> <span class="o">*</span><span class="n">managedObjectContext</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">managedObjectContext</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">managedObjectContext</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">([</span><span class="n">managedObjectContext</span> <span class="nf">hasChanges</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">[</span><span class="n">managedObjectContext</span> <span class="nf">save</span><span class="p">:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span>
+       <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"Unresolved error %@, %@"</span> <span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="nf">userInfo</span><span class="p">]);</span>
+       <span class="n">abort</span><span class="p">();</span>
+   <span class="p">}</span> 
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div>      </div>
+      <p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+      <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//Documents目录路径</span>
+  <span class="k">-</span> <span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="n">applicationDocumentsDirectory</span> <span class="p">{</span>
+ <span class="k">return</span> <span class="p">[[[</span><span class="n">NSFileManager</span> <span class="nf">defaultManager</span><span class="p">]</span> <span class="nf">URLsForDirectory</span><span class="p">:</span><span class="n">NSDocumentDirectory</span> <span class="nf">inDomains</span><span class="p">:</span><span class="nf">NSUserDomainMask</span><span class="p">]</span> <span class="n">lastObject</span><span class="p">];</span>
+  <span class="p">}</span>
+</code></pre></div>      </div>
+      <p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+      <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//被管理的数据上下文</span>
+  <span class="c1">//初始化的后，必须设置持久化存储助理</span>
+  <span class="k">-</span> <span class="p">(</span><span class="n">NSManagedObjectContext</span> <span class="o">*</span><span class="p">)</span><span class="n">managedObjectContext</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">__managedObjectContext</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="n">__managedObjectContext</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">NSPersistentStoreCoordinator</span> <span class="o">*</span><span class="n">coordinator</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">persistentStoreCoordinator</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">coordinator</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">__managedObjectContext</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSManagedObjectContext</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+   <span class="p">[</span><span class="n">__managedObjectContext</span> <span class="nf">setPersistentStoreCoordinator</span><span class="p">:</span><span class="n">coordinator</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">__managedObjectContext</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>      </div>
+      <p><img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+      <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//被管理的数据模型</span>
+  <span class="c1">//初始化必须依赖.momd文件路径，而.momd文件由.xcdatamodeld文件编译而来</span>
+  <span class="k">-</span> <span class="p">(</span><span class="n">NSManagedObjectModel</span> <span class="o">*</span><span class="p">)</span><span class="n">managedObjectModel</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">__managedObjectModel</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="k">return</span> <span class="n">__managedObjectModel</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">NSURL</span> <span class="o">*</span><span class="n">modelURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">]</span> <span class="nf">URLForResource</span><span class="p">:</span> <span class="s">@"TestApp"</span><span class="nf">withExtension</span><span class="p">:</span> <span class="s">@"momd"</span> <span class="p">];</span>
+    <span class="n">__managedObjectModel</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSManagedObjectModel</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithContentsOfURL</span><span class="p">:</span><span class="n">modelURL</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">__managedObjectModel</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">//持久化存储助理</span>
+  <span class="c1">//初始化必须依赖NSManagedObjectModel，之后要指定持久化存储的数据类型，默认的是NSSQLiteStoreType，即SQLite数据库；并指定存储路径为Documents目录下，以及数据库名称</span>
+  <span class="k">-</span> <span class="p">(</span><span class="n">NSPersistentStoreCoordinator</span> <span class="o">*</span><span class="p">)</span><span class="n">persistentStoreCoordinator</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">__persistentStoreCoordinator</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="n">__persistentStoreCoordinator</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">NSURL</span> <span class="o">*</span><span class="n">storeURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">self</span> <span class="nf">applicationDocumentsDirectory</span><span class="p">]</span> <span class="nf">URLByAppendingPathComponent</span><span class="p">:</span> <span class="s">@"TestApp.SQLite"</span> <span class="p">];</span>
+    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="n">__persistentStoreCoordinator</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSPersistentStoreCoordinator</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithManagedObjectModel</span><span class="p">:[</span><span class="n">self</span> <span class="nf">managedObjectModel</span><span class="p">]];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">__persistentStoreCoordinator</span> <span class="nf">addPersistentStoreWithType</span><span class="p">:</span><span class="n">NSSQLiteStoreType</span> <span class="nf">configuration</span><span class="p">:</span><span class="nb">nil</span> <span class="n">URL</span><span class="o">:</span><span class="n">storeURL</span> <span class="n">options</span><span class="o">:</span><span class="nb">nil</span> <span class="n">error</span><span class="o">:&amp;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span>
+   <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"Unresolved error %@, %@"</span> <span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="nf">userInfo</span><span class="p">]);</span>
+   <span class="n">abort</span><span class="p">();</span>
+    <span class="p">}</span>  
+    <span class="k">return</span> <span class="n">__persistentStoreCoordinator</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">//如果不是新工程，也可以自己写入相关代码</span>
+</code></pre></div>      </div>
+    </li>
+    <li>此外还生成了<code class="language-plaintext highlighter-rouge">TestApp.xcdatamodeld</code>文件</li>
+    <li>还自动链接了<code class="language-plaintext highlighter-rouge">CoreData.framework</code></li>
+    <li>在预编译头.pch文件中，加入导入了CoreData.h头文件</li>
+  </ol>
+
+  <p>2.创建数据模型（数据模型编辑器操作）</p>
+  <ol>
+    <li>创建实体（数据库表）和实体间的关系<br />
+  选中<code class="language-plaintext highlighter-rouge">.xcodedatamodel</code>对象<br />
+  在左下脚点击<code class="language-plaintext highlighter-rouge">Add Entity</code>添加实体<br />
+  选中新添加的属性，对属性进行命名，并设置属性的数据类型<code class="language-plaintext highlighter-rouge">Attribute Type</code><br />
+  选中一个实体，在底部工具栏点击<code class="language-plaintext highlighter-rouge">Add Relationship</code>添加关系<br />
+  <img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></li>
+    <li>自动生成模型类
+  <img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" />
+  选择你要创建的数据对象
+  <img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></li>
+  </ol>
+
+  <p>3.数据模版<br />
+为每个实体生成一个<code class="language-plaintext highlighter-rouge">NSManagedObject</code>子类<br />
+上面设置数据和获取数据时，使用的是<code class="language-plaintext highlighter-rouge">Key-Value</code>方式，更好的方法是通过生成强类型的<code class="language-plaintext highlighter-rouge">NSManagedObject</code>的子类，通过类的成员属性来访问和获取数据</p>
+  <ol>
+    <li>在数据编辑器视图中选中实体对象<br />
+  选则<code class="language-plaintext highlighter-rouge">file</code>菜单，点击<code class="language-plaintext highlighter-rouge">new</code>，点击<code class="language-plaintext highlighter-rouge">file...</code>，选择<code class="language-plaintext highlighter-rouge">Core Data</code>项，选择<code class="language-plaintext highlighter-rouge">NSManagedObject subclass</code>，生成该实体同名的类，<br />
+  继承于<code class="language-plaintext highlighter-rouge">NSManagedObject</code><br />
+  生成对应的<code class="language-plaintext highlighter-rouge">.h</code>文件
+  <img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" />
+  生成对应的<code class="language-plaintext highlighter-rouge">.m</code>文件
+  <img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" />
+  其中，<code class="language-plaintext highlighter-rouge">@dynamic</code>告诉编译器不做处理，使编译通过，其<code class="language-plaintext highlighter-rouge">getter</code>和<code class="language-plaintext highlighter-rouge">setter</code>方法会在运行时动态创建，由<code class="language-plaintext highlighter-rouge">Core Data</code>框架为此类属性生成存取方法</li>
+  </ol>
+
+  <p>4.插入数据<br />
+在<code class="language-plaintext highlighter-rouge">AppDelegate.m</code>的<code class="language-plaintext highlighter-rouge">application:didFinishLaunchingWithOptions:</code>方法里，调用自定义方法
+<code class="language-plaintext highlighter-rouge">insertCoreData</code>插入数据，代码如下：</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span> <span class="kt">void</span> <span class="p">)</span><span class="n">insertCoreData</span> <span class="p">{</span>
+    <span class="n">NSManagedObjectContext</span> <span class="o">*</span><span class="n">context</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">managedObjectContext</span><span class="p">];</span>
+    <span class="n">NSManagedObject</span> <span class="o">*</span><span class="n">contactInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSEntityDescription</span> <span class="nf">insertNewObjectForEntityForName</span><span class="p">:</span> <span class="s">@"School"</span> <span class="nf">inManagedObjectContext</span><span class="p">:</span><span class="n">context</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">contactInfo</span> <span class="nf">setValue</span><span class="p">:</span> <span class="s">@"name B"</span> <span class="nf">forKey</span><span class="p">:</span> <span class="s">@"name"</span> <span class="p">];</span>
+    <span class="p">[</span><span class="n">contactInfo</span> <span class="nf">setValue</span><span class="p">:</span> <span class="s">@"classID 1"</span> <span class="nf">forKey</span><span class="p">:</span> <span class="s">@"classID"</span> <span class="p">];</span>
+    <span class="p">[</span><span class="n">contactInfo</span> <span class="nf">setValue</span><span class="p">:</span> <span class="s">@"persons 20"</span> <span class="nf">forKey</span><span class="p">:</span> <span class="s">@"pensons"</span> <span class="p">];</span>
+    <span class="n">NSManagedObject</span> <span class="o">*</span><span class="n">contactDetailInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSEntityDescription</span> <span class="nf">insertNewObjectForEntityForName</span><span class="p">:</span> <span class="s">@"ContactDetailInfo"</span><span class="nf">inManagedObjectContext</span><span class="p">:</span><span class="n">context</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">contactDetailInfo</span> <span class="nf">setValue</span><span class="p">:</span> <span class="s">@"age 22"</span> <span class="nf">forKey</span><span class="p">:</span> <span class="s">@"age"</span> <span class="p">];</span>
+    <span class="p">[</span><span class="n">contactDetailInfo</span> <span class="nf">setValue</span><span class="p">:</span> <span class="s">@"name B"</span> <span class="nf">forKey</span><span class="p">:</span> <span class="s">@"name"</span> <span class="p">];</span>
+    <span class="p">[</span><span class="n">contactDetailInfo</span> <span class="nf">setValue</span><span class="p">:</span> <span class="s">@"classID 1"</span> <span class="nf">forKey</span><span class="p">:</span> <span class="s">@"classID"</span> <span class="p">];</span>
+    <span class="p">[</span><span class="n">contactDetailInfo</span> <span class="nf">setValue</span><span class="p">:</span><span class="n">contactInfo</span> <span class="nf">forKey</span><span class="p">:</span> <span class="s">@"name"</span> <span class="p">];</span>
+    <span class="p">[</span><span class="n">contactInfo</span> <span class="nf">setValue</span><span class="p">:</span><span class="n">contactDetailInfo</span> <span class="nf">forKey</span><span class="p">:</span> <span class="s">@"classID"</span> <span class="p">];</span>
+    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">context</span> <span class="nf">save</span><span class="p">:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"不能保存：%@"</span> <span class="p">,[</span><span class="n">error</span> <span class="nf">localizedDescription</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+  <p>创建数据上下文，调用<code class="language-plaintext highlighter-rouge">insertNewObjectForName</code>方法，创建两个数据记录<code class="language-plaintext highlighter-rouge">NSManagedObject</code>，然后就可以对之前数据模型编辑视图中定义的属性进行赋值。此时的数据只在内存中被修改，最后调用数据上下文的<code class="language-plaintext highlighter-rouge">save</code>方法，保存到持久层<br />
+5.查询数据<br />
+在调用了<code class="language-plaintext highlighter-rouge">insertCoreData</code>之后，可以调用自定的查询方法<code class="language-plaintext highlighter-rouge">dataFetchRequest</code>来查询插入的数据</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span> <span class="kt">void</span> <span class="p">)</span><span class="n">dataFetchRequest</span> <span class="p">{</span>
+	<span class="n">NSManagedObjectContext</span> <span class="o">*</span><span class="n">context</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">managedObjectContext</span><span class="p">];</span>
+	<span class="n">NSFetchRequest</span> <span class="o">*</span><span class="n">fetchRequest</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSFetchRequest</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">]</span> <span class="nf">autorelease</span><span class="p">];</span>
+    <span class="n">NSEntityDescription</span> <span class="o">*</span><span class="n">entity</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSEntityDescription</span> <span class="nf">entityForName</span><span class="p">:</span><span class="s">@"ContactInfo"</span> <span class="nf">inManagedObjectContext</span><span class="p">:</span><span class="n">context</span><span class="p">];</span>
+	<span class="p">[</span><span class="n">fetchRequest</span> <span class="nf">setEntity</span><span class="p">:</span><span class="n">entity</span><span class="p">];</span>
+	<span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">;</span>
+	<span class="n">NSArray</span> <span class="o">*</span><span class="n">fetchedObjects</span> <span class="o">=</span> <span class="p">[</span><span class="n">context</span> <span class="nf">executeFetchRequest</span><span class="p">:</span><span class="n">fetchRequest</span> <span class="nf">error</span><span class="p">:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">NSManagedObject</span> <span class="o">*</span><span class="n">info</span> <span class="k">in</span> <span class="n">fetchedObjects</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"classID:%d"</span> <span class="p">,</span> <span class="p">[</span><span class="n">info</span> <span class="nf">valueForKey</span><span class="p">:</span> <span class="s">@"classID"</span> <span class="p">]);</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"persons:%d"</span> <span class="p">,</span> <span class="p">[</span><span class="n">info</span> <span class="nf">valueForKey</span><span class="p">:</span> <span class="s">@"persons"</span> <span class="p">]);</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"name:%@"</span> <span class="p">,</span> <span class="p">[</span><span class="n">info</span> <span class="nf">valueForKey</span><span class="p">:</span> <span class="s">@"name"</span> <span class="p">]);</span>
+        <span class="n">NSManagedObject</span> <span class="o">*</span><span class="n">details</span> <span class="o">=</span> <span class="p">[</span><span class="n">info</span> <span class="nf">valueForKey</span><span class="p">:</span> <span class="s">@"name"</span> <span class="p">];</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"age:%d"</span> <span class="p">,</span> <span class="p">[</span><span class="n">details</span> <span class="nf">valueForKey</span><span class="p">:</span> <span class="s">@"age"</span> <span class="p">]);</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"classID:%d"</span> <span class="p">,</span> <span class="p">[</span><span class="n">details</span> <span class="nf">valueForKey</span><span class="p">:</span> <span class="s">@"classID"</span> <span class="p">]);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+  <p><code class="language-plaintext highlighter-rouge">fetchRequest</code>相当于<code class="language-plaintext highlighter-rouge">sql</code>查询语句的包装类，需要用<code class="language-plaintext highlighter-rouge">setEntity</code>方法，来指定具体查询的实体结构（表结构）通过<code class="language-plaintext highlighter-rouge">NSEntityDescription的entityForName</code>方法来，返回指向该具体实体结构的指针然后调用<code class="language-plaintext highlighter-rouge">executeFetchRequest:error:</code>方法，来执行查询操作，如果操作成功，则返回对应的数据记录数组.<br />
+其中，可以通过<code class="language-plaintext highlighter-rouge">NSManagedObject</code>数据记录对象里关联的属性，查询另一个数据记录对象里的属性之前用<code class="language-plaintext highlighter-rouge">Key-Value</code>的代码就可以修改为：</p>
+  <div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "School.h"
+#import "Student.h"
+</span><span class="k">-</span> <span class="p">(</span> <span class="kt">void</span> <span class="p">)</span><span class="n">insertCoreData</span> <span class="p">{</span>
+	<span class="n">NSManagedObjectContext</span> <span class="o">*</span><span class="n">context</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">managedObjectContext</span><span class="p">];</span>
+    <span class="n">ContactInfo</span> <span class="o">*</span><span class="n">contactInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSEntityDescription</span> <span class="nf">insertNewObjectForEntityForName</span><span class="p">:</span> <span class="s">@"School"</span> <span class="nf">inManagedObjectContext</span><span class="p">:</span><span class="n">context</span><span class="p">];</span>
+    <span class="n">contactInfo</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">@"name B"</span> <span class="p">;</span>
+    <span class="n">contactInfo</span><span class="p">.</span><span class="n">birthday</span> <span class="o">=</span> <span class="s">@"classID 0"</span> <span class="p">;</span>
+    <span class="n">contactInfo</span><span class="p">.</span><span class="n">age</span> <span class="o">=</span> <span class="s">@"persons 20"</span> <span class="p">;</span>
+    <span class="n">ContactDetailInfo</span> <span class="o">*</span><span class="n">contactDetailInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSEntityDescription</span> <span class="nf">insertNewObjectForEntityForName</span><span class="p">:</span> <span class="s">@"Student"</span> <span class="nf">inManagedObjectContext</span><span class="p">:</span><span class="n">context</span><span class="p">];</span>
+    <span class="n">contactDetailInfo</span><span class="p">.</span><span class="n">address</span> <span class="o">=</span> <span class="s">@"age 22"</span> <span class="p">;</span>
+    <span class="n">contactDetailInfo</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">@"name B"</span> <span class="p">;</span>
+    <span class="n">contactDetailInfo</span><span class="p">.</span><span class="n">telephone</span> <span class="o">=</span> <span class="s">@"classID 1"</span> <span class="p">;</span>
+	<span class="n">contactDetailInfo</span><span class="p">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">contactInfo</span><span class="p">;</span>
+	<span class="n">contactInfo</span><span class="p">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">contactDetailInfo</span><span class="p">;</span>
+	<span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">context</span> <span class="nf">save</span><span class="p">:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">])</span>  <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"不能保存：%@"</span> <span class="p">,[</span><span class="n">error</span> <span class="nf">localizedDescription</span><span class="p">]);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span> <span class="kt">void</span> <span class="p">)</span><span class="n">dataFetchRequest</span> <span class="p">{</span>
+	<span class="n">NSManagedObjectContext</span> <span class="o">*</span><span class="n">context</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">managedObjectContext</span><span class="p">];</span>
+	<span class="n">NSFetchRequest</span> <span class="o">*</span><span class="n">fetchRequest</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSFetchRequest</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">]</span> <span class="nf">autorelease</span><span class="p">];</span>
+    <span class="n">NSEntityDescription</span> <span class="o">*</span><span class="n">entity</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSEntityDescription</span> <span class="nf">entityForName</span><span class="p">:</span><span class="s">@"ContactInfo"</span> <span class="nf">inManagedObjectContext</span><span class="p">:</span><span class="n">context</span><span class="p">];</span>
+	<span class="p">[</span><span class="n">fetchRequest</span> <span class="nf">setEntity</span><span class="p">:</span><span class="n">entity</span><span class="p">];</span>
+	<span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">;</span>
+	<span class="n">NSArray</span> <span class="o">*</span><span class="n">fetchedObjects</span> <span class="o">=</span> <span class="p">[</span><span class="n">context</span> <span class="nf">executeFetchRequest</span><span class="p">:</span><span class="n">fetchRequest</span> <span class="nf">error</span><span class="p">:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">Student</span> <span class="o">*</span><span class="n">info</span> <span class="k">in</span> <span class="n">fetchedObjects</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"name:%@"</span> <span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"age:%d"</span> <span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">age</span><span class="p">);</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@"classID:%@"</span> <span class="p">,</span> <span class="n">classID</span> <span class="p">);</span>
+		<span class="n">School</span> <span class="o">*</span><span class="n">details</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">details</span><span class="p">;</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@" persons :%d"</span> <span class="p">,</span> <span class="n">details</span><span class="p">.</span><span class="n">persons</span><span class="p">);</span>
+        <span class="n">NSLog</span><span class="p">(</span> <span class="s">@" classID :%d"</span> <span class="p">,</span> <span class="n">details</span><span class="p">.</span><span class="n">classID</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+  <p>6.数据库相关</p>
+  <ol>
+    <li>打印隐藏的<code class="language-plaintext highlighter-rouge">sql</code>语句：<br />
+  在<code class="language-plaintext highlighter-rouge">Edit Scheme</code>中选择<code class="language-plaintext highlighter-rouge">Run</code>，之后进入<code class="language-plaintext highlighter-rouge">Arguments</code>标签，添加参数：<code class="language-plaintext highlighter-rouge">-com.apple.CoreData.SQLDebug 1</code></li>
+    <li>使用<code class="language-plaintext highlighter-rouge">SQLite</code>存储时，数据库结构<br />
+  存储的<code class="language-plaintext highlighter-rouge">SQLite</code>数据库表名称：大写<code class="language-plaintext highlighter-rouge">Z</code>加上实体名称大写，一个实体相当于一张表<br />
+  具体的字段名称：大写<code class="language-plaintext highlighter-rouge">Z</code>加上实体属性名称大写</li>
+  </ol>
+</blockquote>
+
+<h4 id="sqlite">SQLite</h4>
+<p><code class="language-plaintext highlighter-rouge">mac os x</code>中<code class="language-plaintext highlighter-rouge">SQLite</code>库，它是一个轻量级功能强大的关系数据引擎，也很容易嵌入到应用程序。可以在多个平台使用，<code class="language-plaintext highlighter-rouge">SQLite</code>是一个轻量级的嵌入式<code class="language-plaintext highlighter-rouge">sql</code>数据库编程。与<code class="language-plaintext highlighter-rouge">core data</code>框架不同的是， <code class="language-plaintext highlighter-rouge">SQLite</code>是使用程序式的，<code class="language-plaintext highlighter-rouge">sql</code>的主要的<code class="language-plaintext highlighter-rouge">API</code>来直接操作数据表。<br />
+<code class="language-plaintext highlighter-rouge">SQLite3</code>是一个非常灵活的数据库系统，没有数据库服务器的概念，这应该算是回归了比较传统的数据库设计。<br />
+早期我们的数据都是直接存放在文件系统，由于简单的文件系统存在数据冗余、不一致、读取操作繁琐（每个数据结构都可能要编写自己的读写程序）等，慢慢形成了数据库管理系统，一套完整的数据库理论。<br />
+目前较为流行的<code class="language-plaintext highlighter-rouge">Oracle, SqlServer</code>, <code class="language-plaintext highlighter-rouge">MySql</code>等数据库系统均是服务器-客户端的概念，数据库服务器负责所有的数据管理、权限管理等，客户端按照一定格式发出请求即可。<br />
+<code class="language-plaintext highlighter-rouge">sql</code>则是较为流行的结构化查询语言，为众多上层应用提供简单方便的数据库读写操作等。<br />
+但是可想而知，服务器端必定是需要对<code class="language-plaintext highlighter-rouge">sql</code>请求进行解析然后执行的，那么这些执行程序还得回归更底层的语言，比如<code class="language-plaintext highlighter-rouge">C</code>&amp;<code class="language-plaintext highlighter-rouge">C++</code>的实现。</p>
+<blockquote>
+  <p>注意：<br />
+第1代语言 机器语言（指令系统）其指令为二进制代码(0、1)，直接对应芯片上的运算了<br />
+第2代语言 汇编语言 用“助记符”代替二进制代码，如用ADD A,B表示两数相加。<br />
+第3代语言 高级语言（面向过程）例如：<code class="language-plaintext highlighter-rouge">C</code>、<code class="language-plaintext highlighter-rouge">JAVA</code>、<code class="language-plaintext highlighter-rouge">C++</code>。<br />
+第4代语言（非过程化语言）  例如：<code class="language-plaintext highlighter-rouge">SQL</code>语言。<br />
+第5代语言（智能化语言） 例如：<code class="language-plaintext highlighter-rouge">Prolog</code>语言）</p>
+</blockquote>
+
+<p>而<code class="language-plaintext highlighter-rouge">SQLite3</code>从功能上来说，这是一个数据库系统，其本质上是由一套用<code class="language-plaintext highlighter-rouge">C</code>语言实现的对数据库文件的读写接口。此类接口支持<code class="language-plaintext highlighter-rouge">sql</code>语言。所以，这不需要什么服务器，也没有数据库权限管理。在程序中可以随时调用<code class="language-plaintext highlighter-rouge">API</code>创建一个数据库文件，进行数据存储，非常灵活易用。</p>
+
+<h5 id="建立sqlite30数据库">建立<code class="language-plaintext highlighter-rouge">SQLite3.0</code>数据库</h5>
+<p>在<code class="language-plaintext highlighter-rouge">Firefox</code>中打开<code class="language-plaintext highlighter-rouge">SQLite3</code>（如果没有，选择工具-&gt;附加组件，添加即可）新建<code class="language-plaintext highlighter-rouge">SQLite3</code>数据库,<code class="language-plaintext highlighter-rouge">Contacts</code>,
+建立一个<code class="language-plaintext highlighter-rouge">members</code>表，字段 <code class="language-plaintext highlighter-rouge">id</code>,<code class="language-plaintext highlighter-rouge">integer</code>,主键，自增;<code class="language-plaintext highlighter-rouge">name</code>,<code class="language-plaintext highlighter-rouge">varchar</code>;<code class="language-plaintext highlighter-rouge">email</code>,<code class="language-plaintext highlighter-rouge">varchar</code>,<code class="language-plaintext highlighter-rouge">null</code>;<code class="language-plaintext highlighter-rouge">birthday</code>,<code class="language-plaintext highlighter-rouge">datetime</code>,<code class="language-plaintext highlighter-rouge">null</code>。<br />
+向表中添加一些数据：<br />
+<img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+<h5 id="sqlite使用代码"><code class="language-plaintext highlighter-rouge">SQLite</code>使用代码</h5>
+<p>新建<code class="language-plaintext highlighter-rouge">Empty Appliation</code>，添加一个<code class="language-plaintext highlighter-rouge">HomeViewController</code>，和一个组件<code class="language-plaintext highlighter-rouge">libSQLite3.dylib</code>,来支持对<code class="language-plaintext highlighter-rouge">SQLite3</code>的连接，关闭，增删改查等操作。</p>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//HomeViewController.h代码：</span>
+<span class="cp">#import
+#import "SQLite3.h"
+</span><span class="k">@interface</span> <span class="nc">HomeViewController</span> <span class="p">:</span> <span class="nc">UIViewController</span><span class="p">{</span>
+	<span class="n">SQLite3</span> <span class="o">*</span><span class="n">db</span><span class="p">;</span> <span class="c1">//声明一个SQLite3数据库</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">filePath</span><span class="p">;</span><span class="c1">//数据库文件的路径。一般在沙箱的Documents里边操作</span>
+<span class="k">@end</span>
+<span class="c1">//HomeViewController.m代码：</span>
+<span class="cp">#import "HomeViewController.h"
+</span><span class="k">@interface</span> <span class="nc">HomeViewController</span> <span class="p">()</span>
+
+<span class="k">@end</span>
+<span class="k">@implementation</span> <span class="nc">HomeViewController</span>
+
+<span class="c1">//该方法用于返回数据库在Documents文件夹中的全路径信息</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">filePath</span><span class="p">{</span>
+	<span class="n">NSArray</span> <span class="o">*</span><span class="n">paths</span> <span class="o">=</span> <span class="n">NSSearchPathForDirectoriesInDomains</span><span class="p">(</span><span class="n">NSDocumentDirectory</span><span class="p">,</span> <span class="n">NSUserDomainMask</span><span class="p">,</span> <span class="nb">YES</span><span class="p">);</span>
+	<span class="n">NSString</span> <span class="o">*</span><span class="n">documentsDir</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths</span> <span class="nf">objectAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+	<span class="k">return</span> <span class="p">[</span><span class="n">documentsDir</span> <span class="nf">stringByAppendingPathComponent</span><span class="p">:</span><span class="s">@"Contacts.SQLite"</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="c1">//打开数据库的方法</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">openDB</span><span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">SQLite3_open</span><span class="p">([[</span><span class="n">self</span> <span class="nf">filePath</span><span class="p">]</span> <span class="nf">UTF8String</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">db</span><span class="p">)</span> <span class="o">!=</span> <span class="n">SQLite_OK</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">SQLite3_close</span><span class="p">(</span><span class="n">db</span><span class="p">);</span>
+	<span class="n">NSAssert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">@"数据库打开失败。"</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">//插入数据方法</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertRecordIntoTableName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableName</span> <span class="nf">withField1</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">field1</span> <span class="nf">field1Value</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">field1Value</span> <span class="nf">andField2</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">field2</span> <span class="nf">field2Value</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">field2Value</span> <span class="nf">andField3</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">field3</span> <span class="nf">field3Value</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">field3Value</span><span class="p">{</span>
+
+    <span class="c1">//方法2：变量的绑定方法 </span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">sql</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"INSERT INTO '%@' ('%@', '%@', '%@') VALUES (?, ?, ?)"</span><span class="p">,</span><span class="n">tableName</span><span class="p">,</span> <span class="n">field1</span><span class="p">,</span> <span class="n">field2</span><span class="p">,</span> <span class="n">field3</span><span class="p">];</span>
+	<span class="n">SQLite3_stmt</span> <span class="o">*</span><span class="n">statement</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">SQLite3_prepare_v2</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="p">[</span><span class="n">sql</span> <span class="nf">UTF8String</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">statement</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span> <span class="o">==</span> <span class="n">SQLite_OK</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">SQLite3_bind_text</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">field1Value</span> <span class="nf">UTF8String</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+		<span class="n">SQLite3_bind_text</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">field2Value</span> <span class="nf">UTF8String</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+		<span class="n">SQLite3_bind_text</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="n">field3Value</span> <span class="nf">UTF8String</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">SQLite3_step</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span> <span class="o">!=</span> <span class="n">SQLite_DONE</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">NSAssert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">@"插入数据失败！"</span><span class="p">);</span>
+		<span class="n">SQLite3_finalize</span><span class="p">(</span><span class="n">statement</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//查询数据</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">getAllContacts</span><span class="p">{</span>
+
+	<span class="n">NSString</span> <span class="o">*</span><span class="n">sql</span> <span class="o">=</span> <span class="s">@"SELECT * FROM members"</span><span class="p">;</span>
+	<span class="n">SQLite3_stmt</span> <span class="o">*</span><span class="n">statement</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">SQLite3_prepare_v2</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="p">[</span><span class="n">sql</span> <span class="nf">UTF8String</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">statement</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span> <span class="o">==</span> <span class="n">SQLite_OK</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">while</span> <span class="p">(</span><span class="n">SQLite3_step</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span> <span class="o">==</span> <span class="n">SQLite_ROW</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kt">char</span> <span class="o">*</span><span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">SQLite3_column_text</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+			<span class="n">NSString</span> <span class="o">*</span><span class="n">nameStr</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithUTF8String</span><span class="p">:</span><span class="n">name</span><span class="p">];</span>
+			<span class="kt">char</span> <span class="o">*</span><span class="n">email</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">SQLite3_column_text</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+			<span class="n">NSString</span> <span class="o">*</span><span class="n">emailStr</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithUTF8String</span><span class="p">:</span><span class="n">email</span><span class="p">];</span>
+			<span class="kt">char</span> <span class="o">*</span><span class="n">birthday</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">SQLite3_column_text</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+			<span class="n">NSString</span> <span class="o">*</span><span class="n">birthdayStr</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithUTF8String</span><span class="p">:</span><span class="n">birthday</span><span class="p">];</span>
+			<span class="n">NSString</span> <span class="o">*</span><span class="n">info</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithFormat</span><span class="p">:</span><span class="s">@"%@ - %@ - %@"</span><span class="p">,</span>
+			<span class="n">nameStr</span><span class="p">,</span> <span class="n">emailStr</span><span class="p">,</span> <span class="n">birthdayStr</span><span class="p">];</span>
+			<span class="n">NSLog</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
+			<span class="p">[</span><span class="n">nameStr</span> <span class="nf">release</span><span class="p">];</span>
+			<span class="p">[</span><span class="n">emailStr</span> <span class="nf">release</span><span class="p">];</span>
+			<span class="p">[</span><span class="n">birthdayStr</span> <span class="nf">release</span><span class="p">];</span>
+			<span class="p">[</span><span class="n">info</span> <span class="nf">release</span><span class="p">];</span>
+		<span class="p">}</span>
+		<span class="n">SQLite3_finalize</span><span class="p">(</span><span class="n">statement</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span>  <span class="p">{</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">openDB</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="nf">insertRecordIntoTableName</span><span class="p">:</span><span class="s">@"members"</span> <span class="nf">withField1</span><span class="p">:</span><span class="s">@"name"</span> <span class="n">field1Value</span><span class="o">:</span><span class="s">@"李1"</span> <span class="n">andField2</span><span class="o">:</span><span class="s">@"email"</span> <span class="n">field2Value</span><span class="o">:</span><span class="s">@" df@qq.com "</span> <span class="n">andField3</span><span class="o">:</span><span class="s">@"birthday"</span> <span class="n">field3Value</span><span class="o">:</span><span class="s">@"12-45-78"</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="nf">insertRecordIntoTableName</span><span class="p">:</span><span class="s">@"members"</span> <span class="nf">withField1</span><span class="p">:</span><span class="s">@"name"</span> <span class="n">field1Value</span><span class="o">:</span><span class="s">@"李2"</span> <span class="n">andField2</span><span class="o">:</span><span class="s">@"email"</span> <span class="n">field2Value</span><span class="o">:</span><span class="s">@" df@qq.com "</span> <span class="n">andField3</span><span class="o">:</span><span class="s">@"birthday"</span> <span class="n">field3Value</span><span class="o">:</span><span class="s">@"12-45-78"</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="nf">insertRecordIntoTableName</span><span class="p">:</span><span class="s">@"members"</span> <span class="nf">withField1</span><span class="p">:</span><span class="s">@"name"</span> <span class="n">field1Value</span><span class="o">:</span><span class="s">@"李3"</span> <span class="n">andField2</span><span class="o">:</span><span class="s">@"email"</span> <span class="n">field2Value</span><span class="o">:</span><span class="s">@" df@qq.com "</span> <span class="n">andField3</span><span class="o">:</span><span class="s">@"birthday"</span> <span class="n">field3Value</span><span class="o">:</span><span class="s">@"12-45-78"</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="nf">getAllContacts</span><span class="p">];</span>
+	<span class="n">SQLite3_close</span><span class="p">(</span><span class="n">db</span><span class="p">);</span>
+	<span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</code></pre></div></div>
+<p>插入数据后的效果：<br />
+<img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" />
+查询的效果：
+<img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" /></p>
+
+<h5 id="小结">小结：</h5>
+<p>数据查询：<code class="language-plaintext highlighter-rouge">SQLite3_exec()</code>函数执行<code class="language-plaintext highlighter-rouge">sql</code>语句，在没有返回值的情况下（比如创建表格、插入记录、删除记录等操作中）很好用。
+也会用到<code class="language-plaintext highlighter-rouge">SQLite3_stat</code>结构、<code class="language-plaintext highlighter-rouge">SQLite3_prepare_v2()</code>函数、<code class="language-plaintext highlighter-rouge">sqlte3_step()</code>函数和<code class="language-plaintext highlighter-rouge">SQLite3_finalize()</code>函数。
+查询分三个阶段：<br />
+  准备阶段：<code class="language-plaintext highlighter-rouge">SQLite3_stat</code>、<code class="language-plaintext highlighter-rouge">SQLite3_prepare_v2()</code><br />
+  执行阶段：<code class="language-plaintext highlighter-rouge">sqlte3_step()</code><br />
+  终止阶段： <code class="language-plaintext highlighter-rouge">SQLite3_finalize()</code></p>
+
+<h4 id="fmdb">FMDB</h4>
+
+<p><code class="language-plaintext highlighter-rouge">FMDB</code>框架其实只是一层很薄的封装，主要的类也就两个：<code class="language-plaintext highlighter-rouge">FMDatabase和FMResultSet</code>。在使用<code class="language-plaintext highlighter-rouge">FMDB</code>的时候还需要导入<code class="language-plaintext highlighter-rouge">libSQLite3.0.dylib</code>。<br />
+<code class="language-plaintext highlighter-rouge">iOS</code>中原生的<code class="language-plaintext highlighter-rouge">SQLite API</code>在使用上相当不友好，在使用时，非常不便。于是，就出现了一系列将<code class="language-plaintext highlighter-rouge">SQLite API</code>进行封装的库，例如<code class="language-plaintext highlighter-rouge">FMDB</code>、 <code class="language-plaintext highlighter-rouge">PlausibleDatabase</code>、<code class="language-plaintext highlighter-rouge">SQLitepersistentobjects</code>等， <a href="https://github.com/ccgus/FMDB">FMDB</a>是一款简洁、易用的封装库，这一篇文章简单介绍下<code class="language-plaintext highlighter-rouge">FMDB</code>的使用。<br />
+在<code class="language-plaintext highlighter-rouge">FMDB</code>下载文件后，工程中必须导入如下文件，并使用 <code class="language-plaintext highlighter-rouge">libSQLite3.dylib</code> 依赖包。<br />
+<img src="/img/noimg.jpeg" alt="新浪博客的图片丢失了" />
+<code class="language-plaintext highlighter-rouge">FMDB</code>同时兼容<code class="language-plaintext highlighter-rouge">AR</code>C和<code class="language-plaintext highlighter-rouge">非ARC</code>工程，会自动根据工程配置来调整相关的内存管理代码。</p>
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">FMDB</code>常用类：<br />
+<code class="language-plaintext highlighter-rouge">FMDatabase</code> ： 一个单一的<code class="language-plaintext highlighter-rouge">SQLite</code>数据库，用于执行<code class="language-plaintext highlighter-rouge">SQL</code>语句。<br />
+<code class="language-plaintext highlighter-rouge">FMResultSet</code> ：执行查询一个<code class="language-plaintext highlighter-rouge">FMDatabase</code>结果集，这个和<code class="language-plaintext highlighter-rouge">android</code>的<code class="language-plaintext highlighter-rouge">Cursor</code>类似。<br />
+<code class="language-plaintext highlighter-rouge">FMDatabaseQueue</code> ：在多个线程来执行查询和更新时会使用这个类。</p>
+</blockquote>
+
+<h5 id="数据基本操作">数据基本操作</h5>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//创建数据库：</span>
+	<span class="c1">//当数据库文件不存在时，FMDB会自己创建一个。</span>
+	<span class="c1">//如果你传入的参数是空串：@"" ，则FMDB会在临时文件目录下创建这个数据库，数据库断开连接时，数据库文件被删除。</span>
+	<span class="c1">//如果你传入的参数是 NULL，则它会建立一个在内存中的数据库，数据库断开连接时，数据库文件被删除。</span>
+
+<span class="n">db</span><span class="o">=</span> <span class="p">[</span><span class="n">FMDatabase</span> <span class="nf">databaseWithPath</span><span class="p">:</span><span class="n">database_path</span><span class="p">];</span> 
+
+<span class="c1">//打开数据库：返回BOOL型。</span>
+<span class="p">[</span><span class="n">db</span> <span class="nf">open</span><span class="p">];</span>
+
+<span class="c1">//关闭数据库：</span>
+<span class="p">[</span><span class="n">db</span> <span class="nf">close</span><span class="p">];</span> 
+</code></pre></div></div>
+<h5 id="数据库增删改等操作">数据库增删改等操作：</h5>
+
+<p>除了查询操作，<code class="language-plaintext highlighter-rouge">FMDB</code>数据库操作都执行<code class="language-plaintext highlighter-rouge">executeUpdate</code>方法，这个方法返回<code class="language-plaintext highlighter-rouge">BOOL</code>型。
+看一下例子：</p>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//1.创建表：</span>
+<span class="k">if</span> <span class="p">([</span><span class="n">db</span> <span class="nf">open</span><span class="p">])</span> <span class="p">{</span> 
+	<span class="n">NSString</span> <span class="o">*</span><span class="n">sqlCreateTable</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"CREATE TABLE IF NOT EXISTS '%@' ('%@' INTEGER PRIMARY KEY AUTOINCREMENT, '%@' TEXT, '%@' INTEGER, '%@' TEXT)"</span><span class="p">,</span><span class="n">TABLENAME</span><span class="p">,</span><span class="n">ID</span><span class="p">,</span><span class="n">NAME</span><span class="p">,</span><span class="n">AGE</span><span class="p">,</span><span class="n">ADDRESS</span><span class="p">];</span>
+	<span class="n">BOOL</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">db</span> <span class="nf">executeUpdate</span><span class="p">:</span><span class="n">sqlCreateTable</span><span class="p">];</span> 
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="err">@</span> <span class="s">"error when creating db table"</span> <span class="p">);</span>
+	<span class="p">}</span>  <span class="k">else</span> <span class="p">{</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="err">@</span> <span class="s">"success to creating db table"</span> <span class="p">);</span>  
+	<span class="p">}</span> 
+	<span class="p">[</span><span class="n">db</span> <span class="nf">close</span><span class="p">];</span> 
+<span class="p">}</span>
+
+<span class="c1">//2.添加数据：</span>
+<span class="k">if</span> <span class="p">([</span><span class="n">db</span> <span class="nf">open</span><span class="p">])</span> <span class="p">{</span> 
+
+	<span class="n">NSString</span> <span class="o">*</span><span class="n">insertSql1</span><span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span> 
+	<span class="s">@"INSERT INTO '%@' ('%@', '%@', '%@') VALUES ('%@', '%@', '%@')"</span><span class="p">,</span> <span class="n">TABLENAME</span><span class="p">,</span> <span class="n">NAME</span><span class="p">,</span> <span class="n">AGE</span><span class="p">,</span> <span class="n">ADDRESS</span><span class="p">,</span> <span class="err">@</span> <span class="s">"张三"</span> <span class="p">,</span> <span class="err">@</span> <span class="s">"13"</span> <span class="p">,</span> <span class="err">@</span> <span class="s">"济南"</span> <span class="p">];</span> 
+	<span class="n">BOOL</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">db</span> <span class="nf">executeUpdate</span><span class="p">:</span><span class="n">insertSql1</span><span class="p">];</span> 
+	<span class="n">NSString</span> <span class="o">*</span><span class="n">insertSql2</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span> 
+	<span class="s">@"INSERT INTO '%@' ('%@', '%@', '%@') VALUES ('%@', '%@', '%@')"</span><span class="p">,</span><span class="n">TABLENAME</span><span class="p">,</span> <span class="n">NAME</span><span class="p">,</span> <span class="n">AGE</span><span class="p">,</span> <span class="n">ADDRESS</span><span class="p">,</span> <span class="err">@</span> <span class="s">"李四"</span> <span class="p">,</span> <span class="err">@</span> <span class="s">"12"</span> <span class="p">,</span> <span class="err">@</span> <span class="s">"济南"</span> <span class="p">];</span> 
+	<span class="n">BOOL</span> <span class="n">res2</span> <span class="o">=</span> <span class="p">[</span><span class="n">db</span> <span class="nf">executeUpdate</span><span class="p">:</span><span class="n">insertSql2</span><span class="p">];</span> 
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="s">@"error when insert db table"</span><span class="p">);</span> 
+	<span class="p">}</span>  <span class="k">else</span> <span class="p">{</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="s">@"success to insert db table"</span><span class="p">);</span> 
+	<span class="p">}</span> 
+	<span class="p">[</span><span class="n">db</span> <span class="nf">close</span><span class="p">];</span> 
+<span class="p">}</span>
+
+<span class="c1">//3.修改数据：</span>
+<span class="k">if</span> <span class="p">([</span><span class="n">db</span> <span class="nf">open</span><span class="p">])</span> <span class="p">{</span> 
+
+	<span class="n">NSString</span> <span class="o">*</span><span class="n">updateSql</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span> 
+	<span class="s">@"UPDATE '%@' SET '%@' = '%@' WHERE '%@' = '%@'"</span><span class="p">,</span><span class="n">TABLENAME</span><span class="p">,</span> <span class="n">AGE</span><span class="p">,</span> <span class="s">@"15"</span> <span class="p">,</span><span class="n">AGE</span><span class="p">,</span> <span class="err">@</span> <span class="s">"13"</span> <span class="p">];</span> 
+	<span class="n">BOOL</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">db</span> <span class="nf">executeUpdate</span><span class="p">:</span><span class="n">updateSql</span><span class="p">];</span> 
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="s">@"error when update db table"</span><span class="p">);</span> 
+	<span class="p">}</span>  <span class="k">else</span> <span class="p">{</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="s">@"success to update db table"</span><span class="p">);</span> 
+	<span class="p">}</span> 
+	<span class="p">[</span><span class="n">db</span> <span class="nf">close</span><span class="p">];</span> 
+
+<span class="p">}</span> 
+
+<span class="c1">//4.删除数据：</span>
+<span class="k">if</span> <span class="p">([</span><span class="n">db</span> <span class="nf">open</span><span class="p">])</span> <span class="p">{</span> 
+	<span class="n">NSString</span> <span class="o">*</span><span class="n">deleteSql</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span> <span class="err">@</span> <span class="s">"delete from %@ where %@ = '%@'"</span> <span class="p">,</span> <span class="n">TABLENAME</span><span class="p">,</span> <span class="n">NAME</span><span class="p">,</span> <span class="err">@</span> <span class="s">"张三"</span> <span class="p">];</span> 
+	<span class="n">BOOL</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">db</span> <span class="nf">executeUpdate</span><span class="p">:</span><span class="n">deleteSql</span><span class="p">];</span> 
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="s">@"error when delete db table"</span><span class="p">);</span> 
+	<span class="p">}</span>  <span class="k">else</span> <span class="p">{</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="s">@"success to delete db table"</span><span class="p">);</span> 
+	<span class="p">}</span> 
+	<span class="p">[</span><span class="n">db</span> <span class="nf">close</span><span class="p">];</span> 
+<span class="p">}</span> 
+
+<span class="c1">//5.数据库查询操作：查询操作使用了executeQuery，并涉及到 FMResultSet。FMDB的FMResultSet提供了多个方法来获取不同类型的数据：</span>
+<span class="k">if</span> <span class="p">([</span><span class="n">db</span> <span class="nf">open</span><span class="p">])</span> <span class="p">{</span> 
+
+	<span class="n">NSString</span> <span class="o">*</span> <span class="n">sql</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span> <span class="err">@</span> <span class="s">"SELECT * FROM %@"</span> <span class="p">,</span><span class="n">TABLENAME</span><span class="p">];</span> 
+	<span class="n">FMResultSet</span> <span class="o">*</span> <span class="n">rs</span> <span class="o">=</span> <span class="p">[</span><span class="n">db</span> <span class="nf">executeQuery</span><span class="p">:</span><span class="n">sql</span><span class="p">];</span> 
+	<span class="k">while</span> <span class="p">([</span><span class="n">rs</span> <span class="nf">next</span><span class="p">])</span> <span class="p">{</span> 
+		<span class="kt">int</span> <span class="n">Id</span> <span class="o">=</span> <span class="p">[</span><span class="n">rs</span> <span class="nf">intForColumn</span><span class="p">:</span><span class="n">ID</span><span class="p">];</span> 
+		<span class="n">NSString</span> <span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">rs</span> <span class="nf">stringForColumn</span><span class="p">:</span><span class="n">NAME</span><span class="p">];</span> 
+		<span class="n">NSString</span> <span class="o">*</span> <span class="n">age</span> <span class="o">=</span> <span class="p">[</span><span class="n">rs</span> <span class="nf">stringForColumn</span><span class="p">:</span><span class="n">AGE</span><span class="p">];</span> 
+		<span class="n">NSString</span> <span class="o">*</span> <span class="n">address</span> <span class="o">=</span> <span class="p">[</span><span class="n">rs</span> <span class="nf">stringForColumn</span><span class="p">:</span><span class="n">ADDRESS</span><span class="p">];</span> 
+		<span class="n">NSLog</span><span class="p">(</span><span class="s">@"id = %d, name = %@, age = %@ address = %@"</span><span class="p">,</span> <span class="n">Id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">address</span><span class="p">);</span> 
+	<span class="p">}</span> 
+	<span class="p">[</span><span class="n">db</span> <span class="nf">close</span><span class="p">];</span> 
+<span class="p">}</span> 
+</code></pre></div></div>
+<h5 id="数据库多线程操作">数据库多线程操作：</h5>
+
+<p>如果应用中使用了多线程操作数据库，那么就需要使用<code class="language-plaintext highlighter-rouge">FMDatabaseQueue</code>来保证线程安全了。应用中不可在多个线程中共同使用一个<code class="language-plaintext highlighter-rouge">FMDatabase</code>对象操作数据库，这样会引起数据库数据混乱。 为了多线程操作数据库安全，<code class="language-plaintext highlighter-rouge">FMDB</code>使用了<code class="language-plaintext highlighter-rouge">FMDatabaseQueue</code>，使用<code class="language-plaintext highlighter-rouge">FMDatabaseQueue</code>很简单，首先用一个数据库文件地址来初使化<code class="language-plaintext highlighter-rouge">FMDatabaseQueue</code>，然后就可以将一个<code class="language-plaintext highlighter-rouge">闭包(block)</code>传入<code class="language-plaintext highlighter-rouge">inDatabase</code>方法中。 在闭包中操作数据库，而不直接参与<code class="language-plaintext highlighter-rouge">FMDatabase</code>的管理。</p>
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">FMDatabaseQueue</span><span class="o">*</span> <span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">FMDatabaseQueue</span> <span class="nf">databaseQueueWithPath</span><span class="p">:</span><span class="n">database_path</span><span class="p">];</span> 
+<span class="n">dispatch_queue_t</span> <span class="n">q1</span> <span class="o">=</span> <span class="n">dispatch_queue_create</span><span class="p">(</span> <span class="s">"queue1"</span> <span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span> 
+<span class="n">dispatch_queue_t</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">dispatch_queue_create</span><span class="p">(</span> <span class="s">"queue2"</span> <span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span> 
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span> 
+	<span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="p">[</span><span class="n">queue</span> <span class="nf">inDatabase</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">FMDatabase</span> <span class="o">*</span><span class="n">db2</span><span class="p">)</span> <span class="p">{</span> 
+			<span class="n">NSString</span> <span class="o">*</span><span class="n">insertSql1</span><span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="err">@</span> <span class="s">"INSERT INTO '%@' ('%@', '%@', '%@') VALUES (?, ?, ?)"</span> <span class="p">,</span><span class="n">TABLENAME</span><span class="p">,</span> <span class="n">NAME</span><span class="p">,</span><span class="n">AGE</span><span class="p">,</span> <span class="n">ADDRESS</span><span class="p">];</span> 
+			<span class="n">NSString</span> <span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="err">@</span> <span class="s">"jack %d"</span> <span class="p">,</span> <span class="n">i</span><span class="p">];</span> 
+			<span class="n">NSString</span> <span class="o">*</span> <span class="n">age</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="err">@</span> <span class="s">"%d"</span> <span class="p">,</span> <span class="mi">10</span><span class="o">+</span><span class="n">i</span><span class="p">];</span> 
+			<span class="n">BOOL</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">db2</span> <span class="nf">executeUpdate</span><span class="p">:</span><span class="n">insertSql1</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span><span class="err">@</span> <span class="s">"济南"</span> <span class="p">];</span> 
+				<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span> 
+				<span class="n">NSLog</span><span class="p">(</span><span class="err">@</span> <span class="s">"error to inster data: %@"</span> <span class="p">,</span> <span class="n">name</span><span class="p">);</span> 
+				<span class="p">}</span>  <span class="k">else</span> <span class="p">{</span> 
+				<span class="n">NSLog</span><span class="p">(</span><span class="err">@</span> <span class="s">"succ to inster data: %@"</span> <span class="p">,</span> <span class="n">name</span><span class="p">);</span> 
+				<span class="p">}</span> 
+		<span class="p">}];</span> 
+	<span class="p">}</span> 
+<span class="p">});</span> 
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span> 
+	<span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="p">[</span><span class="n">queue</span> <span class="nf">inDatabase</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">FMDatabase</span> <span class="o">*</span><span class="n">db2</span><span class="p">)</span> <span class="p">{</span> 
+			<span class="n">NSString</span> <span class="o">*</span><span class="n">insertSql2</span><span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="err">@</span> <span class="s">"INSERT INTO '%@' ('%@', '%@', '%@') VALUES (?, ?, ?)"</span> <span class="p">,</span><span class="n">TABLENAME</span><span class="p">,</span> <span class="n">NAME</span><span class="p">,</span> <span class="n">AGE</span><span class="p">,</span> <span class="n">ADDRESS</span><span class="p">];</span> 
+			<span class="n">NSString</span> <span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="err">@</span> <span class="s">"lilei %d"</span> <span class="p">,</span> <span class="n">i</span><span class="p">];</span> 
+			<span class="n">NSString</span> <span class="o">*</span> <span class="n">age</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="err">@</span> <span class="s">"%d"</span> <span class="p">,</span> <span class="mi">10</span><span class="o">+</span><span class="n">i</span><span class="p">];</span> 
+			<span class="n">BOOL</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">db2</span> <span class="nf">executeUpdate</span><span class="p">:</span><span class="n">insertSql2</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span><span class="err">@</span> <span class="s">"北京"</span> <span class="p">];</span> 
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span> 
+				<span class="n">NSLog</span><span class="p">(</span><span class="err">@</span> <span class="s">"error to inster data: %@"</span> <span class="p">,</span> <span class="n">name</span><span class="p">);</span> 
+			<span class="p">}</span>  <span class="k">else</span> <span class="p">{</span> 
+				<span class="n">NSLog</span><span class="p">(</span><span class="err">@</span> <span class="s">"succ to inster data: %@"</span> <span class="p">,</span> <span class="n">name</span><span class="p">);</span> 
+			<span class="p">}</span>
+		<span class="p">}];</span> 
+	<span class="p">}</span> 
+<span class="p">});</span> 
+</code></pre></div></div>
+<h4 id="总结">总结</h4>
+
+<p><code class="language-plaintext highlighter-rouge">CoreData</code>允许用户使用代表实体和实体间关系的高层对象来操作数据。它也可以管理串行化的数据，提供对象生存期管理与<code class="language-plaintext highlighter-rouge">object_graph</code> 管理，包括存储。<code class="language-plaintext highlighter-rouge">Core Data</code>直接与 <code class="language-plaintext highlighter-rouge">SQLite</code> 交互，避免开发者使用原本的 <code class="language-plaintext highlighter-rouge">SQL</code> 语句.
+上面的三种，都是在什么情况下使用呢？大多数人肯定是根据自己使用某项技术的时间也就是掌握的熟练程度来决定，例如以前没用过<code class="language-plaintext highlighter-rouge">CoreData</code>，在编写<code class="language-plaintext highlighter-rouge">iOS</code>程序的时候还是使用自己比较拿手的<code class="language-plaintext highlighter-rouge">SQLite</code>，或者可能会考虑到在使用<code class="language-plaintext highlighter-rouge">coredata</code>自己还要花费额外的时候去学习。但是仔细想一想，<code class="language-plaintext highlighter-rouge">CoreData</code>是苹果自己弄的框架，它其实还是和<code class="language-plaintext highlighter-rouge">SQLite</code>进行交互的，只是在交互的时候或者处理数据的时候进行了很多的优化，<code class="language-plaintext highlighter-rouge">CoreData</code>可以缩小你的代码量，而且<code class="language-plaintext highlighter-rouge">CoreData</code>已经优化过很多个版本，还提供了出色的安全性和错误处理之外，还提供了对任何竞争性方案的最好的内存可扩展性。换句话说就是，你可能花费了很长时间为某个问题进行优化精心制作了一个方案，但是在性能上的优势和<code class="language-plaintext highlighter-rouge">CoreData</code>相比，还是相差深远的。
+另外就是<code class="language-plaintext highlighter-rouge">CoreData</code>与<code class="language-plaintext highlighter-rouge">Mac OS X</code>的集成非常的好，<code class="language-plaintext highlighter-rouge">CoreData</code>也和<code class="language-plaintext highlighter-rouge">IB</code>进行了结合，允许你创建用户界面，这样可以帮助你缩短应用程序的设计，实施以及调试周期。所以在编写程序的时候尽量使用<code class="language-plaintext highlighter-rouge">CoreData</code>，这样才是最优的选择。只有在<code class="language-plaintext highlighter-rouge">Core Data is available on iOS 3.0 and later</code>才能使用<code class="language-plaintext highlighter-rouge">CoreData</code>。
+至于<code class="language-plaintext highlighter-rouge">SQLite</code>和<code class="language-plaintext highlighter-rouge">FMDB</code>的使用情况，这个看个人喜好了，个人觉得没什么标准。<code class="language-plaintext highlighter-rouge">FMDB</code>就是对<code class="language-plaintext highlighter-rouge">SQLite</code>的封装，使用起来有方便的接口，没那么麻烦而已。</p>
+
+
+
+                <hr style="visibility: hidden;">
+                
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/01/19/layoutSubviews%E6%80%BB%E7%BB%93/" data-toggle="tooltip" data-placement="top" title="layoutSubviews总结">
+                        上一篇:<span>layoutSubviews总结</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/02/26/SVN/" data-toggle="tooltip" data-placement="top" title="[转载]SVN">
+                        下一篇:<span>[转载]SVN</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#iOS" title="iOS" rel="31">
+                                    iOS
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OC" title="OC" rel="59">
+                                    OC
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#C" title="C" rel="26">
+                                    C
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Xcode" title="Xcode" rel="11">
+                                    Xcode
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#MIMEType" title="MIMEType" rel="1">
+                                    MIMEType
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#屏幕旋转" title="屏幕旋转" rel="1">
+                                    屏幕旋转
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Mac" title="Mac" rel="9">
+                                    Mac
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#工具" title="工具" rel="4">
+                                    工具
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SQLite3" title="SQLite3" rel="1">
+                                    SQLite3
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#重命名" title="重命名" rel="1">
+                                    重命名
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#证书+内购" title="证书+内购" rel="1">
+                                    证书+内购
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#像素" title="像素" rel="1">
+                                    像素
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#pch" title="pch" rel="1">
+                                    pch
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#支付协议税务" title="支付协议税务" rel="1">
+                                    支付协议税务
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#APP转让" title="APP转让" rel="1">
+                                    APP转让
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#审核" title="审核" rel="1">
+                                    审核
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#银行卡格式化" title="银行卡格式化" rel="1">
+                                    银行卡格式化
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#git" title="git" rel="5">
+                                    git
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#描述文件" title="描述文件" rel="2">
+                                    描述文件
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#命令行" title="命令行" rel="6">
+                                    命令行
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#沙盒日志" title="沙盒日志" rel="1">
+                                    沙盒日志
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#i386" title="i386" rel="1">
+                                    i386
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#x86_64" title="x86_64" rel="1">
+                                    x86_64
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#控制台log" title="控制台log" rel="1">
+                                    控制台log
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#xcode10&iOS12" title="xcode10&iOS12" rel="1">
+                                    xcode10&iOS12
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#正则" title="正则" rel="2">
+                                    正则
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#textfield" title="textfield" rel="1">
+                                    textfield
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#输入限制" title="输入限制" rel="1">
+                                    输入限制
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Pod" title="Pod" rel="3">
+                                    Pod
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#真机支持" title="真机支持" rel="1">
+                                    真机支持
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#封面尺寸" title="封面尺寸" rel="1">
+                                    封面尺寸
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SDWebImage" title="SDWebImage" rel="1">
+                                    SDWebImage
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Ruby" title="Ruby" rel="1">
+                                    Ruby
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#RVM" title="RVM" rel="1">
+                                    RVM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#渐变色" title="渐变色" rel="1">
+                                    渐变色
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jekyll" title="jekyll" rel="1">
+                                    jekyll
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#水印" title="水印" rel="1">
+                                    水印
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#富文本" title="富文本" rel="1">
+                                    富文本
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#标签" title="标签" rel="1">
+                                    标签
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#M3U8" title="M3U8" rel="1">
+                                    M3U8
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#动、静态库" title="动、静态库" rel="2">
+                                    动、静态库
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#异步上传" title="异步上传" rel="1">
+                                    异步上传
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Url编码解码" title="Url编码解码" rel="1">
+                                    Url编码解码
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#AlertController" title="AlertController" rel="1">
+                                    AlertController
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#保活" title="保活" rel="2">
+                                    保活
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#pod报错" title="pod报错" rel="1">
+                                    pod报错
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#特定UI横竖屏" title="特定UI横竖屏" rel="1">
+                                    特定UI横竖屏
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Launch版本号" title="Launch版本号" rel="1">
+                                    Launch版本号
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ijkplayer" title="ijkplayer" rel="1">
+                                    ijkplayer
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#适配" title="适配" rel="1">
+                                    适配
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#手势" title="手势" rel="3">
+                                    手势
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#截图" title="截图" rel="1">
+                                    截图
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#网络和信号" title="网络和信号" rel="1">
+                                    网络和信号
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#礼物缓存" title="礼物缓存" rel="1">
+                                    礼物缓存
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#手绘礼物" title="手绘礼物" rel="1">
+                                    手绘礼物
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#UIPickerView" title="UIPickerView" rel="1">
+                                    UIPickerView
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#文件权限" title="文件权限" rel="1">
+                                    文件权限
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#键盘和菜单" title="键盘和菜单" rel="1">
+                                    键盘和菜单
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#耗时卡顿" title="耗时卡顿" rel="1">
+                                    耗时卡顿
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#国际化" title="国际化" rel="1">
+                                    国际化
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Paypal" title="Paypal" rel="1">
+                                    Paypal
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#AWSS3" title="AWSS3" rel="2">
+                                    AWSS3
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#npm、Node" title="npm、Node" rel="1">
+                                    npm、Node
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#控制台" title="控制台" rel="1">
+                                    控制台
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#warning" title="warning" rel="1">
+                                    warning
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#扩展" title="扩展" rel="5">
+                                    扩展
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#防盗链" title="防盗链" rel="1">
+                                    防盗链
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#动画" title="动画" rel="1">
+                                    动画
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#分析" title="分析" rel="1">
+                                    分析
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#CallKit" title="CallKit" rel="1">
+                                    CallKit
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#侧滑" title="侧滑" rel="1">
+                                    侧滑
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#重置根控制器" title="重置根控制器" rel="1">
+                                    重置根控制器
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#播放器" title="播放器" rel="1">
+                                    播放器
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#裁剪" title="裁剪" rel="1">
+                                    裁剪
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#日志" title="日志" rel="1">
+                                    日志
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#bugly" title="bugly" rel="1">
+                                    bugly
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#uniapp" title="uniapp" rel="9">
+                                    uniapp
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Swift" title="Swift" rel="2">
+                                    Swift
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#文字翻转" title="文字翻转" rel="1">
+                                    文字翻转
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#跨域" title="跨域" rel="1">
+                                    跨域
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#WebClip" title="WebClip" rel="1">
+                                    WebClip
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#网络请求" title="网络请求" rel="1">
+                                    网络请求
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#地图导航" title="地图导航" rel="1">
+                                    地图导航
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ZSH" title="ZSH" rel="1">
+                                    ZSH
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SPM" title="SPM" rel="1">
+                                    SPM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Vapor" title="Vapor" rel="2">
+                                    Vapor
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#导航" title="导航" rel="1">
+                                    导航
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#验证码" title="验证码" rel="1">
+                                    验证码
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#杀进程" title="杀进程" rel="1">
+                                    杀进程
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Ubuntu" title="Ubuntu" rel="1">
+                                    Ubuntu
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Android" title="Android" rel="1">
+                                    Android
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#JWT" title="JWT" rel="1">
+                                    JWT
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#vue" title="vue" rel="7">
+                                    vue
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#html-js" title="html-js" rel="2">
+                                    html-js
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#style-class" title="style-class" rel="3">
+                                    style-class
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ssh" title="ssh" rel="2">
+                                    ssh
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#PHP" title="PHP" rel="2">
+                                    PHP
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jks" title="jks" rel="1">
+                                    jks
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#css" title="css" rel="1">
+                                    css
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Runtime" title="Runtime" rel="1">
+                                    Runtime
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#tree" title="tree" rel="1">
+                                    tree
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#uniCloud" title="uniCloud" rel="1">
+                                    uniCloud
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#总结" title="总结" rel="2">
+                                    总结
+                                </a>
+                            
+                        
+                    </div>
+                </section>
+                               
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://gems.ruby-china.com/">RubyChina</a></li>
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://developer.apple.com/">Apple Developer</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/9e754f67b0e9">简书</a></li>
+                    
+                        <li><a href="https://huxpro.github.io">黄玄</a></li>
+                    
+                        <li><a href="http://sobaigu.com/">搜百谷</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/e6c8dda77e26">Swift</a></li>
+                    
+                        <li><a href="http://applemusic.cc/index.html">applemusic</a></li>
+                    
+                        <li><a href="https://blog.walterlv.com/">吕毅</a></li>
+                    
+                        <li><a href="https://blog.csdn.net/heipingguowenkong">黎明lh</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/f8493395c623">_我们一直在路上_</a></li>
+                    
+                        <li><a href="https://github.com/hw20101101">Braintree-Paypal</a></li>
+                    
+                        <li><a href="https://zhile.io">知了</a></li>
+                    
+                        <li><a href="https://github.com/getlantern/lantern">LD</a></li>
+                    
+                        <li><a href="https://blog.ibireme.com/">YYKit</a></li>
+                    
+                        <li><a href="https://git-scm.com/book/en/v2">Git</a></li>
+                    
+                        <li><a href="https://blog.hyperzsb.tech/">Hyperzsb</a></li>
+                    
+                        <li><a href="https://github.com/getlantern">Lantern</a></li>
+                    
+                        <li><a href="https://tech.meituan.com/">美团</a></li>
+                    
+                        <li><a href="https://github.com/ElfSundae">工具</a></li>
+                    
+                        <li><a href="https://anbig.com/">anbig</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+ <!-- 图片放大222 -->
+<div id="image-cover-modal" class="image-cover-modal">
+  <img id="image-cover-image" class="image-cover-modal-content">
+  <div id="image-cover-caption"></div>
+</div>
+<script>
+// Get the DOM
+var modal = document.getElementById('image-cover-modal');
+var modalImg = document.getElementById("image-cover-image");
+var captionText = document.getElementById("image-cover-caption");
+var span = document.getElementsByClassName("image-cover-close")[0];
+
+// When the user clicks on <span> (x), close the modal
+modal.onclick = function() {
+    this.classList.remove("model-shown");
+}
+
+var i;
+for (i = 0; i < document.images.length; i++) {
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.images[i];
+
+    img.onclick = function(){
+        modal.classList.add("model-shown");
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+}
+</script>
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/Yuan920">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/Memory丶Rookie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Yuan920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yuan's Blog 2024
+                    <br>
+                    Theme on <a href="https://github.com/Yuan920/rookie777">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Yuan920&repo=Yuan920.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+    function fixCount() {   
+
+        //console.log('111 '+document.getElementById("busuanzi_container_site_pv"));
+        //console.log('222 '+document.getElementById("busuanzi_container_page_uv"));
+
+       if (document.getElementById("busuanzi_container_site_pv")) {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none"){
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_site_pv").css("display") != "none"){
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+       if (document.getElementById("busuanzi_container_page_uv")) {
+            if (document.getElementById("busuanzi_container_page_uv").style.display != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_page_uv").css("display") != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+    }
+});
+</script> 
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-90855596-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

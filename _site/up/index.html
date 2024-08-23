@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="还没有更好的描述呢">
+    <meta name="keywords"  content="yuan, 920 Blog, 永震的博客, 920, 永震, iOS, Apple, iPhone">
+    <meta name="theme-color" content="#fff">
+    
+    <title>Yuan's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <!-- <link rel="shortcut icon" href="/img/favicon.ico"> -->
+    <link rel="shortcut icon" href="/img/apple-touch-icon.png">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yuan920.github.io/up/">
+
+    <!-- Bootstrap Core CSS -->
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.css?t=1">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css?t=5">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yuan's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/about/">About</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags/">Tags</a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/uniapp/">uniapp</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-color: #969696;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#总结" title="总结">总结</a>
+                        
+                    </div>
+                    <h1></h1>
+                    
+                    
+                    <h2 class="subheading">上架应用汇总-随时更新</h2>
+                    
+
+                    <span class="meta">
+                    
+                        920
+                    
+                    </span>
+                    <span class="meta" style="font-size: 13px;padding-top: 15px;">
+                        
+                            <strong>创建:</strong>  <!-- 文章更新时间格式 -->
+2019/9/20 08:00
+<!-- 置顶时间格式 -->
+
+<!-- 创建时间格式 -->
+
+                            <strong>更新:</strong>  <!-- 文章更新时间格式 -->
+2022/12/9 17:30
+<!-- 置顶时间格式 -->
+
+<!-- 创建时间格式 -->
+
+                        
+                    </span>
+                    <!-- <span id="busuanzi_container_page_uv" class="meta" style="font-size: 13px;padding-top: 15px;">
+                        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+                    </span> -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				    <h4 id="2023上架应用">2023上架应用</h4>
+
+<h4 id="万岳私厨">万岳私厨</h4>
+<p>时间：2023-01-18<br />
+<img src="/img/0appstore/wysc.png" alt="万岳" /></p>
+
+<h4 id="元岳互医小程序102原多商户">元岳互医【小程序】【1.0.2】【原多商户】</h4>
+<p>时间：2023-01-16<br />
+<img src="/img/0appstore/yyhy.jpg" alt="元岳" /></p>
+
+<hr />
+<hr />
+
+<h4 id="2022上架应用">2022上架应用</h4>
+
+<h4 id="蜂鸟stor小程序">蜂鸟Stor【小程序】</h4>
+<p>时间：2022-12-19<br />
+<img src="/img/0appstore/nmgbn.png" alt="佰纳" /></p>
+
+<h4 id="元岳电商小程序">元岳电商【小程序】</h4>
+<p>时间：2022-12-09<br />
+<img src="/img/0appstore/yyds.png" alt="元岳" /></p>
+
+<h4 id="元岳多商户小程序">元岳多商户【小程序】</h4>
+<p>时间：2022-12-01<br />
+<img src="/img/0appstore/yydsh.png" alt="元岳" /></p>
+
+<h4 id="浩联商贸小程序">浩联商贸【小程序】</h4>
+<p>时间：2022-11-26<br />
+<img src="/img/0appstore/hlsm.png" alt="浩联" /></p>
+
+<h4 id="岗底斯峰小程序">岗底斯峰【小程序】</h4>
+<p>时间：2022-11-16<br />
+<img src="/img/0appstore/xzgy.png" alt="藏药" /><br />
+<img src="/img/0appstore/xzgy1.PNG" alt="藏药" /></p>
+
+<hr />
+<hr />
+
+<h4 id="2021上架应用">2021上架应用</h4>
+
+<h4 id="河南赵语音客户---河南省购赚购省互联网科技有限公司">河南赵【语音客户】 - 河南省购赚购省互联网科技有限公司</h4>
+
+<h5 id="时遇">时遇</h5>
+<p><img src="/img/0appstore/hnz1.png" alt="时遇" /></p>
+
+<h4 id="湖南希仁约单---湖南希仁计算机科技有限公司">湖南希仁【约单】 - 湖南希仁计算机科技有限公司</h4>
+
+<h5 id="猫咪陪玩初版21618前后账号无法登陆特此记录">猫咪陪玩【初版21.6.18前后,账号无法登陆特此记录】</h5>
+
+<h4 id="2020上架应用">2020上架应用</h4>
+
+<h4 id="北京新媒视讯科技有限公司">北京新媒视讯科技有限公司</h4>
+
+<h5 id="新频道">新频道</h5>
+<p><strong>第二版【去除直播功能】</strong><br />
+<img src="/img/0appstore/xmsx1.png" alt="新频道" /><br />
+2020-12-11提交,上架最顺利的一个,没有一次被拒
+<img src="/img/0appstore/xmsx.png" alt="新频道" /></p>
+
+<h4 id="开卷有益重庆">开卷有益（重庆）</h4>
+
+<h5 id="爱秀短视频">爱秀短视频</h5>
+
+<p><strong>第五版</strong>
+<img src="/img/0appstore/axdsp3.png" alt="爱秀" /><br />
+<strong>第四版</strong><br />
+<img src="/img/0appstore/axdsp2.png" alt="爱秀" />
+<strong>第三版</strong><br />
+2012-12-11通过【账号无法登陆,文字记录】
+<strong>第二版</strong><br />
+<img src="/img/0appstore/axdsp1.png" alt="爱秀" /></p>
+
+<h4 id="湖南杰然天成国际贸易有限公司">湖南杰然天成国际贸易有限公司</h4>
+
+<h5 id="海外mike101上架成功">海外mike(10.1上架成功)</h5>
+<p><img src="/img/0appstore/hwmike.JPG" alt="mike" /></p>
+
+<h4 id="普渡传媒">普渡传媒</h4>
+
+<h5 id="普渡直播">普渡直播</h5>
+<p><img src="/img/0appstore/pd3.png" alt="普渡" />
+<img src="/img/0appstore/pd2.png" alt="普渡" />
+<img src="/img/0appstore/pd1.png" alt="普渡" /></p>
+
+<h4 id="大连孙">大连孙</h4>
+
+<h5 id="wesay">WeSay</h5>
+<p><img src="/img/0appstore/dls2.png" alt="WeSay" /></p>
+
+<p><img src="/img/0appstore/dls1.png" alt="WeSay" /></p>
+
+<p><img src="/img/0appstore/dls.png" alt="WeSay" /></p>
+
+<h4 id="深圳飞鱼">深圳飞鱼</h4>
+
+<h5 id="魅音">魅音</h5>
+
+<p><img src="/img/0appstore/my.jpg" alt="魅音" /></p>
+
+<h4 id="布丽天下">布丽天下</h4>
+
+<h5 id="直播美">直播美</h5>
+
+<p><img src="/img/0appstore/bltx.png" alt="布丽天下" /></p>
+
+<h4 id="2019上架项目摘录">2019上架项目摘录</h4>
+
+<h5 id="深圳姚">深圳姚</h5>
+
+<p>聚音</p>
+
+<p><img src="/img/0appstore/jy3.png" alt="聚音3" />
+<img src="/img/0appstore/jy2.png" alt="聚音2" />
+<img src="/img/0appstore/jy1.png" alt="聚音1" /></p>
+
+<h5 id="河南陈">河南陈</h5>
+
+<!-- 啾-哩-直播   -->
+
+<blockquote>
+  <p>开发者账号无法登陆 <code class="language-plaintext highlighter-rouge">6-8</code> 月上架两版</p>
+</blockquote>
+
+<h5 id="美国代">美国代</h5>
+
+<p>北美华人</p>
+
+<p><img src="/img/0appstore/bmhr5.png" alt="北美华人5" />
+<img src="/img/0appstore/bmhr4.png" alt="北美华人4" />
+<img src="/img/0appstore/bmhr3.png" alt="北美华人3" />
+<img src="/img/0appstore/bmhr2.png" alt="北美华人2" />
+<img src="/img/0appstore/bmhr1.png" alt="北美华人1" /></p>
+
+<h5 id="湖南爱芒果">湖南爱芒果</h5>
+
+<p>中国推介</p>
+
+<p><img src="/img/0appstore/zgtj.png" alt="中国推介" /></p>
+
+<hr />
+<hr />
+<h4 id="娃娃机项目2018">娃娃机项目2018</h4>
+
+<p>娃娃机新版UI1.3.1上架(3-30提交、3-31通过)<br />
+娃娃机新版UI1.3上架（3-26提交、3-30通过）<br />
+鹤翔腾讯新版本1.0（3-26提交、4-13通过）<br />
+秀乐趣1.0（3-17第一次提交、4-11通过）<br />
+丁晶WOTO直播2.0（3-7提交、3-12通过）<br />
+深圳李娃娃机1.0(2-11提交、1-13 ipv6被拒、（年后处理）2-23提交、2-24通过)<br />
+娃娃机腾讯版本1.2（1.16提交、1.18通过）<br />
+娃娃机即构版本1.1（1.5提交 、1.8适配被拒（iPad） 1.11、微信认证问题  1.12微信认证问题、1.13成功）<br />
+娃娃机即构版本1.0（12-8提交、12-11没有隐私声明被拒处理提交、12-14支付被拒重提、12-18支付问题重提、12-19还是支付重提、12-21通过）</p>
+
+<hr />
+<hr />
+<h4 id="直播2017">直播2017</h4>
+<p>威海面团2.0（7-6提交、7-8通过）<br />
+掌握(觅爱)1.0(6-27 提交  6-29通过)<br />
+创感追播1.1（6-3通过）<br />
+创感追播1.0（5-19提交、5-24通过）<br />
+威海面团1.0（4-7更改包名提交、4-18去掉支付宝、4-22通过）<br />
+鹤翔直播（4-10提交、4-14通过）<br />
+南京飞兔show1.1（4-12提交、4-14通过）<br />
+南京飞兔show1.0（3-24提交、3-27已经通过）<br />
+孺子牛（3-14提交  3-21、3-23已经通过）<br />
+空间隧道4.1（3-15提交、3-17已经通过）<br />
+青青（3-09提交 3-14（更改图标）3-16已经通过）<br />
+空间隧道4.0（3-13提交 3-15已经通过）<br />
+河北周（提交2-20 、2-24 、3-02、3-08(重构版本) 、通过3-14)<br />
+资色直播（已通过）<br />
+赵毅空间隧道3.0（提交3-02   已经通过3-06）</p>
+
+
+
+                <hr style="visibility: hidden;">
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</article>
+
+ <!-- 图片放大222 -->
+<div id="image-cover-modal" class="image-cover-modal">
+  <img id="image-cover-image" class="image-cover-modal-content">
+  <div id="image-cover-caption"></div>
+</div>
+<script>
+// Get the DOM
+var modal = document.getElementById('image-cover-modal');
+var modalImg = document.getElementById("image-cover-image");
+var captionText = document.getElementById("image-cover-caption");
+var span = document.getElementsByClassName("image-cover-close")[0];
+
+// When the user clicks on <span> (x), close the modal
+modal.onclick = function() {
+    this.classList.remove("model-shown");
+}
+
+var i;
+for (i = 0; i < document.images.length; i++) {
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.images[i];
+
+    img.onclick = function(){
+        modal.classList.add("model-shown");
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+}
+</script>
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/Yuan920">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/Memory丶Rookie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Yuan920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yuan's Blog 2024
+                    <br>
+                    Theme on <a href="https://github.com/Yuan920/rookie777">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Yuan920&repo=Yuan920.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+    function fixCount() {   
+
+        //console.log('111 '+document.getElementById("busuanzi_container_site_pv"));
+        //console.log('222 '+document.getElementById("busuanzi_container_page_uv"));
+
+       if (document.getElementById("busuanzi_container_site_pv")) {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none"){
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_site_pv").css("display") != "none"){
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+       if (document.getElementById("busuanzi_container_page_uv")) {
+            if (document.getElementById("busuanzi_container_page_uv").style.display != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_page_uv").css("display") != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+    }
+});
+</script> 
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-90855596-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

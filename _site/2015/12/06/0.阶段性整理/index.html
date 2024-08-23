@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="还没有更好的描述呢">
+    <meta name="keywords"  content="yuan, 920 Blog, 永震的博客, 920, 永震, iOS, Apple, iPhone">
+    <meta name="theme-color" content="#fff">
+    
+    <title>阶段性整理 - Yuan's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <!-- <link rel="shortcut icon" href="/img/favicon.ico"> -->
+    <link rel="shortcut icon" href="/img/apple-touch-icon.png">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yuan920.github.io/2015/12/06/0.%E9%98%B6%E6%AE%B5%E6%80%A7%E6%95%B4%E7%90%86/">
+
+    <!-- Bootstrap Core CSS -->
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.css?t=1">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css?t=5">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yuan's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/about/">About</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags/">Tags</a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/uniapp/">uniapp</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-desk.png" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        /*background-image: url('/img/post-bg-desk.png')*/
+        background-color: #969696;
+        
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        
+                        <a class="tag" href="/tags/#OC" title="OC">OC</a>
+                        
+                        <a class="tag" href="/tags/#C" title="C">C</a>
+                        
+                    </div>
+                    <h1>阶段性整理</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+
+                    <span class="meta">
+                    
+                        920
+                    
+                    </span>
+                    <span class="meta" style="font-size: 13px;padding-top: 15px;">
+                        <!-- <strong>发布:</strong>  2015/12/6 11:40 -->
+                        
+                            <strong>发布:</strong>  2015/12/6 11:40
+                        
+                    </span>
+                    <span id="busuanzi_container_page_uv" class="meta" style="font-size: 13px;padding-top: 15px;">
+                        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				    <h4 id="阶段整理">阶段整理</h4>
+
+<h5 id="pragma-mark---1uilabeluibutton"><code class="language-plaintext highlighter-rouge">#pragma mark - 1.UILabel、UIButton</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//创建lable</span>
+<span class="n">UILabel</span><span class="o">*</span><span class="n">lable</span><span class="o">=</span><span class="p">[[</span><span class="nf">UILabelalloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="c1">//设置frame</span>
+<span class="n">lable</span><span class="p">.</span><span class="n">frame</span><span class="o">=</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span>
+<span class="n">lable</span><span class="p">.</span><span class="n">text</span><span class="o">=</span><span class="s">@"早安泰安"</span><span class="p">;</span>
+<span class="c1">//设置文本颜色</span>
+<span class="n">lable</span><span class="p">.</span><span class="n">textColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span>
+<span class="c1">//设置字体</span>
+<span class="n">lable</span><span class="p">.</span><span class="n">font</span><span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">50</span><span class="p">];</span>
+<span class="c1">//设置显示文本行数</span>
+<span class="n">lable</span><span class="p">.</span><span class="n">numberOfLines</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="c1">//设置对齐方式</span>
+<span class="n">lable</span><span class="p">.</span><span class="n">textAlignment</span><span class="o">=</span><span class="n">NSTextAlignmentCenter</span><span class="p">;</span>
+<span class="c1">//设置背景颜色</span>
+<span class="n">lable</span><span class="p">.</span><span class="n">backgroundColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">yellowColor</span><span class="p">];</span>
+
+<span class="c1">//创建button</span>
+<span class="n">UIButton</span> <span class="o">*</span><span class="n">button</span><span class="o">=</span><span class="p">[</span><span class="n">UIButton</span> <span class="nf">buttonWithType</span><span class="p">:</span><span class="n">UIButtonTypeCustom</span><span class="p">];</span>
+<span class="n">button</span><span class="p">.</span><span class="n">frame</span><span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+<span class="n">button</span><span class="p">.</span><span class="n">backgroundColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">grayColor</span><span class="p">];</span>
+<span class="c1">//设置按钮的内边距</span>
+<span class="n">button</span><span class="p">.</span><span class="n">contentEdgeInsets</span> <span class="o">=</span> <span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="c1">//设置按钮标题的内边距</span>
+<span class="n">button</span><span class="p">.</span><span class="n">titleEdgeInsets</span> <span class="o">=</span> <span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="c1">//给按钮添加一个点击事件</span>
+<span class="p">[</span><span class="n">button</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">chickButton</span><span class="o">:</span><span class="p">)</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
+<span class="p">[</span><span class="n">button</span> <span class="nf">setTitle</span><span class="p">:</span><span class="s">@"点我"</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="c1">//[button setBackgroundImage:nil forState:UIControlStateHighlighted];</span>
+  <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">button</span><span class="p">];</span>
+<span class="err">}</span>
+<span class="c1">//点击方法的实现</span>
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">chickButton</span><span class="p">:(</span><span class="n">UIButton</span><span class="o">*</span><span class="p">)</span><span class="nv">a</span>
+<span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"点过了"</span><span class="p">);</span>
+    <span class="p">[</span><span class="n">a</span> <span class="nf">setTitle</span><span class="p">:</span><span class="s">@"点过了"</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+    <span class="n">a</span><span class="p">.</span><span class="n">hidden</span><span class="o">=</span><span class="nb">NO</span><span class="p">;</span><span class="c1">//是否隐藏</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h5 id="pragma-mark---2uitextfield"><code class="language-plaintext highlighter-rouge">#pragma mark - 2.UITextField</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UITextField</span> <span class="o">*</span><span class="n">textField</span><span class="o">=</span><span class="p">[[</span><span class="n">UITextField</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">35</span><span class="p">)];</span>
+<span class="c1">//背景</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">backgroundColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">greenColor</span><span class="p">];</span>
+<span class="c1">//文本</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@"这是一个输入框"</span><span class="p">;</span>
+<span class="c1">//提示信息（当前文本长度为0显示）</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">placeholder</span><span class="o">=</span><span class="s">@"请输入"</span><span class="p">;</span>
+<span class="c1">//文本显示颜色以及对齐方式</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">textColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">textAlignment</span><span class="o">=</span><span class="n">NSTextAlignmentRight</span><span class="p">;</span>
+<span class="c1">//显示字体</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">font</span><span class="o">=</span><span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">20</span><span class="p">];</span>
+<span class="c1">//文字自适应默认NO；</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">adjustsFontSizeToFitWidth</span><span class="o">=</span><span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//设置最小字体(ios6以后不能使用)</span>
+<span class="c1">//textField.minimumFontSize=50;</span>
+<span class="c1">//设置清除按钮</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">clearButtonMode</span><span class="o">=</span><span class="n">UITextFieldViewModeWhileEditing</span><span class="p">;</span>
+<span class="c1">//在下次输入的时候，清楚当前内容</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">clearsOnBeginEditing</span><span class="o">=</span><span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//加密处理</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">secureTextEntry</span><span class="o">=</span><span class="nb">NO</span><span class="p">;</span>
+<span class="c1">//设置输入框样式</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">borderStyle</span> <span class="o">=</span> <span class="n">UITextBorderStyleRoundedRect</span><span class="p">;</span>
+<span class="c1">//交互</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">userInteractionEnabled</span><span class="o">=</span><span class="nb">NO</span><span class="p">;</span><span class="c1">//</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">enabled</span><span class="o">=</span><span class="nb">NO</span><span class="p">;</span>
+<span class="c1">//设置键盘</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">keyboardType</span><span class="o">=</span><span class="n">UIKeyboardTypeDefault</span><span class="p">;</span>
+<span class="c1">//设置首字母是否大写</span>
+  <span class="n">textField</span><span class="p">.</span><span class="n">autocapitalizationType</span><span class="o">=</span><span class="n">UITextAutocapitalizationTypeNone</span><span class="p">;</span>
+<span class="c1">//return按键样式</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">returnKeyType</span> <span class="o">=</span> <span class="n">UIReturnKeyDone</span><span class="p">;</span>
+<span class="c1">//键盘外观</span>
+<span class="n">textField</span><span class="p">.</span><span class="n">keyboardAppearance</span><span class="o">=</span><span class="n">UIKeyboardAppearanceDark</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="pragma-mark---3-uisegmentedcontrol-uiswitch-uislider"><code class="language-plaintext highlighter-rouge">#pragma mark - 3. UISegmentedControl、 UISwitch、 UISlider</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="p">.</span><span class="err">分段控制器（并不是视图的控制器）</span>
+<span class="c1">//NSArray *item_array=@[@"A",@"B",@"C",@"D"];</span>
+<span class="n">UISegmentedControl</span><span class="o">*</span> <span class="n">segmentC</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UISegmentedControl</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithItems</span><span class="p">:@[</span><span class="s">@"A"</span><span class="p">,</span><span class="s">@"B"</span><span class="p">,</span><span class="s">@"C"</span><span class="p">,</span><span class="s">@"D"</span><span class="p">]];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"默认:%@"</span><span class="p">,</span><span class="n">NSStringFromCGRect</span><span class="p">(</span><span class="n">segmentC</span><span class="p">.</span><span class="n">frame</span><span class="p">));</span>
+<span class="n">segmentC</span><span class="p">.</span><span class="n">frame</span><span class="o">=</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+<span class="c1">//插入按钮</span>
+<span class="p">[</span><span class="n">segmentC</span> <span class="nf">insertSegmentWithTitle</span><span class="p">:</span><span class="s">@"点"</span> <span class="nf">atIndex</span><span class="p">:</span><span class="mi">1</span> <span class="n">animated</span><span class="o">:</span><span class="nb">NO</span><span class="p">];</span>
+<span class="n">segmentC</span><span class="p">.</span><span class="n">tintColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span>
+<span class="c1">//segmentC.numberOfSegments;获取子按钮的个数只读属性</span>
+<span class="c1">//默认选中哪一个子按钮</span>
+<span class="n">segmentC</span><span class="p">.</span><span class="n">selectedSegmentIndex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="c1">//设置点击之后恢复到默认状态</span>
+<span class="n">segmentC</span><span class="p">.</span><span class="n">momentary</span><span class="o">=</span><span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//设置指定下标的子按钮的宽度</span>
+<span class="p">[</span><span class="n">segmentC</span> <span class="nf">setWidth</span><span class="p">:</span><span class="mi">30</span> <span class="nf">forSegmentAtIndex</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+<span class="c1">//设置指定下标的子按钮不可点</span>
+<span class="p">[</span><span class="n">segmentC</span> <span class="nf">setEnabled</span><span class="p">:</span><span class="nb">NO</span> <span class="nf">forSegmentAtIndex</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">[</span><span class="n">segmentC</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">doSegment</span><span class="o">:</span><span class="p">)</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">doSegment</span><span class="p">:(</span><span class="n">UISegmentedControl</span><span class="o">*</span><span class="p">)</span><span class="nv">sender</span>
+<span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%d"</span><span class="p">,</span><span class="n">sender</span><span class="p">.</span><span class="n">selectedSegmentIndex</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">selectedSegmentIndex</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"点击了第一个按钮%@"</span><span class="p">,[</span><span class="n">sender</span> <span class="nf">titleForSegmentAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="mi">2</span><span class="p">.</span><span class="err">选择开关（</span><span class="n">yes</span><span class="err">、</span><span class="n">no</span><span class="err">）</span>
+<span class="n">UISwitch</span> <span class="o">*</span><span class="n">aSwitch</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UISwitch</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)];</span>
+<span class="n">NSLog</span><span class="p">(</span> <span class="s">@"默认:%@"</span><span class="p">,</span><span class="n">NSStringFromCGRect</span><span class="p">(</span><span class="n">aSwitch</span><span class="p">.</span><span class="n">frame</span><span class="p">));</span>
+<span class="n">aSwitch</span><span class="p">.</span><span class="n">on</span><span class="o">=</span><span class="nb">YES</span><span class="p">;</span>
+<span class="n">aSwitch</span><span class="p">.</span><span class="n">onTintColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span>
+<span class="n">aSwitch</span><span class="p">.</span><span class="n">tintColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">grayColor</span><span class="p">];</span>
+<span class="n">aSwitch</span><span class="p">.</span><span class="n">thumbTintColor</span><span class="o">=</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">greenColor</span><span class="p">];</span>
+<span class="c1">//给选择按钮添加事件，执行动作为控件内部的值发生了变化</span>
+<span class="p">[</span><span class="n">aSwitch</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">doSwitch</span><span class="o">:</span><span class="p">)</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">doSwitch</span><span class="p">:(</span><span class="n">UISwitch</span><span class="o">*</span><span class="p">)</span><span class="nv">sender</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">on</span><span class="o">==</span> <span class="nb">NO</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"关闭"</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"打开"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="mi">3</span><span class="p">.</span><span class="err">滑块开关（</span><span class="mi">0</span><span class="o">~</span><span class="mi">1</span><span class="err">）</span>
+<span class="n">UISlider</span><span class="o">*</span><span class="n">slider</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UISlider</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">34</span><span class="p">)];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"默认:%@"</span><span class="p">,</span><span class="n">NSStringFromCGRect</span><span class="p">(</span><span class="n">slider</span><span class="p">.</span><span class="n">frame</span><span class="p">));</span>
+<span class="c1">//设置最大可取值</span>
+<span class="n">slider</span><span class="p">.</span><span class="n">maximumValue</span><span class="o">=</span><span class="mi">100</span><span class="p">;</span>
+<span class="c1">//设置最小可取值   </span>
+<span class="n">slider</span><span class="p">.</span><span class="n">minimumValue</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="c1">//设置滑块按钮默认显示的位置（0~1）;   </span>
+<span class="n">slider</span><span class="p">.</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">;</span>
+<span class="n">slider</span><span class="p">.</span><span class="n">maximumTrackTintColor</span><span class="o">=</span><span class="p">[</span><span class="nf">UIColorredColor</span><span class="p">];</span>
+<span class="n">slider</span><span class="p">.</span><span class="n">minimumTrackTintColor</span><span class="o">=</span><span class="p">[</span><span class="nf">UIColorpurpleColor</span><span class="p">];</span>
+<span class="n">slider</span><span class="p">.</span><span class="n">thumbTintColor</span><span class="o">=</span><span class="p">[</span><span class="nf">UIColororangeColor</span><span class="p">];</span>
+<span class="c1">//给滑块开关添加事件</span>
+<span class="p">[</span><span class="n">slider</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">doSlider</span><span class="o">:</span><span class="p">)</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">doSlider</span><span class="p">:(</span><span class="n">UISlider</span><span class="o">*</span><span class="p">)</span><span class="nv">slider</span>
+<span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%g"</span><span class="p">,</span><span class="n">slider</span><span class="p">.</span><span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h5 id="pragma-mark---4-uinavigationcontroller"><code class="language-plaintext highlighter-rouge">#pragma mark - 4. UINavigationController</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">//标题</span>
+<span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">@"第2页"</span><span class="p">;</span>
+<span class="c1">//左边按钮（创建方式一）</span>
+<span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">leftItem</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithTitle</span><span class="p">:</span><span class="s">@"返回吗"</span> <span class="nf">style</span><span class="p">:</span><span class="n">UIBarButtonItemStylePlain</span> <span class="n">target</span><span class="o">:</span><span class="n">self</span> <span class="n">action</span><span class="o">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">doReturn</span><span class="p">)];</span>
+<span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">leftBarButtonItem</span> <span class="o">=</span> <span class="n">leftItem</span><span class="p">;</span>
+<span class="c1">//右边按钮（创建方式二）</span>
+<span class="n">UIButton</span> <span class="o">*</span><span class="n">btn</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIButton</span> <span class="nf">buttonWithType</span><span class="p">:</span><span class="n">UIButtonTypeContactAdd</span><span class="p">];</span>
+<span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">rightItem</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithCustomView</span><span class="p">:</span><span class="n">btn</span><span class="p">];</span>
+<span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">rightItem</span><span class="p">;</span>
+<span class="c1">//显示副标题</span>
+<span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="s">@"hello"</span><span class="p">;</span>
+<span class="c1">//压栈、出栈</span>
+<span class="n">push</span><span class="o">&lt;--&gt;</span><span class="n">pop</span> <span class="o">===&gt;</span><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span> <span class="err">调用</span><span class="p">;</span>
+<span class="n">present</span><span class="o">&lt;--&gt;</span><span class="n">dismiss</span> <span class="o">===&gt;</span><span class="n">self</span> <span class="err">调用</span><span class="p">;</span>
+<span class="o">~</span><span class="n">push</span><span class="err">压栈为前提下的出栈的方式：</span>
+<span class="c1">//直接出栈，一直到栈底（仅剩一个控制器的时候）</span>
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span> <span class="nf">popToRootViewControllerAnimated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+<span class="c1">//指定栈内存中的某个控制器</span>
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span> <span class="nf">popToViewController</span><span class="p">:</span><span class="n">fiveVC</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+<span class="c1">//一个一个的出栈</span>
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span> <span class="nf">popViewControllerAnimated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>#####<code class="language-plaintext highlighter-rouge">#pragma mark - 5.UIToolbar、UIBarButtonItem、UITextView、UISearchBar</code></p>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//文本段落输入框  </span>
+<span class="n">UITextView</span><span class="o">*</span><span class="n">_textView</span> <span class="o">=</span> <span class="p">[[</span><span class="nf">UITextViewalloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">260</span><span class="p">,</span><span class="mi">200</span><span class="p">)];</span>
+<span class="n">_textView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">orangeColor</span><span class="p">];</span>
+<span class="n">_textView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+<span class="n">_textView</span><span class="p">.</span><span class="n">font</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">24</span><span class="p">];</span>
+<span class="n">_textView</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@"hello world"</span><span class="p">;</span><span class="c1">//默认文本</span>
+<span class="n">_textView</span><span class="p">.</span><span class="n">editable</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//是否可编辑</span>
+<span class="n">_textView</span><span class="p">.</span><span class="n">scrollEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//是否可滚动</span>
+<span class="n">_textView</span><span class="p">.</span><span class="n">scrollsToTop</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//是否可滚动到顶部</span>
+<span class="n">_textView</span><span class="p">.</span><span class="n">showsHorizontalScrollIndicator</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span><span class="c1">//显示垂直的滚动条</span>
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">_textView</span><span class="p">];</span>
+<span class="c1">//文本段落输入框常用方法</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">textViewShouldBeginEditing</span><span class="p">:(</span><span class="n">UITextView</span> <span class="o">*</span><span class="p">)</span><span class="nv">textView</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"开始编辑"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">textViewShouldEndEditing</span><span class="p">:(</span><span class="n">UITextView</span> <span class="o">*</span><span class="p">)</span><span class="nv">textView</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"结束编辑"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">textViewDidBeginEditing</span><span class="p">:(</span><span class="n">UITextView</span> <span class="o">*</span><span class="p">)</span><span class="nv">textView</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"已经开始编辑"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">textViewDidEndEditing</span><span class="p">:(</span><span class="n">UITextView</span> <span class="o">*</span><span class="p">)</span><span class="nv">textView</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"已经结束编辑"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">textViewDidChange</span><span class="p">:(</span><span class="n">UITextView</span> <span class="o">*</span><span class="p">)</span><span class="nv">textView</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"改变了"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">textViewDidChangeSelection</span><span class="p">:(</span><span class="n">UITextView</span> <span class="o">*</span><span class="p">)</span><span class="nv">textView</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,</span><span class="n">textView</span><span class="p">.</span><span class="n">text</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">//工具条   </span>
+<span class="n">UIToolbar</span> <span class="o">*</span><span class="n">_toolBar</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIToolbar</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">568</span><span class="o">-</span><span class="mi">44</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">44</span><span class="p">)];</span>
+<span class="n">_toolBar</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span><span class="c1">//设置背景色（会有半透明遮盖条）</span>
+<span class="c1">//_tooBar.barTintColor = [UIColor redColor];//工具条渲染</span>
+<span class="n">_toolBar</span><span class="p">.</span><span class="n">barStyle</span> <span class="o">=</span> <span class="n">UIBarStyleBlack</span><span class="p">;</span><span class="c1">//设置工具条样式</span>
+<span class="c1">//创建工具条的子控件</span>
+<span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">item1</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithTitle</span><span class="p">:</span><span class="s">@"item"</span> <span class="nf">style</span><span class="p">:</span><span class="n">UIBarButtonItemStylePlain</span> <span class="n">target</span><span class="o">:</span><span class="n">self</span> <span class="n">action</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">item_space</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithBarButtonSystemItem</span><span class="p">:</span><span class="n">UIBarButtonSystemItemFlexibleSpace</span> <span class="nf">target</span><span class="p">:</span><span class="nb">nil</span> <span class="n">action</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">item2</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithTitle</span><span class="p">:</span><span class="s">@"item"</span> <span class="nf">style</span><span class="p">:</span><span class="n">UIBarButtonItemStylePlain</span> <span class="n">target</span><span class="o">:</span><span class="n">self</span> <span class="n">action</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="c1">//自定义工具条上的按钮</span>
+<span class="n">UIButton</span> <span class="o">*</span> <span class="n">button</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIButton</span> <span class="nf">buttonWithType</span><span class="p">:</span><span class="n">UIButtonTypeCustom</span><span class="p">];</span>
+<span class="p">[</span><span class="n">button</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"drink.png"</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="n">button</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">item3</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithCustomView</span><span class="p">:</span><span class="n">button</span><span class="p">];</span>
+<span class="c1">//在工具条添加子控件</span>
+<span class="n">_toolBar</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">@[</span><span class="n">item1</span><span class="p">,</span><span class="n">item_space</span><span class="p">,</span><span class="n">item2</span><span class="p">,</span><span class="n">item_space</span><span class="p">,</span><span class="n">item3</span><span class="p">];</span>
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">_toolBar</span><span class="p">];</span>
+<span class="c1">//搜索条</span>
+<span class="n">UISearchBar</span> <span class="o">*</span><span class="n">_searchBar</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UISearchBar</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">30</span><span class="p">)];</span>
+<span class="n">_searchBar</span><span class="p">.</span><span class="n">barTintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span><span class="c1">//搜索条的渲染颜色</span>
+<span class="n">_searchBar</span><span class="p">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">blueColor</span><span class="p">];</span><span class="c1">//光标颜色</span>
+<span class="n">_searchBar</span><span class="p">.</span><span class="n">searchBarStyle</span> <span class="o">=</span> <span class="n">UISearchBarStyleMinimal</span><span class="p">;</span><span class="c1">//搜索条样式</span>
+<span class="n">_searchBar</span><span class="p">.</span><span class="n">autocapitalizationType</span> <span class="o">=</span> <span class="n">UITextAutocapitalizationTypeAllCharacters</span><span class="p">;</span><span class="c1">//设置大写风格</span>
+<span class="c1">//_searchBar.prompt = @"搜索条";</span>
+<span class="n">_searchBar</span><span class="p">.</span><span class="n">showsCancelButton</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//展示右边小图标的样式为cancel</span>
+<span class="n">_searchBar</span><span class="p">.</span><span class="n">showsBookmarkButton</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span><span class="c1">//搜索框右边展示一本书</span>
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">_searchBar</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h5 id="pragma-mark---6滚动视图小白点"><code class="language-plaintext highlighter-rouge">#pragma mark - 6.滚动视图、小白点</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UIScrollView</span> <span class="o">*</span><span class="n">_scrollView</span><span class="p">;</span><span class="c1">//全局变量</span>
+<span class="n">UIImageView</span> <span class="o">*</span><span class="n">_imageView</span><span class="p">;</span><span class="c1">//全局变量</span>
+<span class="n">UIImage</span> <span class="o">*</span> <span class="n">img</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"quan.jpg"</span><span class="p">];</span>
+<span class="n">_imageView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIImageView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithImage</span><span class="p">:</span><span class="n">img</span><span class="p">];</span>
+<span class="n">_imageView</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">722</span><span class="p">,</span> <span class="mi">220</span><span class="p">);</span>
+<span class="c1">//创建滚动视图</span>
+<span class="n">_scrollView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIScrollView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">)];</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">orangeColor</span><span class="p">];</span>
+<span class="c1">//可滚动范围</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">722</span><span class="p">,</span> <span class="mi">220</span><span class="p">);</span>
+<span class="c1">//弹跳属性关闭</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">bounces</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+<span class="c1">//显示水平或者垂直的进度条</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">showsHorizontalScrollIndicator</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">showsVerticalScrollIndicator</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//是否可滚动</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">scrollEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//交互</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">userInteractionEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//设置默认位置（设置x坐标显示图片中间）</span>
+<span class="p">[</span><span class="n">_scrollView</span> <span class="nf">setContentOffset</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">161</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+<span class="c1">//触摸状态栏可滚动到顶部（y坐标）</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">scrollsToTop</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//是否按照分页显示的效果显示</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">pagingEnabled</span> <span class="o">=</span><span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//放大缩小(按住alt放大缩小 要求两个圆点得在图片范围内)</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">minimumZoomScale</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">maximumZoomScale</span> <span class="o">=</span> <span class="mi">4</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">_scrollView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+<span class="c1">//放大和缩小（方法）</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">UIView</span> <span class="o">*</span><span class="p">)</span><span class="nf">viewForZoomingInScrollView</span><span class="p">:(</span><span class="n">UIScrollView</span> <span class="o">*</span><span class="p">)</span><span class="nv">scrollView</span><span class="p">{</span>
+    <span class="k">return</span> <span class="n">_imageView</span><span class="p">;</span><span class="c1">//返回全局变量</span>
+<span class="p">}</span>
+<span class="p">[</span><span class="n">_scrollView</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">_imageView</span><span class="p">];</span>
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">_scrollView</span><span class="p">];</span>
+<span class="c1">//小白点</span>
+<span class="n">pageC</span><span class="p">.</span><span class="n">numberOfPages</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">pageC</span><span class="p">.</span><span class="n">tag</span> <span class="o">=</span> <span class="mi">120</span><span class="p">;</span>
+<span class="n">pageC</span><span class="p">.</span><span class="n">pageIndicatorTintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span> <span class="c1">//未选中颜色</span>
+<span class="n">pageC</span><span class="p">.</span><span class="n">currentPageIndicatorTintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">blueColor</span><span class="p">];</span><span class="c1">//当前显示颜色</span>
+<span class="n">pageC</span><span class="p">.</span><span class="n">currentPage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//默认位置</span>
+<span class="c1">//给pageC添加事件</span>
+<span class="p">[</span><span class="n">pageC</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">doPageControl</span><span class="o">:</span><span class="p">)</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h5 id="pragma-mark---7表视图"><code class="language-plaintext highlighter-rouge">#pragma mark - 7.表视图</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//创建表视图</span>
+<span class="n">UITableView</span> <span class="o">*</span><span class="n">tableView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UITableView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithFrame</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">frame</span> <span class="nf">style</span><span class="p">:</span><span class="n">UITableViewStyleGrouped</span><span class="p">];</span>
+<span class="n">tableView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+<span class="n">tableView</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+<span class="n">tableView</span><span class="p">.</span><span class="n">contentInset</span> <span class="o">=</span> <span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span><span class="c1">//顶部有20空余为了避免与运营商重叠</span>
+<span class="c1">//表视图头部View</span>
+<span class="n">tableView</span><span class="p">.</span><span class="n">tableHeaderView</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIButton</span> <span class="nf">buttonWithType</span><span class="p">:</span><span class="n">UIButtonTypeContactAdd</span><span class="p">];</span>
+<span class="c1">//设置分隔线样式</span>
+<span class="n">tableView</span><span class="p">.</span><span class="n">separatorStyle</span> <span class="o">=</span> <span class="n">UITableViewCellSeparatorStyleNone</span><span class="p">;</span>
+<span class="c1">//设置分隔线颜色</span>
+<span class="n">tableView</span><span class="p">.</span><span class="n">separatorColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span>
+<span class="o">*</span><span class="n">cell</span>
+<span class="c1">//显示主信息</span>
+<span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">string</span><span class="p">;</span>
+<span class="c1">//展示详情信息</span>
+<span class="n">cell</span><span class="p">.</span><span class="n">detailTextLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@"The Info"</span><span class="p">;</span>
+<span class="c1">//显示图标</span>
+<span class="n">cell</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"updata.jpg"</span><span class="p">];</span>
+<span class="c1">//设置背景视图(cell)</span>
+<span class="n">UIView</span> <span class="o">*</span><span class="n">bgView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="n">bgView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">greenColor</span><span class="p">];</span>
+<span class="n">cell</span><span class="p">.</span><span class="n">backgroundView</span> <span class="o">=</span> <span class="n">bgView</span><span class="p">;</span>
+<span class="c1">//指示器类型</span>
+<span class="n">cell</span><span class="p">.</span><span class="n">accessoryType</span> <span class="o">=</span> <span class="n">UITableViewCellAccessoryDisclosureIndicator</span><span class="p">;</span>
+<span class="n">cell</span><span class="p">.</span><span class="n">accessoryView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UISwitch</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="c1">//选中背景</span>
+<span class="n">UIView</span> <span class="o">*</span><span class="n">seletedView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIView</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="n">seletedView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">];</span>
+<span class="n">cell</span><span class="p">.</span><span class="n">selectedBackgroundView</span> <span class="o">=</span> <span class="n">seletedView</span><span class="p">;</span>
+<span class="c1">//设置选中样式</span>
+<span class="n">cell</span><span class="p">.</span><span class="n">selectionStyle</span> <span class="o">=</span> <span class="n">UITableViewCellSelectionStyleNone</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="pragma-mark---8-uiapplication"><code class="language-plaintext highlighter-rouge">#pragma mark - 8. UIApplication</code></h5>
+
+<div class="language-obj-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UIApplication</span> <span class="o">*</span><span class="n">app</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">];</span>
+<span class="n">app</span><span class="p">.</span><span class="n">networkActivityIndicatorVisible</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//打开用户的操作权限</span>
+<span class="kt">float</span> <span class="n">verson</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">UIDevice</span> <span class="nf">currentDevice</span><span class="p">]</span> <span class="nf">systemVersion</span><span class="p">]</span> <span class="nf">floatValue</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">verson</span> <span class="o">&gt;=</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">UIUserNotificationSettings</span> <span class="o">*</span><span class="n">setting</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIUserNotificationSettings</span> <span class="nf">settingsForTypes</span><span class="p">:</span><span class="n">UIUserNotificationTypeBadge</span> <span class="nf">categories</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+   <span class="p">[[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">]</span> <span class="nf">registerUserNotificationSettings</span><span class="p">:</span><span class="n">setting</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="c1">//设置应用程序小图标上面的数字</span>
+<span class="n">app</span><span class="p">.</span><span class="n">applicationIconBadgeNumber</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="c1">//设置网络连接状态的进度轮（状态栏）</span>
+<span class="n">app</span><span class="p">.</span><span class="n">networkActivityIndicatorVisible</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="c1">//[app openURL:[NSURL URLWithString:@"http:www.baidu.com"]];//加载浏览器</span>
+<span class="c1">//[app openURL:[NSURL URLWithString:@"tel://10086"]];//打电话</span>
+<span class="c1">//[app openURL:[NSURL URLWithString:@"sms://10086"]];//发信息</span>
+<span class="c1">//[app openURL:[NSURL URLWithString:@"mailto://10086@qq.com"]];//发邮件</span>
+</code></pre></div></div>
+
+
+                <hr style="visibility: hidden;">
+                
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2015/11/24/1.PickerView/" data-toggle="tooltip" data-placement="top" title="PickerView">
+                        上一篇:<span>PickerView</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2015/12/06/1.%E6%95%B0%E6%8C%81(XML%E5%88%97%E8%A1%A8)/" data-toggle="tooltip" data-placement="top" title="数据持久化">
+                        下一篇:<span>数据持久化</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#iOS" title="iOS" rel="31">
+                                    iOS
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OC" title="OC" rel="59">
+                                    OC
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#C" title="C" rel="26">
+                                    C
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Xcode" title="Xcode" rel="11">
+                                    Xcode
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#MIMEType" title="MIMEType" rel="1">
+                                    MIMEType
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#屏幕旋转" title="屏幕旋转" rel="1">
+                                    屏幕旋转
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Mac" title="Mac" rel="9">
+                                    Mac
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#工具" title="工具" rel="4">
+                                    工具
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SQLite3" title="SQLite3" rel="1">
+                                    SQLite3
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#重命名" title="重命名" rel="1">
+                                    重命名
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#证书+内购" title="证书+内购" rel="1">
+                                    证书+内购
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#像素" title="像素" rel="1">
+                                    像素
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#pch" title="pch" rel="1">
+                                    pch
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#支付协议税务" title="支付协议税务" rel="1">
+                                    支付协议税务
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#APP转让" title="APP转让" rel="1">
+                                    APP转让
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#审核" title="审核" rel="1">
+                                    审核
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#银行卡格式化" title="银行卡格式化" rel="1">
+                                    银行卡格式化
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#git" title="git" rel="5">
+                                    git
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#描述文件" title="描述文件" rel="2">
+                                    描述文件
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#命令行" title="命令行" rel="6">
+                                    命令行
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#沙盒日志" title="沙盒日志" rel="1">
+                                    沙盒日志
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#i386" title="i386" rel="1">
+                                    i386
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#x86_64" title="x86_64" rel="1">
+                                    x86_64
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#控制台log" title="控制台log" rel="1">
+                                    控制台log
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#xcode10&iOS12" title="xcode10&iOS12" rel="1">
+                                    xcode10&iOS12
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#正则" title="正则" rel="2">
+                                    正则
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#textfield" title="textfield" rel="1">
+                                    textfield
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#输入限制" title="输入限制" rel="1">
+                                    输入限制
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Pod" title="Pod" rel="3">
+                                    Pod
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#真机支持" title="真机支持" rel="1">
+                                    真机支持
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#封面尺寸" title="封面尺寸" rel="1">
+                                    封面尺寸
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SDWebImage" title="SDWebImage" rel="1">
+                                    SDWebImage
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Ruby" title="Ruby" rel="1">
+                                    Ruby
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#RVM" title="RVM" rel="1">
+                                    RVM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#渐变色" title="渐变色" rel="1">
+                                    渐变色
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jekyll" title="jekyll" rel="1">
+                                    jekyll
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#水印" title="水印" rel="1">
+                                    水印
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#富文本" title="富文本" rel="1">
+                                    富文本
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#标签" title="标签" rel="1">
+                                    标签
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#M3U8" title="M3U8" rel="1">
+                                    M3U8
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#动、静态库" title="动、静态库" rel="2">
+                                    动、静态库
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#异步上传" title="异步上传" rel="1">
+                                    异步上传
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Url编码解码" title="Url编码解码" rel="1">
+                                    Url编码解码
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#AlertController" title="AlertController" rel="1">
+                                    AlertController
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#保活" title="保活" rel="2">
+                                    保活
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#pod报错" title="pod报错" rel="1">
+                                    pod报错
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#特定UI横竖屏" title="特定UI横竖屏" rel="1">
+                                    特定UI横竖屏
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Launch版本号" title="Launch版本号" rel="1">
+                                    Launch版本号
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ijkplayer" title="ijkplayer" rel="1">
+                                    ijkplayer
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#适配" title="适配" rel="1">
+                                    适配
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#手势" title="手势" rel="3">
+                                    手势
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#截图" title="截图" rel="1">
+                                    截图
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#网络和信号" title="网络和信号" rel="1">
+                                    网络和信号
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#礼物缓存" title="礼物缓存" rel="1">
+                                    礼物缓存
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#手绘礼物" title="手绘礼物" rel="1">
+                                    手绘礼物
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#UIPickerView" title="UIPickerView" rel="1">
+                                    UIPickerView
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#文件权限" title="文件权限" rel="1">
+                                    文件权限
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#键盘和菜单" title="键盘和菜单" rel="1">
+                                    键盘和菜单
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#耗时卡顿" title="耗时卡顿" rel="1">
+                                    耗时卡顿
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#国际化" title="国际化" rel="1">
+                                    国际化
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Paypal" title="Paypal" rel="1">
+                                    Paypal
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#AWSS3" title="AWSS3" rel="2">
+                                    AWSS3
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#npm、Node" title="npm、Node" rel="1">
+                                    npm、Node
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#控制台" title="控制台" rel="1">
+                                    控制台
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#warning" title="warning" rel="1">
+                                    warning
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#扩展" title="扩展" rel="5">
+                                    扩展
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#防盗链" title="防盗链" rel="1">
+                                    防盗链
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#动画" title="动画" rel="1">
+                                    动画
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#分析" title="分析" rel="1">
+                                    分析
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#CallKit" title="CallKit" rel="1">
+                                    CallKit
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#侧滑" title="侧滑" rel="1">
+                                    侧滑
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#重置根控制器" title="重置根控制器" rel="1">
+                                    重置根控制器
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#播放器" title="播放器" rel="1">
+                                    播放器
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#裁剪" title="裁剪" rel="1">
+                                    裁剪
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#日志" title="日志" rel="1">
+                                    日志
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#bugly" title="bugly" rel="1">
+                                    bugly
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#uniapp" title="uniapp" rel="9">
+                                    uniapp
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Swift" title="Swift" rel="2">
+                                    Swift
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#文字翻转" title="文字翻转" rel="1">
+                                    文字翻转
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#跨域" title="跨域" rel="1">
+                                    跨域
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#WebClip" title="WebClip" rel="1">
+                                    WebClip
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#网络请求" title="网络请求" rel="1">
+                                    网络请求
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#地图导航" title="地图导航" rel="1">
+                                    地图导航
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ZSH" title="ZSH" rel="1">
+                                    ZSH
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SPM" title="SPM" rel="1">
+                                    SPM
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Vapor" title="Vapor" rel="2">
+                                    Vapor
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#导航" title="导航" rel="1">
+                                    导航
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#验证码" title="验证码" rel="1">
+                                    验证码
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#杀进程" title="杀进程" rel="1">
+                                    杀进程
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Ubuntu" title="Ubuntu" rel="1">
+                                    Ubuntu
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Android" title="Android" rel="1">
+                                    Android
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#JWT" title="JWT" rel="1">
+                                    JWT
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#vue" title="vue" rel="7">
+                                    vue
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#html-js" title="html-js" rel="2">
+                                    html-js
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#style-class" title="style-class" rel="3">
+                                    style-class
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#ssh" title="ssh" rel="2">
+                                    ssh
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#PHP" title="PHP" rel="2">
+                                    PHP
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jks" title="jks" rel="1">
+                                    jks
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#css" title="css" rel="1">
+                                    css
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Runtime" title="Runtime" rel="1">
+                                    Runtime
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#tree" title="tree" rel="1">
+                                    tree
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#uniCloud" title="uniCloud" rel="1">
+                                    uniCloud
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#总结" title="总结" rel="2">
+                                    总结
+                                </a>
+                            
+                        
+                    </div>
+                </section>
+                               
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://gems.ruby-china.com/">RubyChina</a></li>
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://developer.apple.com/">Apple Developer</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/9e754f67b0e9">简书</a></li>
+                    
+                        <li><a href="https://huxpro.github.io">黄玄</a></li>
+                    
+                        <li><a href="http://sobaigu.com/">搜百谷</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/e6c8dda77e26">Swift</a></li>
+                    
+                        <li><a href="http://applemusic.cc/index.html">applemusic</a></li>
+                    
+                        <li><a href="https://blog.walterlv.com/">吕毅</a></li>
+                    
+                        <li><a href="https://blog.csdn.net/heipingguowenkong">黎明lh</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/f8493395c623">_我们一直在路上_</a></li>
+                    
+                        <li><a href="https://github.com/hw20101101">Braintree-Paypal</a></li>
+                    
+                        <li><a href="https://zhile.io">知了</a></li>
+                    
+                        <li><a href="https://github.com/getlantern/lantern">LD</a></li>
+                    
+                        <li><a href="https://blog.ibireme.com/">YYKit</a></li>
+                    
+                        <li><a href="https://git-scm.com/book/en/v2">Git</a></li>
+                    
+                        <li><a href="https://blog.hyperzsb.tech/">Hyperzsb</a></li>
+                    
+                        <li><a href="https://github.com/getlantern">Lantern</a></li>
+                    
+                        <li><a href="https://tech.meituan.com/">美团</a></li>
+                    
+                        <li><a href="https://github.com/ElfSundae">工具</a></li>
+                    
+                        <li><a href="https://anbig.com/">anbig</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+ <!-- 图片放大222 -->
+<div id="image-cover-modal" class="image-cover-modal">
+  <img id="image-cover-image" class="image-cover-modal-content">
+  <div id="image-cover-caption"></div>
+</div>
+<script>
+// Get the DOM
+var modal = document.getElementById('image-cover-modal');
+var modalImg = document.getElementById("image-cover-image");
+var captionText = document.getElementById("image-cover-caption");
+var span = document.getElementsByClassName("image-cover-close")[0];
+
+// When the user clicks on <span> (x), close the modal
+modal.onclick = function() {
+    this.classList.remove("model-shown");
+}
+
+var i;
+for (i = 0; i < document.images.length; i++) {
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.images[i];
+
+    img.onclick = function(){
+        modal.classList.add("model-shown");
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+}
+</script>
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/Yuan920">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/Memory丶Rookie">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Yuan920">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yuan's Blog 2024
+                    <br>
+                    Theme on <a href="https://github.com/Yuan920/rookie777">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Yuan920&repo=Yuan920.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+    function fixCount() {   
+
+        //console.log('111 '+document.getElementById("busuanzi_container_site_pv"));
+        //console.log('222 '+document.getElementById("busuanzi_container_page_uv"));
+
+       if (document.getElementById("busuanzi_container_site_pv")) {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none"){
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_site_pv").css("display") != "none"){
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+       if (document.getElementById("busuanzi_container_page_uv")) {
+            if (document.getElementById("busuanzi_container_page_uv").style.display != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); 
+                clearInterval(int);
+            }                  
+            if ($("#busuanzi_container_page_uv").css("display") != "none"){
+                $("#busuanzi_value_page_pv").html(parseInt($("#busuanzi_value_page_pv").html()) + countOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }  
+       }
+    }
+});
+</script> 
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-90855596-1';
+    var _gaDomain = 'auto';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
