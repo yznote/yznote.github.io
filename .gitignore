@@ -32,6 +32,7 @@ Temporary Items
 # End of https://www.gitignore.io/api/macos
 
 # debug file
+_site
 
 #rk add 20230317
 node_modules
