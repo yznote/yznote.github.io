@@ -1,13 +1,13 @@
 # Site settings
 title: yznote
-SEOTitle: yuan's blog
+SEOTitle: i'note
 header-img: img/post-bg-desk.png
 email: yzyuan920@163.com
 description: "还没有更好的描述呢"
-keyword: "yuan, 920 Blog, 永震的博客, 920, 永震, iOS, Apple, iPhone"
-url: "https://yuan920.github.io"          # your host, for absolute URL
+keyword: "yuan, 920 note, 920, iOS, Apple, iPhone"
+url: "https://yznote.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/Yuan920/rookie777" # you code repository
+github_repo: "https://github.com/yznote/777" # you code repository
 
 # Publish posts or collection documents with a future date.
 future: true
@@ -22,8 +22,8 @@ sidebar-avatar: /img/RK.png      # use absolute URL, seeing it's used in both `/
 # SNS settings
 RSS: false
 weibo_username:     Memory丶Rookie
-github_username:    Yuan920
-jianshu_username:   Yuan920
+github_username:    yznote
+jianshu_username:   yznote
 
 
 
