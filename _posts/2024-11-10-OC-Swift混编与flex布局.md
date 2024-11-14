@@ -115,8 +115,12 @@ import PinLayout
 
 class SFTypeView: UIView {
     fileprivate let rootFlexContainer = UIView()
-    @objc var itemBtn:UIButton!
-    
+    @objc var itemBtn:UIButton! {
+        didSet {
+            debugPrint("flex=====>\(itemBtn!)")
+        }
+    }
+    var lastHeight:Double = 0.0
     init() {
         super.init(frame: .zero)
         
@@ -174,7 +178,10 @@ class SFTypeView: UIView {
         rootFlexContainer.pin.top().left().width(100%)
         rootFlexContainer.flex.layout(mode: .adjustHeight)
         print("flex=====>得到高度：%@",rootFlexContainer);
-        NotificationCenter.default.post(name: Notification.Name("flexViewChange"), object: nil, userInfo: ["key":rootFlexContainer.frame.size.height])
+       if lastHeight != rootFlexContainer.frame.size.height{
+            lastHeight = rootFlexContainer.frame.size.height;
+            NotificationCenter.default.post(name: Notification.Name("flexViewChange"), object: nil, userInfo: ["key":lastHeight])
+        }
     }
     
     @objc func ctrItemShow(_ show:Bool){
