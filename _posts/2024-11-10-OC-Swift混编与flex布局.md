@@ -29,8 +29,13 @@ tags:
 - 在oc中使用swift文件`#import "YBHiMo-Swift.h"`;  
 
 
-#### Flex布局
+### Flex布局
 
+##### 文档与示例
+[Api文档](https://layoutbox.github.io/FlexLayout/1.1/Classes/Flex.html)  
+[Demo](https://github.com/layoutBox/FlexLayout/blob/master/docs_markdown/examples.md)  
+
+##### 应用
 > 由于`FlexLayout`只能在`swfit`中使用,所以要使用`flex`布局要采用`混编`方式.
 
 ![示例3](/img/20241114/3.gif) 
