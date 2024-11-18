@@ -13,6 +13,16 @@ tags:
 #### 包名
 
 ```
+直播 ----------------------- com.yunbao.zb
+                            com.yunbao.zb.livescreen
+相亲 ----------------------- com.yunbao.zb
+短视频 --------------------- com.yunbao.one
+约单 ----------------------- com.yunbao.one
+1v1 ----------------------- com.yunbao.one
+新版语音 -------------------- com.yunbao.yuedan
+```
+
+```
 小说【Uni】安卓------------------- com.yunbao.book
 悬赏安卓 ------------------------ com.yunbao.xuanshang
 招聘 --------------------------- com.yunbao.job
