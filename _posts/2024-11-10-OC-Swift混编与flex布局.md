@@ -284,7 +284,28 @@ extension UIColor {
 ```
 
 ##### 快速创建一个容器盒子
+**oc调用**
 
+```objc
+_inputView = [[XXYInputView alloc]init];
+YBWeakSelf;
+_inputView.sizeEvent = ^(double height) {
+    [weakSelf sizeEvent:height];
+};
+[_bgView addSubview:_inputView];
+// 给出默认布局
+[_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.width.centerX.equalTo(_bgView);
+    make.top.equalTo(_bgView);
+}];
+// 更新高度
+-(void)sizeEvent:(double)height {
+    [_inputView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(height);
+    }];
+}
+```
+**代码**
 ```swift
 import FlexLayout
 import PinLayout
