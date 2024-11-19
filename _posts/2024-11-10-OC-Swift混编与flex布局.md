@@ -51,7 +51,7 @@ tags:
 *代码逻辑：示例中黄色区域采用flex布局,代码参考`SFTypeView.swif`,其他UI是oc代码编写,  
 oc中SFTypeView布局的关键代码：*  
 
-```
+```objc
 _liveTypeView = [[SFTypeView alloc]init];
 _liveTypeView.backgroundColor = hexColor(@"#ff0000", 0.6);
 [midContentView addSubview:_liveTypeView];
@@ -75,7 +75,7 @@ lineL.backgroundColor = ybLineCol;
 
 *`SFTypeView.swif`中布局完成后以通知的方式告知oc中`_liveTypeView`更新布局约束,关键代码：*
 
-```
+```swift
  override func layoutSubviews() {
     super.layoutSubviews()
     self.layoutFlex()
@@ -89,7 +89,7 @@ lineL.backgroundColor = ybLineCol;
 ```
 
 *oc文件注册通知,接收到swift的通知后更新布局*
-```
+```objc
 #pragma mark - flex
 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(flexViewChange:) name:@"flexViewChange" object:nil];
 
@@ -107,7 +107,7 @@ lineL.backgroundColor = ybLineCol;
 ##### 完整代码
 
 **Swift文件**
-```
+```swift
 //
 //  SFTypeView.swift
 //  YBHiMo
@@ -227,7 +227,7 @@ extension UIColor {
 }
 ```
 **OC文件**
-```
+```objc
 //
 //  YBMatchAnchorPreview.m
 //  YBHiMo
@@ -283,7 +283,88 @@ extension UIColor {
 @end
 ```
 
+##### 快速创建一个容器盒子
 
+```swift
+import FlexLayout
+import PinLayout
+
+class <#ViewClass#>: UIView {
+    
+    var rootView = UIView()
+    var lastHeight:Double = 0.0
+    @objc var sizeEvent:((_ height:Double)->Void)?
+    
+    init() {
+        super.init(frame: .zero);
+        
+        rootView.flex.alignItems(.center).define { flex in
+            
+            //...
+        }
+        addSubview(rootView)
+    }
+    // 布局
+    func layout() {
+        rootView.pin.top().right().width(100%)
+        rootView.flex.layout(mode: .adjustHeight)
+        if lastHeight != rootView.frame.size.height{
+            lastHeight = rootView.frame.size.height;
+            if let sizeEvent = sizeEvent {
+                sizeEvent(lastHeight)
+            }
+        }
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layout()
+    }
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        layout()
+        return rootView.frame.size
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+/// UIColor 扩展
+extension UIColor {
+    class func hex(_ hex:String,_ alpha:CGFloat? = 1.0) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        if ((cString.count) == 3) {
+            cString.append(cString)
+        }
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: alpha ?? 1.0
+        )
+    }
+}
+/// UIButton 扩展
+//import ObjectiveC
+private var AssociatedObjectKey: UInt8 = 0
+extension UIButton {
+    var extParam: Any? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedObjectKey) as Any?
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedObjectKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
+```
 
 
 
