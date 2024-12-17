@@ -527,7 +527,40 @@ props:{
 </style>
 
 ```
+##### elment-dialog
+```
+<template>
+    <div class="rp-detail-box" v-if="showRppop">
+        <el-dialog title="" :visible.sync="showRppop" width="650px" :before-close="handleClose" :close-on-press-escape="false" :close-on-click-modal="false">
+            <div class="rp-content">
 
+            </div>
+        </el-dialog>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'rp-detail',
+    props: {
+        showRppop: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data() {
+        return {};
+    },
+    methods: {
+        handleClose() {
+            this.$emit('close');
+        }
+    }
+};
+</script>
+
+<style lang="scss" scoped></style>
+```
 
 ##### 动画
 
