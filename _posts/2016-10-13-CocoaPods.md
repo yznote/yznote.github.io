@@ -9,6 +9,7 @@ catalog: true
 stickie: false
 tags:
     - OC
+    - Pod
 ---
 
 #### CocoaPods是什么？

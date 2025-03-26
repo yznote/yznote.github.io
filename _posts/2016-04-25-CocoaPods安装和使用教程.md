@@ -9,6 +9,7 @@ catalog: true
 stickie: false
 tags:
     - OC
+    - Pod
 ---
 
 #### CocoaPods安装和使用教程
