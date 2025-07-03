@@ -527,6 +527,85 @@ props:{
 </style>
 
 ```
+
+##### 弹窗4
+
+**跟随父元素位置显示**
+```
+<view v-if="showManage" class="manage-mask" @click.stop="showManage=false"></view>
+<view class="nav-item nav-back" @click="showManage=!showManage">
+    <text class="iconfont icon-xiangzuo"></text>
+    <view class="manage" v-show="showManage">
+        <view class="items" @click.stop="xxx">
+            <text class="iconfont icon-guanbi4"></text>
+            <text>不保存</text>
+        </view>
+        <view class="items" @click.stop="xxx">
+            <text class="hkfont hk-drafts1"></text>
+            <text>存草稿</text>
+        </view>
+    </view>
+</view>
+```
+**css**
+```
+.manage-mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000030;
+    z-index: 9;
+}
+.nav-back {
+    // 父元素
+    position: relative;
+    .manage {
+        position: absolute;
+        background: #ffffff;
+        box-shadow: 0 2rpx 15rpx rgba(0, 0, 0, 0.1);
+        padding: 0 15px;
+        top: 32px;
+        left: 0;
+        z-index: 10;
+        border-radius: 16rpx;
+        // 向上三角
+        &::before {
+            content: '';
+            display: inline-block;
+            width: 26rpx;
+            height: 26rpx;
+            background: #ffffff;
+            transform: rotate(45deg);
+            position: absolute;
+            top: -10rpx;
+            left: 10rpx;
+            box-shadow: -1rpx -1rpx 1rpx rgba(0, 0, 0, 0.05);
+        }
+        .items {
+            white-space: nowrap; 
+            border-bottom: 1rpx solid #eeeeee;
+            color: #282828;
+            font-size: 26rpx;
+            padding: 20rpx 0;
+            display: flex;
+            align-items: center;
+            &:last-child {
+                border-bottom: none;
+            }
+            text {
+                display: inline-block;
+            }
+            .iconfont,.hkfont {
+                margin: 0 10rpx 0 0;
+            }
+        }
+    }
+}
+```
+
+
 ##### elment-dialog
 ```
 <template>
