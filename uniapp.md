@@ -36,6 +36,13 @@ pointer-events: auto;
  x-large（特大号）
 ```
 
+### 屏幕高度
+```
+svh (Small Viewport Height): 最小视口高度。对应于地址栏和工具栏完全展开时的可见高度。
+lvh (Large Viewport Height): 最大视口高度。对应于地址栏和工具栏完全收起时的高度（这其实就等同于旧的 100vh）。
+dvh (Dynamic Viewport Height): 动态视口高度。这是最智能、最实用的单位！它的值会随着浏览器UI元素（地址栏）的出现和消失而动态改变。
+```
+
 ### 自定义返回按钮
 
 ```
