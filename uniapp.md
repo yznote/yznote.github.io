@@ -164,6 +164,12 @@ previewDes = previewDes.replace(/[\r\n]/g,'');
 
 ### CSS部分
 
+##### 竖版文字
+
+```;
+writing-mode: vertical-lr;
+```
+
 ##### 背景图写法
 
 ```css
