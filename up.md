@@ -12,9 +12,19 @@ tags:
 ---
 
 
+#### 2025上架应用
 
+#### Edd 泰国版
+
+时间：2025-12-05  
+![edd](/img/0appstore/edd1.png)
+![edd](/img/0appstore/edd2.png)
 
 #### 2023上架应用
+
+#### Edd香港版
+时间：2023-11-02  
+[香港版](https://apps.apple.com/us/app/edd-health/id6470877826)
 
 #### 万岳私厨  
 时间：2023-01-18  
