@@ -11,6 +11,18 @@ tags:
     - 总结
 ---
 
+#### 2026上架应用
+
+#### 亚冠汽车
+
+时间：2025-01-09  
+[下载地址](http://a.app.qq.com/o/simple.jsp?pkgname=com.wang.car)  
+[应用宝](https://sj.qq.com/appdetail/com.wang.car?&from_wxz=1)  
+![car](/img/0appstore/yg1.png)  
+![car](/img/0appstore/yg2.png)      
+![car](/img/0appstore/yg3.png)  
+
+
 
 #### 2025上架应用
 
