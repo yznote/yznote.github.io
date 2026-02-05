@@ -28,6 +28,11 @@ tags:
 ```
 - 在oc中使用swift文件`#import "YBHiMo-Swift.h"`;  
 
+### swif文件条件编译
+
+**DEBUG**  
+- Target->BuildSetting->Other Swift Flag 新增 -D DEBUG  
+![示例3](/img/20241114/3.png)  
 
 ### Flex布局
 
